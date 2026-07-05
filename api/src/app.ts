@@ -3,7 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import { prisma } from "../lib/prisma";
+import { errorHandler } from "./middlewares/errorMiddleware";
 
 
 
@@ -28,6 +28,13 @@ app.use(cors());
 // Parse Cookie từ request
 // Sau khi sử dụng có thể truy cập cookie qua req.cookies
 app.use(cookieParser());
+
+app.get("/error", (req, res) => {
+  throw new Error("Test Error");
+});
+
+//error handler
+app.use(errorHandler);
 
 
 export default app;
