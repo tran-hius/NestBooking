@@ -15,6 +15,7 @@ export class UserRepository implements IUserRepository {
 
   findAll(): Promise<User[]> {
     return this.prisma.user.findMany({
+      include: { profile: true },
       orderBy: { createdAt: "desc" },
     });
   }
@@ -22,6 +23,7 @@ export class UserRepository implements IUserRepository {
   findById(id: string): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: { id },
+      include: { profile: true },
     });
   }
 
@@ -34,8 +36,9 @@ export class UserRepository implements IUserRepository {
   findByEmailOrPhone(email: string, phoneNumber?: string): Promise<User | null>{
     if(!phoneNumber){
       return this.prisma.user.findUnique({
-        where: {email},
-      })
+        where: { email },
+        include: { profile: true },
+      });
     }
     return this.prisma.user.findFirst({
       where: {
@@ -56,6 +59,7 @@ export class UserRepository implements IUserRepository {
   create(data: Prisma.UserCreateInput): Promise<User> {
     return this.prisma.user.create({
       data,
+      include: { profile: true },
     });
   }
 
@@ -63,6 +67,7 @@ export class UserRepository implements IUserRepository {
     return this.prisma.user.update({
       where: { id },
       data,
+      include: { profile: true },
     });
   }
 
@@ -94,6 +99,7 @@ export class UserRepository implements IUserRepository {
         password_hash: passwordHash,
         updated_at: new Date(),
       },
+      include: { profile: true },
     });
   }
 
@@ -104,6 +110,7 @@ export class UserRepository implements IUserRepository {
         status,
         updated_at: new Date(),
       },
+      include: { profile: true },
     });
   }
 }

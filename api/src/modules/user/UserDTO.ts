@@ -11,7 +11,7 @@ export interface UpdateUserProfileDto {
   phoneNumber?: string;
   avatarUrl?: string;
   address?: string;
-  defaultPaymentMethod?: string;
+  passwordHash?: string;
 }
 
 export interface UserResponseDto {

@@ -8,25 +8,25 @@ import {
 
 
 export interface IUserService {
-//   getAllUsers(): Promise<UserResponseDto[]>;
+  getAllUsers(): Promise<UserResponseDto[]>;
 
-//   getUserById(id: string): Promise<UserResponseDto | null>;
+  getUserById(id: string): Promise<UserResponseDto | null>;
 
-//   getUserByEmail(email: string): Promise<UserResponseDto | null>;
+  getUserByEmail(email: string): Promise<UserResponseDto | null>;
 
   createUser(dto: CreateUserDto): Promise<UserResponseDto>;
 
-//   updateProfile(
-//     userId: string,
-//     dto: UpdateUserProfileDto,
-//   ): Promise<UserResponseDto>;
+  updateProfile(
+    userId: string,
+    dto: UpdateUserProfileDto,
+  ): Promise<UserResponseDto>;
 
-//   changeUserStatus(
-//     userId: string,
-//     status: UserStatus,
-//   ): Promise<UserResponseDto>;
+  changeUserStatus(
+    userId: string,
+    status: UserStatus,
+  ): Promise<UserResponseDto>;
 
-//   handleLoginFailure(userId: string): Promise<void>;
+  handleLoginFailure(userId: string): Promise<void>;
 
-//   handleLoginSuccess(userId: string): Promise<void>;
+  handleLoginSuccess(userId: string): Promise<void>;
 }

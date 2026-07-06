@@ -4,7 +4,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorMiddleware";
-
+import userRouter from "./modules/user/UserRouter";
 
 
 const app = express();
@@ -28,6 +28,8 @@ app.use(cors());
 // Parse Cookie từ request
 // Sau khi sử dụng có thể truy cập cookie qua req.cookies
 app.use(cookieParser());
+
+app.use("/api/users", userRouter);
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");
