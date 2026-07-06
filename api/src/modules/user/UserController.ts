@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
-import { UserStatus } from "../../../generated/prisma";
 
 import { IUserService } from "./interfaces/IUserService";
 
 import logger from "../../utils/logger";
 import { successResponse } from "../../utils/response";
 import { HttpStatus } from "../../constants/httpStatus";
-import { ApiError } from "../../utils/errors/apiError";
 
 export class UserController {
-  constructor(private readonly userService: IUserService) {}
+  private readonly userService: IUserService;
 
+  constructor(userService: IUserService) {
+    this.userService = userService
+  }
   /**
    * GET /users
    */
@@ -31,13 +32,11 @@ export class UserController {
    * GET /users/:id
    */
   getUserById = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.params;
-
     logger.info("[UserController] Get user by id", {
-      userId: id,
+      userId: req.params.id,
     });
 
-    const user = await this.userService.getUserById(id as string);
+    const user = await this.userService.getUserById(req.params.id as string);
 
     successResponse(
       res,
@@ -64,13 +63,14 @@ export class UserController {
    * PUT /users/:id/profile
    */
   updateProfile = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.params;
-
     logger.info("[UserController] Update profile", {
-      userId: id,
+      userId: req.params.id,
     });
 
-    const user = await this.userService.updateProfile(id as string, req.body);
+    const user = await this.userService.updateProfile(
+      req.params.id as string,
+      req.body,
+    );
 
     successResponse(res, HttpStatus.OK, "Cập nhật hồ sơ thành công.", user);
   };
@@ -79,21 +79,14 @@ export class UserController {
    * PATCH /users/:id/status
    */
   changeUserStatus = async (req: Request, res: Response): Promise<void> => {
-    const { id } = req.params;
-    const { status } = req.body;
-
     logger.info("[UserController] Change user status", {
-      userId: id,
-      status,
+      userId: req.params.id,
+      status: req.body.status,
     });
 
-    if (!Object.values(UserStatus).includes(status as UserStatus)) {
-      throw new ApiError(HttpStatus.BAD_REQUEST, "Trạng thái không hợp lệ.");
-    }
-
     const user = await this.userService.changeUserStatus(
-      id as string,
-      status as UserStatus,
+      req.params.id as string,
+      req.body.status,
     );
 
     successResponse(

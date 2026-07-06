@@ -36,6 +36,7 @@ model User {
   createdAt         DateTime       @default(now()) @map("created_at")
   updatedAt         DateTime       @updatedAt @map("updated_at")
   profile           UserProfile?
+  agentProfile      AgentProfile? 
   refreshTokens     RefreshToken[]
 
   @@map("users")
@@ -52,6 +53,22 @@ model UserProfile {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("user_profiles")
+}
+
+
+model AgentProfile {
+  userId          String   @id @map("user_id") @db.Uuid
+  businessName    String   @map("business_name") @db.VarChar(150)
+  businessLicense String?  @map("business_license") @db.Text  // URL ảnh giấy phép
+  taxCode         String?  @map("tax_code") @db.VarChar(50)
+  approvalStatus  UserStatus @default(PENDING) @map("approval_status") // tái dùng enum có sẵn
+  approvedAt      DateTime? @map("approved_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("agent_profiles")
 }
 
 model RefreshToken {
