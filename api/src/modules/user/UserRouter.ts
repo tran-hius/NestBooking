@@ -10,10 +10,10 @@ const userRepository = new UserRepository(prisma);
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
-router.get("/", userController.getAllUsers);
-router.get("/:id", userController.getUserById);
-router.post("/", userController.createUser);
-router.put("/:id/profile", userController.updateProfile);
-router.patch("/:id/status", userController.changeUserStatus);
+router.get("/", asyncHandler(userController.getAllUsers));
+router.get("/:id", asyncHandler(userController.getUserById));
+router.post("/", asyncHandler(userController.createUser));
+router.put("/:id/profile", asyncHandler(userController.updateProfile));
+router.patch("/:id/status", asyncHandler(userController.changeUserStatus));
 
 export default router;
