@@ -63,6 +63,7 @@ model AgentProfile {
   taxCode         String?  @map("tax_code") @db.VarChar(50)
   approvalStatus  UserStatus @default(PENDING) @map("approval_status") // tái dùng enum có sẵn
   approvedAt      DateTime? @map("approved_at")
+  rejectedReason  String @map("rejected_reason") @db.Text
   createdAt       DateTime @default(now()) @map("created_at")
   updatedAt       DateTime @updatedAt @map("updated_at")
 
