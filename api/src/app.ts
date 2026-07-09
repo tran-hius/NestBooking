@@ -5,6 +5,9 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorMiddleware";
 import userRouter from "./modules/user/routes/UserRouter";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger-output.json";
+
 
 
 const app = express();
@@ -30,6 +33,9 @@ app.use(cors());
 app.use(cookieParser());
 
 app.use("/api/users", userRouter);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");
