@@ -3,18 +3,19 @@ import {
   CreateUserDto,
   UpdateUserProfileDto,
   UserResponseDto,
-} from "../UserDTO";
+  SubmitIdentityVerificationDto
+} from "../dtos/UserDTO";
 
 
 
 export interface IUserService {
-  getAllUsers(): Promise<UserResponseDto[]>;
+  createUser(dto: CreateUserDto): Promise<UserResponseDto>;
 
   getUserById(id: string): Promise<UserResponseDto | null>;
 
   getUserByEmail(email: string): Promise<UserResponseDto | null>;
 
-  createUser(dto: CreateUserDto): Promise<UserResponseDto>;
+  getAllUsers(): Promise<UserResponseDto[]>;
 
   updateProfile(
     userId: string,
@@ -26,7 +27,31 @@ export interface IUserService {
     status: UserStatus,
   ): Promise<UserResponseDto>;
 
+  /**
+   * Xử lý khi người dùng đăng nhập sai mật khẩu
+   * Tăng số lần thử (loginAttempts). Nếu vượt quá giới hạn, tự động khóa tài khoản tạm thời.
+   */
   handleLoginFailure(userId: string): Promise<void>;
 
+  /**
+   * Xử lý khi người dùng đăng nhập thành công
+   * Khôi phục số lần thử sai (loginAttempts) về 0 và xóa mốc thời gian khóa (lockUntil).
+   */
   handleLoginSuccess(userId: string): Promise<void>;
+
+  softDeleteUser(userId: string): Promise<void>;
+
+  restoreUser(userId: string): Promise<UserResponseDto>;
+
+  submitIdentityVerification(
+    userId: string,
+    dto: SubmitIdentityVerificationDto,
+  ): Promise<UserResponseDto>;
+
+  approveIdentityVerification(userId: string): Promise<UserResponseDto>;
+
+  rejectIdentityVerification(
+    userId: string,
+    reason: string,
+  ): Promise<UserResponseDto>;
 }

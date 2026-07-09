@@ -21,6 +21,7 @@ enum Role {
 enum UserStatus {
   PENDING
   ACTIVE
+  INACTIVE
   REJECTED
   BANNED
 }
@@ -35,6 +36,7 @@ model User {
   lockUntil         DateTime?      @map("lock_until")
   createdAt         DateTime       @default(now()) @map("created_at")
   updatedAt         DateTime       @updatedAt @map("updated_at")
+  deletedAt         DateTime?      @map("deleted_at")
   profile           UserProfile?
   agentProfile      AgentProfile? 
   refreshTokens     RefreshToken[]
@@ -57,15 +59,17 @@ model UserProfile {
 
 
 model AgentProfile {
-  userId          String   @id @map("user_id") @db.Uuid
-  businessName    String   @map("business_name") @db.VarChar(150)
-  businessLicense String?  @map("business_license") @db.Text  // URL ảnh giấy phép
-  taxCode         String?  @map("tax_code") @db.VarChar(50)
-  approvalStatus  UserStatus @default(PENDING) @map("approval_status") // tái dùng enum có sẵn
-  approvedAt      DateTime? @map("approved_at")
-  rejectedReason  String @map("rejected_reason") @db.Text
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
+  userId          String     @id @map("user_id") @db.Uuid
+  businessName    String     @map("business_name") @db.VarChar(150)
+  businessLicense String?    @map("business_license") @db.Text  // URL ảnh giấy phép kinh doanh
+  taxCode         String?    @map("tax_code") @db.VarChar(50)
+  idNumber        String?    @map("id_number")        // Số giấy tờ (Số CCCD/Hộ chiếu/Mã định danh)
+  idCardImageUrl  String?    @map("id_card_image_url")// URL 1 ảnh duy nhất (Ảnh CCCD hoặc ảnh chân dung kèm thẻ)
+  approvalStatus  UserStatus @default(PENDING) @map("approval_status") 
+  approvedAt      DateTime?  @map("approved_at")
+  rejectedReason  String?    @map("rejected_reason") @db.Text
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 

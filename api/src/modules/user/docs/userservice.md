@@ -98,3 +98,13 @@
 ## 7. Ghi Chú Định Hướng Phát Triển Tiếp Theo
 * Các use case liên quan đến **Wishlist** (danh sách khách sạn yêu thích) và **Booking History** (lịch sử đặt phòng) đã nêu trong tài liệu tổng quan hệ thống sẽ được bổ sung ở giai đoạn sau, khi HotelService và BookingService đã có dữ liệu để liên kết.
 * Khi AuthService được triển khai, cần rà soát lại toàn bộ UC01 (chuyển logic tạo `User` gốc sang AuthService, UserService chỉ còn nhận sự kiện và tạo `UserProfile` tương ứng) và bổ sung middleware xác thực thực sự cho các endpoint còn lại.
+
+//Crud
+CreateUser
+GetUserById
+ListUsers
+UpdateUser
+RestoreUser
+
+
+CreateUser, GetUserById, ListUsers, UpdateUser, DeleteUser, RestoreUser, GetUserProfile, UpdateUserProfile, UpdateAvatar, DeleteAvatar, UpdatePersonalInfo, UpdateContactInfo, UpdateAddress, AddAddress, DeleteAddress, SetDefaultAddress, UpdatePreferences, SuspendUser, ActivateUser, BanUser, UnbanUser, ArchiveUser, AssignRole, RemoveRole, UpdateRoles, GetUsersByRole, SearchUsers, FilterUsers, GetUsersByStatus, GetUsersByRole, GetUsersByProvince, GetUsersByCity, CountUsers, CountUsersByStatus, CountUsersByRole, CheckDuplicateEmail, CheckDuplicatePhone, CheckDuplicateUsername, ValidateUserStatus, ValidateProfile, ValidateAddress, GetUserActivityLogs

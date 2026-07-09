@@ -1,4 +1,4 @@
-import { Role, UserStatus } from "../../../generated/prisma";
+import { Role, UserStatus } from "../../../../generated/prisma";
 
 export interface CreateUserDto {
   email: string;
@@ -27,4 +27,18 @@ export interface UserResponseDto {
     avatarUrl: string | null;
     address: string | null;
   } | null;
+  agentProfile?: {
+    businessName: string;
+    idNumber: string | null;
+    idCardImageUrl: string | null;
+    approvalStatus: string;
+    rejectedReason: string | null;
+    approvedAt: Date | null;
+  } | null; // Có thể null nếu tài khoản này là USER thuần túy chưa từng KYC
+}
+
+export interface SubmitIdentityVerificationDto {
+  documentType: "CCCD" | "PASSPORT" | "DRIVING_LICENSE";
+  idNumber: string;
+  idCardImageUrl: string; 
 }
