@@ -9,7 +9,7 @@ import {
   SubmitIdentityVerificationDto,
 } from "../dtos/UserDTO";
 import { UserMapper } from "../mapper/UserMapper";
-import { NotFoundError, BadRequestError } from "../../../utils/errors/errorCustomize";
+import { NotFoundError, BadRequestError, ConflictError } from "../../../utils/errors/errorCustomize";
 
 export class UserService implements IUserService {
   private readonly userRepository: IUserRepository;
@@ -23,7 +23,7 @@ export class UserService implements IUserService {
 
     if (userExists) {
       logger.warn(`Tạo tài khoản thất bại: Email ${dto.email} đã tồn tại`);
-      throw new Error(`Email ${dto.email} đã được đăng ký trên hệ thống!`);
+      throw new ConflictError(`Email ${dto.email} đã được đăng ký trên hệ thống!`);
     }
 
     const data = {
@@ -77,7 +77,7 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findById(userId);
     if (!user) {
       logger.warn(`Cập nhật hồ sơ thất bại: Không tìm thấy User ID ${userId}`);
-      throw new Error("Tài khoản không tồn tại để cập nhật hồ sơ");
+      throw new NotFoundError("Tài khoản không tồn tại để cập nhật hồ sơ");
     }
     if (dto.phoneNumber) {
       const checkPhone = await this.userRepository.findByEmailOrPhone(
@@ -88,7 +88,7 @@ export class UserService implements IUserService {
         logger.warn(
           `Cập nhật hồ sơ thất bại: Số điện thoại ${dto.phoneNumber} đã bị trùng`,
         );
-        throw new Error(
+        throw new ConflictError(
           "Số điện thoại này đã được sử dụng bởi một tài khoản khác!",
         );
       }
@@ -119,9 +119,13 @@ export class UserService implements IUserService {
     status: UserStatus,
   ): Promise<UserResponseDto> {
     const updatedUser = await this.userRepository.updateStatus(userId, status);
+
+    if (!updatedUser) throw new NotFoundError("Tài khoản không tồn tại");
+
     if (status === UserStatus.ACTIVE) {
       await this.userRepository.resetLoginAttempts(userId);
     }
+    
     logger.info(`Trạng thái của User ${userId} đã đổi thành: ${status}`);
     return UserMapper.toResponseDto(updatedUser);
   }
@@ -157,7 +161,7 @@ export class UserService implements IUserService {
   async softDeleteUser(userId: string): Promise<void> {
     logger.warn(`Thực hiện xóa mềm tài khoản ID: ${userId}`);
     const user = await this.userRepository.findById(userId);
-    if (!user) throw new Error("Không tìm thấy tài khoản để xóa.");
+    if (!user) throw new NotFoundError("Không tìm thấy tài khoản để xóa.");
 
     await this.userRepository.delete(userId);
     logger.info(`Đã ẩn hoàn toàn tài khoản ID ${userId} ra khỏi hệ thống.`);
@@ -170,7 +174,7 @@ export class UserService implements IUserService {
 
     // Lấy lại thông tin user sau khi khôi phục thành công
     const restoredUser = await this.userRepository.findById(userId);
-    if (!restoredUser) throw new Error("Khôi phục thất bại.");
+    if (!restoredUser) throw new BadRequestError("Khôi phục thất bại.");
 
     logger.info(
       `Tài khoản ID ${userId} đã được khôi phục trạng thái bình thường.`,
@@ -237,7 +241,7 @@ export class UserService implements IUserService {
       logger.warn(
         `Duyệt KYC thất bại: Tài khoản ID ${userId} đã được phê duyệt làm Agent từ trước`,
       );
-      throw new BadRequestError(
+      throw new ConflictError(
         "Tài khoản này đã được xác minh và nâng cấp lên Đối tác rồi!",
       );
     }
@@ -269,7 +273,7 @@ export class UserService implements IUserService {
     logger.info(`Admin từ chối hồ sơ KYC của User ID: ${userId}`);
 
     const user = await this.userRepository.findById(userId);
-    if (!user) throw new BadRequestError("Tài khoản không tồn tại");
+    if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     const anyUser = user as any;
 
@@ -280,7 +284,7 @@ export class UserService implements IUserService {
       logger.warn(
         `Từ chối KYC thất bại: Tài khoản ID ${userId} đã là Đối tác chính thức.`,
       );
-      throw new Error(
+      throw new ConflictError(
         "Không thể từ chối hồ sơ của một Đối tác đã được phê duyệt. Vui lòng dùng tính năng Hạ cấp tài khoản!",
       );
     }

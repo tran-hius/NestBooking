@@ -4,6 +4,15 @@ import { UserRepository } from "../repositories/UserRepository";
 import { UserService } from "../services/UserService";
 import { UserController } from "../controllers/UserController";
 import { asyncHandler } from "../../../utils/asyncHandler";
+import { validate } from "../../../middlewares/validationMiddleware";
+import {
+  UserIdParamSchema,
+  CreateUserSchema,
+  UpdateUserProfileSchema,
+  SubmitIdentityVerificationSchema,
+  ChangeUserStatusSchema,
+  RejectIdentityVerificationSchema,
+} from "../dtos/UserDTO";
 
 const router = express.Router();
 
@@ -11,34 +20,201 @@ const userRepository = new UserRepository(prisma);
 const userService = new UserService(userRepository);
 const userController = new UserController(userService);
 
-// =========================================================================
-// 1. QUẢN LÝ TÀI KHOẢN CƠ BẢN (CRUD)
-// =========================================================================
-router.get("/", asyncHandler(userController.getAllUsers));
-router.get("/:id", asyncHandler(userController.getUserById));
-router.post("/", asyncHandler(userController.createUser));
-router.put("/:id/profile", asyncHandler(userController.updateProfile));
-router.patch("/:id/status", asyncHandler(userController.changeUserStatus));
+// =====================================================
+// GET ALL USERS
+// =====================================================
+router.get(
+  "/",
+  /*
+    #swagger.path = '/api/users'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Lấy danh sách tất cả người dùng'
+  */
+  asyncHandler(userController.getAllUsers),
+);
 
-// =========================================================================
-// 2. XỬ LÝ XÓA MỀM (SOFT DELETE & RESTORE)
-// =========================================================================
-router.delete("/:id", asyncHandler(userController.softDeleteUser));
-router.post("/:id/restore", asyncHandler(userController.restoreUser));
+// =====================================================
+// GET USER BY ID
+// =====================================================
+router.get(
+  "/:id",
+  /*
+    #swagger.path = '/api/users/{id}'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Lấy chi tiết một người dùng theo ID'
+  */
+  validate(UserIdParamSchema),
+  asyncHandler(userController.getUserById),
+);
 
-// =========================================================================
-// 3. QUẢN LÝ XÁC MINH DANH TÍNH AGENT (KYC)
-// =========================================================================
+// =====================================================
+// CREATE USER
+// =====================================================
+router.post(
+  "/",
+  /*
+    #swagger.path = '/api/users'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Tạo tài khoản người dùng mới'
+
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/CreateUserDto"
+          }
+        }
+      }
+    }
+  */
+  validate(CreateUserSchema),
+  asyncHandler(userController.createUser),
+);
+
+// =====================================================
+// UPDATE PROFILE
+// =====================================================
+router.put(
+  "/:id/profile",
+  /*
+    #swagger.path = '/api/users/{id}/profile'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Cập nhật thông tin hồ sơ cá nhân'
+
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/UpdateUserProfileDto"
+          }
+        }
+      }
+    }
+  */
+  validate(UserIdParamSchema),
+  validate(UpdateUserProfileSchema),
+  asyncHandler(userController.updateProfile),
+);
+
+// =====================================================
+// CHANGE STATUS
+// =====================================================
+router.patch(
+  "/:id/status",
+  /*
+    #swagger.path = '/api/users/{id}/status'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Thay đổi trạng thái tài khoản'
+
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/ChangeUserStatusDto"
+          }
+        }
+      }
+    }
+  */
+  validate(UserIdParamSchema),
+  validate(ChangeUserStatusSchema),
+  asyncHandler(userController.changeUserStatus),
+);
+
+// =====================================================
+// SOFT DELETE
+// =====================================================
+router.delete(
+  "/:id",
+  /*
+    #swagger.path = '/api/users/{id}'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Xóa mềm tài khoản'
+  */
+  validate(UserIdParamSchema),
+  asyncHandler(userController.softDeleteUser),
+);
+
+// =====================================================
+// RESTORE USER
+// =====================================================
+router.post(
+  "/:id/restore",
+  /*
+    #swagger.path = '/api/users/{id}/restore'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Khôi phục tài khoản đã bị xóa mềm'
+  */
+  validate(UserIdParamSchema),
+  asyncHandler(userController.restoreUser),
+);
+
+// =====================================================
+// SUBMIT KYC
+// =====================================================
 router.post(
   "/:id/kyc/submit",
+  /*
+    #swagger.path = '/api/users/{id}/kyc/submit'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Gửi hồ sơ KYC'
+
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/SubmitIdentityVerificationDto"
+          }
+        }
+      }
+    }
+  */
+  validate(UserIdParamSchema),
+  validate(SubmitIdentityVerificationSchema),
   asyncHandler(userController.submitIdentityVerification),
 );
+
+// =====================================================
+// APPROVE KYC
+// =====================================================
 router.patch(
   "/:id/kyc/approve",
+  /*
+    #swagger.path = '/api/users/{id}/kyc/approve'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Admin duyệt hồ sơ KYC'
+  */
+  validate(UserIdParamSchema),
   asyncHandler(userController.approveIdentityVerification),
 );
+
+// =====================================================
+// REJECT KYC
+// =====================================================
 router.patch(
   "/:id/kyc/reject",
+  /*
+    #swagger.path = '/api/users/{id}/kyc/reject'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Admin từ chối hồ sơ KYC'
+
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/RejectIdentityVerificationDto"
+          }
+        }
+      }
+    }
+  */
+  validate(UserIdParamSchema),
+  validate(RejectIdentityVerificationSchema),
   asyncHandler(userController.rejectIdentityVerification),
 );
 

@@ -6,43 +6,55 @@ import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorMiddleware";
 import userRouter from "./modules/user/routes/UserRouter";
 import swaggerUi from "swagger-ui-express";
-import swaggerDocument from "./swagger-output.json";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-
-// Bảo mật ứng dụng bằng cách thêm các HTTP Security Headers
-// Ví dụ: X-Content-Type-Options, Content-Security-Policy,...
 app.use(helmet());
-
-// Ghi log các HTTP Request (Method, URL, Status, Response Time,...)
-// Hữu ích khi phát triển và debug API
 app.use(morgan("dev"));
-
-// Parse JSON từ request body
-// Cho phép đọc req.body khi client gửi Content-Type: application/json
 app.use(express.json());
-
-// Cho phép các ứng dụng Frontend (React, Vue, Angular...) gọi API
-// Có thể cấu hình origin, credentials, methods,...
 app.use(cors());
-
-// Parse Cookie từ request
-// Sau khi sử dụng có thể truy cập cookie qua req.cookies
 app.use(cookieParser());
 
+const userSwaggerDoc = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "modules", "user", "docs", "swagger-user.json"),
+    "utf8",
+  ),
+);
+
+app.get("/api-docs/swagger-user.json", (req, res) => res.json(userSwaggerDoc));
+
+const swaggerOptions = {
+  explorer: true,
+  swaggerOptions: {
+    urls: [
+      {
+        url: "/api-docs/swagger-user.json",
+        name: "User Service",
+      },
+      // { url: "/api-docs/swagger-auth.json", name: "Auth Service" }
+    ],
+  },
+};
+
+
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(undefined, swaggerOptions),
+);
+
 app.use("/api/users", userRouter);
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");
 });
 
-//error handler
 app.use(errorHandler);
-
 
 export default app;
