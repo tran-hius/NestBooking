@@ -5,6 +5,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import { errorHandler } from "./middlewares/errorMiddleware";
 import userRouter from "./modules/user/routes/UserRouter";
+import authRouter from "./modules/auth/routes/authRouter";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
@@ -27,7 +28,15 @@ const userSwaggerDoc = JSON.parse(
   ),
 );
 
+const authSwaggerDoc = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "modules", "auth", "docs", "swagger-auth.json"),
+    "utf-8"
+  )
+)
+
 app.get("/api-docs/swagger-user.json", (req, res) => res.json(userSwaggerDoc));
+app.get("/api-docs/swagger-auth.json", (req, res) => res.json(authSwaggerDoc));
 
 const swaggerOptions = {
   explorer: true,
@@ -37,11 +46,12 @@ const swaggerOptions = {
         url: "/api-docs/swagger-user.json",
         name: "User Service",
       },
-      // { url: "/api-docs/swagger-auth.json", name: "Auth Service" }
+      { url: "/api-docs/swagger-auth.json",
+         name: "Auth Service"
+      },
     ],
   },
 };
-
 
 app.use(
   "/api-docs",
@@ -50,10 +60,12 @@ app.use(
 );
 
 app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");
 });
+
 
 app.use(errorHandler);
 
