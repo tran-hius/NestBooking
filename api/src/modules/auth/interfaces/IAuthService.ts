@@ -1,4 +1,4 @@
-import { AuthResponseDto, SendOtpDto, VerifyOtpDto, LoginWithPasswordDto, DeviceMetadata, RefreshTokenDto } from "../dtos/authDto";
+import { AuthResponseDto, SendOtpDto, VerifyOtpDto, LoginWithPasswordDto, DeviceMetadata, RefreshTokenDto, ResetPasswordDto, ChangePasswordDto } from "../dtos/authDto";
 
 export interface IAuthService {
   sendOtp(dto: SendOtpDto): Promise<void>;
@@ -12,5 +12,6 @@ export interface IAuthService {
     device: DeviceMetadata,
   ): Promise<AuthResponseDto>;
   logout(refreshTokenStr: string): Promise<void>;
-  
+  resetPassword(dto: ResetPasswordDto): Promise<void>;
+  changePassword(userId: string, dto: ChangePasswordDto): Promise<void>;
 }

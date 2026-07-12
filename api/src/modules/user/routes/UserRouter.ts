@@ -13,6 +13,9 @@ import {
   ChangeUserStatusSchema,
   RejectIdentityVerificationSchema,
 } from "../dtos/UserDTO";
+import { roleMiddleware } from "../../../middlewares/roleMiddleware";
+import { authMiddleware, requireOwnershipOrAdmin } from "../../../middlewares/authMiddleware";
+import { Role } from "../../../../generated/prisma";
 
 const router = express.Router();
 
@@ -30,6 +33,8 @@ router.get(
     #swagger.tags = ['Users']
     #swagger.summary = 'Lấy danh sách tất cả người dùng'
   */
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
   asyncHandler(userController.getAllUsers),
 );
 
@@ -43,6 +48,8 @@ router.get(
     #swagger.tags = ['Users']
     #swagger.summary = 'Lấy chi tiết một người dùng theo ID'
   */
+  authMiddleware,
+  requireOwnershipOrAdmin,
   validate(UserIdParamSchema),
   asyncHandler(userController.getUserById),
 );
@@ -68,6 +75,8 @@ router.post(
       }
     }
   */
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
   validate(CreateUserSchema),
   asyncHandler(userController.createUser),
 );
@@ -93,6 +102,8 @@ router.put(
       }
     }
   */
+  authMiddleware,
+  requireOwnershipOrAdmin,
   validate(UserIdParamSchema),
   validate(UpdateUserProfileSchema),
   asyncHandler(userController.updateProfile),
@@ -119,6 +130,8 @@ router.patch(
       }
     }
   */
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
   validate(UserIdParamSchema),
   validate(ChangeUserStatusSchema),
   asyncHandler(userController.changeUserStatus),
@@ -134,6 +147,8 @@ router.delete(
     #swagger.tags = ['Users']
     #swagger.summary = 'Xóa mềm tài khoản'
   */
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
   validate(UserIdParamSchema),
   asyncHandler(userController.softDeleteUser),
 );
@@ -148,6 +163,8 @@ router.post(
     #swagger.tags = ['Users']
     #swagger.summary = 'Khôi phục tài khoản đã bị xóa mềm'
   */
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
   validate(UserIdParamSchema),
   asyncHandler(userController.restoreUser),
 );
@@ -173,6 +190,8 @@ router.post(
       }
     }
   */
+  authMiddleware,
+  requireOwnershipOrAdmin,
   validate(UserIdParamSchema),
   validate(SubmitIdentityVerificationSchema),
   asyncHandler(userController.submitIdentityVerification),
@@ -188,6 +207,8 @@ router.patch(
     #swagger.tags = ['Users']
     #swagger.summary = 'Admin duyệt hồ sơ KYC'
   */
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
   validate(UserIdParamSchema),
   asyncHandler(userController.approveIdentityVerification),
 );
@@ -213,6 +234,8 @@ router.patch(
       }
     }
   */
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
   validate(UserIdParamSchema),
   validate(RejectIdentityVerificationSchema),
   asyncHandler(userController.rejectIdentityVerification),

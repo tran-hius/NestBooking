@@ -40,6 +40,7 @@ export interface IUserService {
   handleLoginSuccess(userId: string): Promise<void>;
 
   softDeleteUser(userId: string): Promise<void>;
+  updatePassword(userId: string, passwordHash: string): Promise<void>;
 
   restoreUser(userId: string): Promise<UserResponseDto>;
 

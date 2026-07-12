@@ -53,6 +53,27 @@ const services = [
           },
           required: ["email", "password"],
         },
+        ResetPasswordDto: {
+          type: "object",
+          properties: {
+            email: {
+              type: "string",
+              format: "email",
+              example: "user@example.com",
+            },
+            otp: { type: "string", example: "123456" },
+            newPassword: { type: "string", example: "new_password_123" },
+          },
+          required: ["email", "otp", "newPassword"],
+        },
+        ChangePasswordDto: {
+          type: "object",
+          properties: {
+            oldPassword: { type: "string", example: "old_password_123" },
+            newPassword: { type: "string", example: "new_password_123" },
+          },
+          required: ["oldPassword", "newPassword"],
+        },
       },
     },
   },

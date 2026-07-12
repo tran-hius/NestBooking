@@ -6,6 +6,8 @@ import {
   DeviceMetadata,
   RefreshTokenDto,
   AuthResponseDto,
+  ResetPasswordDto,
+  ChangePasswordDto,
 } from "../dtos/authDto";
 import { IEmailService } from "../interfaces/IEmailService";
 import { IOtpService } from "../interfaces/IOtpService"; // Đã sửa chính tả: IOtpServoce -> IOtpService
@@ -194,5 +196,42 @@ export class AuthService implements IAuthService {
     }
 
     await this.refreshTokenRepository.revoke(storedToken.id, "USER_LOGOUT");
+  }
+
+  async resetPassword(dto: ResetPasswordDto): Promise<void> {
+    const isValid = await this.otpService.verifyOtp(dto.email, dto.otp);
+    if (!isValid) {
+      throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
+    }
+
+    const user = await this.userService.getUserByEmail(dto.email);
+    if (!user) {
+      throw new NotFoundError("Tài khoản không tồn tại.");
+    }
+
+    const passwordHash = await this.tokenService.hashPassword(dto.newPassword);
+    await this.userService.updatePassword(user.id, passwordHash);
+  }
+
+  async changePassword(userId: string, dto: ChangePasswordDto): Promise<void> {
+    const user = await (this.userService as any).getUserWithPasswordByEmail(
+      (await this.userService.getUserById(userId))?.email || ""
+    );
+
+    if (!user) {
+      throw new NotFoundError("Tài khoản không tồn tại.");
+    }
+
+    const isMatch = await this.tokenService.comparePassword(
+      dto.oldPassword,
+      user.passwordHash
+    );
+
+    if (!isMatch) {
+      throw new BadRequestError("Mật khẩu cũ không chính xác.");
+    }
+
+    const passwordHash = await this.tokenService.hashPassword(dto.newPassword);
+    await this.userService.updatePassword(user.id, passwordHash);
   }
 }

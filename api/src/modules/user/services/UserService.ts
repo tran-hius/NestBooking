@@ -167,6 +167,14 @@ export class UserService implements IUserService {
     logger.info(`Đã ẩn hoàn toàn tài khoản ID ${userId} ra khỏi hệ thống.`);
   }
 
+  async updatePassword(userId: string, passwordHash: string): Promise<void> {
+    const user = await this.userRepository.findById(userId);
+    if (!user) throw new NotFoundError("Tài khoản không tồn tại");
+
+    await this.userRepository.updatePassword(userId, passwordHash);
+    logger.info(`User ID ${userId} đã cập nhật mật khẩu thành công.`);
+  }
+
   async restoreUser(userId: string): Promise<UserResponseDto> {
     logger.info(`Khôi phục tài khoản bị xóa mềm có ID: ${userId}`);
 

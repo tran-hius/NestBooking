@@ -121,4 +121,20 @@ export class AuthController {
 
     successResponse(res, HttpStatus.OK, "Đăng xuất thành công!");
   };
+
+  resetPassword = async (req: Request, res: Response): Promise<void> => {
+    logger.info("[AuthController] Reset Password", { email: req.body.email });
+    await this.authService.resetPassword(req.body);
+    successResponse(res, HttpStatus.OK, "Mật khẩu đã được đặt lại thành công!");
+  };
+
+  changePassword = async (req: Request, res: Response): Promise<void> => {
+    logger.info("[AuthController] Change Password", { userId: req.user?.userId });
+    if (!req.user?.userId) {
+      throw new BadRequestError("Không tìm thấy thông tin người dùng.");
+    }
+    
+    await this.authService.changePassword(req.user.userId, req.body);
+    successResponse(res, HttpStatus.OK, "Đổi mật khẩu thành công!");
+  };
 }

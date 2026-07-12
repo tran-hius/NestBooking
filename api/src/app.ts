@@ -3,6 +3,7 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
+import { globalLimiter } from "./middlewares/rateLimitMiddleware";
 import { errorHandler } from "./middlewares/errorMiddleware";
 import userRouter from "./modules/user/routes/UserRouter";
 import authRouter from "./modules/auth/routes/authRouter";
@@ -16,6 +17,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(helmet());
+app.use(globalLimiter);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());

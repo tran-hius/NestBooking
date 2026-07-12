@@ -4,12 +4,16 @@ import { prisma } from "../../../lib/prisma";
 // Import Middleware
 import { asyncHandler } from "../../../utils/asyncHandler";
 import { validate } from "../../../middlewares/validationMiddleware";
+import { authLimiter } from "../../../middlewares/rateLimitMiddleware";
+import { authMiddleware } from "../../../middlewares/authMiddleware";
 
 // Import DTOs
 import {
   SendOtpSchema,
   VerifyOtpSchema,
   LoginWithPasswordSchema,
+  ResetPasswordSchema,
+  ChangePasswordSchema,
 } from "../dtos/authDto";
 
 // Import Repositories
@@ -70,6 +74,7 @@ router.post(
       }
     }
   */
+  authLimiter,
   validate(SendOtpSchema),
   asyncHandler(authController.sendOtp),
 );
@@ -94,6 +99,7 @@ router.post(
       }
     }
   */
+  authLimiter,
   validate(VerifyOtpSchema),
   asyncHandler(authController.verifyOtpAndLogin),
 );
@@ -149,6 +155,59 @@ router.post(
     #swagger.description = 'Sẽ thu hồi Token và xóa HttpOnly Cookie'
   */
   asyncHandler(authController.logout),
+);
+
+// =====================================================
+// RESET PASSWORD (Quên mật khẩu)
+// =====================================================
+router.post(
+  "/reset-password",
+  /*
+    #swagger.path = '/api/auth/reset-password'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Đặt lại mật khẩu bằng mã OTP'
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/ResetPasswordDto"
+          }
+        }
+      }
+    }
+  */
+  authLimiter,
+  validate(ResetPasswordSchema),
+  asyncHandler(authController.resetPassword),
+);
+
+// =====================================================
+// CHANGE PASSWORD (Đổi mật khẩu)
+// =====================================================
+router.post(
+  "/change-password",
+  /*
+    #swagger.path = '/api/auth/change-password'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Đổi mật khẩu (Yêu cầu đăng nhập)'
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/ChangePasswordDto"
+          }
+        }
+      }
+    }
+  */
+  authMiddleware,
+  validate(ChangePasswordSchema),
+  asyncHandler(authController.changePassword),
 );
 
 export default router;
