@@ -143,6 +143,15 @@
         ],
         "summary": "Đổi mật khẩu (Yêu cầu đăng nhập)",
         "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "default": {
             "description": ""

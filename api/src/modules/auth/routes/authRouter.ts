@@ -39,8 +39,7 @@ const router = express.Router();
 const userRepository = new UserRepository(prisma);
 const userService = new UserService(userRepository);
 
-const emailService = new EmailService(Transporter.transporter);
-const otpService = new OtpService(emailService);
+const otpService = new OtpService();
 const tokenService = new TokenService();
 const refreshTokenRepository = new RefreshTokenRepository(prisma);
 

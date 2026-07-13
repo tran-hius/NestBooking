@@ -1,47 +1,49 @@
-
-import { IEmailService } from "../interfaces/IEmailService";
 import { IOtpService } from "../interfaces/IOtpService";
-const OTP_TTL = process.env.OTP_TTL;
+import { env } from "../../../config/env";
+const OTP_TTL = Number(env.OTP_TTL);
 
-
-
-import { redisClient } from "../../../config/redis";
+import { REDIS_KEYS, redisClient } from "../../../infrastructure/redis";
 import { rabbitMQ } from "../../../infrastructure/rabbitmq";
 import { QUEUES } from "../../../infrastructure/rabbitmq/queues";
+import { EmailOtpPayload } from "../queue/EmailOtpPayload";
+import crypto from "crypto";
 
+if (Number.isNaN(OTP_TTL)) {
+  throw new Error("OTP_TTL không hợp lệ");
+}
 
 export class OtpService implements IOtpService {
-   private readonly mailService: IEmailService;
+  private generateOtp(): string {
+    return crypto.randomInt(100000, 1000000).toString();
+  }
 
-   constructor(mailService: IEmailService){
-    this.mailService = mailService
-   }
+  async generateAndSendOtp(email: string): Promise<void> {
+    const otp = this.generateOtp();
 
-   async generateAndSendOtp(email: string): Promise<void> {
-       const otp = Math.floor(100000 + Math.random() * 900000).toString()
-       await redisClient.setex(`otp:${email}`, parseInt(OTP_TTL!), otp);
+    await redisClient.setex(REDIS_KEYS.OTP(email), OTP_TTL, otp);
 
-       await rabbitMQ.sendToQueue(QUEUES.EMAIL_OTP, {
-        to: email,
-        otpCode: otp
-       })
-   }
+    const payload: EmailOtpPayload = {
+      to: email,
+      otpCode: otp,
+    };
 
-   async verifyOtp(email: string, otp: string): Promise<boolean> {
-       const key = `otp:${email}`;
+    await rabbitMQ.sendToQueue(QUEUES.EMAIL_OTP, payload);
+  }
 
-       const storedOtp = await redisClient.get(key);
+  async verifyOtp(email: string, otp: string): Promise<boolean> {
+    const key = REDIS_KEYS.OTP(email);
 
-       if(!storedOtp){
-        return false;
-       }
+    const storedOtp = await redisClient.get(key);
 
-       if(storedOtp === otp){
-        await redisClient.del(key);
-        return true;
-       }
+    if (!storedOtp) {
+      return false;
+    }
 
-       return false;
-   }
+    if (storedOtp !== otp) {
+      return false;
+    }
+    await redisClient.del(key);
 
+    return true;
+  }
 }

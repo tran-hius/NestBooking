@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "swagger": "tsx src/swagger.ts"
+    "swagger": "tsx src/config/swagger.ts"
   },
   "keywords": [],
   "author": "",

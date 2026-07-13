@@ -12,6 +12,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d booking"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks:
       - booking_network
 
@@ -24,6 +30,12 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
     networks:
       - booking_network
 
@@ -40,6 +52,12 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     networks:
       - booking_network
 
@@ -62,9 +80,12 @@ services:
       - ./api:/app
       - /app/node_modules
     depends_on:
-      - postgres_db
-      - redis_cache
-      - rabbitmq_queue
+      postgres_db:
+        condition: service_healthy
+      redis_cache:
+        condition: service_healthy
+      rabbitmq_queue:
+        condition: service_healthy
     networks:
       - booking_network
 
