@@ -5,7 +5,9 @@ const OTP_TTL = process.env.OTP_TTL;
 
 
 
-import { redisClient } from "../../../lib/redis";
+import { redisClient } from "../../../config/redis";
+import { rabbitMQ } from "../../../infrastructure/rabbitmq";
+import { QUEUES } from "../../../infrastructure/rabbitmq/queues";
 
 
 export class OtpService implements IOtpService {
@@ -17,9 +19,12 @@ export class OtpService implements IOtpService {
 
    async generateAndSendOtp(email: string): Promise<void> {
        const otp = Math.floor(100000 + Math.random() * 900000).toString()
-       await redisClient.setex(`otp:${email}`, OTP_TTL!, otp)
+       await redisClient.setex(`otp:${email}`, parseInt(OTP_TTL!), otp);
 
-       await this.mailService.sendOtpEmail(email, otp);
+       await rabbitMQ.sendToQueue(QUEUES.EMAIL_OTP, {
+        to: email,
+        otpCode: otp
+       })
    }
 
    async verifyOtp(email: string, otp: string): Promise<boolean> {

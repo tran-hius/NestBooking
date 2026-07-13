@@ -1,4 +1,4 @@
-import { prisma } from "../src/lib/prisma";
+import { prisma } from "../src/config/prisma";
 import { Role, UserStatus } from "../generated/prisma";
 import bcrypt from "bcrypt";
 

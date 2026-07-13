@@ -23,3 +23,9 @@ export class UnauthorizedError extends ApiError {
     super(401, message);
   }
 }
+
+export class ServiceUnavailableError extends ApiError {
+  constructor(message: string) {
+    super(503, message);
+  }
+}

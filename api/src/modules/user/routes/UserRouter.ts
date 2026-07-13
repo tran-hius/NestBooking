@@ -1,5 +1,5 @@
 import express from "express";
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../config/prisma";
 import { UserRepository } from "../repositories/UserRepository";
 import { UserService } from "../services/UserService";
 import { UserController } from "../controllers/UserController";

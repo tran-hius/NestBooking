@@ -2,6 +2,8 @@ import { BadRequestError } from "../../../utils/errors/errorCustomize";
 import logger from "../../../utils/logger";
 import { IEmailService } from "../interfaces/IEmailService";
 import nodemailer from "nodemailer";
+import { getOtpEmailTemplate } from "../templates/otpTemplate";
+import { emailConfig } from "../config/emailConfig";
 
 export class EmailService implements IEmailService {
   private transporter: nodemailer.Transporter;
@@ -17,7 +19,7 @@ export class EmailService implements IEmailService {
   ): Promise<void> {
     try {
       await this.transporter.sendMail({
-        from: `NestBooking Support <${process.env.SMTP_USER}>`,
+        from: emailConfig.defaultSender, 
         to,
         subject,
         html: htmlContent,
@@ -33,22 +35,7 @@ export class EmailService implements IEmailService {
 
   async sendOtpEmail(to: string, otpCode: string): Promise<void> {
     const subject = "Mã xác thực OTP - NestBooking";
-
-    const htmlContent = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
-        <h2 style="color: #4CAF50; text-align: center;">NestBooking</h2>
-        <p>Chào bạn,</p>
-        <p>Bạn vừa yêu cầu mã xác thực OTP để đăng nhập hệ thống. Đây là mã của bạn:</p>
-        <div style="text-align: center; margin: 30px 0;">
-          <span style="font-size: 28px; font-weight: bold; background: #f4f4f4; padding: 15px 30px; letter-spacing: 5px; border-radius: 8px; border: 1px dashed #ccc;">
-            ${otpCode}
-          </span>
-        </div>
-        <p style="color: red; font-size: 14px;">Lưu ý: Mã này chỉ có hiệu lực trong 5 phút. Tuyệt đối không chia sẻ mã này cho bất kỳ ai.</p>
-        <hr style="border-top: 1px solid #eee;" />
-        <p style="font-size: 12px; color: #888; text-align: center;">Trân trọng, <br> Đội ngũ hỗ trợ NestBooking</p>
-      </div>
-    `;
+    const htmlContent = getOtpEmailTemplate(otpCode);
     await this.sendEmail(to, subject, htmlContent);
   }
 }
