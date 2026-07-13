@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
-import { IAuthService } from "../interfaces/IAuthService";
-import logger from "../../../utils/logger";
-import { successResponse } from "../../../utils/response";
-import { HttpStatus } from "../../../constants/httpStatus";
-import { BadRequestError } from "../../../utils/errors/errorCustomize";
+import { IAuthService } from "@/modules/auth/interfaces/IAuthService";
+import logger from "@/utils/logger";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
+import { BadRequestError } from "@/utils/errors/errorCustomize";
+import { env as appEnv } from "@/config/env";
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production", 
-  sameSite: "strict" as const, 
-  maxAge: 7 * 24 * 60 * 60 * 1000, 
+  secure: appEnv.NODE_ENV === "production",
+  sameSite: "strict" as const,
+  maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
 export class AuthController {

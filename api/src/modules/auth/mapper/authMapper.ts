@@ -1,5 +1,5 @@
-import { AuthResponseDto } from "../dtos/authDto";
-import { UserMapper } from "../../user/mapper/UserMapper"; // 💡 Import UserMapper
+import { AuthResponseDto } from "@/modules/auth/dtos/authDto";
+import { UserMapper } from "@/modules/user/mapper/UserMapper"; // 💡 Import UserMapper
 
 export class AuthMapper {
   public static toAuthResponseDto(

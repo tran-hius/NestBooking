@@ -1,9 +1,9 @@
-import { EmailService } from "../services/emailService";
-import { Transporter } from "../config/transporter";
-import logger from "../../../utils/logger";
-import { rabbitMQ } from "../../../infrastructure/rabbitmq";
-import { QUEUES } from "../../../infrastructure/rabbitmq/queues";
-import { EmailOtpPayload } from "../queue/EmailOtpPayload";
+import { EmailService } from "@/modules/auth/services/emailService";
+import { Transporter } from "@/modules/auth/config/transporter";
+import logger from "@/utils/logger";
+import { rabbitMQ } from "@/infrastructure/rabbitmq";
+import { QUEUES } from "@/infrastructure/rabbitmq/queues";
+import { EmailOtpPayload } from "@/modules/auth/queue/EmailOtpPayload";
 
 const transporter = Transporter.transporter;
 const emailService = new EmailService(transporter);

@@ -3,7 +3,7 @@ import {
   PrismaClient,
   RefreshToken,
 } from "../../../../generated/prisma";
-import { IRefreshTokenRepository } from "../interfaces/IRefreshTokenRepository";
+import { IRefreshTokenRepository } from "@/modules/auth/interfaces/IRefreshTokenRepository";
 
 export class RefreshTokenRepository implements IRefreshTokenRepository {
   private readonly prisma: PrismaClient;

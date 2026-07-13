@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { UnauthorizedError } from "../utils/errors/errorCustomize";
+import { UnauthorizedError } from "@/utils/errors/errorCustomize";
 import jwt from "jsonwebtoken";
 import { Role } from "../../generated/prisma";
 
@@ -29,9 +29,7 @@ export const requireOwnershipOrAdmin  = (
           ),
         );
     }
-
     next();
-
 }
 
 export const authMiddleware = (

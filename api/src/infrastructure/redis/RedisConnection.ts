@@ -1,13 +1,17 @@
 import Redis from "ioredis";
-import logger from "../../utils/logger";
+import logger from "@/utils/logger";
+import { env } from "@/config/env";
+
+const REDIS_HOST = env.REDIS_HOST;
+const REDIS_PORT = env.REDIS_PORT;
 
 export class RedisConnection {
   private client: Redis;
 
   constructor() {
     this.client = new Redis({
-      host: process.env.REDIS_HOST || "127.0.0.1",
-      port: Number(process.env.REDIS_PORT) || 6379,
+      host: REDIS_HOST || "127.0.0.1",
+      port: REDIS_PORT || 6379,
     });
 
     this.client.on("connect", () => {

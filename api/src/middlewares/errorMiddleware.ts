@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiError } from "../utils/errors/apiError";
+import { ApiError } from "@/utils/errors/apiError";
+import { env as appEnv } from "@/config/env";
 
 export const errorHandler = (
   error: Error,
@@ -24,7 +25,7 @@ export const errorHandler = (
     errors,
     path: req.originalUrl,
     timestamp: new Date().toISOString(),
-    ...(process.env.NODE_ENV === "development" && {
+    ...(appEnv.NODE_ENV === "development" && {
       stack: error.stack,
     }),
   });

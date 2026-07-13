@@ -1,4 +1,4 @@
-import { IAuthService } from "../interfaces/IAuthService";
+import { IAuthService } from "@/modules/auth/interfaces/IAuthService";
 import {
   SendOtpDto,
   VerifyOtpDto,
@@ -9,10 +9,10 @@ import {
   ResetPasswordDto,
   ChangePasswordDto,
 } from "../dtos/authDto";
-import { IEmailService } from "../interfaces/IEmailService";
-import { IOtpService } from "../interfaces/IOtpService"; // Đã sửa chính tả: IOtpServoce -> IOtpService
-import { IRefreshTokenRepository } from "../interfaces/IRefreshTokenRepository";
-import { IUserService } from "../../user/interfaces/IUserService";
+import { IEmailService } from "@/modules/auth/interfaces/IEmailService";
+import { IOtpService } from "@/modules/auth/interfaces/IOtpService"; // Đã sửa chính tả: IOtpServoce -> IOtpService
+import { IRefreshTokenRepository } from "@/modules/auth/interfaces/IRefreshTokenRepository";
+import { IUserService } from "@/modules/user/interfaces/IUserService";
 
 
 import {
@@ -21,8 +21,8 @@ import {
   NotFoundError,
 } from "../../../utils/errors/errorCustomize";
 import { Role, UserStatus } from "../../../../generated/prisma";
-import { ITokenService } from "../interfaces/ITokenService";
-import { AuthMapper } from "../mapper/authMapper";
+import { ITokenService } from "@/modules/auth/interfaces/ITokenService";
+import { AuthMapper } from "@/modules/auth/mapper/authMapper";
 
 export class AuthService implements IAuthService {
   private readonly otpService: IOtpService;

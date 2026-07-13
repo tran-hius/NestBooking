@@ -1,11 +1,11 @@
-import { IOtpService } from "../interfaces/IOtpService";
-import { env } from "../../../config/env";
+import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
+import { env } from "@/config/env";
 const OTP_TTL = Number(env.OTP_TTL);
 
-import { REDIS_KEYS, redisClient } from "../../../infrastructure/redis";
-import { rabbitMQ } from "../../../infrastructure/rabbitmq";
-import { QUEUES } from "../../../infrastructure/rabbitmq/queues";
-import { EmailOtpPayload } from "../queue/EmailOtpPayload";
+import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
+import { rabbitMQ } from "@/infrastructure/rabbitmq";
+import { QUEUES } from "@/infrastructure/rabbitmq/queues";
+import { EmailOtpPayload } from "@/modules/auth/queue/EmailOtpPayload";
 import crypto from "crypto";
 
 if (Number.isNaN(OTP_TTL)) {

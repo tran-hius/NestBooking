@@ -1,15 +1,15 @@
 import { UserStatus, Prisma, Role } from "../../../../generated/prisma";
-import logger from "../../../utils/logger";
-import { IUserRepository } from "../interfaces/IUserRepository";
-import { IUserService } from "../interfaces/IUserService";
+import logger from "@/utils/logger";
+import { IUserRepository } from "@/modules/user/interfaces/IUserRepository";
+import { IUserService } from "@/modules/user/interfaces/IUserService";
 import {
   CreateUserDto,
   UserResponseDto,
   UpdateUserProfileDto,
   SubmitIdentityVerificationDto,
 } from "../dtos/UserDTO";
-import { UserMapper } from "../mapper/UserMapper";
-import { NotFoundError, BadRequestError, ConflictError } from "../../../utils/errors/errorCustomize";
+import { UserMapper } from "@/modules/user/mapper/UserMapper";
+import { NotFoundError, BadRequestError, ConflictError } from "@/utils/errors/errorCustomize";
 
 export class UserService implements IUserService {
   private readonly userRepository: IUserRepository;

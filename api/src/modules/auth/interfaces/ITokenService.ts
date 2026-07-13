@@ -1,4 +1,4 @@
-import { AuthResponseDto, AuthTokensDto } from "../dtos/authDto";
+import { AuthResponseDto, AuthTokensDto } from "@/modules/auth/dtos/authDto";
 
 export interface ITokenService {
     hashPassword(password: string): Promise<string>

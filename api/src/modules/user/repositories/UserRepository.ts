@@ -4,7 +4,7 @@ import {
   UserStatus,
   PrismaClient,
 } from "../../../../generated/prisma";
-import { IUserRepository } from "../interfaces/IUserRepository";
+import { IUserRepository } from "@/modules/user/interfaces/IUserRepository";
 
 export class UserRepository implements IUserRepository {
   private readonly prisma: PrismaClient;

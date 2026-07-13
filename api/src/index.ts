@@ -1,8 +1,8 @@
-import { env } from "./config/env.js";
-import { rabbitMQ } from "./infrastructure/rabbitmq/index.js";
-import { startEmailWorker } from "./modules/auth/workers/emailWorker";
-import app from "./app.js";
-import logger from "./utils/logger.js";
+import { env } from "@/config/env.js";
+import { rabbitMQ } from "@/infrastructure/rabbitmq/index.js";
+import { startEmailWorker } from "@/modules/auth/workers/emailWorker";
+import app from "@/app.js";
+import logger from "@/utils/logger.js";
 
 const PORT = env.PORT;
 const NODE_ENV = env.NODE_ENV;

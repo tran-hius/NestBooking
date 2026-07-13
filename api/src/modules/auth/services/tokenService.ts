@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import { ITokenService } from "../interfaces/ITokenService";
+import { ITokenService } from "@/modules/auth/interfaces/ITokenService";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import { ConflictError } from "../../../utils/errors/errorCustomize";
+import { ConflictError } from "@/utils/errors/errorCustomize";
 
 
 export class TokenService implements ITokenService{

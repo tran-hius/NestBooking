@@ -1,11 +1,9 @@
 import express from "express";
-import { prisma } from "../../../config/prisma";
+import { prisma } from "@/config/prisma";
 
 // Import Middleware
-import { asyncHandler } from "../../../utils/asyncHandler";
-import { validate } from "../../../middlewares/validationMiddleware";
-import { authLimiter } from "../../../middlewares/rateLimitMiddleware";
-import { authMiddleware } from "../../../middlewares/authMiddleware";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { validate, authLimiter, authMiddleware } from "@/middlewares";
 
 // Import DTOs
 import {
@@ -17,19 +15,17 @@ import {
 } from "../dtos/authDto";
 
 // Import Repositories
-import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository";
-import { UserRepository } from "../../user/repositories/UserRepository";
+import { RefreshTokenRepository } from "@/modules/auth/repositories/RefreshTokenRepository";
+import { UserRepository } from "@/modules/user/repositories/UserRepository";
 
 // Import Services
-import { EmailService } from "../services/emailService";
-import { OtpService } from "../services/otpService";
-import { TokenService } from "../services/tokenService";
-import { UserService } from "../../user/services/UserService";
-import { AuthService } from "../services/authService";
+import { OtpService } from "@/modules/auth/services/otpService";
+import { TokenService } from "@/modules/auth/services/tokenService";
+import { UserService } from "@/modules/user/services/UserService";
+import { AuthService } from "@/modules/auth/services/authService";
 
 // Import Controller
-import { AuthController } from "../controllers/authController";
-import { Transporter } from "../config/transporter";
+import { AuthController } from "@/modules/auth/controllers/authController";
 
 const router = express.Router();
 

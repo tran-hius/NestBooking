@@ -1,9 +1,15 @@
+import { env as appEnv } from "@/config/env";
+
+const SMTP_HOST = appEnv.SMTP_HOST;
+const SMTP_PASS = appEnv.SMTP_PASSWORD;
+const SMTP_PORT = appEnv.SMTP_PORT;
+const SMTP_USER = appEnv.SMTP_USER;
 
 export const emailConfig = {
-  smtpHost: process.env.SMTP_HOST || "smtp.gmail.com",
-  smtpPort: parseInt(process.env.SMTP_PORT || "587", 10),
-  smtpUser: process.env.SMTP_USER || "",
-  smtpPass: process.env.SMTP_PASS || "",
+  smtpHost: SMTP_HOST || "smtp.gmail.com",
+  smtpPort: SMTP_PORT || 587,
+  smtpUser: SMTP_USER || "",
+  smtpPass: SMTP_PASS || "",
 
-  defaultSender: `NestBooking Support <${process.env.SMTP_USER}>`,
+  defaultSender: `NestBooking Support <${SMTP_USER}>`,
 };

@@ -1,10 +1,19 @@
 import express from "express";
-import { prisma } from "../../../config/prisma";
-import { UserRepository } from "../repositories/UserRepository";
-import { UserService } from "../services/UserService";
-import { UserController } from "../controllers/UserController";
-import { asyncHandler } from "../../../utils/asyncHandler";
-import { validate } from "../../../middlewares/validationMiddleware";
+import { prisma } from "@/config/prisma";
+import { UserRepository } from "@/modules/user/repositories/UserRepository";
+import { UserService } from "@/modules/user/services/UserService";
+import { UserController } from "@/modules/user/controllers/UserController";
+import { asyncHandler } from "@/utils/asyncHandler";
+
+
+import {
+  validate,
+  roleMiddleware,
+  authMiddleware,
+  requireOwnershipOrAdmin,
+} from "@/middlewares";
+
+
 import {
   UserIdParamSchema,
   CreateUserSchema,
@@ -13,8 +22,6 @@ import {
   ChangeUserStatusSchema,
   RejectIdentityVerificationSchema,
 } from "../dtos/UserDTO";
-import { roleMiddleware } from "../../../middlewares/roleMiddleware";
-import { authMiddleware, requireOwnershipOrAdmin } from "../../../middlewares/authMiddleware";
 import { Role } from "../../../../generated/prisma";
 
 const router = express.Router();

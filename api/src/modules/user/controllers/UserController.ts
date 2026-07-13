@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { IUserService } from "../interfaces/IUserService";
-import logger from "../../../utils/logger";
-import { successResponse } from "../../../utils/response";
-import { HttpStatus } from "../../../constants/httpStatus";
+import { IUserService } from "@/modules/user/interfaces/IUserService";
+import logger from "@/utils/logger";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
 
 export class UserController {
   private readonly userService: IUserService;

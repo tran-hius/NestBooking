@@ -1,6 +1,8 @@
 import * as amqp from "amqplib";
-import logger from "../../utils/logger";
-import { ServiceUnavailableError } from "../../utils/errors/errorCustomize";
+import logger from "@/utils/logger";
+import { ServiceUnavailableError } from "@/utils/errors/errorCustomize";
+import { env } from "@/config/env";
+const RABBITMQ_URL = env.RABBITMQ_URL;
 
 export interface QueueOptions {
   headers?: Record<string, any>;
@@ -10,8 +12,7 @@ class RabbitMQConnection {
   private connection: amqp.ChannelModel | null = null;
   private channel: amqp.Channel | null = null;
 
-  private readonly url =
-    process.env.RABBITMQ_URL || "amqp://guest:guest@localhost:5672";
+  private readonly url = RABBITMQ_URL || "amqp://guest:guest@localhost:5672";
 
   async connect(): Promise<void> {
     try {
@@ -89,3 +90,8 @@ class RabbitMQConnection {
 }
 
 export default RabbitMQConnection;
+
+
+// Trong hàm connect(), bạn đang gọi this.channel.assertQueue("email_otp_queue", ...). Việc khởi tạo cứng (hardcode) tên queue "email_otp_queue" ngay khi kết nối như thế này hoàn toàn ổn nếu service này chỉ phục vụ cho việc gửi OTP.
+
+// Tuy nhiên, nếu sau này bạn muốn dùng class này cho nhiều mục đích khác nữa (ví dụ: order_queue, notification_queue), bạn nên cân nhắc tách hàm assertQueue ra ngoài hoặc truyền queueName động vào lúc khởi tạo nhé!

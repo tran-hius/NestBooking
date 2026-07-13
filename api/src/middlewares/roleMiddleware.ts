@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { UnauthorizedError } from "../utils/errors/errorCustomize";
+import { UnauthorizedError } from "@/utils/errors/errorCustomize";
 
 export const roleMiddleware = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction) => {

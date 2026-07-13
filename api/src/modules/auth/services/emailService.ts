@@ -1,9 +1,9 @@
-import { BadRequestError } from "../../../utils/errors/errorCustomize";
-import logger from "../../../utils/logger";
-import { IEmailService } from "../interfaces/IEmailService";
+import { BadRequestError } from "@/utils/errors/errorCustomize";
+import logger from "@/utils/logger";
+import { IEmailService } from "@/modules/auth/interfaces/IEmailService";
 import nodemailer from "nodemailer";
-import { getOtpEmailTemplate } from "../templates/otpTemplate";
-import { emailConfig } from "../config/emailConfig";
+import { getOtpEmailTemplate } from "@/modules/auth/templates/otpTemplate";
+import { emailConfig } from "@/modules/auth/config/emailConfig";
 
 export class EmailService implements IEmailService {
   private transporter: nodemailer.Transporter;

@@ -1,4 +1,4 @@
-import { UserResponseDto } from "../dtos/UserDTO";
+import { UserResponseDto } from "@/modules/user/dtos/UserDTO";
 
 export class UserMapper {
   public static toResponseDto(user: any): UserResponseDto {
