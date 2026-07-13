@@ -1,5 +1,5 @@
 import express from "express";
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../config/prisma";
 
 // Import Middleware
 import { asyncHandler } from "../../../utils/asyncHandler";

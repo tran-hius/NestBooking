@@ -27,7 +27,23 @@ services:
     networks:
       - booking_network
 
-  # 3. Backend API Service (Chạy môi trường Dev)
+  # 3. RabbitMQ Message Broker (Hàng đợi)
+  rabbitmq_queue:
+    image: rabbitmq:3-management-alpine
+    container_name: booking_rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"   # Cổng giao tiếp AMQP
+      - "15672:15672" # Cổng giao diện UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - booking_network
+
+  # 4. Backend API Service (Chạy môi trường Dev)
   api:
     build:
       context: ./api
@@ -41,16 +57,18 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:123456@postgres_db:5432/booking?schema=public
       - REDIS_HOST=redis_cache
+      - RABBITMQ_URL=amqp://guest:guest@rabbitmq_queue:5672
     volumes:
       - ./api:/app
       - /app/node_modules
     depends_on:
       - postgres_db
       - redis_cache
+      - rabbitmq_queue
     networks:
       - booking_network
 
-  # 4. Frontend Client Service
+  # 5. Frontend Client Service (Đang bị comment)
   # client:
   #   build:
   #     context: ./client
@@ -58,7 +76,7 @@ services:
   #   container_name: booking_client
   #   restart: always
   #   ports:
-  #     - "${CLIENT_PORT:-3001}:3000"   # tạm giả định FE cũng chạy port 3000 bên trong container
+  #     - "${CLIENT_PORT:-3001}:3000"   
   #   env_file:
   #     - ./client/.env.dev
   #   volumes:
@@ -72,6 +90,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  rabbitmq_data:
 
 networks:
   booking_network:
