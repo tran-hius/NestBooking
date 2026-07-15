@@ -1,4 +1,4 @@
-import { UserStatus } from "../../../../generated/prisma";
+import { User, UserStatus } from "../../../../generated/prisma";
 import {
   CreateUserDto,
   UpdateUserProfileDto,
@@ -55,4 +55,6 @@ export interface IUserService {
     userId: string,
     reason: string,
   ): Promise<UserResponseDto>;
+
+  getUserWithPasswordByEmail(email: string): Promise<User | null>;
 }

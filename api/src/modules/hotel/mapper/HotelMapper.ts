@@ -18,6 +18,7 @@ export class HotelMapper {
       phone: hotel.phone,
       email: hotel.email,
       thumbnail: hotel.thumbnail,
+      amenities: hotel.amenities || [],
       rating: hotel.rating,
       checkInTime: hotel.checkInTime,
       checkOutTime: hotel.checkOutTime,

@@ -32,7 +32,7 @@ export const ResetPasswordSchema = z.object({
 
 export const ChangePasswordSchema = z.object({
   body: z.object({
-    oldPassword: z.string().min(1, "Vui lòng nhập mật khẩu cũ."),
+    oldPassword: z.string().optional(),
     newPassword: z.string().min(6, "Mật khẩu mới phải có ít nhất 6 ký tự."),
   }),
 });

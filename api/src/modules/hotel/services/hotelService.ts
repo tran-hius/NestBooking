@@ -1,10 +1,19 @@
 import { Hotel, HotelStatus } from "generated/prisma";
-import { CreateHotelDto, HotelResponseDto, UpdateHotelDto } from "../dtos/hotelDto";
+import {
+  CreateHotelDto,
+  HotelResponseDto,
+  UpdateHotelDto,
+} from "../dtos/hotelDto";
 import { IHotelRepository } from "../interfaces/IHotelRepository";
 import { IHotelService } from "../interfaces/IHotelService";
 import { HotelMapper } from "../mapper/HotelMapper";
-import { ForbiddenError, NotFoundError } from "@/utils/errors/errorCustomize";
+import {
+  BadRequestError,
+  ForbiddenError,
+  NotFoundError,
+} from "@/utils/errors/errorCustomize";
 import logger from "@/utils/logger";
+import { PaginatedResponse } from "../dtos/PaginationDto";
 
 export class HotelService implements IHotelService {
   private readonly hotelRepository: IHotelRepository;
@@ -44,9 +53,34 @@ export class HotelService implements IHotelService {
     return HotelMapper.toResponseDto(hotel);
   }
 
-  async getHotelsByAgent(ownerId: string): Promise<HotelResponseDto[]> {
-    const hotels = await this.hotelRepository.findByOwnerId(ownerId);
-    return HotelMapper.toResponseDtoList(hotels);
+  async getHotelsByAgent(
+    ownerId: string,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<PaginatedResponse<HotelResponseDto>> {
+
+    const skip = (page - 1) * limit;
+
+    const [hotels, total] = await Promise.all([
+      this.hotelRepository.findMany({
+        where: { ownerId, deletedAt: null },
+        orderBy: { createdAt: "desc" },
+        skip: skip,
+        take: limit,
+      }),
+      this.hotelRepository.count({
+        where: { ownerId, deletedAt: null },
+      }),
+    ]);
+    return {
+      data: HotelMapper.toResponseDtoList(hotels),
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
   }
 
   async getHotelById(
@@ -109,8 +143,43 @@ export class HotelService implements IHotelService {
   }
 
   async restoreHotel(id: string, ownerId: string): Promise<HotelResponseDto> {
-    logger.info(`Khôi phục hotel bị xóa mềm có ID: ${id}`);
+    const hotel = await this.hotelRepository.findById(id);
+    if (!hotel || hotel.ownerId !== ownerId) {
+      throw new NotFoundError(
+        "Khách sạn không tồn tại hoặc bạn không có quyền.",
+      );
+    }
+    const restoredHotel = await this.hotelRepository.restore(id, ownerId);
+    return HotelMapper.toResponseDto(restoredHotel);
   }
 
-  async getAllHotels(query: any): Promise<HotelResponseDto[]> {}
+  async getAllHotels(
+    query: any,
+    page: number = 1,
+    limit: number = 10,
+  ): Promise<PaginatedResponse<HotelResponseDto>> {
+    const skip = (page - 1) * limit;
+
+    const [hotels, total] = await Promise.all([
+      this.hotelRepository.findMany({
+        where: { ...query, deletedAt: null },
+        orderBy: { createdAt: "desc" },
+        skip: skip,
+        take: limit,
+      }),
+      this.hotelRepository.count({
+        where: { ...query, deletedAt: null },
+      }),
+    ]);
+
+    return {
+      data: HotelMapper.toResponseDtoList(hotels),
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
 }

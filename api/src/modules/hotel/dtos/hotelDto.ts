@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { HotelStatus } from "../../../../generated/prisma"; 
+import { Hotel, HotelStatus } from "../../../../generated/prisma"; 
 
 export const CreateHotelSchema = z.object({
   body: z.object({
@@ -13,6 +13,7 @@ export const CreateHotelSchema = z.object({
     phone: z.string().optional(),
     email: z.string().email("Email không hợp lệ").optional(),
     thumbnail: z.string().url("Link ảnh không hợp lệ").optional(),
+    amenities: z.array(z.string()).optional(),
     checkInTime: z.string().optional(),
     checkOutTime: z.string().optional(),
   }),
@@ -30,6 +31,7 @@ export const UpdateHotelSchema = z.object({
     phone: z.string().optional(),
     email: z.string().email("Email không hợp lệ").optional(),
     thumbnail: z.string().url("Link ảnh không hợp lệ").optional(),
+    amenities: z.array(z.string()).optional(),
     checkInTime: z.string().optional(),
     checkOutTime: z.string().optional(),
     status: z
@@ -57,6 +59,7 @@ export interface HotelResponseDto {
   phone: string | null;
   email: string | null;
   thumbnail: string | null;
+  amenities: string[];
   rating: number;
   checkInTime: string | null;
   checkOutTime: string | null;
@@ -64,3 +67,5 @@ export interface HotelResponseDto {
   createdAt: Date;
   updatedAt: Date;
 }
+
+

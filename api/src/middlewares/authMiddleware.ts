@@ -44,7 +44,12 @@ export const authMiddleware = (
       throw new UnauthorizedError("Bạn chưa đăng nhập hoặc thiếu Access Token");
     }
 
-    const token = authHeader.split(" ")[1];
+    let token = authHeader.split(" ")[1];
+
+    // Xóa dấu nháy kép thừa nếu người dùng vô tình copy dính vào từ Swagger
+    if (token.startsWith('"') && token.endsWith('"')) {
+      token = token.slice(1, -1);
+    }
 
     const decoded = jwt.verify(token, JWT_SECRET) as {
       userId: string;
@@ -55,7 +60,8 @@ export const authMiddleware = (
     req.user = decoded;
 
     next();
-  } catch (error) {
+  } catch (error: any) {
+    console.error("JWT Verification Error:", error.message);
     if (error instanceof jwt.TokenExpiredError) {
       next(
         new UnauthorizedError(
@@ -63,7 +69,7 @@ export const authMiddleware = (
         ),
       );
     } else {
-      next(new UnauthorizedError("Token không hợp lệ hoặc đã bị giả mạo."));
+      next(new UnauthorizedError(`Token không hợp lệ hoặc đã bị giả mạo. Chi tiết: ${error.message}`));
     }
   }
 };

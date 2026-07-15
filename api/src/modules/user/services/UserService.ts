@@ -1,4 +1,4 @@
-import { UserStatus, Prisma, Role } from "../../../../generated/prisma";
+import { UserStatus, Prisma, Role, User } from "../../../../generated/prisma";
 import logger from "@/utils/logger";
 import { IUserRepository } from "@/modules/user/interfaces/IUserRepository";
 import { IUserService } from "@/modules/user/interfaces/IUserService";
@@ -10,12 +10,15 @@ import {
 } from "../dtos/UserDTO";
 import { UserMapper } from "@/modules/user/mapper/UserMapper";
 import { NotFoundError, BadRequestError, ConflictError } from "@/utils/errors/errorCustomize";
+import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
 
 export class UserService implements IUserService {
   private readonly userRepository: IUserRepository;
+  private readonly otpService: IOtpService;
 
-  constructor(userRepository: IUserRepository) {
+  constructor(userRepository: IUserRepository, otpService: IOtpService) {
     this.userRepository = userRepository;
+    this.otpService = otpService;
   }
 
   async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
@@ -23,7 +26,9 @@ export class UserService implements IUserService {
 
     if (userExists) {
       logger.warn(`Tạo tài khoản thất bại: Email ${dto.email} đã tồn tại`);
-      throw new ConflictError(`Email ${dto.email} đã được đăng ký trên hệ thống!`);
+      throw new ConflictError(
+        `Email ${dto.email} đã được đăng ký trên hệ thống!`,
+      );
     }
 
     const data = {
@@ -39,7 +44,10 @@ export class UserService implements IUserService {
 
     const createdUser = await this.userRepository.create(data);
 
-    logger.info("User created successfully", {
+    // Gửi OTP qua email cho user mới tạo
+    await this.otpService.generateAndSendOtp(createdUser.email);
+
+    logger.info("User created successfully and OTP sent", {
       userId: createdUser.id,
       email: createdUser.email,
     });
@@ -68,6 +76,10 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findByEmailOrPhone(email);
     if (!user) return null;
     return UserMapper.toResponseDto(user);
+  }
+
+  async getUserWithPasswordByEmail(email: string): Promise<User | null> {
+    return await this.userRepository.getUserWithPasswordByEmail(email);
   }
 
   async updateProfile(
@@ -125,7 +137,7 @@ export class UserService implements IUserService {
     if (status === UserStatus.ACTIVE) {
       await this.userRepository.resetLoginAttempts(userId);
     }
-    
+
     logger.info(`Trạng thái của User ${userId} đã đổi thành: ${status}`);
     return UserMapper.toResponseDto(updatedUser);
   }
@@ -244,7 +256,8 @@ export class UserService implements IUserService {
 
     if (
       anyUser.role === Role.AGENT ||
-      (anyUser.agentProfile && anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
+      (anyUser.agentProfile &&
+        anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
     ) {
       logger.warn(
         `Duyệt KYC thất bại: Tài khoản ID ${userId} đã được phê duyệt làm Agent từ trước`,
@@ -287,7 +300,8 @@ export class UserService implements IUserService {
 
     if (
       anyUser.role === Role.AGENT ||
-      (anyUser.agentProfile && anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
+      (anyUser.agentProfile &&
+        anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
     ) {
       logger.warn(
         `Từ chối KYC thất bại: Tài khoản ID ${userId} đã là Đối tác chính thức.`,

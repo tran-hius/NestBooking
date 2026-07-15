@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError } from "@/utils/errors/apiError";
 import { env as appEnv } from "@/config/env";
+import { Prisma } from "generated/prisma";
 
 export const errorHandler = (
   error: Error,
@@ -16,6 +17,13 @@ export const errorHandler = (
     statusCode = error.statusCode;
     message = error.message;
     errors = error.errors || null;
+  } else if (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    error.code === "P2025"
+  ) {
+    statusCode = 404;
+    message =
+      "Bản ghi không tồn tại hoặc bạn không có quyền thực hiện hành động này.";
   }
 
   res.status(statusCode).json({

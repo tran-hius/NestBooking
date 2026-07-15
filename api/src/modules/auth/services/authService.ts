@@ -23,6 +23,7 @@ import {
 import { Role, UserStatus } from "../../../../generated/prisma";
 import { ITokenService } from "@/modules/auth/interfaces/ITokenService";
 import { AuthMapper } from "@/modules/auth/mapper/authMapper";
+import logger from "@/utils/logger";
 
 export class AuthService implements IAuthService {
   private readonly otpService: IOtpService;
@@ -97,9 +98,11 @@ export class AuthService implements IAuthService {
     dto: LoginWithPasswordDto,
     device: DeviceMetadata,
   ): Promise<AuthResponseDto> {
-    const user = await (this.userService as any).getUserWithPasswordByEmail(
+    const user = await this.userService.getUserWithPasswordByEmail(
       dto.email,
     );
+
+    logger.info(`[AuthService] Debug User from DB: ${JSON.stringify(user)}`);
 
     if (!user) {
       throw new NotFoundError("Tài khoản hoặc mật khẩu không chính xác.");
@@ -114,7 +117,7 @@ export class AuthService implements IAuthService {
 
     const isPasswordValid = await this.tokenService.comparePassword(
       dto.password,
-      user.passwordHash,
+      user.passwordHash as string,
     );
 
     if (!isPasswordValid) {
@@ -214,21 +217,27 @@ export class AuthService implements IAuthService {
   }
 
   async changePassword(userId: string, dto: ChangePasswordDto): Promise<void> {
-    const user = await (this.userService as any).getUserWithPasswordByEmail(
+    const user = await this.userService.getUserWithPasswordByEmail(
       (await this.userService.getUserById(userId))?.email || ""
     );
+
+    logger.info(`[AuthService] Debug User from DB: ${JSON.stringify(user)}`);
 
     if (!user) {
       throw new NotFoundError("Tài khoản không tồn tại.");
     }
 
-    const isMatch = await this.tokenService.comparePassword(
-      dto.oldPassword,
-      user.passwordHash
-    );
-
-    if (!isMatch) {
-      throw new BadRequestError("Mật khẩu cũ không chính xác.");
+    if (user.passwordHash) {
+      if (!dto.oldPassword) {
+        throw new BadRequestError("Vui lòng nhập mật khẩu cũ.");
+      }
+      const isMatch = await this.tokenService.comparePassword(
+        dto.oldPassword,
+        user.passwordHash as string,
+      );
+      if (!isMatch) {
+        throw new BadRequestError("Mật khẩu cũ không chính xác.");
+      }
     }
 
     const passwordHash = await this.tokenService.hashPassword(dto.newPassword);

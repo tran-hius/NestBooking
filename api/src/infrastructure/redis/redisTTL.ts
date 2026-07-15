@@ -7,7 +7,7 @@ export const REDIS_TTL = {
   /**
    * Login Attempt
    */
-  LOGIN_ATTEMPT: 15 * 60,
+  LOGIN_ATTEMPT: 5,
 
   /**
    * User Session

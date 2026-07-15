@@ -15,19 +15,32 @@ class RabbitMQConnection {
   private readonly url = RABBITMQ_URL || "amqp://guest:guest@localhost:5672";
 
   async connect(): Promise<void> {
-    try {
-      this.connection = await amqp.connect(this.url);
+    const maxRetries = 3;
+    const delayMs = 2000; 
 
-      this.channel = await this.connection.createChannel();
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        this.connection = await amqp.connect(this.url);
+        this.channel = await this.connection.createChannel();
 
-      logger.info("RabbitMQ Connected");
+        logger.info("RabbitMQ Connected");
 
-      await this.channel.assertQueue("email_otp_queue", {
-        durable: true,
-      });
-    } catch (error) {
-      logger.error("RabbitMQ Connection Error:", error);
-      process.exit(1);
+        await this.channel.assertQueue("email_otp_queue", {
+          durable: true,
+        });
+
+        return; 
+      } catch (error) {
+        logger.error(`RabbitMQ Connection Attempt ${attempt} failed:`, error);
+
+        if (attempt < maxRetries) {
+          logger.info(`Retrying in ${delayMs / 1000}s...`);
+          await new Promise((resolve) => setTimeout(resolve, delayMs));
+        } else {
+          logger.error("RabbitMQ Connection failed after 3 attempts.");
+          throw new Error("Failed to connect to RabbitMQ after max retries");
+        }
+      }
     }
   }
 

@@ -32,12 +32,15 @@ const router = express.Router();
 // =====================================================
 // KHỞI TẠO DEPENDENCY INJECTION (DI)
 // =====================================================
-const userRepository = new UserRepository(prisma);
-const userService = new UserService(userRepository);
+
+
 
 const otpService = new OtpService();
 const tokenService = new TokenService();
 const refreshTokenRepository = new RefreshTokenRepository(prisma);
+
+const userRepository = new UserRepository(prisma);
+const userService = new UserService(userRepository, otpService);
 
 // Bơm tất cả vào AuthService (Tùy theo Constructor hiện tại của bạn)
 const authService = new AuthService(

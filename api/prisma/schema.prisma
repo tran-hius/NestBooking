@@ -131,6 +131,7 @@ model Hotel {
   phone         String?     @db.VarChar(20)
   email         String?     @db.VarChar(255)
   thumbnail     String?     @db.Text
+  amenities     String[]    @default([])
   rating        Float       @default(0)
   checkInTime   String?     @db.VarChar(10)
   checkOutTime  String?     @db.VarChar(10)

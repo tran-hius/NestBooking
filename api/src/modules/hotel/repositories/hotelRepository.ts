@@ -46,8 +46,15 @@ export class HotelRepository implements IHotelRepository {
       where: { id },
       data: {
         deletedAt: new Date(),
-        status: HotelStatus.INACTIVE
-      }
+        status: HotelStatus.INACTIVE,
+      },
+    });
+  }
+
+  async restore(id: string, ownerId: string): Promise<void> {
+    await this.prisma.hotel.update({
+      where: { id, ownerId },
+      data: { deletedAt: null },
     });
   }
 
@@ -60,5 +67,9 @@ export class HotelRepository implements IHotelRepository {
 
   async findMany(options?: Prisma.HotelFindManyArgs): Promise<Hotel[]> {
     return this.prisma.hotel.findMany(options);
+  }
+
+  async count(options?: Prisma.HotelCountArgs): Promise<number> {
+    return this.prisma.hotel.count(options);
   }
 }

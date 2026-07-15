@@ -39,7 +39,7 @@ export class UserRepository implements IUserRepository {
       where: {
         deletedAt: null,
         profile: {
-          phoneNumber: phone, 
+          phoneNumber: phone,
         },
       },
       include: { profile: true },
@@ -129,6 +129,15 @@ export class UserRepository implements IUserRepository {
     await this.prisma.user.update({
       where: { id },
       data: { deletedAt: null },
+    });
+  }
+
+  async getUserWithPasswordByEmail(email: string): Promise<User | null> {
+    return await this.prisma.user.findFirst({
+      where: {
+        email,
+        deletedAt: null, 
+      },
     });
   }
 }

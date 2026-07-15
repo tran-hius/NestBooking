@@ -7,6 +7,7 @@ import { globalLimiter } from "@/middlewares/rateLimitMiddleware";
 import { errorHandler } from "@/middlewares/errorMiddleware";
 import userRouter from "@/modules/user/routes/UserRouter";
 import authRouter from "@/modules/auth/routes/authRouter";
+import hotelRouter from "@/modules/hotel/routes/HotelRouter";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
@@ -37,8 +38,16 @@ const authSwaggerDoc = JSON.parse(
   )
 )
 
+const hotelSwaggerDoc = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "modules", "hotel", "docs", "swagger-hotel.json"),
+    "utf-8"
+  )
+)
+
 app.get("/api-docs/swagger-user.json", (req, res) => res.json(userSwaggerDoc));
 app.get("/api-docs/swagger-auth.json", (req, res) => res.json(authSwaggerDoc));
+app.get("/api-docs/swagger-hotel.json", (req, res) => res.json(hotelSwaggerDoc));
 
 const swaggerOptions = {
   explorer: true,
@@ -51,6 +60,10 @@ const swaggerOptions = {
       { url: "/api-docs/swagger-auth.json",
          name: "Auth Service"
       },
+      {
+        url: "/api-docs/swagger-hotel.json",
+        name: "Hotel Service"
+      }
     ],
   },
 };
@@ -63,6 +76,7 @@ app.use(
 
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/hotels", hotelRouter);
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");

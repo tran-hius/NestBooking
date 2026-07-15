@@ -143,15 +143,6 @@
         ],
         "summary": "Đổi mật khẩu (Yêu cầu đăng nhập)",
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "default": {
             "description": ""
@@ -176,6 +167,13 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "SendOtpDto": {
         "type": "object",
@@ -434,7 +432,6 @@
           "required": {
             "type": "array",
             "example": [
-              "oldPassword",
               "newPassword"
             ],
             "items": {

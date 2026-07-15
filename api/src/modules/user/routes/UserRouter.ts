@@ -4,6 +4,7 @@ import { UserRepository } from "@/modules/user/repositories/UserRepository";
 import { UserService } from "@/modules/user/services/UserService";
 import { UserController } from "@/modules/user/controllers/UserController";
 import { asyncHandler } from "@/utils/asyncHandler";
+import { OtpService } from "@/modules/auth/services/otpService";
 
 
 import {
@@ -26,8 +27,9 @@ import { Role } from "../../../../generated/prisma";
 
 const router = express.Router();
 
+const otpService = new OtpService();
 const userRepository = new UserRepository(prisma);
-const userService = new UserService(userRepository);
+const userService = new UserService(userRepository, otpService);
 const userController = new UserController(userService);
 
 // =====================================================
@@ -39,6 +41,7 @@ router.get(
     #swagger.path = '/api/users'
     #swagger.tags = ['Users']
     #swagger.summary = 'Lấy danh sách tất cả người dùng'
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   authMiddleware,
   roleMiddleware([Role.ADMIN]),
@@ -54,6 +57,7 @@ router.get(
     #swagger.path = '/api/users/{id}'
     #swagger.tags = ['Users']
     #swagger.summary = 'Lấy chi tiết một người dùng theo ID'
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   authMiddleware,
   requireOwnershipOrAdmin,
@@ -153,6 +157,7 @@ router.delete(
     #swagger.path = '/api/users/{id}'
     #swagger.tags = ['Users']
     #swagger.summary = 'Xóa mềm tài khoản'
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   authMiddleware,
   roleMiddleware([Role.ADMIN]),
@@ -169,6 +174,7 @@ router.post(
     #swagger.path = '/api/users/{id}/restore'
     #swagger.tags = ['Users']
     #swagger.summary = 'Khôi phục tài khoản đã bị xóa mềm'
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   authMiddleware,
   roleMiddleware([Role.ADMIN]),
@@ -185,6 +191,8 @@ router.post(
     #swagger.path = '/api/users/{id}/kyc/submit'
     #swagger.tags = ['Users']
     #swagger.summary = 'Gửi hồ sơ KYC'
+    #swagger.security = [{ "bearerAuth": [] }]
+    #swagger.autoHeaders = false
 
     #swagger.requestBody = {
       required: true,
@@ -213,6 +221,7 @@ router.patch(
     #swagger.path = '/api/users/{id}/kyc/approve'
     #swagger.tags = ['Users']
     #swagger.summary = 'Admin duyệt hồ sơ KYC'
+    #swagger.security = [{ "bearerAuth": [] }]
   */
   authMiddleware,
   roleMiddleware([Role.ADMIN]),
@@ -229,6 +238,7 @@ router.patch(
     #swagger.path = '/api/users/{id}/kyc/reject'
     #swagger.tags = ['Users']
     #swagger.summary = 'Admin từ chối hồ sơ KYC'
+    #swagger.security = [{ "bearerAuth": [] }]
 
     #swagger.requestBody = {
       required: true,

@@ -7,6 +7,7 @@ export interface IUserRepository {
   findByEmail(email: string): Promise<User | null>;
   findByPhone(phone: string): Promise<User | null>;
   findByEmailOrPhone(email: string, phoneNumber?: string): Promise<User | null>;
+  getUserWithPasswordByEmail(email: string): Promise<User | null>;
   update(id: string, data: Prisma.UserUpdateInput): Promise<User>;
   delete(id: string): Promise<void>;
   restore(id: string): Promise<void>;
