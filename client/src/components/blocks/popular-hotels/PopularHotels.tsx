@@ -21,8 +21,8 @@ export default function PopularHotels() {
       <div className="container mx-auto relative">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-2">Khách sạn phổ biến nhất</h2>
-            <p className="text-slate-500">Trải nghiệm lưu trú tuyệt vời với các khách sạn được yêu thích nhất.</p>
+            <h2 className="text-3xl font-bold">Khách sạn phổ biến</h2>
+            <p className="text-gray-500 mt-2">Được chọn lọc dành riêng cho bạn</p>
           </div>
           <div className="flex items-center gap-2">
             <button 

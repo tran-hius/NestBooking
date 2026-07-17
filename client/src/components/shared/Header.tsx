@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Headset, MapPin, User, UserPlus } from 'lucide-react';
+import { Headset, MapPin, User, UserPlus, Home } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -19,6 +19,11 @@ export default function Header() {
           <Link to="/support" className="hidden md:flex items-center gap-2 text-base font-bold text-white hover:text-white/90 transition-colors drop-shadow-md">
             <Headset className="h-5 w-5" />
             <span>Hỗ trợ 24/7</span>
+          </Link>
+
+          <Link to="/partner/register" className="hidden md:flex items-center gap-2 text-base font-bold text-white hover:text-white/90 transition-colors drop-shadow-md">
+            <Home className="h-5 w-5" />
+            <span>Đăng ký đối tác</span>
           </Link>
 
           <div className="flex items-center gap-3">

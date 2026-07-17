@@ -54,7 +54,7 @@ export default function HotelCard({ hotel }: HotelCardProps) {
             <Star className="w-4 h-4 fill-current" />
             <span className="font-bold ml-1 text-sm">{hotel.rating}</span>
           </div>
-          <span className="text-slate-400 text-xs">({hotel.reviews} đánh giá)</span>
+          <span className="text-gray-500 ml-2">({hotel.reviews} đánh giá)</span>
         </div>
 
         <div className="mt-auto pt-4 border-t border-slate-100 flex items-end justify-between">
