@@ -3,7 +3,7 @@ import logger from "@/utils/logger";
 import { IEmailService } from "@/modules/auth/interfaces/IEmailService";
 import nodemailer from "nodemailer";
 import { getOtpEmailTemplate } from "@/modules/auth/templates/otpTemplate";
-import { emailConfig } from "@/modules/auth/config/emailConfig";
+import { emailConfig } from "@/config/email";
 
 export class EmailService implements IEmailService {
   private transporter: nodemailer.Transporter;

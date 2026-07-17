@@ -1,5 +1,5 @@
 import { EmailService } from "@/modules/auth/services/emailService";
-import { Transporter } from "@/modules/auth/config/transporter";
+import { Transporter } from "@/config/transporter";
 import logger from "@/utils/logger";
 import { rabbitMQ } from "@/infrastructure/rabbitmq";
 import { QUEUES } from "@/infrastructure/rabbitmq/queues";
@@ -14,7 +14,10 @@ export const startEmailWorker = async (): Promise<void> => {
   logger.info(`Email Worker đang lắng nghe Queue: ${QUEUES.EMAIL_OTP}`);
 
   await rabbitMQ.consumeQueue(QUEUES.EMAIL_OTP, async (msg) => {
-    if (!msg) return;
+    if (!msg){
+      logger.warn("Nhận được message rỗng.");
+      return;
+    } 
 
     const retries = Number(msg.properties.headers?.["x-retries"] ?? 0);
 

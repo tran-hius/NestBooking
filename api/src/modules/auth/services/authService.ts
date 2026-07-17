@@ -9,8 +9,7 @@ import {
   ResetPasswordDto,
   ChangePasswordDto,
 } from "../dtos/authDto";
-import { IEmailService } from "@/modules/auth/interfaces/IEmailService";
-import { IOtpService } from "@/modules/auth/interfaces/IOtpService"; // Đã sửa chính tả: IOtpServoce -> IOtpService
+import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
 import { IRefreshTokenRepository } from "@/modules/auth/interfaces/IRefreshTokenRepository";
 import { IUserService } from "@/modules/user/interfaces/IUserService";
 

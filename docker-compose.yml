@@ -89,24 +89,25 @@ services:
     networks:
       - booking_network
 
-  # 5. Frontend Client Service (Đang bị comment)
-  # client:
-  #   build:
-  #     context: ./client
-  #     dockerfile: Dockerfile
-  #   container_name: booking_client
-  #   restart: always
-  #   ports:
-  #     - "${CLIENT_PORT:-3001}:3000"   
-  #   env_file:
-  #     - ./client/.env.dev
-  #   volumes:
-  #     - ./client:/app
-  #     - /app/node_modules
-  #   depends_on:
-  #     - api
-  #   networks:
-  #     - booking_network
+  # 5. Frontend Client Service
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: booking_client
+    restart: always
+    ports:
+      - "${CLIENT_PORT:-5173}:5173"   
+    env_file:
+      - ./client/.env.dev
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      api:
+        condition: service_started
+    networks:
+      - booking_network
 
 volumes:
   postgres_data:

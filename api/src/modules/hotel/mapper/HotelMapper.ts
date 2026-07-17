@@ -1,4 +1,4 @@
-import { HotelResponseDto } from "../dtos/hotelDto";
+import { HotelResponseDto } from "../dtos/HotelDTO";
 
 export class HotelMapper {
   public static toResponseDto(hotel: any): HotelResponseDto {

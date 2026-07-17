@@ -2,7 +2,7 @@ import {
   CreateHotelDto,
   UpdateHotelDto,
   HotelResponseDto,
-} from "../dtos/hotelDto";
+} from "../dtos/HotelDTO";
 import { PaginatedResponse } from "../dtos/PaginationDto";
 
 export interface IHotelService {

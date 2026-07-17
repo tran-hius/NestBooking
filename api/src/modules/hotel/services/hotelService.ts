@@ -1,14 +1,13 @@
-import { Hotel, HotelStatus } from "generated/prisma";
+import { HotelStatus } from "generated/prisma";
 import {
   CreateHotelDto,
   HotelResponseDto,
   UpdateHotelDto,
-} from "../dtos/hotelDto";
+} from "../dtos/HotelDTO";
 import { IHotelRepository } from "../interfaces/IHotelRepository";
 import { IHotelService } from "../interfaces/IHotelService";
 import { HotelMapper } from "../mapper/HotelMapper";
 import {
-  BadRequestError,
   ForbiddenError,
   NotFoundError,
 } from "@/utils/errors/errorCustomize";

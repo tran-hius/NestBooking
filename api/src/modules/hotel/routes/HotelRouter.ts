@@ -7,7 +7,7 @@ import { Role } from "../../../../generated/prisma";
 import { HotelRepository } from "../repositories/HotelRepository";
 import { HotelService } from "../services/HotelService";
 import { HotelController } from "../controllers/HotelController";
-import { CreateHotelSchema, UpdateHotelSchema } from "../dtos/hotelDto";
+import { CreateHotelSchema, UpdateHotelSchema } from "../dtos/HotelDTO";
 
 const router = express.Router();
 
