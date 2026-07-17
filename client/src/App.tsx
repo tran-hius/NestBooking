@@ -1,20 +1,23 @@
-﻿import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from '@/components/shared/Header';
-import Footer from '@/components/shared/Footer';
-import Home from '@/pages/Home';
+﻿import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { routers } from "./routers/routers";
 
 function App() {
   return (
     <Router>
-      <div className="relative min-h-screen flex flex-col bg-slate-50">
-        <Header />
-        <main className="flex-1 flex flex-col">
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <Routes>
+        {routers.map((route) => {
+          const Layout = route.layout;
+          return (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                Layout ? <Layout>{route.component}</Layout> : route.component
+              }
+            />
+          );
+        })}
+      </Routes>
     </Router>
   );
 }
