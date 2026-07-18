@@ -17,9 +17,9 @@ export default function Auth() {
 
     setLoading(true);
     try {
-      const result = await authService.sendOtp({ email });
-      console.log("result", result)
-      const otpToken = result.data?.otpToken;
+      const result: any = await authService.sendOtp({ email });
+      console.log("result", result);
+      const otpToken = result?.data?.otpToken || result?.otpToken || result?.data?.data?.otpToken;
       navigate(`/verify-otp?token=${otpToken}`, { state: { email } });
     } catch (error) {
       console.error("Lỗi gửi OTP", error);

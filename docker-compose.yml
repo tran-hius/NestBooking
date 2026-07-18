@@ -15,11 +15,30 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d booking"]
       interval: 10s
-      timeout: 5s
-      retries: 5
       start_period: 10s
     networks:
       - booking_network
+
+  # Chạy Prisma Studio trong Docker (Môi trường ổn định, sửa lỗi Node 24)
+  prisma_studio:
+    image: node:20-alpine
+    container_name: booking_prisma_studio
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./api/prisma:/app/prisma
+    environment:
+      - DATABASE_URL=postgresql://postgres:123456@postgres_db:5432/booking?schema=public
+    ports:
+      - "5555:5555"
+    command: >
+      sh -c "apk add --no-cache socat && socat TCP-LISTEN:5555,fork,bind=0.0.0.0 TCP:127.0.0.1:5556 & npx -y prisma@7.8.0 studio --port 5556 --browser none --url postgresql://postgres:123456@postgres_db:5432/booking?schema=public"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    networks:
+      - booking_network
+
 
   # 2. Redis Cache để lưu OTP
   redis_cache:

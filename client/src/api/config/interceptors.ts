@@ -31,7 +31,8 @@ export const setupInterceptors = (axiosInstance: AxiosInstance) => {
             withCredentials: true 
           });
 
-          const newAccessToken = response.data.accessToken;
+          const newAccessToken = response.data?.data?.tokens?.accessToken;
+          if (!newAccessToken) throw new Error("No access token returned");
           useAppStore.getState().setToken(newAccessToken);
           originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 

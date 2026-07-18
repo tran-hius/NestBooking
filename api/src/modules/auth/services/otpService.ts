@@ -52,10 +52,13 @@ export class OtpService implements IOtpService {
 
     try {
       const storedData = JSON.parse(storedDataStr);
+      console.log("[OTP Debug] Stored:", storedData, "Provided:", { email, otp });
       if (storedData.email !== email || storedData.otp !== otp) {
+        console.log("[OTP Debug] Mismatch!");
         return false;
       }
     } catch (e) {
+      console.log("[OTP Debug] JSON parse error:", e);
       return false;
     }
 

@@ -20,6 +20,16 @@ export class AuthController {
     this.authService = authService;
   }
 
+  getMe = async (req: Request, res: Response): Promise<void> => {
+    logger.info("[AuthController] Get Me", { userId: req.user?.userId });
+    if (!req.user?.userId) {
+      throw new BadRequestError("Không tìm thấy thông tin xác thực.");
+    }
+
+    const user = await this.authService.getMe(req.user.userId);
+    successResponse(res, HttpStatus.OK, "Lấy thông tin thành công!", user);
+  };
+
   sendOtp = async (req: Request, res: Response): Promise<void> => {
     logger.info("[AuthController] Send OTP", { email: req.body.email });
     const result = await this.authService.sendOtp(req.body);
@@ -37,12 +47,18 @@ export class AuthController {
       deviceName: (req.headers["x-device-name"] as string) || "Unknown Device",
     };
 
+    console.log("[AuthController] received payload:", req.body);
+
     const result = await this.authService.verifyOtpAndLogin(
       req.body,
       deviceMetadata,
     );
 
     res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
+    res.cookie("accessToken", result.tokens.accessToken, {
+      ...COOKIE_OPTIONS,
+      maxAge: 15 * 60 * 1000, // 15 phut
+    });
 
     const { refreshToken, ...safeResult } = result.tokens;
 
@@ -69,6 +85,10 @@ export class AuthController {
     );
 
     res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
+    res.cookie("accessToken", result.tokens.accessToken, {
+      ...COOKIE_OPTIONS,
+      maxAge: 15 * 60 * 1000, // 15 phut
+    });
 
     const { refreshToken, ...safeResult } = result.tokens;
 
@@ -96,6 +116,10 @@ export class AuthController {
     const result = await this.authService.refreshTokens(dto, deviceMetadata);
 
     res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
+    res.cookie("accessToken", result.tokens.accessToken, {
+      ...COOKIE_OPTIONS,
+      maxAge: 15 * 60 * 1000, // 15 phut
+    });
 
     const { refreshToken, ...safeResult } = result.tokens;
 
@@ -115,6 +139,11 @@ export class AuthController {
     }
 
     res.clearCookie("refreshToken", {
+      httpOnly: COOKIE_OPTIONS.httpOnly,
+      secure: COOKIE_OPTIONS.secure,
+      sameSite: COOKIE_OPTIONS.sameSite,
+    });
+    res.clearCookie("accessToken", {
       httpOnly: COOKIE_OPTIONS.httpOnly,
       secure: COOKIE_OPTIONS.secure,
       sameSite: COOKIE_OPTIONS.sameSite,

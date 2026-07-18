@@ -15,8 +15,11 @@ export const useAppStore = create<AppState>()(
       }),
       {
         name: "app-storage",
-        // Chọn lọc những thứ cần lưu (Ví dụ chỉ lưu token và user, không lưu loading state)
-        partialize: (state) => ({ token: state.token, user: state.user }),
+        partialize: (state) => ({ 
+          token: state.token, 
+          user: state.user,
+          isAuthenticated: state.isAuthenticated 
+        }),
       },
     ),
   ),

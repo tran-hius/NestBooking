@@ -53,6 +53,23 @@ const authService = new AuthService(
 const authController = new AuthController(authService);
 
 // =====================================================
+// GET CURRENT USER
+// =====================================================
+router.get(
+  "/me",
+  /*
+    #swagger.path = '/api/auth/me'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Lấy thông tin người dùng hiện hành'
+    #swagger.security = [{
+      "bearerAuth": []
+    }]
+  */
+  authMiddleware,
+  asyncHandler(authController.getMe),
+);
+
+// =====================================================
 // SEND OTP
 // =====================================================
 router.post(

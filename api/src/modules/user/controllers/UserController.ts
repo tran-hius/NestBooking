@@ -3,6 +3,8 @@ import { IUserService } from "@/modules/user/interfaces/IUserService";
 import logger from "@/utils/logger";
 import { successResponse } from "@/utils/response";
 import { HttpStatus } from "@/constants/httpStatus";
+import { BadRequestError } from "@/utils/errors";
+import { uploadToCloudinary } from "@/utils/cloudinary.utils";
 
 export class UserController {
   private readonly userService: IUserService;
@@ -206,5 +208,26 @@ export class UserController {
       "Từ chối hồ sơ đối tác thành công.",
       user,
     );
+  };
+
+  uploadAvatar = async (req: Request, res: Response): Promise<void> => {
+    if (!req.file) {
+      throw new BadRequestError("Vui lòng chọn một file ảnh để tải lên.");
+    }
+
+    const userId = req.user!.userId;
+    const publicId = `avatar_${userId}_${Date.now()}`;
+
+    const imageUrl = await uploadToCloudinary(
+      req.file.buffer,
+      "booking-avatars",
+      publicId,
+    );
+
+    await this.userService.updateProfile(userId, { avatarUrl: imageUrl });
+   
+    successResponse(res, HttpStatus.OK, "Cập nhật ảnh đại diện thành công!", {
+      avatarUrl: imageUrl,
+    });
   };
 }

@@ -1,6 +1,8 @@
 import { AuthResponseDto, SendOtpDto, VerifyOtpDto, LoginWithPasswordDto, DeviceMetadata, RefreshTokenDto, ResetPasswordDto, ChangePasswordDto, OtpTokenResponse } from "@/modules/auth/dtos/authDto";
+import { UserResponseDto } from "@/modules/user/dtos/UserDTO";
 
 export interface IAuthService {
+  getMe(userId: string): Promise<UserResponseDto>;
   sendOtp(dto: SendOtpDto): Promise<OtpTokenResponse>;
   verifyOtpAndLogin(dto: VerifyOtpDto, device: DeviceMetadata): Promise<AuthResponseDto>;
   loginWithPassword(

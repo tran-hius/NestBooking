@@ -38,13 +38,18 @@ export const authMiddleware = (
   next: NextFunction,
 ) => {
   try {
-    const authHeader = req.headers.authorization;
+    let token = req.cookies?.accessToken;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      throw new UnauthorizedError("Bạn chưa đăng nhập hoặc thiếu Access Token");
+    if (!token) {
+      const authHeader = req.headers.authorization;
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+      }
     }
 
-    let token = authHeader.split(" ")[1];
+    if (!token) {
+      throw new UnauthorizedError("Bạn chưa đăng nhập hoặc thiếu Access Token");
+    }
 
     // Xóa dấu nháy kép thừa nếu người dùng vô tình copy dính vào từ Swagger
     if (token.startsWith('"') && token.endsWith('"')) {

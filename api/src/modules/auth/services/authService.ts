@@ -1,4 +1,4 @@
-import { IAuthService } from "@/modules/auth/interfaces/IAuthService";
+import { IAuthService, IOtpService, IRefreshTokenRepository, ITokenService } from "@/modules/auth/interfaces";
 import {
   SendOtpDto,
   VerifyOtpDto,
@@ -9,19 +9,15 @@ import {
   ResetPasswordDto,
   ChangePasswordDto,
   OtpTokenResponse,
-} from "../dtos/authDto";
-import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
-import { IRefreshTokenRepository } from "@/modules/auth/interfaces/IRefreshTokenRepository";
+} from "@/modules/auth/dtos";
 import { IUserService } from "@/modules/user/interfaces/IUserService";
-
 
 import {
   BadRequestError,
   ConflictError,
   NotFoundError,
-} from "../../../utils/errors/errorCustomize";
-import { Role, UserStatus } from "../../../../generated/prisma";
-import { ITokenService } from "@/modules/auth/interfaces/ITokenService";
+} from "@/utils/errors";
+import { Role, UserStatus } from "@/../generated/prisma";
 import { AuthMapper } from "@/modules/auth/mapper/authMapper";
 import logger from "@/utils/logger";
 
@@ -41,6 +37,14 @@ export class AuthService implements IAuthService {
     this.refreshTokenRepository = refreshTokenRepo;
     this.userService = userService;
     this.tokenService = tokenService;
+  }
+
+  async getMe(userId: string) {
+    const user = await this.userService.getUserById(userId);
+    if (!user) {
+      throw new NotFoundError("Tài khoản không tồn tại.");
+    }
+    return user;
   }
 
   async sendOtp(dto: SendOtpDto): Promise<OtpTokenResponse> {

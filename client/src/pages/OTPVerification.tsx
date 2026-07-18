@@ -36,17 +36,29 @@ export default function OTPVerification() {
     setLoading(true);
 
     try {
-      const response = await authService.verifyOtp({ email, otp, otpToken });
+      console.log("SENDING TO BACKEND", { email, otp, otpToken });
+      const response: any = await authService.verifyOtp({ email, otp, otpToken });
+      console.log("RESPONSE FROM BACKEND", response);
 
-      useAppStore.getState().setToken(response.data.tokens.accessToken);
+      const accessToken = response?.data?.tokens?.accessToken || response?.tokens?.accessToken || response?.data?.data?.tokens?.accessToken;
+      const user = response?.data?.user || response?.user || response?.data?.data?.user;
 
-      if (response.data.user) {
-        useAppStore.getState().setUser(response.data.user);
+      console.log("EXTRACTED TOKENS", accessToken, user);
+
+      if (!accessToken) {
+        throw new Error("Cannot find accessToken in response");
+      }
+
+      useAppStore.getState().setToken(accessToken);
+
+      if (user) {
+        useAppStore.getState().setUser(user);
       }
 
       toast.success("Đăng nhập thành công!");
       navigate("/");
     } catch (error) {
+      console.error("VERIFY ERROR:", error);
       toast.error("Mã OTP không hợp lệ hoặc đã hết hạn!");
     } finally {
       setLoading(false);
@@ -55,11 +67,12 @@ export default function OTPVerification() {
 
   const handleResend = async () => {
     try {
-      const result = await authService.sendOtp({ email });
-      if (result.data?.otpToken) {
-        setOtpToken(result.data.otpToken);
+      const result: any = await authService.sendOtp({ email });
+      const newToken = result?.data?.otpToken || result?.otpToken || result?.data?.data?.otpToken;
+      if (newToken) {
+        setOtpToken(newToken);
         // Cập nhật lại URL với token mới
-        navigate(`/verify-otp?token=${result.data.otpToken}`, { state: { email }, replace: true });
+        navigate(`/verify-otp?token=${newToken}`, { state: { email }, replace: true });
       }
       toast.success("Đã gửi lại mã OTP vào email của bạn.");
     } catch (error) {

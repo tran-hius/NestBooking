@@ -12,6 +12,7 @@ import {
   roleMiddleware,
   authMiddleware,
   requireOwnershipOrAdmin,
+  upload
 } from "@/middlewares";
 
 
@@ -257,5 +258,38 @@ router.patch(
   validate(RejectIdentityVerificationSchema),
   asyncHandler(userController.rejectIdentityVerification),
 );
+
+router.post(
+  "/:id/avatar",
+  /*
+    #swagger.path = '/api/users/{id}/avatar'
+    #swagger.tags = ['Users']
+    #swagger.summary = 'Tải lên ảnh đại diện (Avatar)'
+    #swagger.security = [{ "bearerAuth": [] }]
+    #swagger.consumes = ['multipart/form-data']
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "multipart/form-data": {
+          schema: {
+            type: "object",
+            properties: {
+              avatar: {
+                type: "string",
+                format: "binary",
+                description: "File ảnh (jpg, png, jpeg, webp) tối đa 5MB"
+              }
+            }
+          }
+        }
+      }
+    }
+  */
+  authMiddleware,
+  requireOwnershipOrAdmin,
+  upload.single("avatar"),
+  asyncHandler(userController.uploadAvatar),
+);
+
 
 export default router;
