@@ -22,8 +22,8 @@ export class AuthController {
 
   sendOtp = async (req: Request, res: Response): Promise<void> => {
     logger.info("[AuthController] Send OTP", { email: req.body.email });
-    await this.authService.sendOtp(req.body);
-    successResponse(res, HttpStatus.OK, "Mã OTP đã được gửi tới email của bạn");
+    const result = await this.authService.sendOtp(req.body);
+    successResponse(res, HttpStatus.OK, "Mã OTP đã được gửi tới email của bạn", result);
   };
 
   verifyOtpAndLogin = async (req: Request, res: Response): Promise<void> => {

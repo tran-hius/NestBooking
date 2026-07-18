@@ -7,6 +7,8 @@ import { rabbitMQ } from "@/infrastructure/rabbitmq";
 import { QUEUES } from "@/infrastructure/rabbitmq/queues";
 import { EmailOtpPayload } from "@/modules/auth/queue/EmailOtpPayload";
 import crypto from "crypto";
+import { randomUUID } from "crypto";
+import { OtpTokenResponse } from "../dtos/authDto";
 
 if (Number.isNaN(OTP_TTL)) {
   throw new Error("OTP_TTL không hợp lệ");
@@ -17,10 +19,15 @@ export class OtpService implements IOtpService {
     return crypto.randomInt(100000, 1000000).toString();
   }
 
-  async generateAndSendOtp(email: string): Promise<void> {
+  async generateAndSendOtp(email: string): Promise<OtpTokenResponse> {
     const otp = this.generateOtp();
+    const otpToken = randomUUID();
 
-    await redisClient.setex(REDIS_KEYS.OTP(email), OTP_TTL, otp);
+    await redisClient.setex(
+      REDIS_KEYS.OTP(otpToken),
+      OTP_TTL,
+      JSON.stringify({ email, otp }),
+    );
 
     const payload: EmailOtpPayload = {
       to: email,
@@ -28,20 +35,30 @@ export class OtpService implements IOtpService {
     };
 
     await rabbitMQ.sendToQueue(QUEUES.EMAIL_OTP, payload);
+
+    return {
+      otpToken,
+    };
   }
 
-  async verifyOtp(email: string, otp: string): Promise<boolean> {
-    const key = REDIS_KEYS.OTP(email);
+  async verifyOtp(email: string, otp: string, otpToken: string): Promise<boolean> {
+    const key = REDIS_KEYS.OTP(otpToken); // Lookup by otpToken
 
-    const storedOtp = await redisClient.get(key);
+    const storedDataStr = await redisClient.get(key);
 
-    if (!storedOtp) {
+    if (!storedDataStr) {
       return false;
     }
 
-    if (storedOtp !== otp) {
+    try {
+      const storedData = JSON.parse(storedDataStr);
+      if (storedData.email !== email || storedData.otp !== otp) {
+        return false;
+      }
+    } catch (e) {
       return false;
     }
+
     await redisClient.del(key);
 
     return true;

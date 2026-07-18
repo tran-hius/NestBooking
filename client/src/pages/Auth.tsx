@@ -1,6 +1,34 @@
+import { authService } from "@/api";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export default function Auth() {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!email) return;
+
+    setLoading(true);
+    try {
+      const result = await authService.sendOtp({ email });
+      console.log("result", result)
+      const otpToken = result.data?.otpToken;
+      navigate(`/verify-otp?token=${otpToken}`, { state: { email } });
+    } catch (error) {
+      console.error("Lỗi gửi OTP", error);
+      toast.error("Có lỗi xảy ra khi gửi OTP");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full max-w-lg mx-auto mt-16 mb-20 px-4">
       <h1 className="text-3xl font-black text-slate-900 mb-3">Đăng nhập hoặc tạo tài khoản</h1>
@@ -8,7 +36,7 @@ export default function Auth() {
         Bạn có thể đăng nhập bằng tài khoản NestBooking để truy cập các dịch vụ của chúng tôi.
       </p>
 
-      <form className="space-y-8">
+      <form className="space-y-8" onSubmit={handleSubmit}>
         <div className="space-y-3">
           <label htmlFor="email" className="text-base font-bold text-slate-900">
             Địa chỉ email
@@ -16,12 +44,15 @@ export default function Auth() {
           <input 
             id="email"
             type="email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Nhập địa chỉ email của bạn" 
             className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
           />
         </div>
 
-        <Button className="w-full h-14 bg-primary hover:bg-primary/90 text-white font-bold text-lg rounded-md shadow-md">
+        <Button disabled={loading} className="w-full h-14 bg-primary hover:bg-primary/90 text-white font-bold text-lg rounded-md shadow-md">
+          {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
           Tiếp tục với email
         </Button>
       </form>

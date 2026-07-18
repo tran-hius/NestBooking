@@ -8,6 +8,7 @@ import {
   AuthResponseDto,
   ResetPasswordDto,
   ChangePasswordDto,
+  OtpTokenResponse,
 } from "../dtos/authDto";
 import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
 import { IRefreshTokenRepository } from "@/modules/auth/interfaces/IRefreshTokenRepository";
@@ -42,7 +43,7 @@ export class AuthService implements IAuthService {
     this.tokenService = tokenService;
   }
 
-  async sendOtp(dto: SendOtpDto): Promise<void> {
+  async sendOtp(dto: SendOtpDto): Promise<OtpTokenResponse> {
     return await this.otpService.generateAndSendOtp(dto.email);
   }
 
@@ -50,7 +51,7 @@ export class AuthService implements IAuthService {
     dto: VerifyOtpDto,
     device: DeviceMetadata,
   ): Promise<AuthResponseDto> {
-    const isValid = await this.otpService.verifyOtp(dto.email, dto.otp);
+    const isValid = await this.otpService.verifyOtp(dto.email, dto.otp, dto.otpToken);
     if (!isValid) {
       throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
     }
@@ -73,7 +74,10 @@ export class AuthService implements IAuthService {
     }
 
     if (user.status === UserStatus.PENDING) {
-      user = await this.userService.changeUserStatus(user.id, UserStatus.ACTIVE);
+      user = await this.userService.changeUserStatus(
+        user.id,
+        UserStatus.ACTIVE,
+      );
     }
 
     await this.userService.handleLoginSuccess(user.id);
@@ -97,9 +101,7 @@ export class AuthService implements IAuthService {
     dto: LoginWithPasswordDto,
     device: DeviceMetadata,
   ): Promise<AuthResponseDto> {
-    const user = await this.userService.getUserWithPasswordByEmail(
-      dto.email,
-    );
+    const user = await this.userService.getUserWithPasswordByEmail(dto.email);
 
     logger.info(`[AuthService] Debug User from DB: ${JSON.stringify(user)}`);
 
@@ -201,7 +203,7 @@ export class AuthService implements IAuthService {
   }
 
   async resetPassword(dto: ResetPasswordDto): Promise<void> {
-    const isValid = await this.otpService.verifyOtp(dto.email, dto.otp);
+    const isValid = await this.otpService.verifyOtp(dto.email, dto.otp, dto.otpToken);
     if (!isValid) {
       throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
     }
@@ -217,7 +219,7 @@ export class AuthService implements IAuthService {
 
   async changePassword(userId: string, dto: ChangePasswordDto): Promise<void> {
     const user = await this.userService.getUserWithPasswordByEmail(
-      (await this.userService.getUserById(userId))?.email || ""
+      (await this.userService.getUserById(userId))?.email || "",
     );
 
     logger.info(`[AuthService] Debug User from DB: ${JSON.stringify(user)}`);

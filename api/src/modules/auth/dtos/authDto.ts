@@ -11,6 +11,7 @@ export const VerifyOtpSchema = z.object({
     body: z.object({
         email: z.string().trim().email("Email không hợp lệ"),
         otp: z.string().length(6, "Mã otp phải có 6 chữ số"),
+        otpToken: z.string().min(1, "OTP Token không được để trống"),
     })
 })
 
@@ -26,6 +27,7 @@ export const ResetPasswordSchema = z.object({
   body: z.object({
     email: z.string().trim().email("Email không đúng định dạng."),
     otp: z.string().length(6, "Mã OTP phải có 6 chữ số"),
+    otpToken: z.string().min(1, "OTP Token không được để trống"),
     newPassword: z.string().min(6, "Mật khẩu mới phải có ít nhất 6 ký tự."),
   }),
 });
@@ -74,4 +76,8 @@ export interface AuthTokensDto {
   accessToken: string;
   refreshToken: string;
   tokenHash: string;
+}
+
+export interface OtpTokenResponse {
+  otpToken: string;
 }

@@ -1,4 +1,7 @@
+import { OtpTokenResponse } from "../dtos/authDto";
+
+
 export interface IOtpService {
-  generateAndSendOtp(email: string): Promise<void>;
-  verifyOtp(email: string, otp: string): Promise<boolean>;
+  generateAndSendOtp(email: string): Promise<OtpTokenResponse>;
+  verifyOtp(email: string, otp: string, otpToken: string): Promise<boolean>;
 }

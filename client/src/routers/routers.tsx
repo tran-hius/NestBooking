@@ -5,6 +5,8 @@ import AuthLayout from '@/layouts/AuthLayout';
 import AdminLogin from '@/pages/admin/AdminLogin';
 import PartnerAuth from '@/pages/partner/PartnerAuth';
 import Search from '@/pages/Search';
+import OTPVerification from '@/pages/OTPVerification';
+import PersonalInfo from '@/pages/PersonalInfo';
 
 export const routers = [
   {
@@ -15,6 +17,16 @@ export const routers = [
   {
     path: '/search',
     component: <Search />,
+    layout: MainLayout,
+  },
+  {
+    path: '/verify-otp',
+    component: <OTPVerification />,
+    layout: null,
+  },
+  {
+    path: '/settings/personal-details',
+    component: <PersonalInfo />,
     layout: MainLayout,
   },
   {
