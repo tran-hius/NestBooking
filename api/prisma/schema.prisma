@@ -69,7 +69,7 @@ model User {
 
 model UserProfile {
   userId                  String    @id @map("user_id") @db.Uuid
-  fullName                String    @map("full_name") @db.VarChar(100)
+  fullName                String?   @map("full_name") @db.VarChar(100)
   phoneNumber             String?   @unique @map("phone_number") @db.VarChar(15)
   avatarUrl               String?   @map("avatar_url") @db.Text
   address                 String?   @db.Text

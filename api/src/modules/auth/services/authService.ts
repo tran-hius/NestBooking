@@ -62,10 +62,8 @@ export class AuthService implements IAuthService {
     let user = await this.userService.getUserByEmail(dto.email);
 
     if (!user) {
-      const defaultName = dto.email.split("@")[0];
       user = await this.userService.createUser({
         email: dto.email,
-        fullName: defaultName,
         role: Role.USER,
       });
     } else {

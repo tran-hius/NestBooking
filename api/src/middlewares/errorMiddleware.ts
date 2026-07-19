@@ -13,6 +13,8 @@ export const errorHandler = (
   let message = "Internal server error";
   let errors: any = null;
 
+  console.error("GLOBAL ERROR HANDLER CAUGHT:", error);
+
   if (error instanceof ApiError) {
     statusCode = error.statusCode;
     message = error.message;
@@ -33,8 +35,6 @@ export const errorHandler = (
     errors,
     path: req.originalUrl,
     timestamp: new Date().toISOString(),
-    ...(appEnv.NODE_ENV === "development" && {
-      stack: error.stack,
-    }),
+    stack: error.stack,
   });
 };

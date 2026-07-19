@@ -46,13 +46,12 @@ export default function PersonalInfo() {
     try {
       setIsSaving(true);
       const dataToUpdate = { [field]: formData[field as keyof typeof formData] };
-      await userService.updateProfile(user.id, dataToUpdate);
+      const result = await userService.updateProfile(user.id, dataToUpdate);
       toast.success("Cập nhật thành công!");
       
-      const result = await authService.getMe();
-      if (result.data) {
-        setUser(result.data);
-      }
+      const updatedUser = result.data || result; if (updatedUser) { 
+         setUser(updatedUser); 
+       }
       setEditingField(null);
     } catch (error) {
       toast.error("Cập nhật thất bại, vui lòng thử lại!");
@@ -89,16 +88,15 @@ export default function PersonalInfo() {
       const formData = new FormData();
       formData.append("avatar", file);
 
-      // Gọi API Upload
-      await userService.uploadAvatar(user.id, formData);
+      // Gọi API Upload và lấy user mới nhất trả về
+      const result = await userService.uploadAvatar(user.id, formData);
 
       toast.success("Cập nhật ảnh đại diện thành công!");
 
-      // Gọi lại API getMe() để lấy data mới nhất và cập nhật vào Store
-      const result = await authService.getMe();
-      if (result.data) {
-        setUser(result.data);
-      }
+      // Cập nhật Store luôn mà ko cần gọi lại getMe (tránh cache 304)
+      const updatedUser = result.data || result; if (updatedUser) { 
+         setUser(updatedUser); 
+       }
     } catch (error) {
       toast.error("Tải ảnh thất bại, vui lòng thử lại!");
     } finally {
@@ -413,3 +411,6 @@ export default function PersonalInfo() {
     </div>
   );
 }
+
+
+

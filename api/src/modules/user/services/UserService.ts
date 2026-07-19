@@ -106,15 +106,22 @@ export class UserService implements IUserService {
       }
     }
 
-    // Xử lý sau
     const updateData: Prisma.UserUpdateInput = {
       ...(dto.passwordHash && { passwordHash: dto.passwordHash }),
       profile: {
-        update: {
-          fullName: dto.fullName,
-          phoneNumber: dto.phoneNumber,
-          avatarUrl: dto.avatarUrl,
-          address: dto.address,
+        upsert: {
+          create: {
+            fullName: dto.fullName,
+            phoneNumber: dto.phoneNumber,
+            avatarUrl: dto.avatarUrl,
+            address: dto.address,
+          },
+          update: {
+            fullName: dto.fullName,
+            phoneNumber: dto.phoneNumber,
+            avatarUrl: dto.avatarUrl,
+            address: dto.address,
+          },
         },
       },
     };

@@ -51,11 +51,17 @@ export default function Header() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center gap-2 bg-black/20 px-2 py-1 h-auto rounded-full border border-white/20 backdrop-blur-md hover:bg-black/40 focus:ring-0">
-                    <div className="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center font-bold">
-                      {user?.email ? user.email.charAt(0).toUpperCase() : <User className="w-4 h-4" />}
+                    <div className="w-8 h-8 rounded-full bg-white text-primary flex items-center justify-center font-bold overflow-hidden">
+                      {user?.profile?.avatarUrl ? (
+                        <img src={user.profile.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
+                      ) : user?.email ? (
+                        user.email.charAt(0).toUpperCase()
+                      ) : (
+                        <User className="w-4 h-4" />
+                      )}
                     </div>
                     <span className="text-white font-bold text-sm max-w-[120px] truncate mr-2">
-                      {user?.email?.split('@')[0] || "User"}
+                      {user?.profile?.fullName || user?.email?.split('@')[0] || "User"}
                     </span>
                   </Button>
                 </DropdownMenuTrigger>

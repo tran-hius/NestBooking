@@ -224,10 +224,8 @@ export class UserController {
       publicId,
     );
 
-    await this.userService.updateProfile(userId, { avatarUrl: imageUrl });
+    const updatedUser = await this.userService.updateProfile(userId, { avatarUrl: imageUrl });
    
-    successResponse(res, HttpStatus.OK, "Cập nhật ảnh đại diện thành công!", {
-      avatarUrl: imageUrl,
-    });
+    successResponse(res, HttpStatus.OK, "Cập nhật ảnh đại diện thành công!", updatedUser);
   };
 }

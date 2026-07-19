@@ -1,8 +1,25 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { routers } from "./routers/routers";
 import { Toaster } from "@/components/ui/sonner";
+import { useEffect } from "react";
+import { useAppStore } from "@/stores/useAppStore";
+import { authService } from "@/api/services/authService";
 
 function App() {
+  const { isAuthenticated, setUser, clearAuth } = useAppStore();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      authService.getMe().then((res) => {
+        if (res.data) {
+          setUser(res.data);
+        }
+      }).catch(() => {
+        clearAuth();
+      });
+    }
+  }, [isAuthenticated, setUser, clearAuth]);
+
   return (
     <>
       <Router>

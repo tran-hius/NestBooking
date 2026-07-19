@@ -10,7 +10,7 @@ export const UserIdParamSchema = z.object({
 export const CreateUserSchema = z.object({
   body: z.object({
     email: z.string().email("Email không đúng định dạng."),
-    fullName: z.string().trim().min(1, "Họ tên không được để trống.").max(100),
+    fullName: z.string().trim().min(1, "Họ tên không được để trống.").max(100).optional(),
     role: z.nativeEnum(Role, { message: "Vai trò không hợp lệ." }),
   }),
 });
