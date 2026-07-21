@@ -1,5 +1,5 @@
 import Redis from "ioredis";
-import logger from "@/utils/logger";
+import logger from "@/config/logger";
 import { env } from "@/config/env";
 
 const REDIS_HOST = env.REDIS_HOST;

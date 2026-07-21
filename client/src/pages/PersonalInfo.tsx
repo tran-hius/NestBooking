@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 import { userService } from "@/api/services/userService";
-import { authService } from "@/api/services/authService";
+
 import { toast } from "sonner";
 
 export default function PersonalInfo() {

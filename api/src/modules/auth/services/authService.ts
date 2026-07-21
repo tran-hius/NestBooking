@@ -19,7 +19,7 @@ import {
 } from "@/utils/errors";
 import { Role, UserStatus } from "@/../generated/prisma";
 import { AuthMapper } from "@/modules/auth/mapper/authMapper";
-import logger from "@/utils/logger";
+import logger from "@/config/logger";
 
 export class AuthService implements IAuthService {
   private readonly otpService: IOtpService;
@@ -104,8 +104,6 @@ export class AuthService implements IAuthService {
     device: DeviceMetadata,
   ): Promise<AuthResponseDto> {
     const user = await this.userService.getUserWithPasswordByEmail(dto.email);
-
-    logger.info(`[AuthService] Debug User from DB: ${JSON.stringify(user)}`);
 
     if (!user) {
       throw new NotFoundError("Tài khoản hoặc mật khẩu không chính xác.");

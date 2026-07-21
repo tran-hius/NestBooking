@@ -1,5 +1,5 @@
 import { BadRequestError } from "@/utils/errors/errorCustomize";
-import logger from "@/utils/logger";
+import logger from "@/config/logger";
 import { IEmailService } from "@/modules/auth/interfaces/IEmailService";
 import nodemailer from "nodemailer";
 import { getOtpEmailTemplate } from "@/modules/auth/templates/otpTemplate";

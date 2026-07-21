@@ -139,6 +139,7 @@ router.post(
       }
     }
   */
+  authLimiter,
   validate(LoginWithPasswordSchema),
   asyncHandler(authController.loginWithPassword),
 );

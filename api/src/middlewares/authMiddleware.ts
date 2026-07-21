@@ -1,9 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { UnauthorizedError } from "@/utils/errors/errorCustomize";
+import { NotFoundError, UnauthorizedError } from "@/utils/errors/errorCustomize";
 import jwt from "jsonwebtoken";
 import { Role } from "../../generated/prisma";
 
-const JWT_SECRET = process.env.JWT_SECRET || "bi_mat_nhe";
+const JWT_SECRET = process.env.JWT_SECRET
+
+if(!JWT_SECRET){
+  throw new NotFoundError("Invalid jwt secret")
+}
+
 
 declare module "express-serve-static-core" {
   interface Request {

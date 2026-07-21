@@ -11,7 +11,7 @@ import {
   ForbiddenError,
   NotFoundError,
 } from "@/utils/errors/errorCustomize";
-import logger from "@/utils/logger";
+import logger from "@/config/logger";
 import { PaginatedResponse } from "../dtos/PaginationDto";
 
 export class HotelService implements IHotelService {

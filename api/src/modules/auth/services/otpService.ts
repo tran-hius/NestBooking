@@ -3,7 +3,7 @@ import { env } from "@/config/env";
 const OTP_TTL = Number(env.OTP_TTL);
 
 import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
-import { rabbitMQ } from "@/infrastructure/rabbitmq";
+import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "@/infrastructure/rabbitmq";
 import { QUEUES } from "@/infrastructure/rabbitmq/queues";
 import { EmailOtpPayload } from "@/modules/auth/queue/EmailOtpPayload";
 import crypto from "crypto";
@@ -34,7 +34,11 @@ export class OtpService implements IOtpService {
       otpCode: otp,
     };
 
-    await rabbitMQ.sendToQueue(QUEUES.EMAIL_OTP, payload);
+    await rabbitmq.publishToExchange(
+      EXCHANGES.NOTIFICATION_DIRECT,
+      ROUTING_KEYS.OTP_SEND,
+      payload
+    )
 
     return {
       otpToken,
@@ -42,7 +46,7 @@ export class OtpService implements IOtpService {
   }
 
   async verifyOtp(email: string, otp: string, otpToken: string): Promise<boolean> {
-    const key = REDIS_KEYS.OTP(otpToken); // Lookup by otpToken
+    const key = REDIS_KEYS.OTP(otpToken); 
 
     const storedDataStr = await redisClient.get(key);
 
@@ -52,13 +56,11 @@ export class OtpService implements IOtpService {
 
     try {
       const storedData = JSON.parse(storedDataStr);
-      console.log("[OTP Debug] Stored:", storedData, "Provided:", { email, otp });
       if (storedData.email !== email || storedData.otp !== otp) {
         console.log("[OTP Debug] Mismatch!");
         return false;
       }
     } catch (e) {
-      console.log("[OTP Debug] JSON parse error:", e);
       return false;
     }
 

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { IHotelService } from "../interfaces/IHotelService";
 import { successResponse } from "@/utils/response";
 import { HttpStatus } from "@/constants/httpStatus";
-import logger from "@/utils/logger";
+import logger from "@/config/logger";
 
 export class HotelController {
   private readonly hotelService: IHotelService;

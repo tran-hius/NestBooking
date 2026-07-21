@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IAuthService } from "@/modules/auth/interfaces/IAuthService";
-import logger from "@/utils/logger";
+import logger from "@/config/logger";
 import { successResponse } from "@/utils/response";
 import { HttpStatus } from "@/constants/httpStatus";
 import { BadRequestError } from "@/utils/errors/errorCustomize";

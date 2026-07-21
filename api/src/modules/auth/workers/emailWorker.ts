@@ -1,8 +1,10 @@
 import { EmailService } from "@/modules/auth/services/emailService";
 import { Transporter } from "@/config/transporter";
-import logger from "@/utils/logger";
-import { rabbitMQ } from "@/infrastructure/rabbitmq";
+import logger from "@/config/logger";
+import { rabbitmq } from "@/infrastructure/rabbitmq/rabbitMQ"; // <-- Dùng instance mới
 import { QUEUES } from "@/infrastructure/rabbitmq/queues";
+import { EXCHANGES } from "@/infrastructure/rabbitmq/exchanges";
+import { ROUTING_KEYS } from "@/infrastructure/rabbitmq/routing.key";
 import { EmailOtpPayload } from "@/modules/auth/queue/EmailOtpPayload";
 
 const transporter = Transporter.transporter;
@@ -13,14 +15,14 @@ const MAX_RETRY = 3;
 export const startEmailWorker = async (): Promise<void> => {
   logger.info(`Email Worker đang lắng nghe Queue: ${QUEUES.EMAIL_OTP}`);
 
-  await rabbitMQ.consumeQueue(QUEUES.EMAIL_OTP, async (msg) => {
-    if (!msg){
+  // THAY ĐỔI: Thêm tham số channel vào callback để tương tác với RabbitMQ
+  await rabbitmq.consumeQueue(QUEUES.EMAIL_OTP, async (msg, channel) => {
+    if (!msg) {
       logger.warn("Nhận được message rỗng.");
       return;
-    } 
+    }
 
     const retries = Number(msg.properties.headers?.["x-retries"] ?? 0);
-
     let payload: EmailOtpPayload;
 
     try {
@@ -31,9 +33,9 @@ export const startEmailWorker = async (): Promise<void> => {
       }
     } catch (error) {
       logger.error("Payload RabbitMQ không hợp lệ.", error);
-      
-      rabbitMQ.nack(msg, false);
 
+      // THAY ĐỔI: Nack với requeue = false -> Tự động rớt vào Dead Letter Queue
+      channel.nack(msg, false, false);
       return;
     }
 
@@ -44,7 +46,8 @@ export const startEmailWorker = async (): Promise<void> => {
 
       await emailService.sendOtpEmail(payload.to, payload.otpCode);
 
-      rabbitMQ.ack(msg);
+      // Báo thành công
+      channel.ack(msg);
 
       logger.info(`Đã gửi OTP thành công tới ${payload.to}`);
     } catch (error) {
@@ -52,23 +55,28 @@ export const startEmailWorker = async (): Promise<void> => {
 
       if (retries >= MAX_RETRY) {
         logger.error(
-          `OTP tới ${payload.to} đã retry ${MAX_RETRY} lần. Message bị loại bỏ.`,
+          `OTP tới ${payload.to} đã retry ${MAX_RETRY} lần. Đẩy message vào DLQ.`,
         );
 
-        rabbitMQ.nack(msg, false);
-
+        // Hết lượt thử -> Chuyển vào DLQ
+        channel.nack(msg, false, false);
         return;
       }
 
       logger.warn(`Retry lần ${retries + 1}/${MAX_RETRY} cho ${payload.to}`);
 
-      await rabbitMQ.sendToQueue(QUEUES.EMAIL_OTP, payload, {
-        headers: {
-          "x-retries": retries + 1,
+      const content = Buffer.from(JSON.stringify(payload));
+      channel.publish(
+        EXCHANGES.NOTIFICATION_DIRECT,
+        ROUTING_KEYS.OTP_SEND,
+        content,
+        {
+          headers: { "x-retries": retries + 1 },
+          persistent: true,
         },
-      });
+      );
 
-      rabbitMQ.ack(msg);
+      channel.ack(msg);
     }
   });
 };

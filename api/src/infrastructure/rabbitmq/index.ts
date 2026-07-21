@@ -1,3 +1,4 @@
-import RabbitMQConnection from "@/infrastructure/rabbitmq/RabbitMQConnection";
-
-export const rabbitMQ = new RabbitMQConnection();
+export * from "./queues";
+export * from "./exchanges";
+export * from "./routing.key";
+export * from "./rabbitMQ";

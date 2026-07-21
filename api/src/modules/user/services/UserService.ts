@@ -1,5 +1,5 @@
 import { UserStatus, Prisma, Role, User } from "../../../../generated/prisma";
-import logger from "@/utils/logger";
+import logger from "@/config/logger";
 import { IUserRepository } from "@/modules/user/interfaces/IUserRepository";
 import { IUserService } from "@/modules/user/interfaces/IUserService";
 import {

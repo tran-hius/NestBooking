@@ -1,45 +1,43 @@
-import { env } from "@/config/env.js";
-import { rabbitMQ } from "@/infrastructure/rabbitmq/index.js";
-import { startEmailWorker } from "@/modules/auth/workers/emailWorker";
-import app from "@/app.js";
-import logger from "@/utils/logger.js";
+import { env } from "@/config/env";
+import app from "@/app";
+import { rabbitmq } from "@/infrastructure/rabbitmq/rabbitMQ";
+import logger from "@/config/logger";
+import { setupRabbitMQBindings } from "@/infrastructure/rabbitmq/setup";
 
-const PORT = env.PORT;
-const NODE_ENV = env.NODE_ENV;
-
-const startServer = async () => {
+const bootstrap = async () => {
   try {
-    await rabbitMQ.connect();
+    await rabbitmq.connect();
+    await setupRabbitMQBindings();
 
-    await startEmailWorker();
-
-    const server = app.listen(PORT, () => {
-      logger.info(`Server is running on port ${PORT} env ${NODE_ENV}`);
+    const server = app.listen(env.PORT || 3000, () => {
+      logger.info(
+        `Booking API Service đang chạy tại port ${env.PORT || 3000} (Môi trường: ${env.NODE_ENV})`,
+      );
     });
 
-    process.on("SIGINT", async () => {
-      logger.info("Đang tắt Server...");
+    const shutdown = async (signal: string) => {
+      logger.info(`Nhận tín hiệu ${signal}. Đang đóng API Server...`);
 
-      try {
-        server.close(async () => {
-          logger.info("HTTP Server đã đóng.");
+      server.close(async () => {
+        logger.info("Express HTTP server đã đóng.");
 
-          await rabbitMQ.close();
+        await rabbitmq.close();
 
-          logger.info("RabbitMQ đã đóng.");
+        process.exit(0);
+      });
 
-          process.exit(0);
-        });
-      } catch (error) {
-        logger.error("Lỗi khi shutdown:", error);
+      setTimeout(() => {
+        logger.error("Forcing shutdown do hết timeout (10s)...");
         process.exit(1);
-      }
-    });
+      }, 10000).unref();
+    };
+
+    process.on("SIGTERM", () => shutdown("SIGTERM"));
+    process.on("SIGINT", () => shutdown("SIGINT"));
   } catch (error) {
-    logger.error("Lỗi khởi động Server:", error);
+    logger.error("Không thể khởi động Booking API:", { error });
     process.exit(1);
   }
 };
 
-void startServer();
-
+bootstrap();

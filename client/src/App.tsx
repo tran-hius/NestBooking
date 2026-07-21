@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useEffect } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 import { authService } from "@/api/services/authService";
-
+import { ThemeProvider } from "@/components/theme-provider";
 function App() {
   const { isAuthenticated, setUser, clearAuth } = useAppStore();
 
@@ -21,7 +21,7 @@ function App() {
   }, [isAuthenticated, setUser, clearAuth]);
 
   return (
-    <>
+    <ThemeProvider defaultTheme="system" storageKey="nest-booking-theme">
       <Router>
         <Routes>
           {routers.map((route) => {
@@ -39,7 +39,7 @@ function App() {
         </Routes>
       </Router>
       <Toaster position="top-center" richColors />
-    </>
+    </ThemeProvider>
   );
 }
 
