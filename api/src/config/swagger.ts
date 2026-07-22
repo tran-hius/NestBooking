@@ -17,27 +17,18 @@ const services = [
       },
       schemas: {
         CreateUserDto: {
-          type: "object",
-          properties: {
-            email: { type: "string", example: "user@example.com" },
-            fullName: { type: "string", example: "Nguyen Van A" },
-            role: { type: "string", example: "USER" },
-          },
+          $email: "user@example.com",
+          $fullName: "Nguyen Van A",
+          $role: "USER"
         },
         UpdateUserProfileDto: {
-          type: "object",
-          properties: {
-            fullName: { type: "string", example: "Nguyen Van B" },
-            phoneNumber: { type: "string", example: "0123456789" },
-            avatarUrl: { type: "string", example: "https://example.com/avt.jpg" },
-            address: { type: "string", example: "Ha Noi" },
-          },
+          fullName: "Nguyen Van B",
+          phoneNumber: "0123456789",
+          avatarUrl: "https://example.com/avt.jpg",
+          address: "Ha Noi"
         },
         ChangeUserStatusDto: {
-          type: "object",
-          properties: {
-            status: { type: "string", example: "ACTIVE" },
-          },
+          $status: "ACTIVE"
         },
         SubmitIdentityVerificationDto: {
           $documentType: "CCCD",
@@ -67,60 +58,24 @@ const services = [
       },
       schemas: {
         SendOtpDto: {
-          type: "object",
-          properties: {
-            email: {
-              type: "string",
-              format: "email",
-              example: "user@example.com",
-            },
-          },
-          required: ["email"],
+          $email: "user@example.com"
         },
         VerifyOtpDto: {
-          type: "object",
-          properties: {
-            email: {
-              type: "string",
-              format: "email",
-              example: "user@example.com",
-            },
-            otp: { type: "string", example: "123456" },
-          },
-          required: ["email", "otp"],
+          $otpToken: "uuid-1234",
+          $otp: "123456"
         },
         LoginWithPasswordDto: {
-          type: "object",
-          properties: {
-            email: {
-              type: "string",
-              format: "email",
-              example: "user@example.com",
-            },
-            password: { type: "string", example: "123456" },
-          },
-          required: ["email", "password"],
+          $email: "user@example.com",
+          $password: "123456"
         },
         ResetPasswordDto: {
-          type: "object",
-          properties: {
-            email: {
-              type: "string",
-              format: "email",
-              example: "user@example.com",
-            },
-            otp: { type: "string", example: "123456" },
-            newPassword: { type: "string", example: "new_password_123" },
-          },
-          required: ["email", "otp", "newPassword"],
+          $otpToken: "uuid-1234",
+          $otp: "123456",
+          $newPassword: "new_password_123"
         },
         ChangePasswordDto: {
-          type: "object",
-          properties: {
-            oldPassword: { type: "string", example: "old_password_123" },
-            newPassword: { type: "string", example: "new_password_123" },
-          },
-          required: ["newPassword"],
+          $oldPassword: "old_password_123",
+          $newPassword: "new_password_123"
         },
       },
     },
@@ -130,7 +85,11 @@ const services = [
     description: "Tài liệu API của riêng Module Khách sạn",
     basePath: "/api/hotels",
     outputFile: "./src/modules/hotel/docs/swagger-hotel.json",
-    routerFiles: ["./src/modules/hotel/routes/HotelRouter.ts"],
+    routerFiles: [
+      "./src/modules/hotel/routes/HotelRouter.ts",
+      "./src/modules/hotel/routes/RoomTypeRouter.ts",
+      "./src/modules/hotel/routes/RoomRouter.ts"
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -141,35 +100,59 @@ const services = [
       },
       schemas: {
         CreateHotelDto: {
-          type: "object",
-          properties: {
-            name: { type: "string", example: "Khách sạn Mường Thanh" },
-            description: { type: "string", example: "Khách sạn 5 sao..." },
-            address: { type: "string", example: "123 Đường Trần Phú" },
-            city: { type: "string", example: "Nha Trang" },
-            country: { type: "string", example: "Vietnam" },
-            latitude: { type: "number", example: 12.238791 },
-            longitude: { type: "number", example: 109.196749 },
-            phone: { type: "string", example: "0123456789" },
-            email: { type: "string", example: "contact@muongthanh.com" },
-            thumbnail: { type: "string", example: "https://example.com/image.jpg" },
-            amenities: { type: "array", items: { type: "string" }, example: ["WIFI", "SWIMMING_POOL", "SPA", "GYM", "BAR"] },
-            checkInTime: { type: "string", example: "14:00" },
-            checkOutTime: { type: "string", example: "12:00" },
-          },
-          required: ["name", "address", "city"],
+          $name: "Khách sạn Mường Thanh",
+          description: "Khách sạn 5 sao...",
+          $address: "123 Đường Trần Phú",
+          $city: "Nha Trang",
+          country: "Vietnam",
+          latitude: 12.238791,
+          longitude: 109.196749,
+          phone: "0123456789",
+          email: "contact@muongthanh.com",
+          thumbnail: "https://example.com/image.jpg",
+          amenities: ["WIFI", "SWIMMING_POOL", "SPA", "GYM", "BAR"],
+          checkInTime: "14:00",
+          checkOutTime: "12:00",
         },
         UpdateHotelDto: {
-          type: "object",
-          properties: {
-            name: { type: "string" },
-            description: { type: "string" },
-            address: { type: "string" },
-            city: { type: "string" },
-            country: { type: "string" },
-            amenities: { type: "array", items: { type: "string" } },
-            status: { type: "string", enum: ["PENDING", "ACTIVE", "INACTIVE", "REJECTED"] },
-          },
+          name: "Khách sạn Mường Thanh",
+          description: "Khách sạn 5 sao...",
+          address: "123 Đường Trần Phú",
+          city: "Nha Trang",
+          country: "Vietnam",
+          amenities: ["WIFI", "SWIMMING_POOL"],
+          status: "ACTIVE",
+        },
+        CreateRoomTypeDto: {
+          $name: "Phòng Standard",
+          $price: 500000,
+          $maxGuests: 2,
+          $maxAdults: 2,
+          $maxChildren: 1,
+          $bedType: "SINGLE",
+          $bedCount: 1,
+          area: 25,
+          isActive: true,
+          amenities: ["WIFI", "AC"],
+        },
+        UpdateRoomTypeDto: {
+          name: "Phòng Standard",
+          price: 500000,
+          isActive: true,
+          amenities: ["WIFI", "AC"],
+        },
+        AddRoomTypeImagesDto: {
+          $imageUrls: ["https://example.com/img1.jpg", "https://example.com/img2.jpg"]
+        },
+        CreateRoomDto: {
+          $roomTypeId: "uuid-1234",
+          $roomNumber: "101",
+          floor: 1,
+        },
+        UpdateRoomDto: {
+          roomNumber: "101",
+          floor: 1,
+          status: "AVAILABLE",
         },
       },
     },

@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { Hotel, HotelStatus } from "../../../../generated/prisma"; 
+import { Hotel, HotelStatus, PropertyType } from "../../../../generated/prisma";
 
 export const CreateHotelSchema = z.object({
   body: z.object({
@@ -16,6 +16,9 @@ export const CreateHotelSchema = z.object({
     amenities: z.array(z.string()).optional(),
     checkInTime: z.string().optional(),
     checkOutTime: z.string().optional(),
+    propertyType: z
+      .nativeEnum(PropertyType, { message: "Loại hình không hợp lệ." })
+      .default(PropertyType.HOTEL),
   }),
 });
 
@@ -39,11 +42,19 @@ export const UpdateHotelSchema = z.object({
         message: "Trạng thái không hợp lệ.",
       })
       .optional(),
+    propertyType: z.nativeEnum(PropertyType).optional(),
+  }),
+});
+
+export const AddHotelImagesSchema = z.object({
+  body: z.object({
+    imageUrls: z.array(z.string().url("Link ảnh không hợp lệ")).min(1, "Phải có ít nhất 1 ảnh"),
   }),
 });
 
 export type CreateHotelDto = z.infer<typeof CreateHotelSchema>["body"];
 export type UpdateHotelDto = z.infer<typeof UpdateHotelSchema>["body"];
+export type AddHotelImagesDto = z.infer<typeof AddHotelImagesSchema>["body"];
 
 export interface HotelResponseDto {
   id: string;
@@ -54,7 +65,7 @@ export interface HotelResponseDto {
   address: string;
   city: string;
   country: string;
-  latitude: any | null; 
+  latitude: any | null;
   longitude: any | null;
   phone: string | null;
   email: string | null;
@@ -64,8 +75,9 @@ export interface HotelResponseDto {
   checkInTime: string | null;
   checkOutTime: string | null;
   status: HotelStatus;
+  propertyType: PropertyType;
+  images?: { id: string; imageUrl: string }[];
+  roomTypes?: any[];
   createdAt: Date;
   updatedAt: Date;
 }
-
-

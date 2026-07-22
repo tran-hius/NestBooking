@@ -1,3 +1,4 @@
+import { TxClient } from "@/config/prisma";
 import {
   Prisma,
   PrismaClient,
@@ -12,8 +13,11 @@ export class RefreshTokenRepository implements IRefreshTokenRepository {
     this.prisma = prisma;
   }
 
-  create(data: Prisma.RefreshTokenUncheckedCreateInput): Promise<RefreshToken> {
-    return this.prisma.refreshToken.create({ data });
+  create(data: Prisma.RefreshTokenUncheckedCreateInput, tx?: TxClient): Promise<RefreshToken> {
+    const client  = tx || this.prisma;
+    return client.refreshToken.create({
+      data,
+    })
   }
 
   findById(id: string): Promise<RefreshToken | null> {
@@ -38,8 +42,9 @@ export class RefreshTokenRepository implements IRefreshTokenRepository {
     });
   }
 
-  revoke(id: string, reason: string): Promise<RefreshToken> {
-    return this.prisma.refreshToken.update({
+  revoke(id: string, reason: string, tx?: TxClient): Promise<RefreshToken> {
+    const client = tx || this.prisma;
+    return client.refreshToken.update({
       where: { id },
       data: {
         revokedAt: new Date(),

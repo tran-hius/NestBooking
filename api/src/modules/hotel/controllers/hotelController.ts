@@ -1,8 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { IHotelService } from "../interfaces/IHotelService";
 import { successResponse } from "@/utils/response";
 import { HttpStatus } from "@/constants/httpStatus";
 import logger from "@/config/logger";
+import { AddHotelImagesDto } from "../dtos/HotelDTO";
+import { uploadToCloudinary } from "@/utils/cloudinary.utils";
+import { UnauthorizedError, BadRequestError } from "@/utils/errors/errorCustomize";
 
 export class HotelController {
   private readonly hotelService: IHotelService;
@@ -129,5 +132,48 @@ export class HotelController {
       "Lấy danh sách khách sạn thành công.",
       result,
     );
+  };
+
+  addImages = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      logger.info("[HotelController] Add images", { hotelId: req.params.id });
+      const ownerId = req.user?.userId;
+      const hotelId = req.params.id;
+
+      if (!ownerId) throw new UnauthorizedError("Unauthorized");
+      if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
+        throw new BadRequestError("Vui lòng tải lên ít nhất một ảnh.");
+      }
+
+      const uploadPromises = (req.files as Express.Multer.File[]).map((file) =>
+        uploadToCloudinary(file.buffer, `hotels/${hotelId}`)
+      );
+      const imageUrls = await Promise.all(uploadPromises);
+
+      const data: AddHotelImagesDto = { imageUrls };
+      await this.hotelService.addHotelImages(ownerId, hotelId, data);
+
+      successResponse(res, HttpStatus.OK, "Thêm ảnh khách sạn thành công.", imageUrls);
+    } catch (error) {
+      logger.error(`[HotelController] addImages Error: ${error}`);
+      next(error);
+    }
+  };
+
+  deleteImage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      logger.info("[HotelController] Delete image", { imageId: req.params.imageId });
+      const ownerId = req.user?.userId;
+      const imageId = req.params.imageId;
+
+      if (!ownerId) throw new UnauthorizedError("Unauthorized");
+
+      await this.hotelService.deleteHotelImage(ownerId, imageId);
+
+      successResponse(res, HttpStatus.OK, "Xóa ảnh khách sạn thành công.");
+    } catch (error) {
+      logger.error(`[HotelController] deleteImage Error: ${error}`);
+      next(error);
+    }
   };
 }

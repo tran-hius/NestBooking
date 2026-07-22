@@ -25,6 +25,11 @@ export const REDIS_TTL = {
   HOTEL: 30 * 60,
 
   /**
+   * Cache RoomType
+   */
+  ROOM_TYPE: 30 * 60,
+
+  /**
    * Cache Room
    */
   ROOM: 30 * 60,

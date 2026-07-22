@@ -9,8 +9,14 @@ import {
   SubmitIdentityVerificationDto,
 } from "../dtos/UserDTO";
 import { UserMapper } from "@/modules/user/mapper/UserMapper";
-import { NotFoundError, BadRequestError, ConflictError } from "@/utils/errors/errorCustomize";
+import {
+  NotFoundError,
+  BadRequestError,
+  ConflictError,
+} from "@/utils/errors/errorCustomize";
 import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
+import { TxClient, prisma } from "@/config/prisma";
+import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
 
 export class UserService implements IUserService {
   private readonly userRepository: IUserRepository;
@@ -21,30 +27,62 @@ export class UserService implements IUserService {
     this.otpService = otpService;
   }
 
-  async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
-    const userExists = await this.userRepository.findByEmailOrPhone(dto.email);
-
-    if (userExists) {
-      logger.warn(`Tạo tài khoản thất bại: Email ${dto.email} đã tồn tại`);
-      throw new ConflictError(
-        `Email ${dto.email} đã được đăng ký trên hệ thống!`,
-      );
+  /**
+   * Helper xóa đồng thời cả Profile Cache và Email Cache
+   */
+  private async clearUserCache(userId: string, email?: string): Promise<void> {
+    const keysToDelete = [REDIS_KEYS.USER_PROFILE(userId)];
+    if (email) {
+      keysToDelete.push(REDIS_KEYS.USER_BY_EMAIL(email.toLowerCase().trim()));
     }
+    await redisClient.del(keysToDelete);
+  }
 
-    const data = {
-      email: dto.email,
-      role: dto.role,
-      status: UserStatus.PENDING,
-      profile: {
-        create: {
-          fullName: dto.fullName,
+  async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
+    const normalizedEmail = dto.email.toLowerCase().trim();
+
+    const createdUser = await prisma.$transaction(async (tx: TxClient) => {
+      const userExists = await this.userRepository.findByEmailOrPhone(
+        normalizedEmail,
+        undefined,
+        tx,
+      );
+
+      if (userExists) {
+        logger.warn(
+          `Tạo tài khoản thất bại: Email ${normalizedEmail} đã tồn tại`,
+        );
+        throw new ConflictError(
+          `Email ${normalizedEmail} đã được đăng ký trên hệ thống!`,
+        );
+      }
+
+      const data = {
+        email: normalizedEmail,
+        role: dto.role,
+        status: UserStatus.PENDING,
+        profile: {
+          create: {
+            fullName: dto.fullName,
+          },
         },
-      },
-    };
+      };
 
-    const createdUser = await this.userRepository.create(data);
+      try {
+        return await this.userRepository.create(data, tx);
+      } catch (error) {
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === "P2002"
+        ) {
+          throw new ConflictError(
+            `Email ${normalizedEmail} đã được đăng ký trên hệ thống!`,
+          );
+        }
+        throw error;
+      }
+    });
 
-    // Gửi OTP qua email cho user mới tạo
     await this.otpService.generateAndSendOtp(createdUser.email);
 
     logger.info("User created successfully and OTP sent", {
@@ -63,23 +101,56 @@ export class UserService implements IUserService {
 
   async getUserById(id: string): Promise<UserResponseDto | null> {
     logger.debug(`Fetching user details for ID: ${id}`);
+    const cacheKey = REDIS_KEYS.USER_PROFILE(id);
+
+    const cachedUser = await redisClient.get(cacheKey);
+    if (cachedUser) {
+      logger.debug(`[Cache Hit] Lấy thông tin user ID: ${id} từ Redis`);
+      return JSON.parse(cachedUser);
+    }
+
+    logger.debug(`[Cache Miss] Tìm user ID: ${id} trong Database`);
     const user = await this.userRepository.findById(id);
     if (!user) {
       logger.warn(`User with ID ${id} not found`);
       return null;
     }
-    return UserMapper.toResponseDto(user);
+
+    const responseDto = UserMapper.toResponseDto(user);
+    await redisClient.setex(cacheKey, 3600, JSON.stringify(responseDto));
+    return responseDto;
   }
 
   async getUserByEmail(email: string): Promise<UserResponseDto | null> {
-    logger.debug(`Fetching user details for Email: ${email}`);
-    const user = await this.userRepository.findByEmailOrPhone(email);
-    if (!user) return null;
-    return UserMapper.toResponseDto(user);
+    const normalizedEmail = email.toLowerCase().trim();
+    logger.debug(`Fetching user details for Email: ${normalizedEmail}`);
+
+    const cacheKey = REDIS_KEYS.USER_BY_EMAIL(normalizedEmail);
+    const cachedUser = await redisClient.get(cacheKey);
+
+    if (cachedUser) {
+      logger.debug(
+        `[Cache Hit] Lấy thông tin email ${normalizedEmail} từ Redis`,
+      );
+      return JSON.parse(cachedUser);
+    }
+
+    logger.debug(`[Cache Miss] Tìm email ${normalizedEmail} trong Database`);
+    const user = await this.userRepository.findByEmailOrPhone(normalizedEmail);
+    if (!user) {
+      logger.warn(`User with Email ${normalizedEmail} not found`);
+      return null;
+    }
+
+    const responseDto = UserMapper.toResponseDto(user);
+    await redisClient.setex(cacheKey, 3600, JSON.stringify(responseDto));
+    return responseDto;
   }
 
   async getUserWithPasswordByEmail(email: string): Promise<User | null> {
-    return await this.userRepository.getUserWithPasswordByEmail(email);
+    return await this.userRepository.getUserWithPasswordByEmail(
+      email.toLowerCase().trim(),
+    );
   }
 
   async updateProfile(
@@ -91,6 +162,7 @@ export class UserService implements IUserService {
       logger.warn(`Cập nhật hồ sơ thất bại: Không tìm thấy User ID ${userId}`);
       throw new NotFoundError("Tài khoản không tồn tại để cập nhật hồ sơ");
     }
+
     if (dto.phoneNumber) {
       const checkPhone = await this.userRepository.findByEmailOrPhone(
         "",
@@ -127,49 +199,51 @@ export class UserService implements IUserService {
     };
 
     const updatedUser = await this.userRepository.update(userId, updateData);
-    logger.info(`Cập nhật hồ sơ thành công cho User ID: ${userId}`);
 
+    // Xóa cả 2 cache Profile và Email
+    await this.clearUserCache(userId, user.email);
+
+    logger.info(`Cập nhật hồ sơ thành công cho User ID: ${userId}`);
     return UserMapper.toResponseDto(updatedUser);
   }
 
-  // Xử lý sau
   async changeUserStatus(
     userId: string,
     status: UserStatus,
   ): Promise<UserResponseDto> {
-    const updatedUser = await this.userRepository.updateStatus(userId, status);
+    const user = await this.userRepository.findById(userId);
+    if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
-    if (!updatedUser) throw new NotFoundError("Tài khoản không tồn tại");
+    const updatedUser = await this.userRepository.updateStatus(userId, status);
 
     if (status === UserStatus.ACTIVE) {
       await this.userRepository.resetLoginAttempts(userId);
     }
 
+    await this.clearUserCache(userId, user.email);
+
     logger.info(`Trạng thái của User ${userId} đã đổi thành: ${status}`);
     return UserMapper.toResponseDto(updatedUser);
   }
 
-  // Xử lý sau
   async handleLoginFailure(userId: string): Promise<void> {
-    // Gọi hàm tăng số lần thử có sẵn của Repo
     await this.userRepository.incrementLoginAttempts(userId);
     logger.warn(`User ID ${userId} nhập sai thông tin đăng nhập.`);
 
-    // Check xem nếu vượt quá 5 lần thì tự động khóa tạm thời
     const user = await this.userRepository.findById(userId);
     if (user && user.loginAttempts >= 5) {
       const lockDuration = 15 * 60 * 1000; // Khóa trong 15 phút
       const lockUntil = new Date(Date.now() + lockDuration);
 
-      // Gọi hàm update() có sẵn của Repo để cập nhật thời gian khóa
       await this.userRepository.update(userId, { lockUntil });
+      await this.clearUserCache(userId, user.email);
+
       logger.error(
         `Tài khoản ID ${userId} đã bị khóa tạm thời 15 phút do nhập sai quá 5 lần.`,
       );
     }
   }
 
-  // Xử lý sau
   async handleLoginSuccess(userId: string): Promise<void> {
     await this.userRepository.resetLoginAttempts(userId);
     logger.info(
@@ -182,6 +256,7 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findById(userId);
     if (!user) throw new NotFoundError("Không tìm thấy tài khoản để xóa.");
 
+    await this.clearUserCache(userId, user.email);
     await this.userRepository.delete(userId);
     logger.info(`Đã ẩn hoàn toàn tài khoản ID ${userId} ra khỏi hệ thống.`);
   }
@@ -191,6 +266,8 @@ export class UserService implements IUserService {
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     await this.userRepository.updatePassword(userId, passwordHash);
+    await this.clearUserCache(userId, user.email);
+
     logger.info(`User ID ${userId} đã cập nhật mật khẩu thành công.`);
   }
 
@@ -199,9 +276,10 @@ export class UserService implements IUserService {
 
     await this.userRepository.restore(userId);
 
-    // Lấy lại thông tin user sau khi khôi phục thành công
     const restoredUser = await this.userRepository.findById(userId);
     if (!restoredUser) throw new BadRequestError("Khôi phục thất bại.");
+
+    await this.clearUserCache(userId, restoredUser.email);
 
     logger.info(
       `Tài khoản ID ${userId} đã được khôi phục trạng thái bình thường.`,
@@ -216,10 +294,7 @@ export class UserService implements IUserService {
     logger.info(`User ID ${userId} gửi yêu cầu xác minh danh tính.`);
 
     const user = await this.userRepository.findById(userId);
-
-    if (!user) {
-      throw new NotFoundError("Tài khoản không tồn tại");
-    }
+    if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     const updateData: Prisma.UserUpdateInput = {
       status: UserStatus.PENDING,
@@ -242,10 +317,11 @@ export class UserService implements IUserService {
     };
 
     const updatedUser = await this.userRepository.update(userId, updateData);
+    await this.clearUserCache(userId, user.email);
+
     logger.info(
       `Hồ sơ KYC của User ID ${userId} đã được ghi nhận thành công và đang chờ duyệt.`,
     );
-
     return UserMapper.toResponseDto(updatedUser);
   }
 
@@ -253,22 +329,14 @@ export class UserService implements IUserService {
     logger.info(`Admin duyệt hồ sơ KYC cho User ID: ${userId}`);
 
     const user = await this.userRepository.findById(userId);
-
-    if (!user) {
-      logger.warn(`Duyệt KYC thất bại: Không tìm thấy User ID ${userId}`);
-      throw new NotFoundError("Tài khoản không tồn tại");
-    }
+    if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     const anyUser = user as any;
-
     if (
       anyUser.role === Role.AGENT ||
       (anyUser.agentProfile &&
         anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
     ) {
-      logger.warn(
-        `Duyệt KYC thất bại: Tài khoản ID ${userId} đã được phê duyệt làm Agent từ trước`,
-      );
       throw new ConflictError(
         "Tài khoản này đã được xác minh và nâng cấp lên Đối tác rồi!",
       );
@@ -287,10 +355,11 @@ export class UserService implements IUserService {
     };
 
     const updatedUser = await this.userRepository.update(userId, updateData);
+    await this.clearUserCache(userId, user.email);
+
     logger.info(
       `Tài khoản ID ${userId} đã được chuyển sang trạng thái ACTIVE.`,
     );
-
     return UserMapper.toResponseDto(updatedUser);
   }
 
@@ -304,15 +373,11 @@ export class UserService implements IUserService {
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     const anyUser = user as any;
-
     if (
       anyUser.role === Role.AGENT ||
       (anyUser.agentProfile &&
         anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
     ) {
-      logger.warn(
-        `Từ chối KYC thất bại: Tài khoản ID ${userId} đã là Đối tác chính thức.`,
-      );
       throw new ConflictError(
         "Không thể từ chối hồ sơ của một Đối tác đã được phê duyệt. Vui lòng dùng tính năng Hạ cấp tài khoản!",
       );
@@ -330,6 +395,8 @@ export class UserService implements IUserService {
     };
 
     const updatedUser = await this.userRepository.update(userId, updateData);
+    await this.clearUserCache(userId, user.email);
+
     return UserMapper.toResponseDto(updatedUser);
   }
 }

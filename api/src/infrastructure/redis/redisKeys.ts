@@ -2,7 +2,7 @@ export const REDIS_KEYS = {
   /**
    * OTP
    */
-  OTP: (email: string) => `otp:${email}`,
+  OTP: (otpToken: string) => `otp:${otpToken}`,
 
   /**
    * Login
@@ -15,6 +15,13 @@ export const REDIS_KEYS = {
   USER_SESSION: (userId: string) => `session:${userId}`,
 
   /**
+   * User Profile
+   */
+  USER_PROFILE: (userId: string) => `user_profile:${userId}`,
+
+  USER_BY_EMAIL: (email: string) => `user_email:${email}`,
+
+  /**
    * Refresh Token Blacklist
    */
   BLACKLIST_TOKEN: (tokenId: string) => `blacklist:${tokenId}`,
@@ -23,13 +30,24 @@ export const REDIS_KEYS = {
    * Hotel Cache
    */
   HOTEL: (hotelId: string) => `hotel:${hotelId}`,
-
+  /**
+   * Room Cache
+   */
   HOTEL_LIST: "hotel:list",
+
+  /**
+   * Room Type Cache
+   */
+  ROOM_TYPE: (roomTypeId: string) => `room_type:${roomTypeId}`,
+  ROOM_TYPES_BY_HOTEL: (hotelId: string) => `room_types:hotel:${hotelId}`,
+  PUBLIC_ROOM_TYPES_BY_HOTEL: (hotelId: string) => `public_room_types:hotel:${hotelId}`,
 
   /**
    * Room Cache
    */
   ROOM: (roomId: string) => `room:${roomId}`,
+  ROOMS_BY_HOTEL: (hotelId: string) => `rooms:hotel:${hotelId}`,
+  ROOMS_BY_ROOM_TYPE: (roomTypeId: string) => `rooms:room_type:${roomTypeId}`,
 
   /**
    * Booking

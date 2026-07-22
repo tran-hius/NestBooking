@@ -1,3 +1,4 @@
+import { TxClient } from "@/config/prisma";
 import {
   Prisma,
   User,
@@ -13,29 +14,33 @@ export class UserRepository implements IUserRepository {
     this.prisma = prisma;
   }
 
-  findAll(): Promise<User[]> {
-    return this.prisma.user.findMany({
+  private getClient(tx?: TxClient): TxClient | PrismaClient {
+    return tx ?? this.prisma;
+  }
+
+  findAll(tx?: TxClient): Promise<User[]> {
+    return this.getClient(tx).user.findMany({
       where: { deletedAt: null },
       include: { profile: true },
       orderBy: { createdAt: "desc" },
     });
   }
 
-  findById(id: string): Promise<User | null> {
-    return this.prisma.user.findFirst({
+  findById(id: string, tx?: TxClient): Promise<User | null> {
+    return this.getClient(tx).user.findFirst({
       where: { id, deletedAt: null },
       include: { profile: true, agentProfile: true },
     });
   }
 
-  findByEmail(email: string): Promise<User | null> {
-    return this.prisma.user.findFirst({
+  findByEmail(email: string, tx?: TxClient): Promise<User | null> {
+    return this.getClient(tx).user.findFirst({
       where: { email, deletedAt: null },
     });
   }
 
-  findByPhone(phone: string): Promise<User | null> {
-    return this.prisma.user.findFirst({
+  findByPhone(phone: string, tx?: TxClient): Promise<User | null> {
+    return this.getClient(tx).user.findFirst({
       where: {
         deletedAt: null,
         profile: {
@@ -49,36 +54,38 @@ export class UserRepository implements IUserRepository {
   findByEmailOrPhone(
     email: string,
     phoneNumber?: string,
+    tx?: TxClient,
   ): Promise<User | null> {
-    return this.prisma.user.findFirst({
+    return this.getClient(tx).user.findFirst({
       where: {
         deletedAt: null,
-        OR: [
-          { email: email },
-          ...(phoneNumber ? [{ profile: { phoneNumber: phoneNumber } }] : []),
-        ],
+        OR: [{ email }, ...(phoneNumber ? [{ profile: { phoneNumber } }] : [])],
       },
       include: { profile: true },
     });
   }
 
-  create(data: Prisma.UserCreateInput): Promise<User> {
-    return this.prisma.user.create({
+  create(data: Prisma.UserCreateInput, tx?: TxClient): Promise<User> {
+    return this.getClient(tx).user.create({
       data,
       include: { profile: true },
     });
   }
 
-  update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
-    return this.prisma.user.update({
+  update(
+    id: string,
+    data: Prisma.UserUpdateInput,
+    tx?: TxClient,
+  ): Promise<User> {
+    return this.getClient(tx).user.update({
       where: { id },
       data,
       include: { profile: true, agentProfile: true },
     });
   }
 
-  async incrementLoginAttempts(id: string): Promise<void> {
-    await this.prisma.user.update({
+  async incrementLoginAttempts(id: string, tx?: TxClient): Promise<void> {
+    await this.getClient(tx).user.update({
       where: { id },
       data: {
         loginAttempts: {
@@ -88,8 +95,8 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async resetLoginAttempts(id: string): Promise<void> {
-    await this.prisma.user.update({
+  async resetLoginAttempts(id: string, tx?: TxClient): Promise<void> {
+    await this.getClient(tx).user.update({
       where: { id },
       data: {
         loginAttempts: 0,
@@ -98,18 +105,22 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async updatePassword(id: string, passwordHash: string): Promise<User> {
-    return this.prisma.user.update({
+  updatePassword(
+    id: string,
+    passwordHash: string,
+    tx?: TxClient,
+  ): Promise<User> {
+    return this.getClient(tx).user.update({
       where: { id },
       data: {
-        passwordHash: passwordHash,
+        passwordHash,
       },
       include: { profile: true },
     });
   }
 
-  async updateStatus(id: string, status: UserStatus): Promise<User> {
-    return this.prisma.user.update({
+  updateStatus(id: string, status: UserStatus, tx?: TxClient): Promise<User> {
+    return this.getClient(tx).user.update({
       where: { id },
       data: {
         status,
@@ -118,25 +129,32 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async delete(id: string): Promise<void> {
-    await this.prisma.user.update({
+  async delete(id: string, tx?: TxClient): Promise<void> {
+    await this.getClient(tx).user.update({
       where: { id },
-      data: { deletedAt: new Date() },
+      data: {
+        deletedAt: new Date(),
+      },
     });
   }
 
-  async restore(id: string): Promise<void> {
-    await this.prisma.user.update({
+  async restore(id: string, tx?: TxClient): Promise<void> {
+    await this.getClient(tx).user.update({
       where: { id },
-      data: { deletedAt: null },
+      data: {
+        deletedAt: null,
+      },
     });
   }
 
-  async getUserWithPasswordByEmail(email: string): Promise<User | null> {
-    return await this.prisma.user.findFirst({
+  getUserWithPasswordByEmail(
+    email: string,
+    tx?: TxClient,
+  ): Promise<User | null> {
+    return this.getClient(tx).user.findFirst({
       where: {
         email,
-        deletedAt: null, 
+        deletedAt: null,
       },
     });
   }

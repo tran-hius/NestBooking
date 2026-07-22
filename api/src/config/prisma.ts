@@ -9,3 +9,8 @@ const adapter = new PrismaPg({
 export const prisma = new PrismaClient({
   adapter,
 });
+
+export type TxClient = Omit<
+PrismaClient,
+"$connect" | "$disconnect" | "$on" | "$transaction" | "$use" | "$extends"
+>;

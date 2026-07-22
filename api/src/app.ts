@@ -8,6 +8,8 @@ import { errorHandler } from "@/middlewares/errorMiddleware";
 import userRouter from "@/modules/user/routes/UserRouter";
 import authRouter from "@/modules/auth/routes/authRouter";
 import hotelRouter from "@/modules/hotel/routes/HotelRouter";
+import roomTypeRouter from "@/modules/hotel/routes/RoomTypeRouter";
+import roomRouter from "@/modules/hotel/routes/RoomRouter";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
@@ -80,6 +82,8 @@ app.use(
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/hotels", hotelRouter);
+app.use("/api/room-types", roomTypeRouter);
+app.use("/api/rooms", roomRouter);
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");

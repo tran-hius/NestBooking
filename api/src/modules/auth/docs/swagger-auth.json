@@ -12,6 +12,25 @@
   ],
   "basePath": "",
   "paths": {
+    "/api/auth/me": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Lấy thông tin người dùng hiện hành",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/send-otp": {
       "post": {
         "tags": [
@@ -178,267 +197,87 @@
       "SendOtpDto": {
         "type": "object",
         "properties": {
-          "type": {
+          "email": {
             "type": "string",
-            "example": "object"
-          },
-          "properties": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "format": {
-                    "type": "string",
-                    "example": "email"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "user@example.com"
-                  }
-                }
-              }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "email"
-            ],
-            "items": {
-              "type": "string"
-            }
+            "example": "user@example.com"
           }
-        }
+        },
+        "required": [
+          "email"
+        ]
       },
       "VerifyOtpDto": {
         "type": "object",
         "properties": {
-          "type": {
+          "otpToken": {
             "type": "string",
-            "example": "object"
+            "example": "uuid-1234"
           },
-          "properties": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "format": {
-                    "type": "string",
-                    "example": "email"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "user@example.com"
-                  }
-                }
-              },
-              "otp": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "123456"
-                  }
-                }
-              }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "email",
-              "otp"
-            ],
-            "items": {
-              "type": "string"
-            }
+          "otp": {
+            "type": "string",
+            "example": "123456"
           }
-        }
+        },
+        "required": [
+          "otpToken",
+          "otp"
+        ]
       },
       "LoginWithPasswordDto": {
         "type": "object",
         "properties": {
-          "type": {
+          "email": {
             "type": "string",
-            "example": "object"
+            "example": "user@example.com"
           },
-          "properties": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "format": {
-                    "type": "string",
-                    "example": "email"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "user@example.com"
-                  }
-                }
-              },
-              "password": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "123456"
-                  }
-                }
-              }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "email",
-              "password"
-            ],
-            "items": {
-              "type": "string"
-            }
+          "password": {
+            "type": "string",
+            "example": "123456"
           }
-        }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
       },
       "ResetPasswordDto": {
         "type": "object",
         "properties": {
-          "type": {
+          "otpToken": {
             "type": "string",
-            "example": "object"
+            "example": "uuid-1234"
           },
-          "properties": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "format": {
-                    "type": "string",
-                    "example": "email"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "user@example.com"
-                  }
-                }
-              },
-              "otp": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "123456"
-                  }
-                }
-              },
-              "newPassword": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "new_password_123"
-                  }
-                }
-              }
-            }
+          "otp": {
+            "type": "string",
+            "example": "123456"
           },
-          "required": {
-            "type": "array",
-            "example": [
-              "email",
-              "otp",
-              "newPassword"
-            ],
-            "items": {
-              "type": "string"
-            }
+          "newPassword": {
+            "type": "string",
+            "example": "new_password_123"
           }
-        }
+        },
+        "required": [
+          "otpToken",
+          "otp",
+          "newPassword"
+        ]
       },
       "ChangePasswordDto": {
         "type": "object",
         "properties": {
-          "type": {
+          "oldPassword": {
             "type": "string",
-            "example": "object"
+            "example": "old_password_123"
           },
-          "properties": {
-            "type": "object",
-            "properties": {
-              "oldPassword": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "old_password_123"
-                  }
-                }
-              },
-              "newPassword": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "new_password_123"
-                  }
-                }
-              }
-            }
-          },
-          "required": {
-            "type": "array",
-            "example": [
-              "newPassword"
-            ],
-            "items": {
-              "type": "string"
-            }
+          "newPassword": {
+            "type": "string",
+            "example": "new_password_123"
           }
-        }
+        },
+        "required": [
+          "oldPassword",
+          "newPassword"
+        ]
       }
     }
   }

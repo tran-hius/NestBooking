@@ -1,12 +1,11 @@
+import { TxClient } from "@/config/prisma";
 import { User, UserStatus } from "../../../../generated/prisma";
 import {
   CreateUserDto,
   UpdateUserProfileDto,
   UserResponseDto,
-  SubmitIdentityVerificationDto
+  SubmitIdentityVerificationDto,
 } from "../dtos/UserDTO";
-
-
 
 export interface IUserService {
   createUser(dto: CreateUserDto): Promise<UserResponseDto>;
@@ -20,40 +19,43 @@ export interface IUserService {
   updateProfile(
     userId: string,
     dto: UpdateUserProfileDto,
+    tx?: TxClient,
   ): Promise<UserResponseDto>;
 
   changeUserStatus(
     userId: string,
     status: UserStatus,
+    tx?: TxClient,
   ): Promise<UserResponseDto>;
+  handleLoginFailure(userId: string, tx?: TxClient): Promise<void>;
 
-  /**
-   * Xử lý khi người dùng đăng nhập sai mật khẩu
-   * Tăng số lần thử (loginAttempts). Nếu vượt quá giới hạn, tự động khóa tài khoản tạm thời.
-   */
-  handleLoginFailure(userId: string): Promise<void>;
+  handleLoginSuccess(userId: string, tx?: TxClient): Promise<void>;
 
-  /**
-   * Xử lý khi người dùng đăng nhập thành công
-   * Khôi phục số lần thử sai (loginAttempts) về 0 và xóa mốc thời gian khóa (lockUntil).
-   */
-  handleLoginSuccess(userId: string): Promise<void>;
+  softDeleteUser(userId: string, tx?: TxClient): Promise<void>;
 
-  softDeleteUser(userId: string): Promise<void>;
-  updatePassword(userId: string, passwordHash: string): Promise<void>;
+  updatePassword(
+    userId: string,
+    passwordHash: string,
+    tx?: TxClient,
+  ): Promise<void>;
 
-  restoreUser(userId: string): Promise<UserResponseDto>;
+  restoreUser(userId: string, tx?: TxClient): Promise<UserResponseDto>;
 
   submitIdentityVerification(
     userId: string,
     dto: SubmitIdentityVerificationDto,
+    tx?: TxClient,
   ): Promise<UserResponseDto>;
 
-  approveIdentityVerification(userId: string): Promise<UserResponseDto>;
+  approveIdentityVerification(
+    userId: string,
+    tx?: TxClient,
+  ): Promise<UserResponseDto>;
 
   rejectIdentityVerification(
     userId: string,
     reason: string,
+    tx?: TxClient,
   ): Promise<UserResponseDto>;
 
   getUserWithPasswordByEmail(email: string): Promise<User | null>;

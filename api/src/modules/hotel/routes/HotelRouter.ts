@@ -1,7 +1,7 @@
 import express from "express";
 import { prisma } from "@/config/prisma";
 import { asyncHandler } from "@/utils/asyncHandler";
-import { validate, authMiddleware, roleMiddleware } from "@/middlewares";
+import { validate, authMiddleware, roleMiddleware, upload } from "@/middlewares";
 import { Role } from "../../../../generated/prisma";
 
 import { HotelRepository } from "../repositories/HotelRepository";
@@ -147,6 +147,46 @@ router.post(
   authMiddleware,
   roleMiddleware([Role.AGENT, Role.ADMIN]),
   asyncHandler(hotelController.restoreHotel),
+);
+
+// =====================================================
+// ADD IMAGES
+// =====================================================
+router.post(
+  "/:id/images",
+  /*
+    #swagger.path = '/api/hotels/{id}/images'
+    #swagger.tags = ['Hotels']
+    #swagger.summary = 'Thêm ảnh cho khách sạn'
+    #swagger.consumes = ['multipart/form-data']
+    #swagger.parameters['images'] = {
+        in: 'formData',
+        type: 'array',
+        items: { type: 'file' },
+        description: 'Tải lên danh sách ảnh (tối đa 5 ảnh)'
+    }
+    #swagger.security = [{ "bearerAuth": [] }]
+  */
+  authMiddleware,
+  roleMiddleware([Role.AGENT, Role.ADMIN]),
+  upload.array("images", 5),
+  asyncHandler(hotelController.addImages),
+);
+
+// =====================================================
+// DELETE IMAGE
+// =====================================================
+router.delete(
+  "/images/:imageId",
+  /*
+    #swagger.path = '/api/hotels/images/{imageId}'
+    #swagger.tags = ['Hotels']
+    #swagger.summary = 'Xóa ảnh của khách sạn'
+    #swagger.security = [{ "bearerAuth": [] }]
+  */
+  authMiddleware,
+  roleMiddleware([Role.AGENT, Role.ADMIN]),
+  asyncHandler(hotelController.deleteImage),
 );
 
 export default router;

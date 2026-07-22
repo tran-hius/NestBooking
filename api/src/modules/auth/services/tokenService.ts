@@ -21,7 +21,7 @@ export class TokenService implements ITokenService{
         const accessToken = jwt.sign(
             {userId, role, status},
             this.JWT_SECRET,
-            {expiresIn: "3m"}
+            {expiresIn: process.env.JWT_EXPIRES_IN || "30m"}
         );
 
         const refreshToken = crypto.randomBytes(40).toString("hex");

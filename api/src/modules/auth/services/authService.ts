@@ -1,4 +1,9 @@
-import { IAuthService, IOtpService, IRefreshTokenRepository, ITokenService } from "@/modules/auth/interfaces";
+import {
+  IAuthService,
+  IOtpService,
+  IRefreshTokenRepository,
+  ITokenService,
+} from "@/modules/auth/interfaces";
 import {
   SendOtpDto,
   VerifyOtpDto,
@@ -12,14 +17,11 @@ import {
 } from "@/modules/auth/dtos";
 import { IUserService } from "@/modules/user/interfaces/IUserService";
 
-import {
-  BadRequestError,
-  ConflictError,
-  NotFoundError,
-} from "@/utils/errors";
+import { BadRequestError, ConflictError, NotFoundError } from "@/utils/errors";
 import { Role, UserStatus } from "@/../generated/prisma";
 import { AuthMapper } from "@/modules/auth/mapper/authMapper";
 import logger from "@/config/logger";
+import { prisma, TxClient } from "@/config/prisma";
 
 export class AuthService implements IAuthService {
   private readonly otpService: IOtpService;
@@ -40,6 +42,7 @@ export class AuthService implements IAuthService {
   }
 
   async getMe(userId: string) {
+    // Đã được cache tự động ở UserService.getUserById
     const user = await this.userService.getUserById(userId);
     if (!user) {
       throw new NotFoundError("Tài khoản không tồn tại.");
@@ -54,16 +57,22 @@ export class AuthService implements IAuthService {
   async verifyOtpAndLogin(
     dto: VerifyOtpDto,
     device: DeviceMetadata,
+    tx?: TxClient,
   ): Promise<AuthResponseDto> {
-    const isValid = await this.otpService.verifyOtp(dto.email, dto.otp, dto.otpToken);
-    if (!isValid) {
+    const email = await this.otpService.verifyOtp(
+      dto.otp,
+      dto.otpToken,
+    );
+    if (!email) {
       throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
     }
-    let user = await this.userService.getUserByEmail(dto.email);
+
+    // Đã được cache tự động ở UserService.getUserByEmail
+    let user = await this.userService.getUserByEmail(email);
 
     if (!user) {
       user = await this.userService.createUser({
-        email: dto.email,
+        email: email,
         role: Role.USER,
       });
     } else {
@@ -103,6 +112,7 @@ export class AuthService implements IAuthService {
     dto: LoginWithPasswordDto,
     device: DeviceMetadata,
   ): Promise<AuthResponseDto> {
+    // Mật khẩu bắt buộc lấy từ DB (không cache passwordHash vì lý do bảo mật)
     const user = await this.userService.getUserWithPasswordByEmail(dto.email);
 
     if (!user) {
@@ -139,6 +149,7 @@ export class AuthService implements IAuthService {
       deviceName: device.deviceName,
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     });
+
     return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
   }
 
@@ -162,13 +173,12 @@ export class AuthService implements IAuthService {
       );
     }
 
+    // Đã tận dụng Redis Cache ở UserService.getUserById
     const user = await this.userService.getUserById(storedToken.userId);
 
     if (!user || user.status === UserStatus.BANNED) {
       throw new ConflictError("Tài khoản không hợp lệ.");
     }
-
-    await this.refreshTokenRepository.revoke(storedToken.id, "ROTATED");
 
     const {
       accessToken,
@@ -176,13 +186,19 @@ export class AuthService implements IAuthService {
       tokenHash: newTokenHash,
     } = this.tokenService.generateAuthTokens(user.id, user.role, user.status);
 
-    await this.refreshTokenRepository.create({
-      userId: user.id,
-      tokenHash: newTokenHash,
-      ipAddress: device.ipAddress || storedToken.ipAddress,
-      userAgent: device.userAgent || storedToken.userAgent,
-      deviceName: device.deviceName || storedToken.deviceName,
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    await prisma.$transaction(async (tx: TxClient) => {
+      await this.refreshTokenRepository.revoke(storedToken.id, "ROTATED", tx);
+      await this.refreshTokenRepository.create(
+        {
+          userId: user.id,
+          tokenHash: newTokenHash,
+          ipAddress: device.ipAddress || storedToken.ipAddress,
+          userAgent: device.userAgent || storedToken.userAgent,
+          deviceName: device.deviceName || storedToken.deviceName,
+          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        },
+        tx,
+      );
     });
 
     return AuthMapper.toAuthResponseDto(user, accessToken, newRefreshToken);
@@ -203,27 +219,35 @@ export class AuthService implements IAuthService {
   }
 
   async resetPassword(dto: ResetPasswordDto): Promise<void> {
-    const isValid = await this.otpService.verifyOtp(dto.email, dto.otp, dto.otpToken);
-    if (!isValid) {
+    const email = await this.otpService.verifyOtp(
+      dto.otp,
+      dto.otpToken,
+    );
+    if (!email) {
       throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
     }
 
-    const user = await this.userService.getUserByEmail(dto.email);
+    const user = await this.userService.getUserByEmail(email);
     if (!user) {
       throw new NotFoundError("Tài khoản không tồn tại.");
     }
 
     const passwordHash = await this.tokenService.hashPassword(dto.newPassword);
+    // Hàm updatePassword trong UserService sẽ tự động làm sạch Cache của User này
     await this.userService.updatePassword(user.id, passwordHash);
   }
 
   async changePassword(userId: string, dto: ChangePasswordDto): Promise<void> {
+    // 💡 Đã tối ưu: Lấy trực tiếp user bằng ID thông qua getUserById (được Cache)
+    // thay vì query lồng 2 lần như trước
+    const userProfile = await this.userService.getUserById(userId);
+    if (!userProfile) {
+      throw new NotFoundError("Tài khoản không tồn tại.");
+    }
+
     const user = await this.userService.getUserWithPasswordByEmail(
-      (await this.userService.getUserById(userId))?.email || "",
+      userProfile.email,
     );
-
-    logger.info(`[AuthService] Debug User from DB: ${JSON.stringify(user)}`);
-
     if (!user) {
       throw new NotFoundError("Tài khoản không tồn tại.");
     }
@@ -242,6 +266,7 @@ export class AuthService implements IAuthService {
     }
 
     const passwordHash = await this.tokenService.hashPassword(dto.newPassword);
+    // Xóa cache và update mật khẩu mới
     await this.userService.updatePassword(user.id, passwordHash);
   }
 }

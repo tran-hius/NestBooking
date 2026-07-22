@@ -222,6 +222,513 @@
           }
         ]
       }
+    },
+    "/api/hotels/{id}/images": {
+      "post": {
+        "tags": [
+          "Hotels"
+        ],
+        "summary": "Thêm ảnh cho khách sạn",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "images",
+            "in": "formData",
+            "items": {
+              "type": "file"
+            },
+            "description": "Tải lên danh sách ảnh (tối đa 5 ảnh)",
+            "schema": {
+              "type": "array"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/hotels/images/{imageId}": {
+      "delete": {
+        "tags": [
+          "Hotels"
+        ],
+        "summary": "Xóa ảnh của khách sạn",
+        "description": "",
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/room-types/{hotelId}/public": {
+      "get": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Lấy danh sách loại phòng công khai của 1 khách sạn (Dành cho Khách)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/room-types/{id}": {
+      "get": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Lấy chi tiết loại phòng theo ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Cập nhật loại phòng",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoomTypeDto"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Xóa loại phòng",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/room-types/hotel/{hotelId}": {
+      "get": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Lấy tất cả loại phòng của khách sạn (Bao gồm cả ngưng bán - Dành cho Agent)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/room-types/{hotelId}": {
+      "post": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Tạo loại phòng mới",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomTypeDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room-types/{id}/images": {
+      "post": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Thêm ảnh cho loại phòng",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddRoomTypeImagesDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/room-types/images/{imageId}": {
+      "delete": {
+        "tags": [
+          "RoomTypes"
+        ],
+        "summary": "Xóa 1 ảnh của loại phòng",
+        "description": "",
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/rooms/hotel/{hotelId}": {
+      "get": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Lấy danh sách tất cả phòng vật lý của khách sạn (Dành cho Lễ tân/Agent)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/rooms/room-type/{roomTypeId}": {
+      "get": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Lấy danh sách phòng vật lý thuộc một loại phòng cụ thể",
+        "description": "",
+        "parameters": [
+          {
+            "name": "roomTypeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/rooms/{id}": {
+      "get": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Lấy chi tiết một phòng",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Cập nhật phòng vật lý (Đổi số phòng, status...)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRoomDto"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Xóa phòng",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/rooms/{hotelId}": {
+      "post": {
+        "tags": [
+          "Rooms"
+        ],
+        "summary": "Tạo phòng vật lý mới",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomDto"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -236,208 +743,193 @@
       "CreateHotelDto": {
         "type": "object",
         "properties": {
-          "type": {
+          "name": {
             "type": "string",
-            "example": "object"
+            "example": "Khách sạn Mường Thanh"
           },
-          "properties": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "Khách sạn Mường Thanh"
-                  }
-                }
-              },
-              "description": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "Khách sạn 5 sao..."
-                  }
-                }
-              },
-              "address": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "123 Đường Trần Phú"
-                  }
-                }
-              },
-              "city": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "Nha Trang"
-                  }
-                }
-              },
-              "country": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "Vietnam"
-                  }
-                }
-              },
-              "latitude": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "number"
-                  },
-                  "example": {
-                    "type": "number",
-                    "example": 12.238791
-                  }
-                }
-              },
-              "longitude": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "number"
-                  },
-                  "example": {
-                    "type": "number",
-                    "example": 109.196749
-                  }
-                }
-              },
-              "phone": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "0123456789"
-                  }
-                }
-              },
-              "email": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "contact@muongthanh.com"
-                  }
-                }
-              },
-              "thumbnail": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "https://example.com/image.jpg"
-                  }
-                }
-              },
-              "amenities": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "array"
-                  },
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "string"
-                      }
-                    }
-                  },
-                  "example": {
-                    "type": "array",
-                    "example": [
-                      "WIFI",
-                      "SWIMMING_POOL",
-                      "SPA",
-                      "GYM",
-                      "BAR"
-                    ],
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                }
-              },
-              "checkInTime": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "14:00"
-                  }
-                }
-              },
-              "checkOutTime": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "example": {
-                    "type": "string",
-                    "example": "12:00"
-                  }
-                }
-              }
-            }
+          "description": {
+            "type": "string",
+            "example": "Khách sạn 5 sao..."
           },
-          "required": {
+          "address": {
+            "type": "string",
+            "example": "123 Đường Trần Phú"
+          },
+          "city": {
+            "type": "string",
+            "example": "Nha Trang"
+          },
+          "country": {
+            "type": "string",
+            "example": "Vietnam"
+          },
+          "latitude": {
+            "type": "number",
+            "example": 12.238791
+          },
+          "longitude": {
+            "type": "number",
+            "example": 109.196749
+          },
+          "phone": {
+            "type": "string",
+            "example": "0123456789"
+          },
+          "email": {
+            "type": "string",
+            "example": "contact@muongthanh.com"
+          },
+          "thumbnail": {
+            "type": "string",
+            "example": "https://example.com/image.jpg"
+          },
+          "amenities": {
             "type": "array",
             "example": [
-              "name",
-              "address",
-              "city"
+              "WIFI",
+              "SWIMMING_POOL",
+              "SPA",
+              "GYM",
+              "BAR"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "checkInTime": {
+            "type": "string",
+            "example": "14:00"
+          },
+          "checkOutTime": {
+            "type": "string",
+            "example": "12:00"
+          }
+        },
+        "required": [
+          "name",
+          "address",
+          "city"
+        ]
+      },
+      "UpdateHotelDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Khách sạn Mường Thanh"
+          },
+          "description": {
+            "type": "string",
+            "example": "Khách sạn 5 sao..."
+          },
+          "address": {
+            "type": "string",
+            "example": "123 Đường Trần Phú"
+          },
+          "city": {
+            "type": "string",
+            "example": "Nha Trang"
+          },
+          "country": {
+            "type": "string",
+            "example": "Vietnam"
+          },
+          "amenities": {
+            "type": "array",
+            "example": [
+              "WIFI",
+              "SWIMMING_POOL"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "example": "ACTIVE"
+          }
+        }
+      },
+      "CreateRoomTypeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Phòng Standard"
+          },
+          "price": {
+            "type": "number",
+            "example": 500000
+          },
+          "maxGuests": {
+            "type": "number",
+            "example": 2
+          },
+          "maxAdults": {
+            "type": "number",
+            "example": 2
+          },
+          "maxChildren": {
+            "type": "number",
+            "example": 1
+          },
+          "bedType": {
+            "type": "string",
+            "example": "SINGLE"
+          },
+          "bedCount": {
+            "type": "number",
+            "example": 1
+          },
+          "area": {
+            "type": "number",
+            "example": 25
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "amenities": {
+            "type": "array",
+            "example": [
+              "WIFI",
+              "AC"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "price",
+          "maxGuests",
+          "maxAdults",
+          "maxChildren",
+          "bedType",
+          "bedCount"
+        ]
+      },
+      "UpdateRoomTypeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Phòng Standard"
+          },
+          "price": {
+            "type": "number",
+            "example": 500000
+          },
+          "isActive": {
+            "type": "boolean",
+            "example": true
+          },
+          "amenities": {
+            "type": "array",
+            "example": [
+              "WIFI",
+              "AC"
             ],
             "items": {
               "type": "string"
@@ -445,101 +937,59 @@
           }
         }
       },
-      "UpdateHotelDto": {
+      "AddRoomTypeImagesDto": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "string",
-            "example": "object"
-          },
-          "properties": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  }
-                }
-              },
-              "description": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  }
-                }
-              },
-              "address": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  }
-                }
-              },
-              "city": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  }
-                }
-              },
-              "country": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  }
-                }
-              },
-              "amenities": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "array"
-                  },
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "string",
-                        "example": "string"
-                      }
-                    }
-                  }
-                }
-              },
-              "status": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": "string",
-                    "example": "string"
-                  },
-                  "enum": {
-                    "type": "array",
-                    "example": [
-                      "PENDING",
-                      "ACTIVE",
-                      "INACTIVE",
-                      "REJECTED"
-                    ],
-                    "items": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
+          "imageUrls": {
+            "type": "array",
+            "example": [
+              "https://example.com/img1.jpg",
+              "https://example.com/img2.jpg"
+            ],
+            "items": {
+              "type": "string"
             }
+          }
+        },
+        "required": [
+          "imageUrls"
+        ]
+      },
+      "CreateRoomDto": {
+        "type": "object",
+        "properties": {
+          "roomTypeId": {
+            "type": "string",
+            "example": "uuid-1234"
+          },
+          "roomNumber": {
+            "type": "string",
+            "example": "101"
+          },
+          "floor": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "roomTypeId",
+          "roomNumber"
+        ]
+      },
+      "UpdateRoomDto": {
+        "type": "object",
+        "properties": {
+          "roomNumber": {
+            "type": "string",
+            "example": "101"
+          },
+          "floor": {
+            "type": "number",
+            "example": 1
+          },
+          "status": {
+            "type": "string",
+            "example": "AVAILABLE"
           }
         }
       }

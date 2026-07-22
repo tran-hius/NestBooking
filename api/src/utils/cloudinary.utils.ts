@@ -20,3 +20,12 @@ export const uploadToCloudinary = async (
       uploadStream.end(fileBuffer);
   });
 };
+
+export const deleteFromCloudinary = async (publicId: string): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.destroy(publicId, (error, result) => {
+      if (error) return reject(error);
+      resolve(result);
+    });
+  });
+};

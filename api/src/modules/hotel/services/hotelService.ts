@@ -3,6 +3,7 @@ import {
   CreateHotelDto,
   HotelResponseDto,
   UpdateHotelDto,
+  AddHotelImagesDto
 } from "../dtos/HotelDTO";
 import { IHotelRepository } from "../interfaces/IHotelRepository";
 import { IHotelService } from "../interfaces/IHotelService";
@@ -13,12 +14,19 @@ import {
 } from "@/utils/errors/errorCustomize";
 import logger from "@/config/logger";
 import { PaginatedResponse } from "../dtos/PaginationDto";
+import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
+import { deleteFromCloudinary } from "@/utils/cloudinary.utils";
 
 export class HotelService implements IHotelService {
   private readonly hotelRepository: IHotelRepository;
 
   constructor(hotelRepository: IHotelRepository) {
     this.hotelRepository = hotelRepository;
+  }
+
+  private async clearHotelCache(hotelId: string){
+    const keysToDelete = [REDIS_KEYS.HOTEL(hotelId)]
+    await redisClient.del(keysToDelete);
   }
 
   private generateSlug(text: string): string {
@@ -66,6 +74,7 @@ export class HotelService implements IHotelService {
         orderBy: { createdAt: "desc" },
         skip: skip,
         take: limit,
+        include: { images: true, roomTypes: true },
       }),
       this.hotelRepository.count({
         where: { ownerId, deletedAt: null },
@@ -86,6 +95,25 @@ export class HotelService implements IHotelService {
     id: string,
     ownerId?: string,
   ): Promise<HotelResponseDto | null> {
+
+    const cacheKey = REDIS_KEYS.HOTEL(id);
+
+    const cachedHotel = await redisClient.get(cacheKey);
+
+    if (cachedHotel) {
+      logger.debug(`[Cache Hit] Lấy thông tin hotel ID: ${id} từ Redis`);
+      const hotelDto: HotelResponseDto = JSON.parse(cachedHotel);
+      
+      if (ownerId && hotelDto.ownerId !== ownerId) {
+        throw new ForbiddenError(
+          "Bạn không có quyền xem thông tin nội bộ của khách sạn này.",
+        );
+      }
+
+      return hotelDto;
+    }
+
+    logger.debug(`[Cache Miss] Tìm hotel ID: ${id} trong Database`);
     const hotel = await this.hotelRepository.findById(id);
 
     if (!hotel || hotel.deletedAt) {
@@ -98,7 +126,12 @@ export class HotelService implements IHotelService {
         "Bạn không có quyền xem thông tin nội bộ của khách sạn này.",
       );
     }
-    return HotelMapper.toResponseDto(hotel);
+
+    const responseDto = HotelMapper.toResponseDto(hotel);
+
+    await redisClient.setex(cacheKey, 3600, JSON.stringify(responseDto));
+
+    return responseDto
   }
 
   async updateHotel(
@@ -125,6 +158,9 @@ export class HotelService implements IHotelService {
       ...data,
       slug: newSlug,
     });
+
+    await this.clearHotelCache(id);
+
     return HotelMapper.toResponseDto(updatedHotel);
   }
 
@@ -138,6 +174,9 @@ export class HotelService implements IHotelService {
       throw new ForbiddenError("Bạn không có quyền xóa khách sạn này.");
     }
     await this.hotelRepository.delete(id);
+
+    await this.clearHotelCache(id);
+
     logger.info(`Đã ẩn hoàn toàn hotel ID ${id} ra khỏi hệ thống.`);
   }
 
@@ -149,6 +188,9 @@ export class HotelService implements IHotelService {
       );
     }
     const restoredHotel = await this.hotelRepository.restore(id, ownerId);
+
+    await this.clearHotelCache(id);
+
     return HotelMapper.toResponseDto(restoredHotel);
   }
 
@@ -165,6 +207,7 @@ export class HotelService implements IHotelService {
         orderBy: { createdAt: "desc" },
         skip: skip,
         take: limit,
+        include: { images: true, roomTypes: true },
       }),
       this.hotelRepository.count({
         where: { ...query, deletedAt: null },
@@ -180,5 +223,53 @@ export class HotelService implements IHotelService {
         totalPages: Math.ceil(total / limit),
       },
     };
+  }
+
+  async addHotelImages(
+    ownerId: string,
+    hotelId: string,
+    data: AddHotelImagesDto
+  ): Promise<void> {
+    const hotel = await this.hotelRepository.findById(hotelId);
+    if (!hotel || hotel.deletedAt) {
+      throw new NotFoundError("Khách sạn không tồn tại hoặc đã bị xóa.");
+    }
+    if (hotel.ownerId !== ownerId) {
+      throw new ForbiddenError("Bạn không có quyền quản lý khách sạn này.");
+    }
+
+    const imageInput = data.imageUrls.map((url) => ({
+      hotelId,
+      imageUrl: url,
+    }));
+    await this.hotelRepository.addImages(imageInput);
+    await this.clearHotelCache(hotelId);
+  }
+
+  async deleteHotelImage(ownerId: string, imageId: string): Promise<void> {
+    const image = await this.hotelRepository.findImageById(imageId);
+    if (!image) throw new NotFoundError("Không tìm thấy ảnh.");
+
+    const hotel = await this.hotelRepository.findById(image.hotelId);
+    if (!hotel || hotel.deletedAt) {
+      throw new NotFoundError("Khách sạn không tồn tại hoặc đã bị xóa.");
+    }
+    if (hotel.ownerId !== ownerId) {
+      throw new ForbiddenError("Bạn không có quyền quản lý khách sạn này.");
+    }
+
+    // Try to delete from Cloudinary
+    try {
+      const urlParts = image.imageUrl.split("/");
+      const filenameWithExtension = urlParts[urlParts.length - 1];
+      const publicId = filenameWithExtension.split(".")[0];
+      const folderName = urlParts[urlParts.length - 2];
+      await deleteFromCloudinary(`${folderName}/${publicId}`);
+    } catch (error) {
+      logger.error(`[Cloudinary] Lỗi khi xóa ảnh hotel: ${error}`);
+    }
+
+    await this.hotelRepository.deleteImage(imageId);
+    await this.clearHotelCache(hotel.id);
   }
 }

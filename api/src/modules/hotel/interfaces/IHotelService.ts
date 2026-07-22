@@ -2,6 +2,7 @@ import {
   CreateHotelDto,
   UpdateHotelDto,
   HotelResponseDto,
+  AddHotelImagesDto,
 } from "../dtos/HotelDTO";
 import { PaginatedResponse } from "../dtos/PaginationDto";
 
@@ -25,4 +26,6 @@ export interface IHotelService {
     page?: number, 
     limit?: number,
   ): Promise<PaginatedResponse<HotelResponseDto>>;
+  addHotelImages(ownerId: string, hotelId: string, data: AddHotelImagesDto): Promise<void>;
+  deleteHotelImage(ownerId: string, imageId: string): Promise<void>;
 }

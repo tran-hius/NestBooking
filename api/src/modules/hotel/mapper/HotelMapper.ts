@@ -23,9 +23,12 @@ export class HotelMapper {
       checkInTime: hotel.checkInTime,
       checkOutTime: hotel.checkOutTime,
       status: hotel.status,
+      propertyType: hotel.propertyType,
+      images: hotel.images || [],
+      roomTypes: hotel.roomTypes || [],
+
       createdAt: hotel.createdAt,
       updatedAt: hotel.updatedAt,
-
     };
   }
 
