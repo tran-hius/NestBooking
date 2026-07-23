@@ -173,11 +173,12 @@ export class RoomTypeService implements IRoomTypeService {
     
     // Try to delete from Cloudinary
     try {
-      const urlParts = image.imageUrl.split("/");
-      const filenameWithExtension = urlParts[urlParts.length - 1];
-      const publicId = filenameWithExtension.split(".")[0];
-      const folderName = urlParts[urlParts.length - 2];
-      await deleteFromCloudinary(`${folderName}/${publicId}`);
+      const match = image.imageUrl.match(/\/v\d+\/(.+)\.[a-z]+$/i);
+      if (match && match[1]) {
+        await deleteFromCloudinary(match[1]);
+      } else {
+        logger.warn(`[Cloudinary] Không thể parse public_id từ URL: ${image.imageUrl}`);
+      }
     } catch (error) {
       logger.error(`[Cloudinary] Lỗi khi xóa ảnh room-type: ${error}`);
     }

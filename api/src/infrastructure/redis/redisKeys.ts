@@ -34,6 +34,7 @@ export const REDIS_KEYS = {
    * Room Cache
    */
   HOTEL_LIST: "hotel:list",
+  HOTEL_LIST_QUERY: (queryHash: string) => `hotel_list:${queryHash}`,
 
   /**
    * Room Type Cache
@@ -53,6 +54,8 @@ export const REDIS_KEYS = {
    * Booking
    */
   BOOKING: (bookingId: string) => `booking:${bookingId}`,
+  USER_BOOKINGS: (userId: string) => `user_bookings:${userId}`,
+  HOTEL_BOOKINGS: (hotelId: string) => `hotel_bookings:${hotelId}`,
 
   /**
    * Wishlist

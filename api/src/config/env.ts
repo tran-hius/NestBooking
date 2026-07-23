@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import ms from "ms";
 
 dotenv.config({
   path: process.env.NODE_ENV === "production" ? ".env.prod" : ".env.dev",
@@ -6,7 +7,10 @@ dotenv.config({
 
 // Lấy thông tin DB từ file env, cài sẵn giá trị mặc định để chống sập
 const DB_USER = process.env.POSTGRES_USER || "postgres";
-const DB_PASS = process.env.POSTGRES_PASSWORD || "123456";
+const DB_PASS = process.env.POSTGRES_PASSWORD;
+if (!DB_PASS) {
+  throw new Error("Missing POSTGRES_PASSWORD in environment variables");
+}
 const DB_NAME = process.env.POSTGRES_DB || "booking";
 const DB_HOST = process.env.DB_HOST || "localhost";
 const DB_PORT = process.env.DB_PORT || "5433"; 
@@ -25,6 +29,13 @@ export const env = {
   RABBITMQ_URL: process.env.RABBITMQ_URL ?? "amqp://guest:guest@localhost:5672",
 
   OTP_TTL: Number(process.env.OTP_TTL) || 300,
+
+  JWT_SECRET: process.env.JWT_SECRET!,
+  JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET!,
+  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "30m",
+  JWT_EXPIRES_IN_MS: ms(process.env.JWT_EXPIRES_IN as ms.StringValue || "30m"),
+
+  COOKIE_SECRET: process.env.COOKIE_SECRET || "default_cookie_secret_change_me_in_prod",
 
   SMTP_HOST: process.env.SMTP_HOST!,
   SMTP_PORT: Number(process.env.SMTP_PORT),

@@ -1,4 +1,4 @@
-import { PrismaClient, Booking, Prisma } from "../../../../generated/prisma";
+import { PrismaClient, Booking, Prisma, BookingStatus } from "../../../../generated/prisma";
 import { IBookingWriteRepository } from "../interfaces/IBookingWriteRepository";
 
 export class BookingWriteRepository implements IBookingWriteRepository {
@@ -38,14 +38,14 @@ export class BookingWriteRepository implements IBookingWriteRepository {
   async softDelete(id: string): Promise<Booking> {
     return this.prisma.booking.update({
       where: { id },
-      data: { deletedAt: new Date },
+      data: { deletedAt: new Date() },
     });
   }
 
   async restore(id: string): Promise<Booking> {
     return this.prisma.booking.update({
       where: { id },
-      data: { status: "PENDING" },
+      data: { status: BookingStatus.PENDING },
     });
   }
 

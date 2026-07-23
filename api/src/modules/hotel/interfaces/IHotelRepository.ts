@@ -14,7 +14,7 @@ export interface IHotelRepository {
   delete(id: string, tx?: TxClient): Promise<void>;
   restore(id: string, ownerId: string, tx?: TxClient): Promise<void>;
   addImages(images: { hotelId: string; imageUrl: string }[], tx?: TxClient): Promise<void>;
-  findImageById(imageId: string, tx?: TxClient): Promise<any>;
+  findImageById(imageId: string, tx?: TxClient): Promise<{ id: string; imageUrl: string; hotelId: string } | null>;
   deleteImage(imageId: string, tx?: TxClient): Promise<void>;
   existsBySlug(slug: string, tx?: TxClient): Promise<boolean>;
   findMany(options?: Prisma.HotelFindManyArgs, tx?: TxClient): Promise<Hotel[]>;

@@ -1,14 +1,14 @@
-import { AuthResponseDto } from "@/modules/auth/dtos/authDto";
-import { UserMapper } from "@/modules/user/mapper/UserMapper"; // 💡 Import UserMapper
+import { AuthResponseDto, AuthTokensDto } from "../dtos/authDto";
+import { UserResponseDto } from "@/modules/user/dtos/UserDTO";
 
 export class AuthMapper {
   public static toAuthResponseDto(
-    user: any,
+    user: UserResponseDto,
     accessToken: string,
     refreshToken: string,
   ): AuthResponseDto {
     return {
-      user: UserMapper.toResponseDto(user),
+      user: user,
       tokens: {
         accessToken,
         refreshToken,

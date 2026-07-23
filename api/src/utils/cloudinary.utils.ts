@@ -14,14 +14,14 @@ export const uploadToCloudinary = async (
       },
       (error, result) => {
         if (error) return reject(error);
-        resolve((result as any).secure_url);
+        resolve(result?.secure_url || "");
       },
     );
       uploadStream.end(fileBuffer);
   });
 };
 
-export const deleteFromCloudinary = async (publicId: string): Promise<any> => {
+export const deleteFromCloudinary = async (publicId: string): Promise<void> => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.destroy(publicId, (error, result) => {
       if (error) return reject(error);

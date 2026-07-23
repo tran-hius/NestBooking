@@ -15,8 +15,10 @@ import {
   ConflictError,
 } from "@/utils/errors/errorCustomize";
 import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
-import { TxClient, prisma } from "@/config/prisma";
+import { PrismaClient } from "#generated/prisma";
+import { AUTH_CONSTANTS } from "@/utils/constants";
 import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
+import { TxClient, prisma } from "@/config/prisma";
 
 export class UserService implements IUserService {
   private readonly userRepository: IUserRepository;
@@ -35,7 +37,9 @@ export class UserService implements IUserService {
     if (email) {
       keysToDelete.push(REDIS_KEYS.USER_BY_EMAIL(email.toLowerCase().trim()));
     }
-    await redisClient.del(keysToDelete);
+    if (keysToDelete.length > 0) {
+      await redisClient.del(...keysToDelete);
+    }
   }
 
   async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
@@ -232,7 +236,7 @@ export class UserService implements IUserService {
 
     const user = await this.userRepository.findById(userId);
     if (user && user.loginAttempts >= 5) {
-      const lockDuration = 15 * 60 * 1000; // Khóa trong 15 phút
+      const lockDuration = AUTH_CONSTANTS.OTP_EXPIRES_MS; // Khóa
       const lockUntil = new Date(Date.now() + lockDuration);
 
       await this.userRepository.update(userId, { lockUntil });
@@ -331,11 +335,11 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findById(userId);
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
-    const anyUser = user as any;
+    const userWithProfile = user as User & { agentProfile?: { approvalStatus: string } | null };
     if (
-      anyUser.role === Role.AGENT ||
-      (anyUser.agentProfile &&
-        anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
+      userWithProfile.role === Role.AGENT ||
+      (userWithProfile.agentProfile &&
+        userWithProfile.agentProfile.approvalStatus === UserStatus.ACTIVE)
     ) {
       throw new ConflictError(
         "Tài khoản này đã được xác minh và nâng cấp lên Đối tác rồi!",
@@ -372,11 +376,11 @@ export class UserService implements IUserService {
     const user = await this.userRepository.findById(userId);
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
-    const anyUser = user as any;
+    const userWithProfile = user as User & { agentProfile?: { approvalStatus: string } | null };
     if (
-      anyUser.role === Role.AGENT ||
-      (anyUser.agentProfile &&
-        anyUser.agentProfile.approvalStatus === UserStatus.ACTIVE)
+      userWithProfile.role === Role.AGENT ||
+      (userWithProfile.agentProfile &&
+        userWithProfile.agentProfile.approvalStatus === UserStatus.ACTIVE)
     ) {
       throw new ConflictError(
         "Không thể từ chối hồ sơ của một Đối tác đã được phê duyệt. Vui lòng dùng tính năng Hạ cấp tài khoản!",
@@ -385,7 +389,7 @@ export class UserService implements IUserService {
 
     const updateData: Prisma.UserUpdateInput = {
       status: UserStatus.REJECTED,
-      role: "USER",
+      role: Role.USER,
       agentProfile: {
         update: {
           approvalStatus: UserStatus.REJECTED,

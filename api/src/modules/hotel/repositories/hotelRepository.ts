@@ -131,7 +131,7 @@ export class HotelRepository implements IHotelRepository {
     });
   }
 
-  async findImageById(imageId: string, tx?: TxClient): Promise<any> {
+  async findImageById(imageId: string, tx?: TxClient): Promise<{ id: string; imageUrl: string; hotelId: string } | null> {
     const client = tx || this.prisma;
     return client.hotelImage.findUnique({
       where: { id: imageId },

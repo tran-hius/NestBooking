@@ -22,7 +22,7 @@ export interface IHotelService {
   softDeleteHotel(id: string, ownerId: string): Promise<void>;
   restoreHotel(id: string, ownerId: string): Promise<HotelResponseDto>;
   getAllHotels(
-    query: any,
+    query: Record<string, unknown>,
     page?: number, 
     limit?: number,
   ): Promise<PaginatedResponse<HotelResponseDto>>;

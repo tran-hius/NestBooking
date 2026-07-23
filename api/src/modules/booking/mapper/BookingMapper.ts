@@ -1,7 +1,15 @@
 import { BookingResponseDto } from "../dtos/BookingDTO";
 
+import { Prisma, Booking } from "#generated/prisma";
+
+type BookingWithRelations = Booking & {
+  hotel?: { id: string; name: string } | null;
+  roomType?: { id: string; name: string } | null;
+  user?: { id: string; email: string } | null;
+};
+
 export class BookingMapper {
-  public static toResponseDto(booking: any): BookingResponseDto {
+  public static toResponseDto(booking: BookingWithRelations): BookingResponseDto {
     return {
       id: booking.id,
       bookingCode: booking.bookingCode, // Mã booking code đã được khai báo
@@ -32,7 +40,7 @@ export class BookingMapper {
     };
   }
 
-  public static toResponseDtoList(bookings: any[]): BookingResponseDto[] {
+  public static toResponseDtoList(bookings: BookingWithRelations[]): BookingResponseDto[] {
     return bookings.map((booking) => this.toResponseDto(booking));
   }
 }

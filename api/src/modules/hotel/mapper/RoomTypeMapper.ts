@@ -1,7 +1,14 @@
 import { RoomTypeResponseDto } from "../dtos/RoomTypeDTO";
 
+import { Prisma, RoomType, RoomTypeImage } from "#generated/prisma";
+
+type RoomTypeWithRelations = RoomType & {
+  images?: RoomTypeImage[];
+  _count?: { rooms: number };
+};
+
 export class RoomTypeMapper {
-  public static toResponseDto(roomType: any): RoomTypeResponseDto {
+  public static toResponseDto(roomType: RoomTypeWithRelations): RoomTypeResponseDto {
     return {
       id: roomType.id,
       hotelId: roomType.hotelId,
@@ -20,14 +27,14 @@ export class RoomTypeMapper {
       totalRooms: roomType._count?.rooms,
       createdAt: roomType.createdAt,
       updatedAt: roomType.updatedAt,
-      images: roomType.images ? roomType.images.map((img: any) => ({
+      images: roomType.images ? roomType.images.map((img: RoomTypeImage) => ({
         id: img.id,
         imageUrl: img.imageUrl
       })) : undefined,
     };
   }
 
-  public static toResponseDtoList(roomTypes: any[]): RoomTypeResponseDto[] {
+  public static toResponseDtoList(roomTypes: RoomTypeWithRelations[]): RoomTypeResponseDto[] {
     return roomTypes.map((rt) => this.toResponseDto(rt));
   }
 }

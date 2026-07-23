@@ -50,12 +50,12 @@ export class HotelController {
 
   getHotelById = async (req: Request, res: Response): Promise<void> => {
     logger.info("[HotelController] Get hotel by id", {
-      hotelId: req.params.id,
+      hotelId: (req.params.id as string),
     });
-    // Lấy ownerId từ user đang đăng nhập (Nếu là khách Public thì (req as any).user có thể undefined)
+    // Lấy ownerId từ user đang đăng nhập (Nếu là khách Public thì req.user có thể undefined)
     const ownerId = req.user?.userId;
     const hotel = await this.hotelService.getHotelById(
-      req.params.id as string,
+      (req.params.id as string) as string,
       ownerId,
     );
     successResponse(
@@ -67,11 +67,11 @@ export class HotelController {
   };
 
   updateHotel = async (req: Request, res: Response): Promise<void> => {
-    logger.info("[HotelController] Update hotel", { hotelId: req.params.id });
+    logger.info("[HotelController] Update hotel", { hotelId: (req.params.id as string) });
 
     const ownerId = req.user?.userId as string;
     const hotel = await this.hotelService.updateHotel(
-      req.params.id as string,
+      (req.params.id as string) as string,
       ownerId,
       req.body,
     );
@@ -86,21 +86,21 @@ export class HotelController {
 
   softDeleteHotel = async (req: Request, res: Response): Promise<void> => {
     logger.warn("[HotelController] Soft delete hotel", {
-      hotelId: req.params.id,
+      hotelId: (req.params.id as string),
     });
 
     const ownerId = req.user?.userId as string;
-    await this.hotelService.softDeleteHotel(req.params.id as string, ownerId);
+    await this.hotelService.softDeleteHotel((req.params.id as string) as string, ownerId);
 
     successResponse(res, HttpStatus.OK, "Xóa khách sạn thành công.");
   };
 
   restoreHotel = async (req: Request, res: Response): Promise<void> => {
-    logger.info("[HotelController] Restore hotel", { hotelId: req.params.id });
+    logger.info("[HotelController] Restore hotel", { hotelId: (req.params.id as string) });
 
     const ownerId = req.user?.userId as string;
     const hotel = await this.hotelService.restoreHotel(
-      req.params.id as string,
+      (req.params.id as string) as string,
       ownerId,
     );
 
@@ -136,9 +136,9 @@ export class HotelController {
 
   addImages = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      logger.info("[HotelController] Add images", { hotelId: req.params.id });
+      logger.info("[HotelController] Add images", { hotelId: (req.params.id as string) });
       const ownerId = req.user?.userId;
-      const hotelId = req.params.id;
+      const hotelId = (req.params.id as string);
 
       if (!ownerId) throw new UnauthorizedError("Unauthorized");
       if (!req.files || (req.files as Express.Multer.File[]).length === 0) {
@@ -162,9 +162,9 @@ export class HotelController {
 
   deleteImage = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      logger.info("[HotelController] Delete image", { imageId: req.params.imageId });
+      logger.info("[HotelController] Delete image", { imageId: (req.params.imageId as string) });
       const ownerId = req.user?.userId;
-      const imageId = req.params.imageId;
+      const imageId = (req.params.imageId as string);
 
       if (!ownerId) throw new UnauthorizedError("Unauthorized");
 

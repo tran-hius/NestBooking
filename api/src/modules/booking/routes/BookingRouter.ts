@@ -10,6 +10,10 @@ import { CreateBookingSchema, UpdateBookingStatusSchema } from "../dtos/BookingD
 import { BookingReadRepository } from "../repositories/BookingReadRepository";
 import { BookingWriteRepository } from "../repositories/BookingWriteRepository";
 import { BookingStatisticsRepository } from "../repositories/BookingStatisticsRepository";
+import { HotelService } from "../../hotel/services/HotelService";
+import { RoomTypeService } from "../../hotel/services/RoomTypeService";
+import { RoomService } from "../../hotel/services/RoomService";
+
 import { RoomTypeRepository } from "../../hotel/repositories/RoomTypeRepository";
 import { RoomRepository } from "../../hotel/repositories/RoomRepository";
 import { HotelRepository } from "../../hotel/repositories/HotelRepository";
@@ -26,14 +30,17 @@ const hotelRepo = new HotelRepository(prisma);
 const roomTypeRepo = new RoomTypeRepository(prisma);
 const roomRepo = new RoomRepository(prisma);
 
+const hotelService = new HotelService(hotelRepo);
+const roomTypeService = new RoomTypeService(roomTypeRepo, hotelRepo);
+const roomService = new RoomService(roomRepo, roomTypeRepo, hotelRepo);
+
 const bookingService = new BookingService(
   readRepo,
   writeRepo,
   statsRepo,
-  prisma,
-  hotelRepo,
-  roomTypeRepo,
-  roomRepo
+  hotelService,
+  roomTypeService,
+  roomService
 );
 
 const bookingController = new BookingController(bookingService);

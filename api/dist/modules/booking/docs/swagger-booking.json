@@ -1,0 +1,354 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Booking Service API",
+    "description": "Tài liệu API của riêng Module Booking",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "basePath": "",
+  "paths": {
+    "/api/bookings/my-bookings": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Lấy danh sách đơn đặt phòng của User hiện tại",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/bookings": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Tạo đơn đặt phòng mới",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBookingDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/{id}/cancel": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Hủy đơn đặt phòng (Chỉ dành cho đơn PENDING)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/bookings/hotel/{hotelId}": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Lấy danh sách đơn đặt phòng của 1 Khách sạn (Dành cho Agent/Admin)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/bookings/hotel/{hotelId}/revenue": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Thống kê doanh thu khách sạn theo thời gian",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Ngày bắt đầu (YYYY-MM-DD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Ngày kết thúc (YYYY-MM-DD)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/bookings/hotel/{hotelId}/occupancy": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Thống kê tỷ lệ lấp đầy khách sạn theo thời gian",
+        "description": "",
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Ngày bắt đầu (YYYY-MM-DD)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Ngày kết thúc (YYYY-MM-DD)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/bookings/{id}/status": {
+      "patch": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Cập nhật trạng thái đơn đặt phòng (Dành cho Agent/Admin)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookingStatusDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/{id}": {
+      "get": {
+        "tags": [
+          "Bookings"
+        ],
+        "summary": "Lấy chi tiết đơn đặt phòng",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "CreateBookingDto": {
+        "type": "object",
+        "properties": {
+          "hotelId": {
+            "type": "string",
+            "example": "uuid-1234"
+          },
+          "roomTypeId": {
+            "type": "string",
+            "example": "uuid-5678"
+          },
+          "checkInDate": {
+            "type": "string",
+            "example": "2024-12-01T14:00:00Z"
+          },
+          "checkOutDate": {
+            "type": "string",
+            "example": "2024-12-05T12:00:00Z"
+          },
+          "quantity": {
+            "type": "number",
+            "example": 2
+          },
+          "guestName": {
+            "type": "string",
+            "example": "Nguyen Van A"
+          },
+          "guestPhone": {
+            "type": "string",
+            "example": "0123456789"
+          },
+          "guestEmail": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "specialRequests": {
+            "type": "string",
+            "example": "Gần cửa sổ"
+          }
+        },
+        "required": [
+          "hotelId",
+          "roomTypeId",
+          "checkInDate",
+          "checkOutDate",
+          "quantity",
+          "guestName",
+          "guestPhone",
+          "guestEmail"
+        ]
+      },
+      "UpdateBookingStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "CONFIRMED"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      }
+    }
+  }
+}

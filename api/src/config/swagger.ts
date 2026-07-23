@@ -1,4 +1,5 @@
 import swaggerAutogen from "swagger-autogen";
+import logger from "@/config/logger";
 
 const services = [
   {
@@ -207,6 +208,6 @@ for (const service of services) {
   };
 
   autogen(service.outputFile, service.routerFiles, doc).then(() => {
-    console.log(` Đã build thành công tài liệu Swagger cho [${service.name}]`);
+    logger.info(`Đã build thành công tài liệu Swagger cho [${service.name}]`);
   });
 }

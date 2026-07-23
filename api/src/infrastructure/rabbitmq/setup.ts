@@ -42,6 +42,10 @@ export async function setupRabbitMQBindings(): Promise<void> {
     await channel.assertQueue(QUEUES.BOOKING, { durable: true });
     await channel.bindQueue(QUEUES.BOOKING, EXCHANGES.BOOKING, ROUTING_KEYS.BOOKING_CREATE);
 
+    await channel.assertQueue(QUEUES.EMAIL_BOOKING, { durable: true });
+    await channel.bindQueue(QUEUES.EMAIL_BOOKING, EXCHANGES.NOTIFICATION_DIRECT, ROUTING_KEYS.EMAIL_BOOKING_SUCCESS);
+    await channel.bindQueue(QUEUES.EMAIL_BOOKING, EXCHANGES.NOTIFICATION_DIRECT, ROUTING_KEYS.EMAIL_BOOKING_FAIL);
+
     logger.info(
       "[RabbitMQ] Khai báo Exchanges, Queues, DLQ & Bindings hoàn tất!",
     );

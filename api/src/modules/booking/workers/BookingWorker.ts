@@ -39,7 +39,7 @@ export const startBookingWorker = async (): Promise<void> => {
       await prisma.$transaction(async (tx) => {
 
         const bookings = await tx.$queryRaw<any[]>`
-          SELECT id, "roomTypeId", status, quantity, check_in_date AS "checkInDate", check_out_date AS "checkOutDate", special_requests AS "specialRequests"
+          SELECT id, "roomTypeId", status, quantity, check_in_date AS "checkInDate", check_out_date AS "checkOutDate", special_requests AS "specialRequests", guest_email AS "guestEmail", booking_code AS "bookingCode"
           FROM bookings 
           WHERE id = ${bookingId}::uuid 
           FOR UPDATE
@@ -80,15 +80,37 @@ export const startBookingWorker = async (): Promise<void> => {
             data: { status: BookingStatus.CONFIRMED }
           });
           logger.info(`[Booking Worker] Đơn ${bookingId} THÀNH CÔNG.`);
+          
+          if (booking.guestEmail) {
+            const emailPayload = Buffer.from(JSON.stringify({
+              type: "SUCCESS",
+              to: booking.guestEmail,
+              bookingCode: booking.bookingCode,
+              checkInDate: booking.checkInDate,
+              checkOutDate: booking.checkOutDate
+            }));
+            channel.publish(EXCHANGES.NOTIFICATION_DIRECT, ROUTING_KEYS.EMAIL_BOOKING_SUCCESS, emailPayload, { persistent: true });
+          }
         } else {
+          const cancelReason = "Hệ thống tự động hủy vì đã hết phòng trống.";
           await tx.booking.update({
             where: { id: bookingId },
             data: { 
               status: BookingStatus.CANCELLED,
-              specialRequests: (booking.specialRequests || "") + "\n[HỆ THỐNG]: Tự động hủy vì đã hết phòng trống." 
+              specialRequests: (booking.specialRequests || "") + `\n[HỆ THỐNG]: ${cancelReason}` 
             }
           });
           logger.info(`[Booking Worker] Đơn ${bookingId} THẤT BẠI (Hết phòng).`);
+
+          if (booking.guestEmail) {
+            const emailPayload = Buffer.from(JSON.stringify({
+              type: "FAIL",
+              to: booking.guestEmail,
+              bookingCode: booking.bookingCode,
+              reason: cancelReason
+            }));
+            channel.publish(EXCHANGES.NOTIFICATION_DIRECT, ROUTING_KEYS.EMAIL_BOOKING_FAIL, emailPayload, { persistent: true });
+          }
         }
       });
 

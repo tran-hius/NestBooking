@@ -1,4 +1,4 @@
-import { BookingStatus, PrismaClient, Role } from "generated/prisma";
+import { BookingStatus, PrismaClient, Role } from "#generated/prisma";
 import { IBookingReadRepository } from "../interfaces/IBookingReadRepository";
 import { IBookingWriteRepository } from "../interfaces/IBookingWriteRepository";
 import { BookingResponseDto, CreateBookingDto } from "../dtos/BookingDTO";
@@ -6,21 +6,20 @@ import { BadRequestError, ForbiddenError, NotFoundError } from "@/utils/errors";
 import crypto from "crypto";
 import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "@/infrastructure/rabbitmq";
 import { BookingMapper } from "../mapper/BookingMapper";
-import { IRoomTypeRepository } from "@/modules/hotel/interfaces/IRoomTypeRepository";
+import { IHotelService } from "@/modules/hotel/interfaces/IHotelService";
+import { IRoomTypeService } from "@/modules/hotel/interfaces/IRoomTypeService";
+import { IRoomService } from "@/modules/hotel/interfaces/IRoomService";
 import { IBookingStatisticsRepository } from "../interfaces/IBookingStatisticsRepository";
-import { IRoomRepository } from "@/modules/hotel/interfaces/IRoomRepository";
-import { IHotelRepository } from "@/modules/hotel/interfaces/IHotelRepository";
+import { redisClient, REDIS_KEYS, REDIS_TTL } from "@/infrastructure/redis";
 
 export class BookingService {
   constructor(
     private readonly readRepo: IBookingReadRepository,
     private readonly writeRepo: IBookingWriteRepository,
     private readonly statsRepo: IBookingStatisticsRepository,
-    private readonly prisma: PrismaClient,
-    private readonly hotelRepo: IHotelRepository,
-
-    private readonly roomType: IRoomTypeRepository,
-    private readonly roomRepo: IRoomRepository,
+    private readonly hotelService: IHotelService,
+    private readonly roomTypeService: IRoomTypeService,
+    private readonly roomService: IRoomService,
   ) {}
 
   async createBooking(
@@ -47,7 +46,7 @@ export class BookingService {
       throw new BadRequestError("Ngày trả phòng phải sau ngày nhận phòng.");
     }
 
-    const roomType = await this.roomType.findById(data.roomTypeId);
+    const roomType = await this.roomTypeService.getRoomTypeById(data.roomTypeId);
 
     if (!roomType || !roomType.isActive) {
       throw new NotFoundError(
@@ -55,10 +54,7 @@ export class BookingService {
       );
     }
 
-    const totalPhysicalRooms = await this.roomRepo.count({
-      roomTypeId: data.roomTypeId,
-      isActive: true,
-    });
+    const totalPhysicalRooms = (await this.roomService.getRoomsByRoomType(data.roomTypeId)).filter(r => r.isActive).length;
 
     const bookedRoomsCount = await this.readRepo.getOverlappingBookingsCount(
       data.roomTypeId,
@@ -101,7 +97,20 @@ export class BookingService {
       { bookingId: newBooking.id },
     );
 
+    await this.clearBookingCache(newBooking.id, newBooking.userId, newBooking.hotelId);
+
     return BookingMapper.toResponseDto(newBooking);
+  }
+
+  private async clearBookingCache(bookingId: string, userId: string, hotelId: string) {
+    const keys = [
+      REDIS_KEYS.BOOKING(bookingId),
+      REDIS_KEYS.USER_BOOKINGS(userId),
+      REDIS_KEYS.HOTEL_BOOKINGS(hotelId),
+    ];
+    if (keys.length > 0) {
+      await redisClient.del(...keys);
+    }
   }
 
   async getBookingById(
@@ -109,6 +118,16 @@ export class BookingService {
     requestId: string,
     requestRole: string,
   ): Promise<BookingResponseDto> {
+    const cacheKey = REDIS_KEYS.BOOKING(id);
+    const cached = await redisClient.get(cacheKey);
+    if (cached) {
+      const booking = JSON.parse(cached) as BookingResponseDto;
+      if (requestRole === Role.USER && booking.userId !== requestId) {
+        throw new ForbiddenError("Bạn không có quyền xem đơn đặt phòng này");
+      }
+      return booking;
+    }
+
     const booking = await this.readRepo.findById(id);
 
     if (!booking) {
@@ -119,20 +138,29 @@ export class BookingService {
       throw new ForbiddenError("Bạn không có quyền xem đơn đặt phòng này");
     }
 
-    return BookingMapper.toResponseDto(booking);
+    const response = BookingMapper.toResponseDto(booking);
+    await redisClient.setex(cacheKey, REDIS_TTL.BOOKING, JSON.stringify(response));
+    return response;
   }
 
   async getUserBookings(userId: string): Promise<BookingResponseDto[]> {
+    const cacheKey = REDIS_KEYS.USER_BOOKINGS(userId);
+    const cached = await redisClient.get(cacheKey);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+
     const bookings = await this.readRepo.findMany({ userId });
-    return BookingMapper.toResponseDtoList(bookings);
+    const response = BookingMapper.toResponseDtoList(bookings);
+    await redisClient.setex(cacheKey, REDIS_TTL.BOOKING, JSON.stringify(response));
+    return response;
   }
 
   async getHotelBookings(
     hotelId: string,
     agentId: string,
   ): Promise<BookingResponseDto[]> {
-    // TODO: Verify agentId owns hotelId (Cần kiểm tra Agent này có sở hữu Khách sạn này không)
-    const hotel = await this.hotelRepo.findById(hotelId);
+    const hotel = await this.hotelService.getHotelById(hotelId);
 
     if (!hotel) {
       throw new NotFoundError("Không tìm thấy khách sạn.");
@@ -142,9 +170,17 @@ export class BookingService {
       throw new ForbiddenError("Bạn không có quyền truy cập vào khách sạn này");
     }
 
+    const cacheKey = REDIS_KEYS.HOTEL_BOOKINGS(hotelId);
+    const cached = await redisClient.get(cacheKey);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+
     const bookings = await this.readRepo.findMany({ hotelId });
 
-    return BookingMapper.toResponseDtoList(bookings);
+    const response = BookingMapper.toResponseDtoList(bookings);
+    await redisClient.setex(cacheKey, REDIS_TTL.BOOKING, JSON.stringify(response));
+    return response;
   }
 
   async updateBookingStatus(
@@ -157,7 +193,7 @@ export class BookingService {
       throw new NotFoundError("Không tìm thấy đơn đặt phòng.");
     }
 
-    const hotel = await this.hotelRepo.findById(booking.hotelId);
+    const hotel = await this.hotelService.getHotelById(booking.hotelId);
 
     if (!hotel) {
       throw new NotFoundError("Không tìm thấy dữ liệu khách sạn của đơn này.");
@@ -169,8 +205,8 @@ export class BookingService {
       );
     }
 
-    // TODO: Verify agentId owns hotelId (Đảm bảo chỉ chủ khách sạn mới được đổi trạng thái đơn)
     const updated = await this.writeRepo.update(id, { status });
+    await this.clearBookingCache(updated.id, updated.userId, updated.hotelId);
     return BookingMapper.toResponseDto(updated);
   }
 
@@ -192,6 +228,7 @@ export class BookingService {
     const updated = await this.writeRepo.update(id, {
       status: BookingStatus.CANCELLED,
     });
+    await this.clearBookingCache(updated.id, updated.userId, updated.hotelId);
     return BookingMapper.toResponseDto(updated);
   }
 
@@ -201,7 +238,7 @@ export class BookingService {
     startDate: Date,
     endDate: Date,
   ): Promise<number> {
-    const hotel = await this.hotelRepo.findById(hotelId);
+    const hotel = await this.hotelService.getHotelById(hotelId);
 
     if (!hotel) {
       throw new NotFoundError("Không tìm thấy khách sạn.");
@@ -222,7 +259,7 @@ export class BookingService {
     startDate: Date,
     endDate: Date,
   ): Promise<number> {
-    const hotel = await this.hotelRepo.findById(hotelId);
+    const hotel = await this.hotelService.getHotelById(hotelId);
 
     if (!hotel) {
       throw new NotFoundError("Không tìm thấy khách sạn.");
@@ -237,12 +274,6 @@ export class BookingService {
     return this.statsRepo.occupancy(hotelId, startDate, endDate);
   }
 
-  // searchBookings();
-  // getBookingByCode();
-  // getBookingHistory();
-  // getPendingBookings();
-  // getConfirmedBookings();
-  // getCancelledBookings();
 }
 
 

@@ -1,7 +1,14 @@
 import { UserResponseDto } from "@/modules/user/dtos/UserDTO";
 
+import { Prisma, User, UserProfile, AgentProfile } from "#generated/prisma";
+
+type UserWithRelations = User & {
+  profile?: UserProfile | null;
+  agentProfile?: AgentProfile | null;
+};
+
 export class UserMapper {
-  public static toResponseDto(user: any): UserResponseDto {
+  public static toResponseDto(user: UserWithRelations): UserResponseDto {
     return {
       id: user.id,
       email: user.email,
@@ -31,7 +38,7 @@ export class UserMapper {
     
   }
 
-  public static toResponseDtoList(users: any[]): UserResponseDto[] {
+  public static toResponseDtoList(users: UserWithRelations[]): UserResponseDto[] {
     return users.map((user) => this.toResponseDto(user));
   }
 }

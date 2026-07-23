@@ -12,6 +12,11 @@ export class RedisConnection {
     this.client = new Redis({
       host: REDIS_HOST || "127.0.0.1",
       port: REDIS_PORT || 6379,
+      retryStrategy: (times) => {
+        const delay = Math.min(times * 50, 2000);
+        logger.warn(`[Redis] Đang thử kết nối lại lần ${times}... (delay: ${delay}ms)`);
+        return delay;
+      }
     });
 
     this.client.on("connect", () => {
@@ -20,6 +25,14 @@ export class RedisConnection {
 
     this.client.on("error", (error) => {
       logger.error("[Redis] Lỗi kết nối Redis:", error);
+    });
+
+    // Graceful Shutdown
+    process.on("SIGINT", async () => {
+      await this.disconnect();
+    });
+    process.on("SIGTERM", async () => {
+      await this.disconnect();
     });
   }
 

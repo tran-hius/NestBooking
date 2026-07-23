@@ -1,0 +1,464 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "User Service API",
+    "description": "Tài liệu API của riêng Module Users",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "basePath": "",
+  "paths": {
+    "/api/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Lấy danh sách tất cả người dùng",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Tạo tài khoản người dùng mới",
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Lấy chi tiết một người dùng theo ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Xóa mềm tài khoản",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/{id}/profile": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Cập nhật thông tin hồ sơ cá nhân",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserProfileDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}/status": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Thay đổi trạng thái tài khoản",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeUserStatusDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}/restore": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Khôi phục tài khoản đã bị xóa mềm",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/{id}/kyc/submit": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gửi hồ sơ KYC",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "autoHeaders": false,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitIdentityVerificationDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}/kyc/approve": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Admin duyệt hồ sơ KYC",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/users/{id}/kyc/reject": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Admin từ chối hồ sơ KYC",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectIdentityVerificationDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}/avatar": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Tải lên ảnh đại diện (Avatar)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "File ảnh (jpg, png, jpeg, webp) tối đa 5MB"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "user@example.com"
+          },
+          "fullName": {
+            "type": "string",
+            "example": "Nguyen Van A"
+          },
+          "role": {
+            "type": "string",
+            "example": "USER"
+          }
+        },
+        "required": [
+          "email",
+          "fullName",
+          "role"
+        ]
+      },
+      "UpdateUserProfileDto": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "Nguyen Van B"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "0123456789"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "example": "https://example.com/avt.jpg"
+          },
+          "address": {
+            "type": "string",
+            "example": "Ha Noi"
+          }
+        }
+      },
+      "ChangeUserStatusDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ACTIVE"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "SubmitIdentityVerificationDto": {
+        "type": "object",
+        "properties": {
+          "documentType": {
+            "type": "string",
+            "example": "CCCD"
+          },
+          "idNumber": {
+            "type": "string",
+            "example": "001002003004"
+          },
+          "idCardImageUrl": {
+            "type": "string",
+            "example": "https://example.com/id.jpg"
+          }
+        },
+        "required": [
+          "documentType",
+          "idNumber",
+          "idCardImageUrl"
+        ]
+      },
+      "RejectIdentityVerificationDto": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "example": "Ảnh quá mờ"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      }
+    }
+  }
+}

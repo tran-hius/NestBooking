@@ -78,7 +78,7 @@ export interface UserResponseDto {
   createdAt: Date;
   updatedAt: Date;
   profile?: {
-    fullName: string;
+    fullName: string | null;
     phoneNumber: string | null;
     avatarUrl: string | null;
     address: string | null;

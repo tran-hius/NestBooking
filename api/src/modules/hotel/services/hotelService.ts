@@ -1,4 +1,4 @@
-import { HotelStatus } from "generated/prisma";
+import { HotelStatus } from "#generated/prisma";
 import {
   CreateHotelDto,
   HotelResponseDto,
@@ -14,8 +14,9 @@ import {
 } from "@/utils/errors/errorCustomize";
 import logger from "@/config/logger";
 import { PaginatedResponse } from "../dtos/PaginationDto";
-import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
+import { REDIS_KEYS, redisClient, REDIS_TTL } from "@/infrastructure/redis";
 import { deleteFromCloudinary } from "@/utils/cloudinary.utils";
+import crypto from "crypto";
 
 export class HotelService implements IHotelService {
   private readonly hotelRepository: IHotelRepository;
@@ -26,7 +27,9 @@ export class HotelService implements IHotelService {
 
   private async clearHotelCache(hotelId: string){
     const keysToDelete = [REDIS_KEYS.HOTEL(hotelId)]
-    await redisClient.del(keysToDelete);
+    if (keysToDelete.length > 0) {
+      await redisClient.del(...keysToDelete);
+    }
   }
 
   private generateSlug(text: string): string {
@@ -187,18 +190,34 @@ export class HotelService implements IHotelService {
         "Khách sạn không tồn tại hoặc bạn không có quyền.",
       );
     }
-    const restoredHotel = await this.hotelRepository.restore(id, ownerId);
+    await this.hotelRepository.restore(id, ownerId);
 
     await this.clearHotelCache(id);
+
+    const restoredHotel = await this.hotelRepository.findById(id);
+    if (!restoredHotel) {
+      throw new NotFoundError("Lỗi sau khi khôi phục khách sạn.");
+    }
 
     return HotelMapper.toResponseDto(restoredHotel);
   }
 
   async getAllHotels(
-    query: any,
+    query: Record<string, unknown>,
     page: number = 1,
     limit: number = 10,
   ): Promise<PaginatedResponse<HotelResponseDto>> {
+    const queryHash = crypto
+      .createHash("md5")
+      .update(JSON.stringify({ query, page, limit }))
+      .digest("hex");
+    const cacheKey = REDIS_KEYS.HOTEL_LIST_QUERY(queryHash);
+
+    const cached = await redisClient.get(cacheKey);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+
     const skip = (page - 1) * limit;
 
     const [hotels, total] = await Promise.all([
@@ -214,7 +233,7 @@ export class HotelService implements IHotelService {
       }),
     ]);
 
-    return {
+    const response = {
       data: HotelMapper.toResponseDtoList(hotels),
       meta: {
         total,
@@ -223,6 +242,9 @@ export class HotelService implements IHotelService {
         totalPages: Math.ceil(total / limit),
       },
     };
+
+    await redisClient.setex(cacheKey, REDIS_TTL.HOTEL, JSON.stringify(response));
+    return response;
   }
 
   async addHotelImages(
@@ -260,11 +282,12 @@ export class HotelService implements IHotelService {
 
     // Try to delete from Cloudinary
     try {
-      const urlParts = image.imageUrl.split("/");
-      const filenameWithExtension = urlParts[urlParts.length - 1];
-      const publicId = filenameWithExtension.split(".")[0];
-      const folderName = urlParts[urlParts.length - 2];
-      await deleteFromCloudinary(`${folderName}/${publicId}`);
+      const match = image.imageUrl.match(/\/v\d+\/(.+)\.[a-z]+$/i);
+      if (match && match[1]) {
+        await deleteFromCloudinary(match[1]);
+      } else {
+        logger.warn(`[Cloudinary] Không thể parse public_id từ URL: ${image.imageUrl}`);
+      }
     } catch (error) {
       logger.error(`[Cloudinary] Lỗi khi xóa ảnh hotel: ${error}`);
     }

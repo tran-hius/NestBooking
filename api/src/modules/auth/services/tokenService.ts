@@ -2,14 +2,17 @@ import jwt from "jsonwebtoken";
 import { ITokenService } from "@/modules/auth/interfaces/ITokenService";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import { AUTH_CONSTANTS } from "@/utils/constants";
 import { ConflictError } from "@/utils/errors/errorCustomize";
+import { env } from "@/config/env";
 
 
 export class TokenService implements ITokenService{
-    private readonly JWT_SECRET = process.env.JWT_SECRET || "bi_mat_nhe"
+    private readonly JWT_SECRET = env.JWT_SECRET;
+    private readonly JWT_REFRESH_SECRET = env.JWT_REFRESH_SECRET;
 
     async hashPassword(password: string): Promise<string> {
-        const salt = 10;
+        const salt = await bcrypt.genSalt(AUTH_CONSTANTS.SALT_ROUNDS);
         return bcrypt.hash(password, salt)
     }
 
@@ -21,10 +24,14 @@ export class TokenService implements ITokenService{
         const accessToken = jwt.sign(
             {userId, role, status},
             this.JWT_SECRET,
-            {expiresIn: process.env.JWT_EXPIRES_IN || "30m"}
+            { expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions["expiresIn"] }
         );
 
-        const refreshToken = crypto.randomBytes(40).toString("hex");
+        const refreshToken = jwt.sign(
+            {userId, role, status},
+            this.JWT_REFRESH_SECRET,
+            { expiresIn: "7d" }
+        );
 
         const tokenHash = this.hashToken(refreshToken);
 
@@ -34,11 +41,12 @@ export class TokenService implements ITokenService{
     hashToken(token: string): string {
         return crypto.createHash("sha256").update(token).digest("hex");
     }
-    
-    verifyRefreshToken(token: string) {
-        if(!token){
-            throw new ConflictError("RefreshToken không hợp lệ hoặc đã bị chỉnh sửa")
+
+    verifyRefreshToken(token: string): jwt.JwtPayload | string {
+        try {
+            return jwt.verify(token, this.JWT_REFRESH_SECRET);
+        } catch (error) {
+            throw new ConflictError("RefreshToken không hợp lệ hoặc đã hết hạn.");
         }
-        return true;
     }
 }

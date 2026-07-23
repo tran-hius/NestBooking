@@ -1,5 +1,12 @@
 
 export const getOtpEmailTemplate = (otpCode: string): string => {
+  const safeOtpCode = String(otpCode)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
       <h2 style="color: #4CAF50; text-align: center;">NestBooking</h2>
@@ -8,7 +15,7 @@ export const getOtpEmailTemplate = (otpCode: string): string => {
       
       <div style="text-align: center; margin: 30px 0;">
         <span style="font-size: 28px; font-weight: bold; background: #f4f4f4; padding: 15px 30px; letter-spacing: 5px; border-radius: 8px; border: 1px dashed #ccc;">
-          ${otpCode}
+          ${safeOtpCode}
         </span>
       </div>
       

@@ -80,3 +80,68 @@ export const startEmailWorker = async (): Promise<void> => {
     }
   });
 };
+
+export const startBookingNotificationWorker = async (): Promise<void> => {
+  logger.info(`Booking Notification Worker đang lắng nghe Queue: ${QUEUES.EMAIL_BOOKING}`);
+
+  await rabbitmq.consumeQueue(QUEUES.EMAIL_BOOKING, async (msg, channel) => {
+    if (!msg) {
+      logger.warn("Nhận được message rỗng từ Email Booking Queue.");
+      return;
+    }
+
+    const retries = Number(msg.properties.headers?.["x-retries"] ?? 0);
+    let payload: { type?: string; to?: string; bookingCode?: string; checkInDate?: string; checkOutDate?: string; reason?: string };
+
+    try {
+      payload = JSON.parse(msg.content.toString());
+      if (!payload.type || !payload.to || !payload.bookingCode) {
+        throw new Error("Payload Email Booking không hợp lệ.");
+      }
+    } catch (error) {
+      logger.error("Lỗi parse Payload RabbitMQ Email Booking.", error);
+      channel.nack(msg, false, false);
+      return;
+    }
+
+    try {
+      logger.info(
+        `Đang gửi thông báo Đặt phòng (${payload.type}) tới ${payload.to} (Retry ${retries}/${MAX_RETRY})`,
+      );
+
+      if (payload.type === "SUCCESS" && payload.to && payload.bookingCode && payload.checkInDate && payload.checkOutDate) {
+        await emailService.sendBookingSuccessEmail(payload.to, payload.bookingCode, payload.checkInDate, payload.checkOutDate);
+      } else if (payload.type === "FAIL" && payload.to && payload.bookingCode && payload.reason) {
+        await emailService.sendBookingFailEmail(payload.to, payload.bookingCode, payload.reason);
+      }
+
+      channel.ack(msg);
+      logger.info(`Đã gửi thông báo Đặt phòng thành công tới ${payload.to}`);
+    } catch (error) {
+      logger.error(`Lỗi gửi thông báo Đặt phòng tới ${payload.to}`, error);
+
+      if (retries >= MAX_RETRY) {
+        logger.error(`Email Booking tới ${payload.to} đã retry ${MAX_RETRY} lần. Rớt.`);
+        channel.nack(msg, false, false);
+        return;
+      }
+
+      logger.warn(`Retry lần ${retries + 1}/${MAX_RETRY} cho Email Booking ${payload.to}`);
+
+      const content = Buffer.from(JSON.stringify(payload));
+      const routingKey = payload.type === "SUCCESS" ? ROUTING_KEYS.EMAIL_BOOKING_SUCCESS : ROUTING_KEYS.EMAIL_BOOKING_FAIL;
+      
+      channel.publish(
+        EXCHANGES.NOTIFICATION_DIRECT,
+        routingKey,
+        content,
+        {
+          headers: { "x-retries": retries + 1 },
+          persistent: true,
+        },
+      );
+
+      channel.ack(msg);
+    }
+  });
+};

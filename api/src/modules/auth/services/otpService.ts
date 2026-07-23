@@ -1,4 +1,5 @@
 import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
+import logger from "@/config/logger";
 import { env } from "@/config/env";
 const OTP_TTL = Number(env.OTP_TTL);
 
@@ -61,7 +62,7 @@ export class OtpService implements IOtpService {
     try {
       const storedData = JSON.parse(storedDataStr);
       if (storedData.otp !== otp) {
-        console.log("[OTP Debug] Mismatch!");
+        logger.debug("[OTP Debug] Mismatch!");
         return null;
       }
       await redisClient.del(key);

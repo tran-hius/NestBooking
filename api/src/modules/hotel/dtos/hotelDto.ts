@@ -1,5 +1,6 @@
 import { z } from "zod/v3";
 import { Hotel, HotelStatus, PropertyType } from "../../../../generated/prisma";
+import { RoomTypeResponseDto } from "./RoomTypeDTO";
 
 export const CreateHotelSchema = z.object({
   body: z.object({
@@ -65,8 +66,8 @@ export interface HotelResponseDto {
   address: string;
   city: string;
   country: string;
-  latitude: any | null;
-  longitude: any | null;
+  latitude: number | null;
+  longitude: number | null;
   phone: string | null;
   email: string | null;
   thumbnail: string | null;
@@ -77,7 +78,7 @@ export interface HotelResponseDto {
   status: HotelStatus;
   propertyType: PropertyType;
   images?: { id: string; imageUrl: string }[];
-  roomTypes?: any[];
+  roomTypes?: RoomTypeResponseDto[];
   createdAt: Date;
   updatedAt: Date;
 }

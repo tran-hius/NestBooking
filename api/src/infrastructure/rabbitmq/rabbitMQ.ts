@@ -9,8 +9,8 @@ declare module "amqplib" {
     close(): Promise<void>;
   }
   export function connect(
-    url: string | any,
-    socketOptions?: any,
+    url: string | Record<string, unknown>,
+    socketOptions?: Record<string, unknown>,
   ): Promise<Connection>;
 }
 
@@ -45,14 +45,14 @@ class RabbitMQ {
 
         logger.info("[RabbitMQ] Kết nối thành công!");
 
-        this.connection.on("close", (err: any) => {
+        this.connection.on("close", (err: Error) => {
           logger.error("[RabbitMQ] Connection closed!", err);
           this.connection = null;
           this.publisherChannel = null;
           this.handleReconnect();
         });
 
-        this.connection.on("error", (err: any) => {
+        this.connection.on("error", (err: Error) => {
           logger.error("[RabbitMQ] Connection error:", err);
         });
 

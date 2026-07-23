@@ -2,8 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import { NotFoundError, UnauthorizedError } from "@/utils/errors/errorCustomize";
 import jwt from "jsonwebtoken";
 import { Role } from "../../generated/prisma";
+import { env } from "@/config/env";
+import logger from "@/config/logger";
 
-const JWT_SECRET = process.env.JWT_SECRET
+const JWT_SECRET = env.JWT_SECRET
 
 if(!JWT_SECRET){
   throw new NotFoundError("Invalid jwt secret")
@@ -61,7 +63,7 @@ export const authMiddleware = (
       token = token.slice(1, -1);
     }
 
-    const decoded = jwt.verify(token, JWT_SECRET) as {
+    const decoded = jwt.verify(token, env.JWT_SECRET) as {
       userId: string;
       role: string;
       status: string;
@@ -70,16 +72,17 @@ export const authMiddleware = (
     req.user = decoded;
 
     next();
-  } catch (error: any) {
-    console.error("JWT Verification Error:", error.message);
-    if (error instanceof jwt.TokenExpiredError) {
+  } catch (error: unknown) {
+    const err = error as Error;
+    logger.error(`JWT Verification Error: ${err.message}`);
+    if (err instanceof jwt.TokenExpiredError) {
       next(
         new UnauthorizedError(
           "Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.",
         ),
       );
     } else {
-      next(new UnauthorizedError(`Token không hợp lệ hoặc đã bị giả mạo. Chi tiết: ${error.message}`));
+      next(new UnauthorizedError(`Token không hợp lệ hoặc đã bị giả mạo. Chi tiết: ${err.message}`));
     }
   }
 };

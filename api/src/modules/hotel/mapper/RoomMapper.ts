@@ -1,7 +1,9 @@
 import { RoomResponseDto } from "../dtos/RoomDTO";
 
+import { Prisma, Room } from "#generated/prisma";
+
 export class RoomMapper {
-  public static toResponseDto(room: any): RoomResponseDto {
+  public static toResponseDto(room: Room): RoomResponseDto {
     return {
       id: room.id,
       hotelId: room.hotelId,
@@ -16,7 +18,7 @@ export class RoomMapper {
     };
   }
 
-  public static toResponseDtoList(rooms: any[]): RoomResponseDto[] {
+  public static toResponseDtoList(rooms: Room[]): RoomResponseDto[] {
     return rooms.map((room) => this.toResponseDto(room));
   }
 }

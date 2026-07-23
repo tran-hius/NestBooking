@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { IAuthService } from "@/modules/auth/interfaces/IAuthService";
+import { AUTH_CONSTANTS } from "@/utils/constants";
 import logger from "@/config/logger";
 import { successResponse } from "@/utils/response";
 import { HttpStatus } from "@/constants/httpStatus";
@@ -47,7 +48,7 @@ export class AuthController {
       deviceName: (req.headers["x-device-name"] as string) || "Unknown Device",
     };
 
-    console.log("[AuthController] received payload:", req.body);
+    logger.info(`[AuthController] received payload: ${JSON.stringify(req.body)}`);
 
     const result = await this.authService.verifyOtpAndLogin(
       req.body,
@@ -57,7 +58,7 @@ export class AuthController {
     res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
     res.cookie("accessToken", result.tokens.accessToken, {
       ...COOKIE_OPTIONS,
-      maxAge: 15 * 60 * 1000, // 15 phut
+      maxAge: appEnv.JWT_EXPIRES_IN_MS,
     });
 
     const { refreshToken, ...safeResult } = result.tokens;
@@ -87,7 +88,7 @@ export class AuthController {
     res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
     res.cookie("accessToken", result.tokens.accessToken, {
       ...COOKIE_OPTIONS,
-      maxAge: 15 * 60 * 1000, // 15 phut
+      maxAge: appEnv.JWT_EXPIRES_IN_MS,
     });
 
     const { refreshToken, ...safeResult } = result.tokens;
@@ -118,7 +119,7 @@ export class AuthController {
     res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
     res.cookie("accessToken", result.tokens.accessToken, {
       ...COOKIE_OPTIONS,
-      maxAge: 15 * 60 * 1000, // 15 phut
+      maxAge: appEnv.JWT_EXPIRES_IN_MS,
     });
 
     const { refreshToken, ...safeResult } = result.tokens;

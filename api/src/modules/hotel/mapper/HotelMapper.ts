@@ -1,7 +1,15 @@
 import { HotelResponseDto } from "../dtos/HotelDTO";
+import { RoomTypeMapper } from "./RoomTypeMapper";
+
+import { Prisma, Hotel, HotelImage, RoomType } from "#generated/prisma";
+
+type HotelWithRelations = Hotel & {
+  images?: HotelImage[];
+  roomTypes?: RoomType[];
+};
 
 export class HotelMapper {
-  public static toResponseDto(hotel: any): HotelResponseDto {
+  public static toResponseDto(hotel: HotelWithRelations): HotelResponseDto {
     return {
       id: hotel.id,
       ownerId: hotel.ownerId,
@@ -25,7 +33,7 @@ export class HotelMapper {
       status: hotel.status,
       propertyType: hotel.propertyType,
       images: hotel.images || [],
-      roomTypes: hotel.roomTypes || [],
+      roomTypes: hotel.roomTypes ? RoomTypeMapper.toResponseDtoList(hotel.roomTypes) : [],
 
       createdAt: hotel.createdAt,
       updatedAt: hotel.updatedAt,
@@ -33,7 +41,7 @@ export class HotelMapper {
   }
 
 
-  public static toResponseDtoList(hotels: any[]): HotelResponseDto[] {
+  public static toResponseDtoList(hotels: HotelWithRelations[]): HotelResponseDto[] {
     return hotels.map((hotel) => this.toResponseDto(hotel));
   }
 }

@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiError } from "@/utils/errors/apiError";
 import { env as appEnv } from "@/config/env";
-import { Prisma } from "generated/prisma";
+import logger from "@/config/logger";
+import { Prisma } from "#generated/prisma";
 
 export const errorHandler = (
   error: Error,
@@ -11,9 +12,9 @@ export const errorHandler = (
 ) => {
   let statusCode = 500;
   let message = "Internal server error";
-  let errors: any = null;
+  let errors: Record<string, any> | null = null;
 
-  console.error("GLOBAL ERROR HANDLER CAUGHT:", error);
+  logger.error(`GLOBAL ERROR HANDLER CAUGHT: ${error.stack || error.message || error}`);
 
   if (error instanceof ApiError) {
     statusCode = error.statusCode;
@@ -35,6 +36,6 @@ export const errorHandler = (
     errors,
     path: req.originalUrl,
     timestamp: new Date().toISOString(),
-    stack: error.stack,
+    stack: appEnv.NODE_ENV === "development" ? error.stack : undefined,
   });
 };

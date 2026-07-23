@@ -15,6 +15,7 @@ import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { env } from "@/config/env";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,7 +29,7 @@ app.use(cors({
   origin: ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", process.env.CLIENT_URL || ""],
   credentials: true,
 }));
-app.use(cookieParser());
+app.use(cookieParser(env.COOKIE_SECRET));
 
 const userSwaggerDoc = JSON.parse(
   fs.readFileSync(

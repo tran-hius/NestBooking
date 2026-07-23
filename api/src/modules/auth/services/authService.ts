@@ -15,6 +15,7 @@ import {
   ChangePasswordDto,
   OtpTokenResponse,
 } from "@/modules/auth/dtos";
+import { AUTH_CONSTANTS } from "@/utils/constants";
 import { IUserService } from "@/modules/user/interfaces/IUserService";
 
 import { BadRequestError, ConflictError, NotFoundError } from "@/utils/errors";
@@ -102,7 +103,7 @@ export class AuthService implements IAuthService {
       ipAddress: device.ipAddress,
       userAgent: device.userAgent,
       deviceName: device.deviceName,
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
     });
 
     return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
@@ -147,7 +148,7 @@ export class AuthService implements IAuthService {
       ipAddress: device.ipAddress,
       userAgent: device.userAgent,
       deviceName: device.deviceName,
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
     });
 
     return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
@@ -157,7 +158,11 @@ export class AuthService implements IAuthService {
     dto: RefreshTokenDto,
     device: DeviceMetadata,
   ): Promise<AuthResponseDto> {
+    if (!dto.refreshToken) {
+      throw new ConflictError("RefreshToken không hợp lệ hoặc đã bị chỉnh sửa.");
+    }
     this.tokenService.verifyRefreshToken(dto.refreshToken);
+    
     const tokenHash = this.tokenService.hashToken(dto.refreshToken);
     const storedToken =
       await this.refreshTokenRepository.findByTokenHash(tokenHash);
@@ -195,7 +200,7 @@ export class AuthService implements IAuthService {
           ipAddress: device.ipAddress || storedToken.ipAddress,
           userAgent: device.userAgent || storedToken.userAgent,
           deviceName: device.deviceName || storedToken.deviceName,
-          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
         },
         tx,
       );
