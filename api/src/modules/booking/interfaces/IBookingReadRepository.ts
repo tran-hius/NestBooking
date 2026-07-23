@@ -2,8 +2,7 @@ import { Booking, Prisma } from "../../../../generated/prisma";
 
 export interface IBookingReadRepository {
   findById(id: string): Promise<Booking | null>;
-  findByBookingCode(code: string): Promise<Booking | null>; // Lưu ý: Nếu dùng hàm này, bạn nhớ thêm trường `bookingCode` vào schema.prisma nhé
-
+  findByBookingCode(code: string): Promise<Booking | null>;
   findMany(
     where?: Prisma.BookingWhereInput,
     skip?: number,
@@ -20,4 +19,9 @@ export interface IBookingReadRepository {
 
   exists(where: Prisma.BookingWhereInput): Promise<boolean>;
   count(where?: Prisma.BookingWhereInput): Promise<number>;
+  getOverlappingBookingsCount(
+    roomTypeId: string,
+    checkIn: Date,
+    checkOut: Date,
+  ): Promise<number>;
 }

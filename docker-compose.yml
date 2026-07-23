@@ -135,7 +135,7 @@ services:
       - DB_HOST=postgres_db
       - DB_PORT=5432
       - REDIS_HOST=redis_cache
-      - RABBITMQ_URL=amqp://guest:guest@rabbitmq_queue:5672
+      - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq_queue:5672
     volumes:
       - ./api:/app
       - /app/node_modules

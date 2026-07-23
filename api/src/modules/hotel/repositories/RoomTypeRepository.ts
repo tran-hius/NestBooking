@@ -9,20 +9,27 @@ export class RoomTypeRepository implements IRoomTypeRepository {
     this.prisma = prisma;
   }
 
-  async create(data: Prisma.RoomTypeUncheckedCreateInput, tx?: TxClient): Promise<RoomType> {
+  async create(
+    data: Prisma.RoomTypeUncheckedCreateInput,
+    tx?: TxClient,
+  ): Promise<RoomType> {
     const client = tx || this.prisma;
     return client.roomType.create({
       data,
-      include: { images: true }
+      include: { images: true },
     });
   }
 
-  async update(id: string, data: Prisma.RoomTypeUpdateInput, tx?: TxClient): Promise<RoomType> {
+  async update(
+    id: string,
+    data: Prisma.RoomTypeUpdateInput,
+    tx?: TxClient,
+  ): Promise<RoomType> {
     const client = tx || this.prisma;
     return client.roomType.update({
       where: { id },
       data,
-      include: { images: true }
+      include: { images: true },
     });
   }
 
@@ -37,12 +44,12 @@ export class RoomTypeRepository implements IRoomTypeRepository {
     const client = tx || this.prisma;
     return client.roomType.findUnique({
       where: { id },
-      include: { 
+      include: {
         images: true,
         _count: {
-          select: { rooms: true }
-        }
-      }
+          select: { rooms: true },
+        },
+      },
     });
   }
 
@@ -51,33 +58,40 @@ export class RoomTypeRepository implements IRoomTypeRepository {
     return client.roomType.findMany({
       where: { hotelId },
       orderBy: { createdAt: "desc" },
-      include: { 
+      include: {
         images: true,
         _count: {
-          select: { rooms: true }
-        }
-      }
+          select: { rooms: true },
+        },
+      },
     });
   }
 
-  async findPublicByHotelId(hotelId: string, tx?: TxClient): Promise<RoomType[]> {
+  async findPublicByHotelId(
+    hotelId: string,
+    tx?: TxClient,
+  ): Promise<RoomType[]> {
     const client = tx || this.prisma;
     return client.roomType.findMany({
-      where: { 
+      where: {
         hotelId,
-        isActive: true // Chỉ lấy phòng đang mở bán
+        isActive: true, // Chỉ lấy phòng đang mở bán
       },
       orderBy: { price: "asc" },
-      include: { 
+      include: {
         images: true,
         _count: {
-          select: { rooms: true }
-        }
-      }
+          select: { rooms: true },
+        },
+      },
     });
   }
 
-  async existsByName(hotelId: string, name: string, tx?: TxClient): Promise<boolean> {
+  async existsByName(
+    hotelId: string,
+    name: string,
+    tx?: TxClient,
+  ): Promise<boolean> {
     const client = tx || this.prisma;
     const count = await client.roomType.count({
       where: { hotelId, name },
@@ -85,7 +99,10 @@ export class RoomTypeRepository implements IRoomTypeRepository {
     return count > 0;
   }
 
-  async addImages(data: Prisma.RoomTypeImageCreateManyInput[], tx?: TxClient): Promise<void> {
+  async addImages(
+    data: Prisma.RoomTypeImageCreateManyInput[],
+    tx?: TxClient,
+  ): Promise<void> {
     const client = tx || this.prisma;
     await client.roomTypeImage.createMany({
       data,
@@ -99,10 +116,15 @@ export class RoomTypeRepository implements IRoomTypeRepository {
     });
   }
 
-  async findImageById(imageId: string, tx?: TxClient): Promise<Prisma.RoomTypeImageGetPayload<{}> | null> {
+  async findImageById(
+    imageId: string,
+    tx?: TxClient,
+  ): Promise<Prisma.RoomTypeImageGetPayload<{}> | null> {
     const client = tx || this.prisma;
     return client.roomTypeImage.findUnique({
       where: { id: imageId },
     });
   }
+
+  
 }

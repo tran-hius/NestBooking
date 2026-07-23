@@ -46,6 +46,7 @@ export type UpdateBookingStatusDto = z.infer<
 
 export interface BookingResponseDto {
   id: string;
+  bookingCode: string; // Bổ sung bookingCode vào đây
   userId: string;
   hotelId: string;
   roomTypeId: string;

@@ -157,6 +157,38 @@ const services = [
       },
     },
   },
+  {
+    name: "Booking Service",
+    description: "Tài liệu API của riêng Module Booking",
+    basePath: "/api/bookings",
+    outputFile: "./src/modules/booking/docs/swagger-booking.json",
+    routerFiles: ["./src/modules/booking/routes/BookingRouter.ts"],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
+      schemas: {
+        CreateBookingDto: {
+          $hotelId: "uuid-1234",
+          $roomTypeId: "uuid-5678",
+          $checkInDate: "2024-12-01T14:00:00Z",
+          $checkOutDate: "2024-12-05T12:00:00Z",
+          $quantity: 2,
+          $guestName: "Nguyen Van A",
+          $guestPhone: "0123456789",
+          $guestEmail: "user@example.com",
+          specialRequests: "Gần cửa sổ"
+        },
+        UpdateBookingStatusDto: {
+          $status: "CONFIRMED"
+        }
+      }
+    }
+  }
 ];
 
 const autogen = swaggerAutogen({ openapi: "3.0.0", autoHeaders: false });

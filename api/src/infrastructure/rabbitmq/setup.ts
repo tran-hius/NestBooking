@@ -38,6 +38,10 @@ export async function setupRabbitMQBindings(): Promise<void> {
       ROUTING_KEYS.OTP_SEND,
     );
 
+    await channel.assertExchange(EXCHANGES.BOOKING, "direct", { durable: true });
+    await channel.assertQueue(QUEUES.BOOKING, { durable: true });
+    await channel.bindQueue(QUEUES.BOOKING, EXCHANGES.BOOKING, ROUTING_KEYS.BOOKING_CREATE);
+
     logger.info(
       "[RabbitMQ] Khai báo Exchanges, Queues, DLQ & Bindings hoàn tất!",
     );

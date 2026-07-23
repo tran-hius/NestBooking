@@ -2,6 +2,7 @@ import logger from "./config/logger";
 import { rabbitmq } from "./infrastructure/rabbitmq/rabbitMQ";
 import { setupRabbitMQBindings } from "./infrastructure/rabbitmq/setup";
 import { startEmailWorker } from "./modules/auth/workers/emailWorker";
+import { startBookingWorker } from "./modules/booking/workers/BookingWorker";
 
 
 const bootstrapWorker = async () => {
@@ -14,6 +15,7 @@ const bootstrapWorker = async () => {
     logger.info("Worker Process đang lắng nghe Queue liên tục...");
 
     await startEmailWorker();
+    await startBookingWorker();
 
     const shutdown = async (signal: string) => {
       logger.info(`Nhận tín hiệu ${signal}. Đang đóng Worker process...`);

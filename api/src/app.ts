@@ -10,6 +10,7 @@ import authRouter from "@/modules/auth/routes/authRouter";
 import hotelRouter from "@/modules/hotel/routes/HotelRouter";
 import roomTypeRouter from "@/modules/hotel/routes/RoomTypeRouter";
 import roomRouter from "@/modules/hotel/routes/RoomRouter";
+import bookingRouter from "@/modules/booking/routes/BookingRouter";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
@@ -50,9 +51,17 @@ const hotelSwaggerDoc = JSON.parse(
   )
 )
 
+const bookingSwaggerDoc = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "modules", "booking", "docs", "swagger-booking.json"),
+    "utf-8"
+  )
+)
+
 app.get("/api-docs/swagger-user.json", (req, res) => res.json(userSwaggerDoc));
 app.get("/api-docs/swagger-auth.json", (req, res) => res.json(authSwaggerDoc));
 app.get("/api-docs/swagger-hotel.json", (req, res) => res.json(hotelSwaggerDoc));
+app.get("/api-docs/swagger-booking.json", (req, res) => res.json(bookingSwaggerDoc));
 
 const swaggerOptions = {
   explorer: true,
@@ -68,6 +77,10 @@ const swaggerOptions = {
       {
         url: "/api-docs/swagger-hotel.json",
         name: "Hotel Service"
+      },
+      {
+        url: "/api-docs/swagger-booking.json",
+        name: "Booking Service"
       }
     ],
   },
@@ -84,6 +97,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/hotels", hotelRouter);
 app.use("/api/room-types", roomTypeRouter);
 app.use("/api/rooms", roomRouter);
+app.use("/api/bookings", bookingRouter);
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");

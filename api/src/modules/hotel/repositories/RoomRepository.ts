@@ -9,14 +9,21 @@ export class RoomRepository implements IRoomRepository {
     this.prisma = prisma;
   }
 
-  async create(data: Prisma.RoomUncheckedCreateInput, tx?: TxClient): Promise<Room> {
+  async create(
+    data: Prisma.RoomUncheckedCreateInput,
+    tx?: TxClient,
+  ): Promise<Room> {
     const client = tx || this.prisma;
     return client.room.create({
       data,
     });
   }
 
-  async update(id: string, data: Prisma.RoomUpdateInput, tx?: TxClient): Promise<Room> {
+  async update(
+    id: string,
+    data: Prisma.RoomUpdateInput,
+    tx?: TxClient,
+  ): Promise<Room> {
     const client = tx || this.prisma;
     return client.room.update({
       where: { id },
@@ -54,11 +61,20 @@ export class RoomRepository implements IRoomRepository {
     });
   }
 
-  async existsByNumber(hotelId: string, roomNumber: string, tx?: TxClient): Promise<boolean> {
+  async existsByNumber(
+    hotelId: string,
+    roomNumber: string,
+    tx?: TxClient,
+  ): Promise<boolean> {
     const client = tx || this.prisma;
     const count = await client.room.count({
       where: { hotelId, roomNumber },
     });
     return count > 0;
+  }
+
+  async count(where?: Prisma.RoomWhereInput, tx?: TxClient): Promise<number> {
+    const client = tx || this.prisma;
+    return client.room.count({ where });
   }
 }
