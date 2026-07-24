@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
-import { AUTH_CONSTANTS } from "../../../utils/constants.js";
-import { ConflictError } from "../../../utils/errors/errorCustomize.js";
-import { env } from "../../../config/env.js";
+import { AUTH_CONSTANTS } from "@/utils/constants";
+import { ConflictError } from "@/utils/errors/errorCustomize";
+import { env } from "@/config/env";
 export class TokenService {
     JWT_SECRET = env.JWT_SECRET;
     JWT_REFRESH_SECRET = env.JWT_REFRESH_SECRET;

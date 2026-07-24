@@ -3,26 +3,27 @@ import cors from "cors";
 import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import { globalLimiter } from "./middlewares/rateLimitMiddleware.js";
-import { errorHandler } from "./middlewares/errorMiddleware.js";
-import userRouter from "./modules/user/routes/UserRouter.js";
-import authRouter from "./modules/auth/routes/authRouter.js";
-import hotelRouter from "./modules/hotel/routes/HotelRouter.js";
-import roomTypeRouter from "./modules/hotel/routes/RoomTypeRouter.js";
-import roomRouter from "./modules/hotel/routes/RoomRouter.js";
-import bookingRouter from "./modules/booking/routes/BookingRouter.js";
+import { globalLimiter } from "@/middlewares/rateLimitMiddleware";
+import { errorHandler } from "@/middlewares/errorMiddleware";
+import userRouter from "@/modules/user/routes/UserRouter";
+import authRouter from "@/modules/auth/routes/authRouter";
+import hotelRouter from "@/modules/hotel/routes/HotelRouter";
+import roomTypeRouter from "@/modules/hotel/routes/RoomTypeRouter";
+import roomRouter from "@/modules/hotel/routes/RoomRouter";
+import bookingRouter from "@/modules/booking/routes/BookingRouter";
+import searchRouter from "@/modules/search/routes/SearchRouter";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { env } from "./config/env.js";
+import { env } from "@/config/env";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
 app.use(helmet());
 app.use(globalLimiter);
 app.use(morgan("dev"));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 app.use(cors({
     origin: ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", process.env.CLIENT_URL || ""],
     credentials: true,
@@ -65,6 +66,10 @@ app.use("/api/hotels", hotelRouter);
 app.use("/api/room-types", roomTypeRouter);
 app.use("/api/rooms", roomRouter);
 app.use("/api/bookings", bookingRouter);
+app.use("/api/search", searchRouter);
+app.get("/health", (req, res) => {
+    res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
+});
 app.get("/error", (req, res) => {
     throw new Error("Test Error");
 });

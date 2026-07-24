@@ -1,8 +1,8 @@
-import logger from "../../../config/logger.js";
-import { successResponse } from "../../../utils/response.js";
-import { HttpStatus } from "../../../constants/httpStatus.js";
-import { BadRequestError } from "../../../utils/errors/errorCustomize.js";
-import { env as appEnv } from "../../../config/env.js";
+import logger from "@/config/logger";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
+import { BadRequestError } from "@/utils/errors/errorCustomize";
+import { env as appEnv } from "@/config/env";
 const COOKIE_OPTIONS = {
     httpOnly: true,
     secure: appEnv.NODE_ENV === "production",
@@ -36,7 +36,6 @@ export class AuthController {
             userAgent: req.headers["user-agent"] || "Unkown Browser",
             deviceName: req.headers["x-device-name"] || "Unknown Device",
         };
-        logger.info(`[AuthController] received payload: ${JSON.stringify(req.body)}`);
         const result = await this.authService.verifyOtpAndLogin(req.body, deviceMetadata);
         res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
         res.cookie("accessToken", result.tokens.accessToken, {

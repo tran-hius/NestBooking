@@ -1,4 +1,4 @@
-import { BookingStatus } from "../../../../generated/prisma/index.js";
+import { BookingStatus } from "../../../../generated/prisma";
 export class BookingReadRepository {
     prisma;
     constructor(prisma) {

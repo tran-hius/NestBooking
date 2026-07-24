@@ -1,9 +1,9 @@
 import { BookingStatus, Role } from "#generated/prisma";
-import { BadRequestError, ForbiddenError, NotFoundError } from "../../../utils/errors/index.js";
+import { BadRequestError, ForbiddenError, NotFoundError } from "@/utils/errors";
 import crypto from "crypto";
-import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "../../../infrastructure/rabbitmq/index.js";
-import { BookingMapper } from "../mapper/BookingMapper.js";
-import { redisClient, REDIS_KEYS, REDIS_TTL } from "../../../infrastructure/redis/index.js";
+import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "@/infrastructure/rabbitmq";
+import { BookingMapper } from "../mapper/BookingMapper";
+import { redisClient, REDIS_KEYS, REDIS_TTL } from "@/infrastructure/redis";
 export class BookingService {
     readRepo;
     writeRepo;

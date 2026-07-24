@@ -1,8 +1,8 @@
-import { successResponse } from "../../../utils/response.js";
-import { HttpStatus } from "../../../constants/httpStatus.js";
-import logger from "../../../config/logger.js";
-import { uploadToCloudinary } from "../../../utils/cloudinary.utils.js";
-import { UnauthorizedError, BadRequestError } from "../../../utils/errors/errorCustomize.js";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
+import logger from "@/config/logger";
+import { uploadToCloudinary } from "@/utils/cloudinary.utils";
+import { UnauthorizedError, BadRequestError } from "@/utils/errors/errorCustomize";
 export class HotelController {
     hotelService;
     constructor(hotelService) {

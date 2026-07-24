@@ -1,10 +1,10 @@
-import { EmailService } from "../../../modules/auth/services/emailService.js";
-import { Transporter } from "../../../config/transporter.js";
-import logger from "../../../config/logger.js";
-import { rabbitmq } from "../../../infrastructure/rabbitmq/rabbitMQ.js"; // <-- Dùng instance mới
-import { QUEUES } from "../../../infrastructure/rabbitmq/queues.js";
-import { EXCHANGES } from "../../../infrastructure/rabbitmq/exchanges.js";
-import { ROUTING_KEYS } from "../../../infrastructure/rabbitmq/routing.key.js";
+import { EmailService } from "@/modules/auth/services/emailService";
+import { Transporter } from "@/config/transporter";
+import logger from "@/config/logger";
+import { rabbitmq } from "@/infrastructure/rabbitmq/rabbitMQ"; // <-- Dùng instance mới
+import { QUEUES } from "@/infrastructure/rabbitmq/queues";
+import { EXCHANGES } from "@/infrastructure/rabbitmq/exchanges";
+import { ROUTING_KEYS } from "@/infrastructure/rabbitmq/routing.key";
 const transporter = Transporter.transporter;
 const emailService = new EmailService(transporter);
 const MAX_RETRY = 3;

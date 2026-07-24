@@ -404,6 +404,83 @@ export default function PersonalInfo() {
                   </>
                 )}
               </div>
+
+              {/* Phần thông tin Agent */}
+              {user?.role === "AGENT" && (
+                <>
+                  <div className="mt-10 mb-2">
+                    <h3 className="text-xl font-bold text-slate-900 border-b border-slate-200 pb-4">Thông tin Kênh đối tác</h3>
+                  </div>
+
+                  {/* Tên doanh nghiệp / Cơ sở */}
+                  <div className="flex flex-col sm:flex-row items-start justify-between py-6 border-b border-slate-200 gap-4">
+                    <div className="w-full sm:w-1/4 text-slate-900 font-medium mt-1">
+                      Tên cơ sở kinh doanh
+                    </div>
+                    <div className="flex-1 flex flex-col gap-2">
+                      <span className="text-slate-700">
+                        {user?.agentProfile?.businessName || <span className="text-slate-400 italic">Chưa cập nhật</span>}
+                      </span>
+                    </div>
+                    <button className="text-primary hover:text-blue-700 font-bold hover:underline text-left sm:text-right mt-1">
+                      Biên tập
+                    </button>
+                  </div>
+
+                  {/* Mã số thuế */}
+                  <div className="flex flex-col sm:flex-row items-start justify-between py-6 border-b border-slate-200 gap-4">
+                    <div className="w-full sm:w-1/4 text-slate-900 font-medium mt-1">
+                      Mã số thuế
+                    </div>
+                    <div className="flex-1 flex flex-col gap-2">
+                      <span className="text-slate-700">
+                        {user?.agentProfile?.taxCode || <span className="text-slate-400 italic">Chưa cập nhật</span>}
+                      </span>
+                    </div>
+                    <button className="text-primary hover:text-blue-700 font-bold hover:underline text-left sm:text-right mt-1">
+                      Biên tập
+                    </button>
+                  </div>
+
+                  {/* Căn cước / Số ĐKKD */}
+                  <div className="flex flex-col sm:flex-row items-start justify-between py-6 border-b border-slate-200 gap-4">
+                    <div className="w-full sm:w-1/4 text-slate-900 font-medium mt-1">
+                      Số CMND/CCCD/ĐKKD
+                    </div>
+                    <div className="flex-1 flex flex-col gap-2">
+                      <span className="text-slate-700">
+                        {user?.agentProfile?.idNumber || <span className="text-slate-400 italic">Chưa cập nhật</span>}
+                      </span>
+                    </div>
+                    <button className="text-primary hover:text-blue-700 font-bold hover:underline text-left sm:text-right mt-1">
+                      Biên tập
+                    </button>
+                  </div>
+
+                  {/* Trạng thái duyệt */}
+                  <div className="flex flex-col sm:flex-row items-start justify-between py-6 border-b border-slate-200 gap-4">
+                    <div className="w-full sm:w-1/4 text-slate-900 font-medium mt-1">
+                      Trạng thái xác minh
+                    </div>
+                    <div className="flex-1 flex flex-col gap-2">
+                      <span className="text-slate-700 font-medium">
+                        {user?.agentProfile?.approvalStatus === "ACTIVE" ? (
+                          <span className="text-green-600 bg-green-50 px-2 py-1 rounded-md inline-block">Đã xác minh</span>
+                        ) : user?.agentProfile?.approvalStatus === "PENDING" ? (
+                          <span className="text-amber-600 bg-amber-50 px-2 py-1 rounded-md inline-block">Đang chờ duyệt</span>
+                        ) : user?.agentProfile?.approvalStatus === "REJECTED" ? (
+                          <span className="text-red-600 bg-red-50 px-2 py-1 rounded-md inline-block">Bị từ chối</span>
+                        ) : (
+                          <span className="text-slate-600 bg-slate-50 px-2 py-1 rounded-md inline-block">{user?.agentProfile?.approvalStatus || "Chưa rõ"}</span>
+                        )}
+                      </span>
+                      <p className="text-slate-500 text-sm leading-relaxed mt-1">
+                        Đây là trạng thái xác minh thông tin doanh nghiệp của bạn với hệ thống.
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

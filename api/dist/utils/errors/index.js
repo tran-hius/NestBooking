@@ -1,2 +1,2 @@
-export * from "./errorCustomize.js";
-export * from "./apiError.js";
+export * from "./errorCustomize";
+export * from "./apiError";

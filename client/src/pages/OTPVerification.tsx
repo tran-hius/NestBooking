@@ -83,9 +83,9 @@ export default function OTPVerification() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 left-0 w-full h-96 bg-primary/90 transform -skew-y-6 origin-top-left -z-10"></div>
+      <div className="absolute top-0 left-0 w-full h-96 bg-primary/90 transform -skew-y-6 origin-top-left z-0"></div>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <Link
           to="/"
           className="flex items-center justify-center gap-2 mb-6 transition-transform hover:scale-105"
@@ -99,7 +99,7 @@ export default function OTPVerification() {
         </Link>
       </div>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="bg-white py-10 px-6 shadow-2xl sm:rounded-3xl sm:px-12 border border-slate-100">
           <div className="flex flex-col items-center mb-8">
             <div className="w-16 h-16 bg-blue-50 text-primary rounded-full flex items-center justify-center mb-4">
@@ -119,30 +119,30 @@ export default function OTPVerification() {
               <InputOTPGroup>
                 <InputOTPSlot
                   index={0}
-                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200"
+                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200 text-slate-900"
                 />
                 <InputOTPSlot
                   index={1}
-                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200"
+                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200 text-slate-900"
                 />
                 <InputOTPSlot
                   index={2}
-                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200"
+                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200 text-slate-900"
                 />
               </InputOTPGroup>
               <InputOTPSeparator />
               <InputOTPGroup>
                 <InputOTPSlot
                   index={3}
-                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200"
+                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200 text-slate-900"
                 />
                 <InputOTPSlot
                   index={4}
-                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200"
+                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200 text-slate-900"
                 />
                 <InputOTPSlot
                   index={5}
-                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200"
+                  className="w-12 h-14 text-xl font-bold bg-slate-50 border-slate-200 text-slate-900"
                 />
               </InputOTPGroup>
             </InputOTP>

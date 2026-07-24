@@ -1,8 +1,10 @@
-import logger from "./config/logger.js";
-import { rabbitmq } from "./infrastructure/rabbitmq/rabbitMQ.js";
-import { setupRabbitMQBindings } from "./infrastructure/rabbitmq/setup.js";
-import { startEmailWorker, startBookingNotificationWorker } from "./modules/auth/workers/emailWorker.js";
-import { startBookingWorker } from "./modules/booking/workers/BookingWorker.js";
+import logger from "./config/logger";
+import { rabbitmq } from "./infrastructure/rabbitmq/rabbitMQ";
+import { setupRabbitMQBindings } from "./infrastructure/rabbitmq/setup";
+import { startEmailWorker, startBookingNotificationWorker } from "./modules/auth/workers/emailWorker";
+import { startBookingWorker } from "./modules/booking/workers/BookingWorker";
+import { redisConnection } from "./infrastructure/redis/RedisConnection";
+import { prisma } from "./config/prisma";
 const bootstrapWorker = async () => {
     try {
         logger.info("Đang khởi chạy worker process");
@@ -19,6 +21,8 @@ const bootstrapWorker = async () => {
                 process.exit(1);
             }, 10000).unref();
             await rabbitmq.close();
+            await redisConnection.disconnect();
+            await prisma.$disconnect();
             clearTimeout(forceExit);
             process.exit(0);
         };

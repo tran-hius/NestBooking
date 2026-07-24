@@ -1,8 +1,8 @@
-import logger from "../../../config/logger.js";
-import { successResponse } from "../../../utils/response.js";
-import { HttpStatus } from "../../../constants/httpStatus.js";
-import { BadRequestError } from "../../../utils/errors/index.js";
-import { uploadToCloudinary } from "../../../utils/cloudinary.utils.js";
+import logger from "@/config/logger";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
+import { BadRequestError } from "@/utils/errors";
+import { uploadToCloudinary } from "@/utils/cloudinary.utils";
 export class UserController {
     userService;
     constructor(userService) {

@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import PropertyCard, { PropertyProps } from "./PropertyCard";
+import PropertyCardSkeleton from "./PropertyCardSkeleton";
 import HaNoi from "@/assets/HaNoi.jpg";
 import HaLong from "@/assets/HaLong.jpg";
 import DaNang from "@/assets/DaNang.jpg";
@@ -74,27 +76,39 @@ const MOCK_PROPERTIES: PropertyProps[] = [
 ];
 
 export default function SearchResults() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Giả lập API loading 1.5s
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="w-full flex flex-col gap-6">
-      <div className="flex items-center justify-between pb-4 border-b border-slate-200">
-        <h2 className="text-2xl font-bold text-slate-900">
-          Hà Nội: Tìm thấy {MOCK_PROPERTIES.length} chỗ nghỉ
-        </h2>
-        
-        <div className="flex items-center gap-4">
-          <select className="bg-white border border-slate-300 text-slate-700 text-sm rounded-full px-4 py-2 outline-none focus:border-primary cursor-pointer font-medium shadow-sm">
-            <option>Sắp xếp theo: Lựa chọn hàng đầu</option>
-            <option>Giá (ưu tiên thấp nhất)</option>
-            <option>Đánh giá của khách</option>
-            <option>Khoảng cách từ trung tâm</option>
+    <div className="w-full">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-bold text-slate-800">Tất cả chỗ nghỉ</h2>
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-slate-500">Sắp xếp theo:</span>
+          <select className="text-sm border border-slate-200 rounded-lg px-3 py-2 outline-none focus:border-primary">
+            <option>Đề xuất của chúng tôi</option>
+            <option>Giá (Thấp đến cao)</option>
+            <option>Giá (Cao xuống thấp)</option>
+            <option>Đánh giá sao (Cao nhất)</option>
           </select>
         </div>
       </div>
 
-      <div className="flex flex-col gap-4">
-        {MOCK_PROPERTIES.map(prop => (
-          <PropertyCard key={prop.id} prop={prop} />
-        ))}
+      <div className="flex flex-col gap-6">
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, idx) => (
+              <PropertyCardSkeleton key={idx} />
+            ))
+          : MOCK_PROPERTIES.map((prop) => (
+              <PropertyCard key={prop.id} prop={prop} />
+            ))}
       </div>
     </div>
   );

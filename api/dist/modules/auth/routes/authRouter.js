@@ -1,20 +1,20 @@
 import express from "express";
-import { prisma } from "../../../config/prisma.js";
+import { prisma } from "@/config/prisma";
 // Import Middleware
-import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { validate, authLimiter, authMiddleware } from "../../../middlewares/index.js";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { validate, authLimiter, authMiddleware } from "@/middlewares";
 // Import DTOs
-import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto.js";
+import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto";
 // Import Repositories
-import { RefreshTokenRepository } from "../../../modules/auth/repositories/RefreshTokenRepository.js";
-import { UserRepository } from "../../../modules/user/repositories/UserRepository.js";
+import { RefreshTokenRepository } from "@/modules/auth/repositories/RefreshTokenRepository";
+import { UserRepository } from "@/modules/user/repositories/UserRepository";
 // Import Services
-import { OtpService } from "../../../modules/auth/services/otpService.js";
-import { TokenService } from "../../../modules/auth/services/tokenService.js";
-import { UserService } from "../../../modules/user/services/UserService.js";
-import { AuthService } from "../../../modules/auth/services/authService.js";
+import { OtpService } from "@/modules/auth/services/otpService";
+import { TokenService } from "@/modules/auth/services/tokenService";
+import { UserService } from "@/modules/user/services/UserService";
+import { AuthService } from "@/modules/auth/services/authService";
 // Import Controller
-import { AuthController } from "../../../modules/auth/controllers/authController.js";
+import { AuthController } from "@/modules/auth/controllers/authController";
 const router = express.Router();
 // =====================================================
 // KHỞI TẠO DEPENDENCY INJECTION (DI)

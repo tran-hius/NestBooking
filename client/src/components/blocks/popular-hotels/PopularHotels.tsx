@@ -1,10 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { popularHotelsData } from "./data";
 import HotelCard from "./HotelCard";
+import HotelCardSkeleton from "./HotelCardSkeleton";
 
 export default function PopularHotels() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -44,9 +53,13 @@ export default function PopularHotels() {
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4 -mx-4 px-4 md:mx-0 md:px-0"
         >
-          {popularHotelsData.map((hotel) => (
-            <HotelCard key={hotel.id} hotel={hotel} />
-          ))}
+          {isLoading 
+            ? Array.from({ length: 4 }).map((_, idx) => (
+                <HotelCardSkeleton key={`skeleton-${idx}`} />
+              ))
+            : popularHotelsData.map((hotel) => (
+                <HotelCard key={hotel.id} hotel={hotel} />
+              ))}
         </div>
 
         <div className="mt-10 flex justify-center">

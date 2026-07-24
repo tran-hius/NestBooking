@@ -1,10 +1,10 @@
-import logger from "../../../config/logger.js";
-import { prisma } from "../../../config/prisma.js";
-import { rabbitmq } from "../../../infrastructure/rabbitmq/rabbitMQ.js";
-import { QUEUES } from "../../../infrastructure/rabbitmq/queues.js";
-import { EXCHANGES } from "../../../infrastructure/rabbitmq/exchanges.js";
-import { ROUTING_KEYS } from "../../../infrastructure/rabbitmq/routing.key.js";
-import { BookingStatus } from "../../../../generated/prisma/index.js";
+import logger from "@/config/logger";
+import { prisma } from "@/config/prisma";
+import { rabbitmq } from "@/infrastructure/rabbitmq/rabbitMQ";
+import { QUEUES } from "@/infrastructure/rabbitmq/queues";
+import { EXCHANGES } from "@/infrastructure/rabbitmq/exchanges";
+import { ROUTING_KEYS } from "@/infrastructure/rabbitmq/routing.key";
+import { BookingStatus } from "../../../../generated/prisma";
 const MAX_RETRY = 3;
 export const startBookingWorker = async () => {
     logger.info(`Booking Worker đang lắng nghe Queue: ${QUEUES.BOOKING}`);

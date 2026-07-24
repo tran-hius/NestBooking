@@ -1,4 +1,4 @@
-import { UnauthorizedError } from "../utils/errors/errorCustomize.js";
+import { UnauthorizedError } from "@/utils/errors/errorCustomize";
 export const roleMiddleware = (allowedRoles) => {
     return (req, res, next) => {
         if (!req.user || !req.user.role) {

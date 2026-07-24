@@ -287,3 +287,4 @@ export class AuthService implements IAuthService {
     logger.info(`[AuthService] Password changed successfully for user ID: ${user.id}`);
   }
 }
+  

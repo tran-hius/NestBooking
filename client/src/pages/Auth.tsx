@@ -47,7 +47,7 @@ export default function Auth() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Nhập địa chỉ email của bạn" 
-            className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+            className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-slate-900 bg-white"
           />
         </div>
 

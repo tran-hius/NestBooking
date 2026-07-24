@@ -1,23 +1,32 @@
-import Home from '@/pages/Home';
-import Auth from '@/pages/Auth';
+import { lazy } from 'react';
+
+// Layouts (keep static to avoid layout flickering)
 import MainLayout from '@/layouts/MainLayout';
 import AuthLayout from '@/layouts/AuthLayout';
-import AdminLogin from '@/pages/admin/AdminLogin';
-import PartnerAuth from '@/pages/partner/PartnerAuth';
-import Search from '@/pages/Search';
-import OTPVerification from '@/pages/OTPVerification';
-import PersonalInfo from '@/pages/PersonalInfo';
 import AdminLayout from '@/layouts/AdminLayout';
-import Dashboard from '@/pages/admin/Dashboard';
-import UserManagement from '@/pages/admin/UserManagement';
-import AgentManagement from '@/pages/admin/AgentManagement';
-import Notifications from '@/pages/admin/Notifications';
-import Hotels from '@/pages/admin/Hotels';
-import Bookings from '@/pages/admin/Bookings';
-import Reviews from '@/pages/admin/Reviews';
-import Payments from '@/pages/admin/Payments';
-import Reports from '@/pages/admin/Reports';
-import AuditLogs from '@/pages/admin/AuditLogs';
+import AgentLayout from '@/layouts/AgentLayout';
+
+// Pages (lazy load for performance)
+const Home = lazy(() => import('@/pages/Home'));
+const Auth = lazy(() => import('@/pages/Auth'));
+const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin'));
+const PartnerAuth = lazy(() => import('@/pages/partner/PartnerAuth'));
+const Search = lazy(() => import('@/pages/Search'));
+const OTPVerification = lazy(() => import('@/pages/OTPVerification'));
+const PersonalInfo = lazy(() => import('@/pages/PersonalInfo'));
+const Dashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const AgentDashboard = lazy(() => import('@/pages/partner/AgentDashboard'));
+const UserManagement = lazy(() => import('@/pages/admin/UserManagement'));
+const AgentManagement = lazy(() => import('@/pages/admin/AgentManagement'));
+const Notifications = lazy(() => import('@/pages/admin/Notifications'));
+const Hotels = lazy(() => import('@/pages/admin/Hotels'));
+const Bookings = lazy(() => import('@/pages/admin/Bookings'));
+const Reviews = lazy(() => import('@/pages/admin/Reviews'));
+const Payments = lazy(() => import('@/pages/admin/Payments'));
+const Reports = lazy(() => import('@/pages/admin/Reports'));
+const AuditLogs = lazy(() => import('@/pages/admin/AuditLogs'));
+const MyBookings = lazy(() => import('@/pages/MyBookings'));
+const Checkout = lazy(() => import('@/pages/Checkout'));
 
 export const routers = [
   {
@@ -109,5 +118,20 @@ export const routers = [
     path: '/admin/audit',
     component: <AuditLogs />,
     layout: AdminLayout,
+  },
+  {
+    path: '/partner/dashboard',
+    component: <AgentDashboard />,
+    layout: AgentLayout,
+  },
+  {
+    path: '/my-bookings',
+    component: <MyBookings />,
+    layout: MainLayout,
+  },
+  {
+    path: '/checkout',
+    component: <Checkout />,
+    layout: MainLayout,
   },
 ];

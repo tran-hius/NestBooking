@@ -1,4 +1,4 @@
-import { ApiError } from "../../utils/errors/apiError.js";
+import { ApiError } from "@/utils/errors/apiError";
 export class NotFoundError extends ApiError {
     constructor(message = "Resource not found") {
         super(404, message);

@@ -3,6 +3,8 @@ import { rabbitmq } from "./infrastructure/rabbitmq/rabbitMQ";
 import { setupRabbitMQBindings } from "./infrastructure/rabbitmq/setup";
 import { startEmailWorker, startBookingNotificationWorker } from "./modules/auth/workers/emailWorker";
 import { startBookingWorker } from "./modules/booking/workers/BookingWorker";
+import { redisConnection } from "./infrastructure/redis/RedisConnection";
+import { prisma } from "./config/prisma";
 
 
 const bootstrapWorker = async () => {
@@ -25,6 +27,8 @@ const bootstrapWorker = async () => {
       }, 10000).unref();
 
       await rabbitmq.close();
+      await redisConnection.disconnect();
+      await prisma.$disconnect();
       clearTimeout(forceExit);
       process.exit(0);
     };

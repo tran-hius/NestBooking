@@ -1,9 +1,9 @@
-import { BadRequestError } from "../../../utils/errors/errorCustomize.js";
-import logger from "../../../config/logger.js";
-import { getOtpEmailTemplate } from "../../../modules/auth/templates/otpTemplate.js";
-import { getBookingSuccessTemplate } from "../../../modules/auth/templates/bookingSuccessTemplate.js";
-import { getBookingFailTemplate } from "../../../modules/auth/templates/bookingFailTemplate.js";
-import { emailConfig } from "../../../config/email.js";
+import { BadRequestError } from "@/utils/errors/errorCustomize";
+import logger from "@/config/logger";
+import { getOtpEmailTemplate } from "@/modules/auth/templates/otpTemplate";
+import { getBookingSuccessTemplate } from "@/modules/auth/templates/bookingSuccessTemplate";
+import { getBookingFailTemplate } from "@/modules/auth/templates/bookingFailTemplate";
+import { emailConfig } from "@/config/email";
 export class EmailService {
     transporter;
     constructor(transporter) {

@@ -11,6 +11,7 @@ import hotelRouter from "@/modules/hotel/routes/HotelRouter";
 import roomTypeRouter from "@/modules/hotel/routes/RoomTypeRouter";
 import roomRouter from "@/modules/hotel/routes/RoomRouter";
 import bookingRouter from "@/modules/booking/routes/BookingRouter";
+import searchRouter from "@/modules/search/routes/SearchRouter";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
@@ -24,7 +25,7 @@ const app = express();
 app.use(helmet());
 app.use(globalLimiter);
 app.use(morgan("dev"));
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 app.use(cors({
   origin: ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", process.env.CLIENT_URL || ""],
   credentials: true,
@@ -99,6 +100,11 @@ app.use("/api/hotels", hotelRouter);
 app.use("/api/room-types", roomTypeRouter);
 app.use("/api/rooms", roomRouter);
 app.use("/api/bookings", bookingRouter);
+app.use("/api/search", searchRouter);
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
+});
 
 app.get("/error", (req, res) => {
   throw new Error("Test Error");

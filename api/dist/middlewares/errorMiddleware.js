@@ -1,6 +1,6 @@
-import { ApiError } from "../utils/errors/apiError.js";
-import { env as appEnv } from "../config/env.js";
-import logger from "../config/logger.js";
+import { ApiError } from "@/utils/errors/apiError";
+import { env as appEnv } from "@/config/env";
+import logger from "@/config/logger";
 import { Prisma } from "#generated/prisma";
 export const errorHandler = (error, req, res, next) => {
     let statusCode = 500;

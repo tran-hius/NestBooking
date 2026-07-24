@@ -1,10 +1,10 @@
-import { UserStatus, Prisma, Role } from "../../../../generated/prisma/index.js";
-import logger from "../../../config/logger.js";
-import { UserMapper } from "../../../modules/user/mapper/UserMapper.js";
-import { NotFoundError, BadRequestError, ConflictError, } from "../../../utils/errors/errorCustomize.js";
-import { AUTH_CONSTANTS } from "../../../utils/constants.js";
-import { REDIS_KEYS, redisClient } from "../../../infrastructure/redis/index.js";
-import { prisma } from "../../../config/prisma.js";
+import { UserStatus, Prisma, Role } from "../../../../generated/prisma";
+import logger from "@/config/logger";
+import { UserMapper } from "@/modules/user/mapper/UserMapper";
+import { NotFoundError, BadRequestError, ConflictError, } from "@/utils/errors/errorCustomize";
+import { AUTH_CONSTANTS } from "@/utils/constants";
+import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
+import { prisma } from "@/config/prisma";
 export class UserService {
     userRepository;
     otpService;

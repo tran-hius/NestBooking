@@ -1,0 +1,11 @@
+import { Router } from "express";
+import { SearchController } from "../controllers/SearchController";
+import { SearchService } from "../services/SearchService";
+import { validate } from "@/middlewares/validationMiddleware";
+import { searchHotelSchema } from "../dtos/SearchDto";
+import { asyncHandler } from "@/utils/asyncHandler";
+const searchRouter = Router();
+const searchService = new SearchService();
+const searchController = new SearchController(searchService);
+searchRouter.get("/hotels", validate(searchHotelSchema), asyncHandler(searchController.searchHotels));
+export default searchRouter;

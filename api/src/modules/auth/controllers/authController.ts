@@ -10,7 +10,7 @@ import { env as appEnv } from "@/config/env";
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: appEnv.NODE_ENV === "production",
-  sameSite: "strict" as const,
+  sameSite: "lax" as const,
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
@@ -48,7 +48,6 @@ export class AuthController {
       deviceName: (req.headers["x-device-name"] as string) || "Unknown Device",
     };
 
-    logger.info(`[AuthController] received payload: ${JSON.stringify(req.body)}`);
 
     const result = await this.authService.verifyOtpAndLogin(
       req.body,

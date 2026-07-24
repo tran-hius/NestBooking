@@ -1,4 +1,4 @@
-import { env as appEnv } from "../config/env.js";
+import { env as appEnv } from "@/config/env";
 const SMTP_HOST = appEnv.SMTP_HOST;
 const SMTP_PASS = appEnv.SMTP_PASSWORD;
 const SMTP_PORT = appEnv.SMTP_PORT;
