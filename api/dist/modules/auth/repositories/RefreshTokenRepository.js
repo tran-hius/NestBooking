@@ -35,8 +35,9 @@ export class RefreshTokenRepository {
             },
         });
     }
-    async revokeAllForUser(userId, reason) {
-        await this.prisma.refreshToken.updateMany({
+    async revokeAllForUser(userId, reason, tx) {
+        const client = tx || this.prisma;
+        await client.refreshToken.updateMany({
             where: {
                 userId,
                 revokedAt: null,

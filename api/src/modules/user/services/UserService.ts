@@ -42,10 +42,11 @@ export class UserService implements IUserService {
     }
   }
 
-  async createUser(dto: CreateUserDto): Promise<UserResponseDto> {
+  async createUser(dto: CreateUserDto, tx?: TxClient): Promise<UserResponseDto> {
     const normalizedEmail = dto.email.toLowerCase().trim();
 
-    const createdUser = await prisma.$transaction(async (tx: TxClient) => {
+    const executeTx = tx ? (fn: (tx: TxClient) => Promise<any>) => fn(tx) : prisma.$transaction;
+    const createdUser = await executeTx(async (tx: TxClient) => {
       const userExists = await this.userRepository.findByEmailOrPhone(
         normalizedEmail,
         undefined,
@@ -157,11 +158,8 @@ export class UserService implements IUserService {
     );
   }
 
-  async updateProfile(
-    userId: string,
-    dto: UpdateUserProfileDto,
-  ): Promise<UserResponseDto> {
-    const user = await this.userRepository.findById(userId);
+  async updateProfile(userId: string, dto: UpdateUserProfileDto, tx?: TxClient): Promise<UserResponseDto> {
+    const user = await this.userRepository.findById(userId, tx);
     if (!user) {
       logger.warn(`Cập nhật hồ sơ thất bại: Không tìm thấy User ID ${userId}`);
       throw new NotFoundError("Tài khoản không tồn tại để cập nhật hồ sơ");
@@ -211,17 +209,14 @@ export class UserService implements IUserService {
     return UserMapper.toResponseDto(updatedUser);
   }
 
-  async changeUserStatus(
-    userId: string,
-    status: UserStatus,
-  ): Promise<UserResponseDto> {
-    const user = await this.userRepository.findById(userId);
+  async changeUserStatus(userId: string, status: UserStatus, tx?: TxClient): Promise<UserResponseDto> {
+    const user = await this.userRepository.findById(userId, tx);
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
-    const updatedUser = await this.userRepository.updateStatus(userId, status);
+    const updatedUser = await this.userRepository.updateStatus(userId, status, tx);
 
     if (status === UserStatus.ACTIVE) {
-      await this.userRepository.resetLoginAttempts(userId);
+      await this.userRepository.resetLoginAttempts(userId, tx);
     }
 
     await this.clearUserCache(userId, user.email);
@@ -230,11 +225,11 @@ export class UserService implements IUserService {
     return UserMapper.toResponseDto(updatedUser);
   }
 
-  async handleLoginFailure(userId: string): Promise<void> {
-    await this.userRepository.incrementLoginAttempts(userId);
+  async handleLoginFailure(userId: string, tx?: TxClient): Promise<void> {
+    await this.userRepository.incrementLoginAttempts(userId, tx);
     logger.warn(`User ID ${userId} nhập sai thông tin đăng nhập.`);
 
-    const user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId, tx);
     if (user && user.loginAttempts >= 5) {
       const lockDuration = AUTH_CONSTANTS.OTP_EXPIRES_MS; // Khóa
       const lockUntil = new Date(Date.now() + lockDuration);
@@ -248,16 +243,16 @@ export class UserService implements IUserService {
     }
   }
 
-  async handleLoginSuccess(userId: string): Promise<void> {
-    await this.userRepository.resetLoginAttempts(userId);
+  async handleLoginSuccess(userId: string, tx?: TxClient): Promise<void> {
+    await this.userRepository.resetLoginAttempts(userId, tx);
     logger.info(
       `User ID ${userId} đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.`,
     );
   }
 
-  async softDeleteUser(userId: string): Promise<void> {
+  async softDeleteUser(userId: string, tx?: TxClient): Promise<void> {
     logger.warn(`Thực hiện xóa mềm tài khoản ID: ${userId}`);
-    const user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId, tx);
     if (!user) throw new NotFoundError("Không tìm thấy tài khoản để xóa.");
 
     await this.clearUserCache(userId, user.email);
@@ -265,8 +260,8 @@ export class UserService implements IUserService {
     logger.info(`Đã ẩn hoàn toàn tài khoản ID ${userId} ra khỏi hệ thống.`);
   }
 
-  async updatePassword(userId: string, passwordHash: string): Promise<void> {
-    const user = await this.userRepository.findById(userId);
+  async updatePassword(userId: string, passwordHash: string, tx?: TxClient): Promise<void> {
+    const user = await this.userRepository.findById(userId, tx);
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     await this.userRepository.updatePassword(userId, passwordHash);
@@ -275,12 +270,12 @@ export class UserService implements IUserService {
     logger.info(`User ID ${userId} đã cập nhật mật khẩu thành công.`);
   }
 
-  async restoreUser(userId: string): Promise<UserResponseDto> {
+  async restoreUser(userId: string, tx?: TxClient): Promise<UserResponseDto> {
     logger.info(`Khôi phục tài khoản bị xóa mềm có ID: ${userId}`);
 
     await this.userRepository.restore(userId);
 
-    const restoredUser = await this.userRepository.findById(userId);
+    const restoredUser = await this.userRepository.findById(userId, tx);
     if (!restoredUser) throw new BadRequestError("Khôi phục thất bại.");
 
     await this.clearUserCache(userId, restoredUser.email);
@@ -291,13 +286,10 @@ export class UserService implements IUserService {
     return UserMapper.toResponseDto(restoredUser);
   }
 
-  async submitIdentityVerification(
-    userId: string,
-    dto: SubmitIdentityVerificationDto,
-  ): Promise<UserResponseDto> {
+  async submitIdentityVerification(userId: string, dto: SubmitIdentityVerificationDto, tx?: TxClient): Promise<UserResponseDto> {
     logger.info(`User ID ${userId} gửi yêu cầu xác minh danh tính.`);
 
-    const user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId, tx);
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     const updateData: Prisma.UserUpdateInput = {
@@ -329,10 +321,10 @@ export class UserService implements IUserService {
     return UserMapper.toResponseDto(updatedUser);
   }
 
-  async approveIdentityVerification(userId: string): Promise<UserResponseDto> {
+  async approveIdentityVerification(userId: string, tx?: TxClient): Promise<UserResponseDto> {
     logger.info(`Admin duyệt hồ sơ KYC cho User ID: ${userId}`);
 
-    const user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId, tx);
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     const userWithProfile = user as User & { agentProfile?: { approvalStatus: string } | null };
@@ -367,13 +359,10 @@ export class UserService implements IUserService {
     return UserMapper.toResponseDto(updatedUser);
   }
 
-  async rejectIdentityVerification(
-    userId: string,
-    reason: string,
-  ): Promise<UserResponseDto> {
+  async rejectIdentityVerification(userId: string, reason: string, tx?: TxClient): Promise<UserResponseDto> {
     logger.info(`Admin từ chối hồ sơ KYC của User ID: ${userId}`);
 
-    const user = await this.userRepository.findById(userId);
+    const user = await this.userRepository.findById(userId, tx);
     if (!user) throw new NotFoundError("Tài khoản không tồn tại");
 
     const userWithProfile = user as User & { agentProfile?: { approvalStatus: string } | null };
@@ -404,3 +393,5 @@ export class UserService implements IUserService {
     return UserMapper.toResponseDto(updatedUser);
   }
 }
+
+

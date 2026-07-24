@@ -8,7 +8,7 @@ import {
 } from "../dtos/UserDTO";
 
 export interface IUserService {
-  createUser(dto: CreateUserDto): Promise<UserResponseDto>;
+  createUser(dto: CreateUserDto, tx?: TxClient): Promise<UserResponseDto>;
 
   getUserById(id: string): Promise<UserResponseDto | null>;
 
