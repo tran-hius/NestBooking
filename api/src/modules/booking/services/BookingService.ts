@@ -83,7 +83,6 @@ export class BookingService {
 
     const paymentMethod = data.paymentMethod || PaymentMethod.PAY_AT_HOTEL;
     
-    // Nếu là thanh toán tiền mặt thì CONFIRM luôn, nếu online thì PENDING chờ webhook
     const initialStatus = paymentMethod === PaymentMethod.PAY_AT_HOTEL 
       ? BookingStatus.CONFIRMED 
       : BookingStatus.PENDING;
