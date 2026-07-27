@@ -5,14 +5,16 @@ import { useEffect, Suspense } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 import { authService } from "@/api/services/authService";
 import { ThemeProvider } from "@/components/theme-provider";
+import PaymentResult from "./pages/PaymentResult";
+
 function App() {
   const { isAuthenticated, setUser, clearAuth } = useAppStore();
 
   useEffect(() => {
     if (isAuthenticated) {
-      authService.getMe().then((res) => {
-        if (res.data) {
-          setUser(res.data);
+      authService.getMe().then((user) => {
+        if (user) {
+          setUser(user);
         }
       }).catch(() => {
         clearAuth();
@@ -25,6 +27,7 @@ function App() {
       <Router>
         <Suspense fallback={<div className="flex h-screen w-screen items-center justify-center bg-white"><div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-primary"></div></div>}>
           <Routes>
+            <Route path="/payment/result" element={<PaymentResult />} />
             {routers.map((route) => {
               const Layout = route.layout;
               return (

@@ -1,12 +1,12 @@
-import logger from "@/config/logger";
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import { BadRequestError } from "@/utils/errors/errorCustomize";
-import { env as appEnv } from "@/config/env";
+import logger from "../../../config/logger.js";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import { BadRequestError } from "../../../utils/errors/errorCustomize.js";
+import { env as appEnv } from "../../../config/env.js";
 const COOKIE_OPTIONS = {
     httpOnly: true,
     secure: appEnv.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 export class AuthController {

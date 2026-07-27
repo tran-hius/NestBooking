@@ -1,9 +1,9 @@
-import { BookingStatus, Role } from "#generated/prisma";
-import { BadRequestError, ForbiddenError, NotFoundError } from "@/utils/errors";
+import { BookingStatus, PaymentMethod, PaymentStatus, Role } from "#generated/prisma";
+import { BadRequestError, ForbiddenError, NotFoundError } from "../../../utils/errors/index.js";
 import crypto from "crypto";
-import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "@/infrastructure/rabbitmq";
-import { BookingMapper } from "../mapper/BookingMapper";
-import { redisClient, REDIS_KEYS, REDIS_TTL } from "@/infrastructure/redis";
+import { BookingMapper } from "../mapper/BookingMapper.js";
+import { redisClient, REDIS_KEYS, REDIS_TTL } from "../../../infrastructure/redis/index.js";
+import { VnpayService } from "../../payment/services/VnpayService.js";
 export class BookingService {
     readRepo;
     writeRepo;
@@ -11,6 +11,7 @@ export class BookingService {
     hotelService;
     roomTypeService;
     roomService;
+    vnpayService;
     constructor(readRepo, writeRepo, statsRepo, hotelService, roomTypeService, roomService) {
         this.readRepo = readRepo;
         this.writeRepo = writeRepo;
@@ -18,8 +19,9 @@ export class BookingService {
         this.hotelService = hotelService;
         this.roomTypeService = roomTypeService;
         this.roomService = roomService;
+        this.vnpayService = new VnpayService();
     }
-    async createBooking(userId, data) {
+    async createBooking(userId, data, ipAddr = "127.0.0.1") {
         const checkIn = new Date(data.checkInDate);
         const checkOut = new Date(data.checkOutDate);
         const today = new Date();
@@ -45,6 +47,11 @@ export class BookingService {
         const randomPart = crypto.randomBytes(2).toString("hex").toUpperCase();
         const bookingCode = `BKG-${timestampPart}-${randomPart}`;
         const totalAmount = Number(roomType.price) * nights * data.quantity;
+        const paymentMethod = data.paymentMethod || PaymentMethod.PAY_AT_HOTEL;
+        // Nếu là thanh toán tiền mặt thì CONFIRM luôn, nếu online thì PENDING chờ webhook
+        const initialStatus = paymentMethod === PaymentMethod.PAY_AT_HOTEL
+            ? BookingStatus.CONFIRMED
+            : BookingStatus.PENDING;
         const newBooking = await this.writeRepo.create({
             bookingCode: bookingCode,
             userId,
@@ -54,15 +61,33 @@ export class BookingService {
             checkOutDate: checkOut,
             quantity: data.quantity,
             totalAmount,
-            status: BookingStatus.PENDING,
+            status: initialStatus,
+            paymentMethod: paymentMethod,
+            paymentStatus: PaymentStatus.UNPAID,
+            paymentDate: null,
             guestName: data.guestName,
             guestPhone: data.guestPhone,
             guestEmail: data.guestEmail,
             specialRequests: data.specialRequests,
         });
-        await rabbitmq.publishToExchange(EXCHANGES.BOOKING, ROUTING_KEYS.BOOKING_CREATE, { bookingId: newBooking.id });
+        let paymentUrl = undefined;
+        if (paymentMethod === PaymentMethod.VNPAY) {
+            const orderInfo = `Thanh toan dat phong ${bookingCode}`;
+            paymentUrl = this.vnpayService.createPaymentUrl(ipAddr, totalAmount, orderInfo, newBooking.id);
+        }
+        // Gửi email nếu tạo thành công (tiền mặt)
+        if (initialStatus === BookingStatus.CONFIRMED) {
+            import("../../../modules/auth/services/emailService.js").then(({ EmailService }) => {
+                import("../../../config/transporter.js").then(({ Transporter }) => {
+                    const emailService = new EmailService(Transporter.transporter);
+                    emailService.sendBookingSuccessEmail(newBooking.guestEmail, newBooking.bookingCode, newBooking.checkInDate.toISOString(), newBooking.checkOutDate.toISOString()).catch(err => console.error("Error sending booking email:", err));
+                });
+            });
+        }
         await this.clearBookingCache(newBooking.id, newBooking.userId, newBooking.hotelId);
-        return BookingMapper.toResponseDto(newBooking);
+        const response = BookingMapper.toResponseDto(newBooking);
+        response.paymentUrl = paymentUrl;
+        return response;
     }
     async clearBookingCache(bookingId, userId, hotelId) {
         const keys = [
@@ -148,11 +173,15 @@ export class BookingService {
         if (booking.userId !== userId) {
             throw new ForbiddenError("Bạn không có quyền hủy đơn đặt phòng này.");
         }
-        if (booking.status !== BookingStatus.PENDING) {
-            throw new BadRequestError("Chỉ có thể hủy đơn đặt phòng đang ở trạng thái chờ xử lý.");
+        if (booking.status === BookingStatus.CANCELLED || booking.status === BookingStatus.COMPLETED) {
+            throw new BadRequestError("Không thể hủy đơn đặt phòng ở trạng thái này.");
         }
+        const newPaymentStatus = booking.paymentStatus === PaymentStatus.PAID
+            ? PaymentStatus.REFUNDED
+            : booking.paymentStatus;
         const updated = await this.writeRepo.update(id, {
             status: BookingStatus.CANCELLED,
+            paymentStatus: newPaymentStatus,
         });
         await this.clearBookingCache(updated.id, updated.userId, updated.hotelId);
         return BookingMapper.toResponseDto(updated);

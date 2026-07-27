@@ -15,7 +15,6 @@ import {
   Search, 
   Radio, 
   Terminal, 
-  Filter, 
   Copy, 
   ArrowRight,
   ShieldAlert,
@@ -151,7 +150,7 @@ export default function AuditLogs() {
         },
         isNew: true // Highlight flag
       };
-      setEvents((prev) => [newEvent, ...prev]);
+      setEvents((prev: any) => [newEvent, ...prev]);
     }, 8000); // Add a new event after 8 seconds
 
     return () => clearTimeout(timer);

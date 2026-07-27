@@ -1,6 +1,6 @@
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import logger from "@/config/logger";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import logger from "../../../config/logger.js";
 export class BookingController {
     bookingService;
     constructor(bookingService) {
@@ -10,8 +10,14 @@ export class BookingController {
         logger.info("[BookingController] Create booking");
         const userId = req.user?.userId;
         const data = req.body;
-        const result = await this.bookingService.createBooking(userId, data);
-        successResponse(res, HttpStatus.OK, "Yêu cầu đặt phòng đã được tiếp nhận và đang chờ xử lý.", result);
+        let ipAddr = req.headers["x-forwarded-for"] ||
+            req.socket.remoteAddress ||
+            "127.0.0.1";
+        if (ipAddr.includes(",")) {
+            ipAddr = ipAddr.split(",")[0];
+        }
+        const result = await this.bookingService.createBooking(userId, data, ipAddr);
+        successResponse(res, HttpStatus.OK, "Yêu cầu đặt phòng đã được tiếp nhận.", result);
     };
     getBookingById = async (req, res) => {
         const id = req.params.id;

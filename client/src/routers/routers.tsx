@@ -27,11 +27,18 @@ const Reports = lazy(() => import('@/pages/admin/Reports'));
 const AuditLogs = lazy(() => import('@/pages/admin/AuditLogs'));
 const MyBookings = lazy(() => import('@/pages/MyBookings'));
 const Checkout = lazy(() => import('@/pages/Checkout'));
+const HotelDetail = lazy(() => import('@/pages/HotelDetail'));
+const Destinations = lazy(() => import('@/pages/admin/Destinations'));
 
 export const routers = [
   {
     path: '/',
     component: <Home />,
+    layout: MainLayout,
+  },
+  {
+    path: '/hotel/:id',
+    component: <HotelDetail />,
     layout: MainLayout,
   },
   {
@@ -117,6 +124,11 @@ export const routers = [
   {
     path: '/admin/audit',
     component: <AuditLogs />,
+    layout: AdminLayout,
+  },
+  {
+    path: '/admin/destinations',
+    component: <Destinations />,
     layout: AdminLayout,
   },
   {

@@ -3,7 +3,7 @@ import { AdminSidebar } from "@/components/AdminSidebar";
 import { ReactNode } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 
-import { Navigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  const { isAuthenticated, user, clearAuth } = useAppStore();
+  const { clearAuth, user } = useAppStore();
 
   const handleLogout = () => {
     clearAuth();

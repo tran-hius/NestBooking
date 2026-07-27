@@ -26,14 +26,20 @@ export const env = {
   REDIS_HOST: process.env.REDIS_HOST ?? "127.0.0.1",
   REDIS_PORT: Number(process.env.REDIS_PORT) || 6379,
 
-  RABBITMQ_URL: process.env.RABBITMQ_URL ?? "amqp://guest:guest@localhost:5672",
-
   OTP_TTL: Number(process.env.OTP_TTL) || 300,
 
   JWT_SECRET: process.env.JWT_SECRET!,
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET!,
+  JWT_REFRESH_EXPIRES_IN: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "30m",
   JWT_EXPIRES_IN_MS: ms(process.env.JWT_EXPIRES_IN as ms.StringValue || "30m"),
+
+  // VNPay Config
+  VNP_TMN_CODE: process.env.VNP_TMN_CODE || "BXJ5J78C", // Mock TMN Code
+  VNP_HASH_SECRET: process.env.VNP_HASH_SECRET || "FDBDSZCDVXMXJZZYRYYQXOWUIPQJPOKH", // Mock Secret
+  VNP_URL: process.env.VNP_URL || "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
+  VNP_API_URL: process.env.VNP_API_URL || "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction",
+  VNP_RETURN_URL: process.env.VNP_RETURN_URL || "http://localhost:5173/payment/result",
 
   COOKIE_SECRET: process.env.COOKIE_SECRET || "default_cookie_secret_change_me_in_prod",
 

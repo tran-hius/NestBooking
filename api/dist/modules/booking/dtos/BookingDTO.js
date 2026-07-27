@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { BookingStatus } from "../../../../generated/prisma";
+import { BookingStatus, PaymentMethod } from "../../../../generated/prisma/index.js";
 export const CreateBookingSchema = z.object({
     body: z
         .object({
@@ -16,6 +16,7 @@ export const CreateBookingSchema = z.object({
         guestPhone: z.string().min(8, "Số điện thoại không hợp lệ"),
         guestEmail: z.string().email("Email không hợp lệ"),
         specialRequests: z.string().optional(),
+        paymentMethod: z.nativeEnum(PaymentMethod).default(PaymentMethod.PAY_AT_HOTEL),
     })
         .refine((data) => new Date(data.checkInDate) < new Date(data.checkOutDate), {
         message: "Ngày Check-out phải sau ngày Check-in",

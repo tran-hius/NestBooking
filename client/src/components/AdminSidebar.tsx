@@ -1,7 +1,6 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -19,7 +18,8 @@ import {
   CreditCard,
   MessageSquare,
   AlertTriangle,
-  Activity
+  Activity,
+  Map
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -55,6 +55,7 @@ const menuGroups = [
   {
     label: "Hệ thống",
     items: [
+      { title: "Quản lý Điểm đến", url: "/admin/destinations", icon: Map },
       { title: "Nhật ký (Audit Log)", url: "/admin/audit", icon: Activity },
     ],
   },

@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { BedType } from "../../../../generated/prisma";
+import { BedType } from "../../../../generated/prisma/index.js";
 export const CreateRoomTypeSchema = z.object({
     body: z.object({
         name: z.string().min(1, "Tên loại phòng không được để trống"),

@@ -37,11 +37,11 @@ export default function OTPVerification() {
 
     try {
       console.log("SENDING TO BACKEND", { email, otp, otpToken });
-      const response: any = await authService.verifyOtp({ email, otp, otpToken });
+      const response = await authService.verifyOtp({ email, otp, otpToken });
       console.log("RESPONSE FROM BACKEND", response);
 
-      const accessToken = response?.data?.tokens?.accessToken || response?.tokens?.accessToken || response?.data?.data?.tokens?.accessToken;
-      const user = response?.data?.user || response?.user || response?.data?.data?.user;
+      const accessToken = response.data?.tokens?.accessToken;
+      const user = response.data?.user;
 
       console.log("EXTRACTED TOKENS", accessToken, user);
 

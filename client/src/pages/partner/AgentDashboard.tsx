@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Building, CalendarCheck, CalendarX, BedDouble, Percent, Clock } from "lucide-react";
+import { DollarSign, Building, CalendarCheck, BedDouble, Percent, Clock } from "lucide-react";
 import { 
   Bar, 
   BarChart, 

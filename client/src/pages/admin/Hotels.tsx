@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { MoreHorizontal, Search, Eye, MapPin, CheckCircle, XCircle, EyeOff, Star } from "lucide-react";
-import { format } from "date-fns";
+// removed
 
 const mockHotels = [
   {

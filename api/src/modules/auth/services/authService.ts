@@ -119,9 +119,13 @@ export class AuthService implements IAuthService {
       throw new UnauthorizedError("Tài khoản đã bị khóa.");
     }
 
+    if (!user.passwordHash) {
+      throw new UnauthorizedError("Tài khoản này chưa thiết lập mật khẩu (có thể đăng nhập qua Google/Facebook).");
+    }
+
     const isPasswordValid = await this.tokenService.comparePassword(
       dto.password,
-      user.passwordHash as string,
+      user.passwordHash
     );
 
     const executeTx = tx ? (fn: (t: TxClient) => Promise<any>) => fn(tx) : (fn: (t: TxClient) => Promise<any>) => prisma.$transaction(fn);

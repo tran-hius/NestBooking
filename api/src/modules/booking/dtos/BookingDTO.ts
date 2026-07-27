@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { BookingStatus } from "../../../../generated/prisma";
+import { BookingStatus, PaymentMethod, PaymentStatus } from "../../../../generated/prisma";
 
 export const CreateBookingSchema = z.object({
   body: z
@@ -20,6 +20,7 @@ export const CreateBookingSchema = z.object({
       guestPhone: z.string().min(8, "Số điện thoại không hợp lệ"),
       guestEmail: z.string().email("Email không hợp lệ"),
       specialRequests: z.string().optional(),
+      paymentMethod: z.nativeEnum(PaymentMethod).default(PaymentMethod.PAY_AT_HOTEL),
     })
     .refine(
       (data) => new Date(data.checkInDate) < new Date(data.checkOutDate),
@@ -55,6 +56,10 @@ export interface BookingResponseDto {
   quantity: number;
   totalAmount: number;
   status: BookingStatus;
+  paymentMethod: PaymentMethod;
+  paymentStatus: PaymentStatus;
+  paymentDate?: Date | null;
+  paymentUrl?: string;
   guestName: string;
   guestPhone: string;
   guestEmail: string;

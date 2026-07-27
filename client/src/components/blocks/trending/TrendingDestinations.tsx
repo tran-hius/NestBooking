@@ -1,8 +1,31 @@
 import DestinationCard from "./DestinationCard";
-import { data } from "./data";
 import { Plane, Globe2, Compass } from "lucide-react";
+import { useEffect, useState } from "react";
+import { destinationService, Destination } from "@/api/services/destinationService";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const TrendingDestinations = () => {
+  const [destinations, setDestinations] = useState<Destination[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDestinations = async () => {
+      try {
+        const res = await destinationService.getAllDestinations();
+        console.log("data", res)
+        if (res) {
+          // res is already the array because destinationService returns response.data
+          setDestinations(res.data as any);
+        }
+      } catch (error) {
+        console.error("Failed to fetch destinations:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDestinations();
+  }, []);
+
   return (
     <section className="relative py-16 overflow-hidden">
       {/* Background Decorative Icons */}
@@ -24,19 +47,39 @@ const TrendingDestinations = () => {
           </p>
         </div>
 
-        {/* Row 1 */}
-        <div className="grid grid-cols-2 gap-6 mb-6">
-          {data.slice(0, 2).map((item) => (
-            <DestinationCard key={item.id} {...item} />
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="flex flex-col gap-6">
+            <div className="grid grid-cols-2 gap-6">
+              <Skeleton className="w-full aspect-[16/10] rounded-xl" />
+              <Skeleton className="w-full aspect-[16/10] rounded-xl" />
+            </div>
+            <div className="grid grid-cols-3 gap-6">
+              <Skeleton className="w-full aspect-[16/10] rounded-xl" />
+              <Skeleton className="w-full aspect-[16/10] rounded-xl" />
+              <Skeleton className="w-full aspect-[16/10] rounded-xl" />
+            </div>
+          </div>
+        ) : destinations.length > 0 ? (
+          <>
+            {/* Row 1 */}
+            <div className="grid grid-cols-2 gap-6 mb-6">
+              {destinations.slice(0, 2).map((item) => (
+                <DestinationCard key={item.id} destination={item} />
+              ))}
+            </div>
 
-        {/* Row 2 */}
-        <div className="grid grid-cols-3 gap-6">
-          {data.slice(2).map((item) => (
-            <DestinationCard key={item.id} {...item} />
-          ))}
-        </div>
+            {/* Row 2 */}
+            <div className="grid grid-cols-3 gap-6">
+              {destinations.slice(2, 5).map((item) => (
+                <DestinationCard key={item.id} destination={item} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="text-center py-10 text-gray-500">
+            Không có dữ liệu điểm đến.
+          </div>
+        )}
       </div>
     </section>
   );

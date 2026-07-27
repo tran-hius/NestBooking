@@ -20,13 +20,14 @@ export const errorHandler = (
     statusCode = error.statusCode;
     message = error.message;
     errors = error.errors || null;
-  } else if (
-    error instanceof Prisma.PrismaClientKnownRequestError &&
-    error.code === "P2025"
-  ) {
-    statusCode = 404;
-    message =
-      "Bản ghi không tồn tại hoặc bạn không có quyền thực hiện hành động này.";
+  } else if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    if (error.code === "P2025") {
+      statusCode = 404;
+      message = "Bản ghi không tồn tại hoặc bạn không có quyền thực hiện hành động này.";
+    } else if (error.code === "P2002") {
+      statusCode = 400;
+      message = "Dữ liệu đã tồn tại (trùng lặp). Vui lòng sử dụng thông tin khác.";
+    }
   }
 
   res.status(statusCode).json({

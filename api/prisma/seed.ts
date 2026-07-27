@@ -103,6 +103,55 @@ async function main() {
     console.log(`✅ Created: ${user.email} (${user.role} - ${user.status})`);
   }
 
+  console.log("🌱 Seeding Destinations...");
+  const destinationsData = [
+    {
+      name: "Hạ Long",
+      slug: "ha-long",
+      imageUrl: "https://images.unsplash.com/photo-1555921015-5532091f6026?auto=format&fit=crop&q=80&w=1000",
+      description: "Vịnh Hạ Long - Kỳ quan thiên nhiên thế giới"
+    },
+    {
+      name: "Hà Nội",
+      slug: "ha-noi",
+      imageUrl: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&q=80&w=1000",
+      description: "Thủ đô ngàn năm văn hiến"
+    },
+    {
+      name: "Ninh Bình",
+      slug: "ninh-binh",
+      imageUrl: "https://images.unsplash.com/photo-1583417657200-a544a493c0bc?auto=format&fit=crop&q=80&w=1000",
+      description: "Vịnh Hạ Long trên cạn"
+    },
+    {
+      name: "Đà Nẵng",
+      slug: "da-nang",
+      imageUrl: "https://images.unsplash.com/photo-1559508551-44bff1fe756b?auto=format&fit=crop&q=80&w=1000",
+      description: "Thành phố đáng sống nhất Việt Nam"
+    },
+    {
+      name: "Cát Bà",
+      slug: "cat-ba",
+      imageUrl: "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?auto=format&fit=crop&q=80&w=1000",
+      description: "Đảo Ngọc miền Bắc"
+    }
+  ];
+
+  for (const d of destinationsData) {
+    const dest = await prisma.destination.upsert({
+      where: { slug: d.slug },
+      update: {},
+      create: {
+        name: d.name,
+        slug: d.slug,
+        imageUrl: d.imageUrl,
+        description: d.description,
+        isFeatured: true,
+      },
+    });
+    console.log(`✅ Created Destination: ${dest.name}`);
+  }
+
   console.log("🌱 Seeding finished.");
 }
 

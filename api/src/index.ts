@@ -1,16 +1,12 @@
 import { env } from "@/config/env";
 import app from "@/app";
-import { rabbitmq } from "@/infrastructure/rabbitmq/rabbitMQ";
 import logger from "@/config/logger";
-import { setupRabbitMQBindings } from "@/infrastructure/rabbitmq/setup";
 import { redisConnection } from "@/infrastructure/redis/RedisConnection";
 import { prisma } from "@/config/prisma";
 
 const bootstrap = async () => {
   try {
     await prisma.$connect();
-    await rabbitmq.connect();
-    await setupRabbitMQBindings();
 
     const server = app.listen(env.PORT || 3000, () => {
       logger.info(
@@ -36,7 +32,6 @@ const bootstrap = async () => {
         await new Promise((resolve) => server.close(resolve));
         logger.info("Express HTTP server đã đóng.");
 
-        await rabbitmq.close();
         await redisConnection.disconnect();
         await prisma.$disconnect();
 

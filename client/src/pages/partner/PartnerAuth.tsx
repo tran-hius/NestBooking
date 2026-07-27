@@ -1,8 +1,51 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { MapPin } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { MapPin, Loader2 } from "lucide-react";
+import { useState } from "react";
+import { authService } from "@/api/services/authService";
+import { useAppStore } from "@/stores/useAppStore";
+import { toast } from "sonner";
 
 export default function PartnerAuth() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { setToken, setUser } = useAppStore();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      toast.error("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await authService.login({ email, password });
+      
+      const accessToken = response.data?.tokens?.accessToken;
+      const user = response.data?.user;
+
+      if (!accessToken || (user?.role !== "PARTNER" && user?.role !== "ADMIN")) {
+        toast.error("Tài khoản không có quyền đối tác");
+        return;
+      }
+
+      setToken(accessToken);
+      setUser(user);
+
+      toast.success("Đăng nhập thành công!");
+      navigate("/partner");
+    } catch (error: any) {
+      console.error("Partner Login Error", error);
+      toast.error(error.response?.data?.message || "Đăng nhập thất bại");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       {/* Minimal Header */}
@@ -27,7 +70,7 @@ export default function PartnerAuth() {
             Tạo tài khoản để đăng tin và quản lý bất động sản của bạn.
           </p>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-bold text-slate-900 mb-2">
                 Địa chỉ email
@@ -37,12 +80,29 @@ export default function PartnerAuth() {
                 name="email"
                 type="email"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="block w-full h-12 rounded-md border border-slate-300 py-1.5 px-4 text-slate-900 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
               />
             </div>
 
-            <Button className="w-full h-12 text-base font-bold bg-primary hover:bg-primary/90 text-white rounded-md">
-              Tiếp tục
+            <div>
+              <label htmlFor="password" className="block text-sm font-bold text-slate-900 mb-2">
+                Mật khẩu
+              </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="block w-full h-12 rounded-md border border-slate-300 py-1.5 px-4 text-slate-900 shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
+              />
+            </div>
+
+            <Button disabled={loading} className="w-full h-12 text-base font-bold bg-primary hover:bg-primary/90 text-white rounded-md">
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Tiếp tục"}
             </Button>
           </form>
 

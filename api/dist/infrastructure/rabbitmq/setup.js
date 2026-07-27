@@ -1,8 +1,8 @@
-import { rabbitmq } from "./rabbitMQ";
-import { EXCHANGES } from "./exchanges";
-import { QUEUES } from "./queues";
-import { ROUTING_KEYS } from "./routing.key";
-import logger from "@/config/logger";
+import { rabbitmq } from "./rabbitMQ.js";
+import { EXCHANGES } from "./exchanges.js";
+import { QUEUES } from "./queues.js";
+import { ROUTING_KEYS } from "./routing.key.js";
+import logger from "../../config/logger.js";
 export async function setupRabbitMQBindings() {
     await rabbitmq.connect();
     const channel = await rabbitmq.createChannel();

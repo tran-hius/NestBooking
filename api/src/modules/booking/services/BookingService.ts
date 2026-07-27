@@ -1,18 +1,21 @@
-import { BookingStatus, PrismaClient, Role } from "#generated/prisma";
+import { BookingStatus, PaymentMethod, PaymentStatus, PrismaClient, Role } from "#generated/prisma";
 import { IBookingReadRepository } from "../interfaces/IBookingReadRepository";
 import { IBookingWriteRepository } from "../interfaces/IBookingWriteRepository";
 import { BookingResponseDto, CreateBookingDto } from "../dtos/BookingDTO";
 import { BadRequestError, ForbiddenError, NotFoundError } from "@/utils/errors";
 import crypto from "crypto";
-import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "@/infrastructure/rabbitmq";
+
 import { BookingMapper } from "../mapper/BookingMapper";
 import { IHotelService } from "@/modules/hotel/interfaces/IHotelService";
 import { IRoomTypeService } from "@/modules/hotel/interfaces/IRoomTypeService";
 import { IRoomService } from "@/modules/hotel/interfaces/IRoomService";
 import { IBookingStatisticsRepository } from "../interfaces/IBookingStatisticsRepository";
 import { redisClient, REDIS_KEYS, REDIS_TTL } from "@/infrastructure/redis";
+import { VnpayService } from "../../payment/services/VnpayService";
 
 export class BookingService {
+  private vnpayService: VnpayService;
+  
   constructor(
     private readonly readRepo: IBookingReadRepository,
     private readonly writeRepo: IBookingWriteRepository,
@@ -20,11 +23,14 @@ export class BookingService {
     private readonly hotelService: IHotelService,
     private readonly roomTypeService: IRoomTypeService,
     private readonly roomService: IRoomService,
-  ) {}
+  ) {
+    this.vnpayService = new VnpayService();
+  }
 
   async createBooking(
     userId: string,
     data: CreateBookingDto,
+    ipAddr: string = "127.0.0.1"
   ): Promise<BookingResponseDto> {
     const checkIn = new Date(data.checkInDate);
     const checkOut = new Date(data.checkOutDate);
@@ -75,6 +81,13 @@ export class BookingService {
 
     const totalAmount = Number(roomType.price) * nights * data.quantity;
 
+    const paymentMethod = data.paymentMethod || PaymentMethod.PAY_AT_HOTEL;
+    
+    // Nếu là thanh toán tiền mặt thì CONFIRM luôn, nếu online thì PENDING chờ webhook
+    const initialStatus = paymentMethod === PaymentMethod.PAY_AT_HOTEL 
+      ? BookingStatus.CONFIRMED 
+      : BookingStatus.PENDING;
+
     const newBooking = await this.writeRepo.create({
       bookingCode: bookingCode,
       userId,
@@ -84,22 +97,44 @@ export class BookingService {
       checkOutDate: checkOut,
       quantity: data.quantity,
       totalAmount,
-      status: BookingStatus.PENDING,
+      status: initialStatus,
+      paymentMethod: paymentMethod,
+      paymentStatus: PaymentStatus.UNPAID,
+      paymentDate: null,
       guestName: data.guestName,
       guestPhone: data.guestPhone,
       guestEmail: data.guestEmail,
       specialRequests: data.specialRequests,
     });
 
-    await rabbitmq.publishToExchange(
-      EXCHANGES.BOOKING,
-      ROUTING_KEYS.BOOKING_CREATE,
-      { bookingId: newBooking.id },
-    );
+    let paymentUrl = undefined;
+
+    if (paymentMethod === PaymentMethod.VNPAY) {
+      const orderInfo = `Thanh toan dat phong ${bookingCode}`;
+      paymentUrl = this.vnpayService.createPaymentUrl(ipAddr, totalAmount, orderInfo, newBooking.id);
+    }
+
+    // Gửi email nếu tạo thành công (tiền mặt)
+    if (initialStatus === BookingStatus.CONFIRMED) {
+      import("@/modules/auth/services/emailService").then(({ EmailService }) => {
+        import("@/config/transporter").then(({ Transporter }) => {
+          const emailService = new EmailService(Transporter.transporter);
+          emailService.sendBookingSuccessEmail(
+            newBooking.guestEmail, 
+            newBooking.bookingCode, 
+            newBooking.checkInDate.toISOString(), 
+            newBooking.checkOutDate.toISOString()
+          ).catch(err => console.error("Error sending booking email:", err));
+        });
+      });
+    }
 
     await this.clearBookingCache(newBooking.id, newBooking.userId, newBooking.hotelId);
 
-    return BookingMapper.toResponseDto(newBooking);
+    const response = BookingMapper.toResponseDto(newBooking);
+    response.paymentUrl = paymentUrl;
+    
+    return response;
   }
 
   private async clearBookingCache(bookingId: string, userId: string, hotelId: string) {
@@ -219,15 +254,21 @@ export class BookingService {
       throw new ForbiddenError("Bạn không có quyền hủy đơn đặt phòng này.");
     }
 
-    if (booking.status !== BookingStatus.PENDING) {
+    if (booking.status === BookingStatus.CANCELLED || booking.status === BookingStatus.COMPLETED) {
       throw new BadRequestError(
-        "Chỉ có thể hủy đơn đặt phòng đang ở trạng thái chờ xử lý.",
+        "Không thể hủy đơn đặt phòng ở trạng thái này.",
       );
     }
 
+    const newPaymentStatus = booking.paymentStatus === PaymentStatus.PAID 
+      ? PaymentStatus.REFUNDED 
+      : booking.paymentStatus;
+
     const updated = await this.writeRepo.update(id, {
       status: BookingStatus.CANCELLED,
+      paymentStatus: newPaymentStatus,
     });
+    
     await this.clearBookingCache(updated.id, updated.userId, updated.hotelId);
     return BookingMapper.toResponseDto(updated);
   }

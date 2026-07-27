@@ -1,9 +1,9 @@
-import { AUTH_CONSTANTS } from "@/utils/constants";
-import { BadRequestError, NotFoundError, UnauthorizedError } from "@/utils/errors";
-import { Role, UserStatus } from "@/../generated/prisma";
-import { AuthMapper } from "@/modules/auth/mapper/authMapper";
-import logger from "@/config/logger";
-import { prisma } from "@/config/prisma";
+import { AUTH_CONSTANTS } from "../../../utils/constants.js";
+import { BadRequestError, NotFoundError, UnauthorizedError } from "../../../utils/errors/index.js";
+import { Role, UserStatus } from "../../../../generated/prisma/index.js";
+import { AuthMapper } from "../../../modules/auth/mapper/authMapper.js";
+import logger from "../../../config/logger.js";
+import { prisma } from "../../../config/prisma.js";
 export class AuthService {
     otpService;
     refreshTokenRepository;
@@ -68,6 +68,9 @@ export class AuthService {
         }
         if (user.status === UserStatus.BANNED || user.status === UserStatus.REJECTED) {
             throw new UnauthorizedError("Tài khoản đã bị khóa.");
+        }
+        if (!user.passwordHash) {
+            throw new UnauthorizedError("Tài khoản này chưa thiết lập mật khẩu (có thể đăng nhập qua Google/Facebook).");
         }
         const isPasswordValid = await this.tokenService.comparePassword(dto.password, user.passwordHash);
         const executeTx = tx ? (fn) => fn(tx) : (fn) => prisma.$transaction(fn);

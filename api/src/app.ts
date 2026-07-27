@@ -11,7 +11,9 @@ import hotelRouter from "@/modules/hotel/routes/HotelRouter";
 import roomTypeRouter from "@/modules/hotel/routes/RoomTypeRouter";
 import roomRouter from "@/modules/hotel/routes/RoomRouter";
 import bookingRouter from "@/modules/booking/routes/BookingRouter";
+import paymentRouter from "@/modules/payment/routes/PaymentRouter";
 import searchRouter from "@/modules/search/routes/SearchRouter";
+import { DestinationRouter } from "@/modules/destination/routes/DestinationRouter";
 import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
@@ -23,13 +25,14 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(helmet());
-app.use(globalLimiter);
+// app.use(globalLimiter);
 app.use(morgan("dev"));
-app.use(express.json({ limit: "10mb" }));
+
 app.use(cors({
   origin: ["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", process.env.CLIENT_URL || ""],
   credentials: true,
 }));
+app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser(env.COOKIE_SECRET));
 
 const userSwaggerDoc = JSON.parse(
@@ -100,7 +103,9 @@ app.use("/api/hotels", hotelRouter);
 app.use("/api/room-types", roomTypeRouter);
 app.use("/api/rooms", roomRouter);
 app.use("/api/bookings", bookingRouter);
+app.use("/api/payments", paymentRouter);
 app.use("/api/search", searchRouter);
+app.use("/api/destinations", DestinationRouter);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });

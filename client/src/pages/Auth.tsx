@@ -4,26 +4,44 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { useAppStore } from "@/stores/useAppStore";
 
 export default function Auth() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { setToken, setUser } = useAppStore();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email) return;
+    if (!email || !password) {
+      toast.error("Vui lòng nhập email và mật khẩu");
+      return;
+    }
 
     setLoading(true);
     try {
-      const result: any = await authService.sendOtp({ email });
-      console.log("result", result);
-      const otpToken = result?.data?.otpToken || result?.otpToken || result?.data?.data?.otpToken;
-      navigate(`/verify-otp?token=${otpToken}`, { state: { email } });
-    } catch (error) {
-      console.error("Lỗi gửi OTP", error);
-      toast.error("Có lỗi xảy ra khi gửi OTP");
+      const response = await authService.login({ email, password });
+      
+      const accessToken = response.data?.tokens?.accessToken;
+      const user = response.data?.user;
+
+      if (!accessToken) {
+        throw new Error("Không nhận được access token");
+      }
+
+      setToken(accessToken);
+      if (user) {
+        setUser(user);
+      }
+
+      toast.success("Đăng nhập thành công!");
+      navigate("/");
+    } catch (error: any) {
+      console.error("Lỗi đăng nhập", error);
+      toast.error(error.response?.data?.message || "Email hoặc mật khẩu không chính xác");
     } finally {
       setLoading(false);
     }
@@ -36,7 +54,7 @@ export default function Auth() {
         Bạn có thể đăng nhập bằng tài khoản NestBooking để truy cập các dịch vụ của chúng tôi.
       </p>
 
-      <form className="space-y-8" onSubmit={handleSubmit}>
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="space-y-3">
           <label htmlFor="email" className="text-base font-bold text-slate-900">
             Địa chỉ email
@@ -50,10 +68,24 @@ export default function Auth() {
             className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-slate-900 bg-white"
           />
         </div>
+        
+        <div className="space-y-3">
+          <label htmlFor="password" className="text-base font-bold text-slate-900">
+            Mật khẩu
+          </label>
+          <input 
+            id="password"
+            type="password" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Nhập mật khẩu" 
+            className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-slate-900 bg-white"
+          />
+        </div>
 
-        <Button disabled={loading} className="w-full h-14 bg-primary hover:bg-primary/90 text-white font-bold text-lg rounded-md shadow-md">
+        <Button disabled={loading} className="w-full h-14 bg-primary hover:bg-primary/90 text-white font-bold text-lg rounded-md shadow-md mt-4">
           {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
-          Tiếp tục với email
+          Tiếp tục
         </Button>
       </form>
 
@@ -98,3 +130,4 @@ export default function Auth() {
     </div>
   );
 }
+

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { 
   CheckCircle2, 
-  MapPin, 
   Info,
   Check,
   Wallet,
@@ -16,12 +15,16 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { useAppStore } from "@/stores/useAppStore";
+import { bookingService } from "@/api/services/bookingService";
 
 export default function Checkout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAppStore();
   
-  const [paymentMethod, setPaymentMethod] = useState("vnpay");
+  const { hotelId, roomTypeId, hotel, roomType } = location.state || {};
+
+  const [paymentMethod, setPaymentMethod] = useState("VNPAY");
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Split fullName into firstName and lastName for the form
@@ -40,7 +43,11 @@ export default function Checkout() {
     specialRequest: "",
   });
 
-  const handlePayment = () => {
+  if (!hotelId || !roomTypeId) {
+    return <Navigate to="/" replace />;
+  }
+
+  const handlePayment = async () => {
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
       toast.error("Vui lòng điền đầy đủ thông tin bắt buộc!");
       return;
@@ -48,13 +55,46 @@ export default function Checkout() {
 
     setIsProcessing(true);
     
-    // Giả lập xử lý thanh toán
-    setTimeout(() => {
+    try {
+      const bookingData: import("@/api/services/bookingService").CreateBookingPayload = {
+        hotelId: hotelId,
+        roomTypeId: roomTypeId,
+        checkInDate: "2026-07-24", // Tạm fix cứng, thực tế lấy từ state
+        checkOutDate: "2026-07-25", // Tạm fix cứng, thực tế lấy từ state
+        quantity: 1,
+        totalPrice: roomType?.price || 0, // Using actual price if available
+        guestName: `${formData.lastName} ${formData.firstName}`.trim(),
+        guestPhone: formData.phone,
+        guestEmail: formData.email,
+        paymentMethod: paymentMethod,
+        specialRequests: formData.specialRequest,
+        customerInfo: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          country: formData.country,
+          specialRequest: formData.specialRequest
+        }
+      };
+
+      const res = await bookingService.createBooking(bookingData);
+      
+      if (res.data?.paymentUrl) {
+        window.location.href = res.data.paymentUrl;
+      } else {
+        toast.success("Đặt phòng thành công!");
+        navigate("/my-bookings");
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Có lỗi xảy ra khi tạo đơn đặt phòng!");
+      console.error(error);
+    } finally {
       setIsProcessing(false);
-      toast.success("Đặt phòng thành công!");
-      navigate("/my-bookings");
-    }, 2000);
+    }
   };
+
+  const hotelImage = hotel?.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
 
   return (
     // Sử dụng màu cố định (light mode) để đảm bảo luôn hiển thị giống hệt giao diện Booking.com
@@ -88,7 +128,7 @@ export default function Checkout() {
             <Card className="overflow-hidden shadow-sm border-slate-200 bg-white">
               <div className="h-40 w-full overflow-hidden">
                 <img 
-                  src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  src={hotelImage} 
                   alt="Hotel" 
                   className="w-full h-full object-cover" 
                 />
@@ -97,9 +137,9 @@ export default function Checkout() {
                 <div className="flex items-center gap-1 text-xs font-bold text-yellow-500 mb-1">
                   ⭐⭐⭐⭐⭐ <span className="bg-yellow-500 text-white px-1 rounded ml-1">Genius</span>
                 </div>
-                <h2 className="text-lg font-bold text-slate-900 leading-tight">Khách sạn & Du lịch Hanoi Center Silk Classic</h2>
+                <h2 className="text-lg font-bold text-slate-900 leading-tight">{hotel?.name || "Khách sạn & Du lịch Hanoi Center Silk Classic"}</h2>
                 <div className="text-sm text-slate-500 mt-2 line-clamp-2">
-                  41 Phố Bát Sứ, Hàng Bồ, Hoàn Kiếm, Hà Nội, Việt Nam
+                  {hotel?.address ? `${hotel.address}, ${hotel.city}, ${hotel.country}` : "41 Phố Bát Sứ, Hàng Bồ, Hoàn Kiếm, Hà Nội, Việt Nam"}
                 </div>
                 <div className="flex items-center gap-2 mt-3">
                   <span className="bg-[#003b95] text-white font-bold text-xs px-1.5 py-1 rounded-sm flex items-center justify-center">8.8</span>
@@ -130,7 +170,8 @@ export default function Checkout() {
                 </div>
                 <div className="text-sm text-slate-900">
                   <div className="font-medium text-slate-600 mb-1">Bạn đã chọn</div>
-                  <div className="font-bold text-slate-900">1 đêm, 1 phòng cho 2 người lớn</div>
+                  <div className="font-bold text-slate-900">1 đêm, 1 phòng cho {roomType?.maxGuests || 2} người</div>
+                  <div className="text-slate-600 mt-1">{roomType?.name || "Phòng Standard"}</div>
                   <div className="text-slate-600 mt-1 hover:text-blue-600 cursor-pointer">Thay đổi lựa chọn của bạn</div>
                 </div>
               </CardContent>
@@ -144,23 +185,14 @@ export default function Checkout() {
               <CardContent className="p-4 pt-2 space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-900">Giá gốc</span>
-                  <span className="text-slate-900">1,110,000 VND</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-slate-900">Ưu đãi kỳ nghỉ</span>
-                  <span className="text-slate-900">- 131,120 VND</span>
-                </div>
-                <div className="flex justify-between text-sm text-green-700">
-                  <span>Giảm giá Genius</span>
-                  <span>- 111,000 VND</span>
+                  <span className="text-slate-900">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(roomType?.price || 1110000)}</span>
                 </div>
               </CardContent>
               <div className="bg-[#ebf3ff] p-4 border-t border-slate-200">
                 <div className="flex justify-between items-end">
                   <div className="font-bold text-2xl text-slate-900">Tổng cộng</div>
                   <div className="text-right">
-                    <div className="text-sm text-red-500 line-through">1,110,000 VND</div>
-                    <div className="font-black text-2xl text-slate-900">867,880 VND</div>
+                    <div className="font-black text-2xl text-slate-900">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(roomType?.price || 1110000)}</div>
                   </div>
                 </div>
                 <div className="text-xs text-slate-500 text-right mt-1">Đã bao gồm thuế và phí</div>

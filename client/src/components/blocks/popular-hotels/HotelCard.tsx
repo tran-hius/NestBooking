@@ -1,9 +1,10 @@
 import { Star, MapPin } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useNavigate } from "react-router-dom";
 
 interface HotelCardProps {
   hotel: {
-    id: number;
+    id: string | number;
     name: string;
     location: string;
     rating: number;
@@ -17,12 +18,21 @@ interface HotelCardProps {
 }
 
 export default function HotelCard({ hotel }: HotelCardProps) {
+  const navigate = useNavigate();
+
   const formatCurrency = (amount: number) => {
     return `${amount.toLocaleString('vi-VN')} VNĐ`;
   };
 
+  const handleClick = () => {
+    navigate(`/hotel/${hotel.id}`);
+  };
+
   return (
-    <div className="snap-start shrink-0 w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] group flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-xl transition-all duration-300 cursor-pointer">
+    <div 
+      onClick={handleClick}
+      className="snap-start shrink-0 w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] group flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-xl transition-all duration-300 cursor-pointer"
+    >
       <div className="relative w-full overflow-hidden">
         <AspectRatio ratio={4 / 3}>
           <img 

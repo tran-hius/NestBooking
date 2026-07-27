@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { MoreHorizontal, Search, CheckCircle, XCircle, Trash2, EyeOff, Star } from "lucide-react";
+import { MoreHorizontal, Search, CheckCircle, Trash2, EyeOff, Star } from "lucide-react";
 import { format } from "date-fns";
 
 const mockReviews = [

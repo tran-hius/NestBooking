@@ -1,15 +1,11 @@
-import { env } from "@/config/env";
-import app from "@/app";
-import { rabbitmq } from "@/infrastructure/rabbitmq/rabbitMQ";
-import logger from "@/config/logger";
-import { setupRabbitMQBindings } from "@/infrastructure/rabbitmq/setup";
-import { redisConnection } from "@/infrastructure/redis/RedisConnection";
-import { prisma } from "@/config/prisma";
+import { env } from "./config/env.js";
+import app from "./app.js";
+import logger from "./config/logger.js";
+import { redisConnection } from "./infrastructure/redis/RedisConnection.js";
+import { prisma } from "./config/prisma.js";
 const bootstrap = async () => {
     try {
         await prisma.$connect();
-        await rabbitmq.connect();
-        await setupRabbitMQBindings();
         const server = app.listen(env.PORT || 3000, () => {
             logger.info(`Booking API Service đang chạy tại port ${env.PORT || 3000} (Môi trường: ${env.NODE_ENV})`);
         });
@@ -27,7 +23,6 @@ const bootstrap = async () => {
             try {
                 await new Promise((resolve) => server.close(resolve));
                 logger.info("Express HTTP server đã đóng.");
-                await rabbitmq.close();
                 await redisConnection.disconnect();
                 await prisma.$disconnect();
                 logger.info("Tất cả kết nối đã đóng an toàn. Process exit.");

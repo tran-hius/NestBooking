@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { HotelStatus, PropertyType } from "../../../../generated/prisma";
+import { HotelStatus, PropertyType } from "../../../../generated/prisma/index.js";
 export const CreateHotelSchema = z.object({
     body: z.object({
         name: z.string().min(1, "Tên khách sạn không được để trống"),

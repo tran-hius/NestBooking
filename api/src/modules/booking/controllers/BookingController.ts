@@ -14,12 +14,21 @@ export class BookingController {
     
     const userId = req.user?.userId as string;
     const data = req.body as CreateBookingDto;
-    const result = await this.bookingService.createBooking(userId, data);
+
+    let ipAddr = req.headers["x-forwarded-for"] as string || 
+                 req.socket.remoteAddress || 
+                 "127.0.0.1";
+                 
+    if (ipAddr.includes(",")) {
+        ipAddr = ipAddr.split(",")[0];
+    }
+    
+    const result = await this.bookingService.createBooking(userId, data, ipAddr);
     
     successResponse(
       res, 
       HttpStatus.OK, 
-      "Yêu cầu đặt phòng đã được tiếp nhận và đang chờ xử lý.", 
+      "Yêu cầu đặt phòng đã được tiếp nhận.", 
       result
     );
   };
@@ -105,4 +114,5 @@ export class BookingController {
     
     successResponse(res, HttpStatus.OK, "Thống kê tỷ lệ lấp đầy thành công.", { occupancy });
   };
+
 }

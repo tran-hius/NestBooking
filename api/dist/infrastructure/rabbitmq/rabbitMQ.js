@@ -1,6 +1,6 @@
 import amqp from "amqplib";
-import { env } from "@/config/env";
-import logger from "@/config/logger";
+import { env } from "../../config/env.js";
+import logger from "../../config/logger.js";
 class RabbitMQ {
     connection = null;
     publisherChannel = null;
@@ -69,7 +69,7 @@ class RabbitMQ {
             this.connect()
                 .then(async () => {
                 logger.info("🔄 [RabbitMQ] Khôi phục bindings sau reconnect...");
-                const { setupRabbitMQBindings } = await import("./setup");
+                const { setupRabbitMQBindings } = await import("./setup.js");
                 await setupRabbitMQBindings();
                 if (this.registeredConsumers.length > 0) {
                     logger.info(`🔄 [RabbitMQ] Đang khởi động lại ${this.registeredConsumers.length} consumer(s)...`);

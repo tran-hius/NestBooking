@@ -1,13 +1,15 @@
-import logger from "@/config/logger";
-import { env } from "@/config/env";
+import logger from "../../../config/logger.js";
+import { env } from "../../../config/env.js";
 const OTP_TTL = Number(env.OTP_TTL);
-import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
-import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "@/infrastructure/rabbitmq";
+import { REDIS_KEYS, redisClient } from "../../../infrastructure/redis/index.js";
 import crypto from "crypto";
 import { randomUUID } from "crypto";
+import { EmailService } from "../../../modules/auth/services/emailService.js";
+import { Transporter } from "../../../config/transporter.js";
 if (Number.isNaN(OTP_TTL)) {
     throw new Error("OTP_TTL không hợp lệ");
 }
+const emailService = new EmailService(Transporter.transporter);
 export class OtpService {
     generateOtp() {
         return crypto.randomInt(100000, 1000000).toString();
@@ -16,12 +18,9 @@ export class OtpService {
         const otp = this.generateOtp();
         const otpToken = randomUUID();
         await redisClient.setex(REDIS_KEYS.OTP(otpToken), OTP_TTL, JSON.stringify({ email, otp }));
-        const payload = {
-            to: email,
-            otpCode: otp,
-        };
         try {
-            await rabbitmq.publishToExchange(EXCHANGES.NOTIFICATION_DIRECT, ROUTING_KEYS.OTP_SEND, payload);
+            // Gửi email đồng bộ thay vì đẩy vào RabbitMQ
+            await emailService.sendOtpEmail(email, otp);
         }
         catch (error) {
             await redisClient.del(REDIS_KEYS.OTP(otpToken));

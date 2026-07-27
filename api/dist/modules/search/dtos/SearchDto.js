@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { PropertyType } from "@/../generated/prisma";
+import { PropertyType } from "../../../../generated/prisma/index.js";
 export var SortByOption;
 (function (SortByOption) {
     SortByOption["PRICE_ASC"] = "PRICE_ASC";
@@ -21,5 +21,5 @@ export const searchHotelSchema = z.object({
         sortBy: z.nativeEnum(SortByOption).optional(),
         page: z.coerce.number().int().min(1).optional().default(1),
         limit: z.coerce.number().int().min(1).max(50).optional().default(10),
-    })
+    }),
 });

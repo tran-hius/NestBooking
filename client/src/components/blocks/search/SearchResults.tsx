@@ -1,90 +1,53 @@
 import { useState, useEffect } from "react";
-import PropertyCard, { PropertyProps } from "./PropertyCard";
+import { searchService } from "@/api/services/searchService";
+import { useLocation } from "react-router-dom";
+import PropertyCard from "./PropertyCard";
 import PropertyCardSkeleton from "./PropertyCardSkeleton";
-import HaNoi from "@/assets/HaNoi.jpg";
-import HaLong from "@/assets/HaLong.jpg";
-import DaNang from "@/assets/DaNang.jpg";
-import NinhBinh from "@/assets/NinhBinh.jpg";
-
-const MOCK_PROPERTIES: PropertyProps[] = [
-  {
-    id: "1",
-    name: "Lotusama Central Hanoi Hotel",
-    image: HaNoi,
-    rating: 4.5,
-    reviewCount: 310,
-    reviewText: "Tuyệt vời",
-    distance: "1 km từ trung tâm",
-    roomType: "Phòng Superior Giường Đôi",
-    bedType: "1 giường đôi lớn",
-    hasBreakfast: false,
-    freeCancellation: true,
-    noPrepayment: true,
-    leftCount: 2,
-    originalPrice: "VND 1.500.000",
-    salePrice: "VND 1.277.938",
-  },
-  {
-    id: "2",
-    name: "Loom Hotel Hanoi",
-    image: HaLong,
-    rating: 5,
-    reviewCount: 41,
-    reviewText: "Tuyệt hảo",
-    distance: "1.1 km từ trung tâm",
-    roomType: "Phòng Tiêu Chuẩn Giường Đôi Không Cửa Sổ",
-    bedType: "1 giường đôi",
-    hasBreakfast: true,
-    freeCancellation: true,
-    noPrepayment: true,
-    leftCount: 5,
-    originalPrice: "VND 2.500.000",
-    salePrice: "VND 1.831.500",
-  },
-  {
-    id: "3",
-    name: "Riverside Resort & Spa Da Nang",
-    image: DaNang,
-    rating: 4,
-    reviewCount: 1205,
-    reviewText: "Rất tốt",
-    distance: "2.5 km từ trung tâm",
-    roomType: "Phòng Deluxe Hướng Biển",
-    bedType: "2 giường đơn hoặc 1 giường đôi lớn",
-    hasBreakfast: true,
-    freeCancellation: false,
-    noPrepayment: false,
-    salePrice: "VND 2.150.000",
-  },
-  {
-    id: "4",
-    name: "Ninh Binh Hidden Charm Hotel",
-    image: NinhBinh,
-    rating: 4.5,
-    reviewCount: 856,
-    reviewText: "Tuyệt vời",
-    distance: "0.5 km từ trung tâm",
-    roomType: "Suite Nhìn Ra Vườn",
-    bedType: "1 giường đôi cực lớn",
-    hasBreakfast: true,
-    freeCancellation: true,
-    noPrepayment: true,
-    leftCount: 1,
-    originalPrice: "VND 3.200.000",
-    salePrice: "VND 2.750.000",
-  }
-];
 
 export default function SearchResults() {
   const [isLoading, setIsLoading] = useState(true);
+  const [properties, setProperties] = useState<any[]>([]);
+  const location = useLocation();
 
-  // Giả lập API loading 1.5s
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
+    const fetchHotels = async () => {
+      try {
+        setIsLoading(true);
+        const searchParams = new URLSearchParams(location.search);
+        
+        const params = {
+          location: searchParams.get("location") || undefined,
+          // Extract other params if needed
+        };
+
+        const res = await searchService.searchHotels(params);
+        
+        // Ensure the API matches PropertyProps format, or map it:
+        const formattedHotels = (res.data || []).map((h: any) => ({
+          id: h.id,
+          name: h.name,
+          image: h.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+          rating: 4.5, // Giả lập nếu chưa có
+          reviewCount: 100,
+          distance: `${h.city}, ${h.country}`,
+          roomType: h.roomTypes?.[0]?.name || "Phòng Tiêu Chuẩn",
+          bedType: "1 giường",
+          hasBreakfast: true,
+          freeCancellation: true,
+          noPrepayment: true,
+          salePrice: `VND ${(h.roomTypes?.[0]?.price || 1000000).toLocaleString('vi-VN')}`,
+        }));
+
+        setProperties(formattedHotels);
+      } catch (error) {
+        console.error("Search failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchHotels();
+  }, [location.search]);
 
   return (
     <div className="w-full">
@@ -106,10 +69,15 @@ export default function SearchResults() {
           ? Array.from({ length: 4 }).map((_, idx) => (
               <PropertyCardSkeleton key={idx} />
             ))
-          : MOCK_PROPERTIES.map((prop) => (
+          : properties.length > 0 ? properties.map((prop) => (
               <PropertyCard key={prop.id} prop={prop} />
-            ))}
+            )) : (
+              <div className="text-center py-10 text-slate-500">
+                Không tìm thấy chỗ nghỉ nào phù hợp.
+              </div>
+            )}
       </div>
     </div>
   );
 }
+

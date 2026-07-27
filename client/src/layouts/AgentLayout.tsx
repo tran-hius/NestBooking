@@ -5,7 +5,7 @@ import { useAppStore } from "@/stores/useAppStore";
 
 import { Navigate, Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Bell, LayoutDashboard, UserCircle } from "lucide-react";
+import { LogOut, Bell, UserCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import {

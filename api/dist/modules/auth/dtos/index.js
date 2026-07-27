@@ -1,1 +1,1 @@
-export * from "./authDto";
+export * from "./authDto.js";

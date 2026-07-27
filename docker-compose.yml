@@ -54,27 +54,6 @@ services:
     networks:
       - booking_network
 
-  rabbitmq_queue:
-    image: rabbitmq:3-management-alpine
-    container_name: booking_rabbitmq
-    restart: always
-    ports:
-      - "5672:5672"   
-      - "15672:15672" 
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 15s
-    networks:
-      - booking_network
-
   api:
     build:
       context: ./api
@@ -89,13 +68,10 @@ services:
       - DB_HOST=postgres_db
       - DB_PORT=5432
       - REDIS_HOST=redis_cache
-      - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq_queue:5672
     depends_on:
       postgres_db:
         condition: service_healthy
       redis_cache:
-        condition: service_healthy
-      rabbitmq_queue:
         condition: service_healthy
     networks:
       - booking_network
@@ -117,30 +93,6 @@ services:
     depends_on:
       api:
         condition: service_started
-    networks:
-      - booking_network
-
-  worker:
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    container_name: booking_worker
-    restart: always
-    env_file:
-      - ./api/.env.dev
-    environment:
-      - DB_HOST=postgres_db
-      - DB_PORT=5432
-      - REDIS_HOST=redis_cache
-      - RABBITMQ_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq_queue:5672
-    command: node dist/worker.js
-    depends_on:
-      postgres_db:
-        condition: service_healthy
-      redis_cache:
-        condition: service_healthy
-      rabbitmq_queue:
-        condition: service_healthy
     networks:
       - booking_network
       

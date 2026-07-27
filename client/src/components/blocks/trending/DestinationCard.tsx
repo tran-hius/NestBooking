@@ -1,20 +1,27 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import VietNamFlag from "@/assets/vietnam-removebg-preview.png";
+import { useNavigate } from "react-router-dom";
+import { Destination } from "@/api/services/destinationService";
 
 interface DestinationCardProps {
-  url: string;
-  alt: string;
-  location: string;
+  destination: Destination;
 }
 
-const DestinationCard = ({ url, alt, location }: DestinationCardProps) => {
+const DestinationCard = ({ destination }: DestinationCardProps) => {
+ 
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/search?city=${encodeURIComponent(destination.name)}`);
+  };
+
   return (
-    <div className="overflow-hidden rounded-xl">
+    <div className="overflow-hidden rounded-xl" onClick={handleClick}>
       <AspectRatio ratio={16 / 10}>
         <div className="relative w-full h-full group cursor-pointer">
           <img
-            src={url}
-            alt={alt}
+            src={destination.imageUrl}
+            alt={destination.name}
             className="w-full h-full object-cover transition duration-300 "
           />
 
@@ -24,10 +31,14 @@ const DestinationCard = ({ url, alt, location }: DestinationCardProps) => {
           {/* Content */}
           <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
             <span className="text-2xl font-bold text-white drop-shadow-md">
-              {location}
+              {destination.name}
             </span>
 
-            <img src={VietNamFlag} alt="Vietnam" className="w-11 h-11" />
+            {destination.countryFlag === "🇻🇳" ? (
+              <img src={VietNamFlag} alt="Vietnam" className="w-11 h-11" />
+            ) : (
+              <span className="text-2xl">{destination.countryFlag}</span>
+            )}
           </div>
         </div>
       </AspectRatio>

@@ -1,18 +1,28 @@
 import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { popularHotelsData } from "./data";
 import HotelCard from "./HotelCard";
 import HotelCardSkeleton from "./HotelCardSkeleton";
+import { hotelService, Hotel } from "@/api/services/hotelService";
 
 export default function PopularHotels() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [hotels, setHotels] = useState<Hotel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
+    const fetchHotels = async () => {
+      try {
+        const res = await hotelService.getAllHotels(1, 10);
+        if (res?.data?.data) {
+          setHotels(res.data.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch popular hotels:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchHotels();
   }, []);
 
   const scroll = (direction: "left" | "right") => {
@@ -57,9 +67,26 @@ export default function PopularHotels() {
             ? Array.from({ length: 4 }).map((_, idx) => (
                 <HotelCardSkeleton key={`skeleton-${idx}`} />
               ))
-            : popularHotelsData.map((hotel) => (
-                <HotelCard key={hotel.id} hotel={hotel} />
-              ))}
+            : hotels.map((hotel: any) => {
+                const lowestPrice = hotel.roomTypes?.length > 0 
+                  ? Math.min(...hotel.roomTypes.map((rt: any) => rt.price))
+                  : 1000000;
+                  
+                const mappedHotel = {
+                  id: hotel.id,
+                  name: hotel.name,
+                  location: `${hotel.city}, ${hotel.country}`,
+                  rating: hotel.starRating || 5,
+                  reviews: 1245,
+                  originalPrice: lowestPrice * 1.2,
+                  salePrice: lowestPrice,
+                  nights: 1,
+                  imageUrl: hotel.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+                  badge: hotel.propertyType
+                };
+                
+                return <HotelCard key={hotel.id} hotel={mappedHotel} />;
+              })}
         </div>
 
         <div className="mt-10 flex justify-center">

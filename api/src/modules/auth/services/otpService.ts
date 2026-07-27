@@ -4,15 +4,17 @@ import { env } from "@/config/env";
 const OTP_TTL = Number(env.OTP_TTL);
 
 import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
-import { EXCHANGES, rabbitmq, ROUTING_KEYS } from "@/infrastructure/rabbitmq";
-import { EmailOtpPayload } from "@/modules/auth/queue/EmailOtpPayload";
 import crypto from "crypto";
 import { randomUUID } from "crypto";
 import { OtpTokenResponse } from "../dtos/authDto";
+import { EmailService } from "@/modules/auth/services/emailService";
+import { Transporter } from "@/config/transporter";
 
 if (Number.isNaN(OTP_TTL)) {
   throw new Error("OTP_TTL không hợp lệ");
 }
+
+const emailService = new EmailService(Transporter.transporter);
 
 export class OtpService implements IOtpService {
   private generateOtp(): string {
@@ -29,22 +31,14 @@ export class OtpService implements IOtpService {
       JSON.stringify({ email, otp }),
     );
 
-    const payload: EmailOtpPayload = {
-      to: email,
-      otpCode: otp,
-    };
-
-    try{
-        await rabbitmq.publishToExchange(
-          EXCHANGES.NOTIFICATION_DIRECT,
-          ROUTING_KEYS.OTP_SEND,
-          payload,
-        );
-    }catch(error){
-      await redisClient.del(REDIS_KEYS.OTP(otpToken))
+    try {
+      // Gửi email đồng bộ thay vì đẩy vào RabbitMQ
+      await emailService.sendOtpEmail(email, otp);
+    } catch (error) {
+      await redisClient.del(REDIS_KEYS.OTP(otpToken));
       throw error;
-
     }
+
     return {
       otpToken,
     };

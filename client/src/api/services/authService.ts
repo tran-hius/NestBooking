@@ -1,5 +1,6 @@
 import { axiosClient } from "@/api/config/axiosClient";
 import { API_ENDPOINTS } from "@/api/constants/endpoints";
+import { ApiResponse } from "@/api/types/apiResponse";
 
 export interface SendOtpPayload {
   email: string;
@@ -11,38 +12,24 @@ export interface VerifyOtpPayload {
   otpToken: string;
 }
 
-export interface SendOtpResponse {
-  message: string;
-  otpToken: string;
-}
-
-export interface VerifyOtpResponse {
-  message: string;
-  tokens: {
-    accessToken: string;
-    refreshToken: string;
-  };
-  user: {
-    id: string;
-    email: string;
-  };
-}
 class AuthService {
-  async sendOtp(payload: SendOtpPayload): Promise<{ data: SendOtpResponse }> {
+  async sendOtp(payload: SendOtpPayload): Promise<ApiResponse> {
     return await axiosClient.post(API_ENDPOINTS.AUTH.SEND_OTP, payload);
   }
 
-  async verifyOtp(
-    payload: VerifyOtpPayload,
-  ): Promise<{ data: VerifyOtpResponse }> {
+  async verifyOtp(payload: VerifyOtpPayload): Promise<ApiResponse> {
     return await axiosClient.post(API_ENDPOINTS.AUTH.VERIFY_OTP, payload);
   }
+  
+  async login(payload: any): Promise<ApiResponse> {
+    return await axiosClient.post('/auth/login', payload);
+  }
 
-  async logout() {
+  async logout(): Promise<ApiResponse> {
     return await axiosClient.post(API_ENDPOINTS.AUTH.LOGOUT);
   }
 
-  async getMe() {
+  async getMe(): Promise<ApiResponse> {
     return await axiosClient.get(API_ENDPOINTS.AUTH.ME);
   }
 }
