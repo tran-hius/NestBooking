@@ -113,7 +113,6 @@ export class BookingService {
       paymentUrl = this.vnpayService.createPaymentUrl(ipAddr, totalAmount, orderInfo, newBooking.id);
     }
 
-    // Gửi email nếu tạo thành công (tiền mặt)
     if (initialStatus === BookingStatus.CONFIRMED) {
       import("@/modules/auth/services/emailService").then(({ EmailService }) => {
         import("@/config/transporter").then(({ Transporter }) => {
