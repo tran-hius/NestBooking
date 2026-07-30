@@ -2804,3 +2804,50 @@
   message: '[HotelController] Get all hotels with queries',
   timestamp: '2026-07-30T11:46:22.813Z'
 }
+{
+  page: '1',
+  limit: '10',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-30T11:49:14.078Z'
+}
+{
+  page: '1',
+  limit: '10',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-30T11:49:14.081Z'
+}
+{
+  page: '1',
+  limit: '10',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-30T11:49:21.795Z'
+}
+{
+  page: '1',
+  limit: '10',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-30T11:49:21.801Z'
+}
+{
+  page: '1',
+  limit: '10',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-30T11:49:22.419Z'
+}
+{
+  page: '1',
+  limit: '10',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-30T11:49:22.429Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-30T11:50:00.247Z'
+}

@@ -41,6 +41,10 @@ class AuthService {
     return await axiosClient.post('/auth/reset-password', payload);
   }
 
+  async changePassword(payload: any): Promise<ApiResponse> {
+    return await axiosClient.post('/auth/change-password', payload);
+  }
+
   async logout(): Promise<ApiResponse> {
     return await axiosClient.post(API_ENDPOINTS.AUTH.LOGOUT);
   }

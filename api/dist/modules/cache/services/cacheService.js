@@ -1,5 +1,5 @@
-import { redisClient } from "../../../infrastructure/redis/index.js";
-import logger from "../../../config/logger.js";
+import { redisClient } from "@/infrastructure/redis";
+import logger from "@/config/logger";
 export class CacheService {
     async get(key) {
         try {

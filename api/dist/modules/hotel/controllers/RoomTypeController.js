@@ -1,6 +1,6 @@
-import { successResponse } from "../../../utils/response.js";
-import { HttpStatus } from "../../../constants/httpStatus.js";
-import logger from "../../../config/logger.js";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
+import logger from "@/config/logger";
 export class RoomTypeController {
     roomTypeService;
     constructor(roomTypeService) {

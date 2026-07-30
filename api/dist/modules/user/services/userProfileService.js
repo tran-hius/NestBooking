@@ -1,7 +1,7 @@
-import logger from "../../../config/logger.js";
-import { UserMapper } from "../../../modules/user/mapper/userMapper.js";
-import { NotFoundError, ConflictError } from "../../../utils/errors/errorCustomize.js";
-import { UserCacheHelper } from "../utils/userCacheHelper.js";
+import logger from "@/config/logger";
+import { UserMapper } from "@/modules/user/mapper/userMapper";
+import { NotFoundError, ConflictError } from "@/utils/errors/errorCustomize";
+import { UserCacheHelper } from "../utils/userCacheHelper";
 export class UserProfileService {
     userRepository;
     constructor(userRepository) {

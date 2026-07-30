@@ -1,1 +1,1 @@
-export * from "./bookingDTO.js";
+export * from "./bookingDTO";

@@ -1,8 +1,8 @@
-import { BookingMapper } from "../../mapper/bookingMapper.js";
+import { BookingMapper } from "../../mapper/bookingMapper";
 import crypto from "crypto";
-import { prisma } from "../../../../config/prisma.js";
-import { BadRequestError } from "../../../../utils/errors/index.js";
-import logger from "../../../../config/logger.js";
+import { prisma } from "@/config/prisma";
+import { BadRequestError } from "@/utils/errors";
+import logger from "@/config/logger";
 export class BookingCreationService {
     availabilityService;
     bookingWriteRepo;

@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { Role, UserStatus } from "../../../../generated/prisma/index.js";
+import { Role, UserStatus } from "../../../../generated/prisma";
 export const UserIdParamSchema = z.object({
     params: z.object({
         id: z.string().uuid("ID người dùng không đúng định dạng UUID."),

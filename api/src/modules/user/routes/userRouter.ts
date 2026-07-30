@@ -213,7 +213,9 @@ router.delete(
     #swagger.security = [{ "bearerAuth": [] }]
   */
   authMiddleware,
-  requireOwnershipOrAdmin,`n  validate(UserIdParamSchema),`n  asyncHandler(userController.softDeleteUser),
+  requireOwnershipOrAdmin,
+  validate(UserIdParamSchema),
+  asyncHandler(userController.softDeleteUser),
 );
 
 // =====================================================

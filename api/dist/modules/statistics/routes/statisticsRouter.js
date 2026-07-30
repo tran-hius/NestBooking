@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { StatisticsController } from "../controllers/statisticsController.js";
-import { StatisticsService } from "../services/statisticsService.js";
-import { StatisticsRepository } from "../repositories/statisticsRepository.js";
-import { prisma } from "../../../config/prisma.js";
-import { authMiddleware, roleMiddleware } from "../../../middlewares/index.js";
-import { asyncHandler } from "../../../utils/asyncHandler.js";
+import { StatisticsController } from "../controllers/statisticsController";
+import { StatisticsService } from "../services/statisticsService";
+import { StatisticsRepository } from "../repositories/statisticsRepository";
+import { prisma } from "@/config/prisma";
+import { authMiddleware, roleMiddleware } from "@/middlewares";
+import { asyncHandler } from "@/utils/asyncHandler";
 const router = Router();
 const statsRepo = new StatisticsRepository(prisma);
 const statsService = new StatisticsService(statsRepo);

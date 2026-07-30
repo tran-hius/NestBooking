@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { PropertyType } from "../../../../generated/prisma/index.js";
+import { PropertyType } from "@/../generated/prisma";
 export var SortByOption;
 (function (SortByOption) {
     SortByOption["PRICE_ASC"] = "PRICE_ASC";

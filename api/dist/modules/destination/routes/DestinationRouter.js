@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { DestinationController } from "../controllers/destinationController.js";
-import { DestinationService } from "../services/destinationService.js";
-import { DestinationRepository } from "../repositories/destinationRepository.js";
-import { authMiddleware } from "../../../middlewares/authMiddleware.js";
-import { roleMiddleware } from "../../../middlewares/roleMiddleware.js";
-import { upload } from "../../../middlewares/uploadMiddleware.js";
-import { UploadService } from "../../../modules/upload/services/uploadService.js";
+import { DestinationController } from "../controllers/destinationController";
+import { DestinationService } from "../services/destinationService";
+import { DestinationRepository } from "../repositories/destinationRepository";
+import { authMiddleware } from "@/middlewares/authMiddleware";
+import { roleMiddleware } from "@/middlewares/roleMiddleware";
+import { upload } from "@/middlewares/uploadMiddleware";
+import { UploadService } from "@/modules/upload/services/uploadService";
 const router = Router();
 const destinationRepository = new DestinationRepository();
 const destinationService = new DestinationService(destinationRepository);

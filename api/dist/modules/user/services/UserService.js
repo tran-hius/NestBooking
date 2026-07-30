@@ -1,11 +1,11 @@
-import { UserStatus, Prisma } from "../../../../generated/prisma/index.js";
-import logger from "../../../config/logger.js";
-import { UserMapper } from "../../../modules/user/mapper/userMapper.js";
-import { NotFoundError, ConflictError, BadRequestError } from "../../../utils/errors/errorCustomize.js";
-import { AUTH_CONSTANTS } from "../../../utils/constants.js";
-import { REDIS_KEYS, redisClient } from "../../../infrastructure/redis/index.js";
-import { prisma } from "../../../config/prisma.js";
-import { UserCacheHelper } from "../utils/userCacheHelper.js";
+import { UserStatus, Prisma } from "../../../../generated/prisma";
+import logger from "@/config/logger";
+import { UserMapper } from "@/modules/user/mapper/userMapper";
+import { NotFoundError, ConflictError, BadRequestError } from "@/utils/errors/errorCustomize";
+import { AUTH_CONSTANTS } from "@/utils/constants";
+import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
+import { prisma } from "@/config/prisma";
+import { UserCacheHelper } from "../utils/userCacheHelper";
 export class UserService {
     userRepository;
     constructor(userRepository) {

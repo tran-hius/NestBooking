@@ -1,14 +1,14 @@
 import express from "express";
-import { prisma } from "../../../config/prisma.js";
-import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { validate, authMiddleware, roleMiddleware } from "../../../middlewares/index.js";
-import { Role } from "../../../../generated/prisma/index.js";
-import { RoomTypeRepository } from "../repositories/roomTypeRepository.js";
-import { HotelRepository } from "../repositories/hotelRepository.js";
-import { RoomTypeService } from "../services/roomTypeService.js";
-import { RoomTypeController } from "../controllers/roomTypeController.js";
-import { CreateRoomTypeSchema, UpdateRoomTypeSchema, AddRoomTypeImagesSchema } from "../dtos/roomTypeDTO.js";
-import { UploadService } from "../../../modules/upload/services/uploadService.js";
+import { prisma } from "@/config/prisma";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { validate, authMiddleware, roleMiddleware } from "@/middlewares";
+import { Role } from "../../../../generated/prisma";
+import { RoomTypeRepository } from "../repositories/roomTypeRepository";
+import { HotelRepository } from "../repositories/hotelRepository";
+import { RoomTypeService } from "../services/roomTypeService";
+import { RoomTypeController } from "../controllers/roomTypeController";
+import { CreateRoomTypeSchema, UpdateRoomTypeSchema, AddRoomTypeImagesSchema } from "../dtos/roomTypeDTO";
+import { UploadService } from "@/modules/upload/services/uploadService";
 const router = express.Router({ mergeParams: true }); // cho phép nhận hotelId từ parent route
 const roomTypeRepository = new RoomTypeRepository(prisma);
 const hotelRepository = new HotelRepository(prisma);

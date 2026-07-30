@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { PaymentController } from "../controllers/paymentController.js";
-import { VnpayService } from "../services/vnpayService.js";
-import { PaymentCallbackService } from "../services/paymentCallbackService.js";
-import { BookingServiceFactory } from "../../booking/factory/bookingServiceFactory.js";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { PaymentController } from "../controllers/paymentController";
+import { VnpayService } from "../services/vnpayService";
+import { PaymentCallbackService } from "../services/paymentCallbackService";
+import { BookingServiceFactory } from "../../booking/factory/bookingServiceFactory";
 const router = Router();
 const vnpayService = new VnpayService();
 const bookingService = BookingServiceFactory.create();

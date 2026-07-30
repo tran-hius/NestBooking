@@ -1,15 +1,15 @@
 import express from "express";
-import { prisma } from "../../../config/prisma.js";
-import { UserRepository } from "../../../modules/user/repositories/userRepository.js";
-import { UserService } from "../../../modules/user/services/userService.js";
-import { UserProfileService } from "../../../modules/user/services/userProfileService.js";
-import { UserController } from "../../../modules/user/controllers/userController.js";
-import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { OtpService } from "../../../modules/auth/services/otpService.js";
-import { UploadService } from "../../../modules/upload/services/uploadService.js";
-import { validate, roleMiddleware, authMiddleware, requireOwnershipOrAdmin, upload } from "../../../middlewares/index.js";
-import { UserIdParamSchema, CreateUserSchema, UpdateUserProfileSchema, ChangeUserStatusSchema, UpdateUserAdminSchema, } from "../dtos/userDTO.js";
-import { Role } from "../../../../generated/prisma/index.js";
+import { prisma } from "@/config/prisma";
+import { UserRepository } from "@/modules/user/repositories/userRepository";
+import { UserService } from "@/modules/user/services/userService";
+import { UserProfileService } from "@/modules/user/services/userProfileService";
+import { UserController } from "@/modules/user/controllers/userController";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { OtpService } from "@/modules/auth/services/otpService";
+import { UploadService } from "@/modules/upload/services/uploadService";
+import { validate, roleMiddleware, authMiddleware, requireOwnershipOrAdmin, upload } from "@/middlewares";
+import { UserIdParamSchema, CreateUserSchema, UpdateUserProfileSchema, ChangeUserStatusSchema, UpdateUserAdminSchema, } from "../dtos/userDTO";
+import { Role } from "../../../../generated/prisma";
 const router = express.Router();
 const userRepository = new UserRepository(prisma);
 const otpService = new OtpService();
@@ -152,7 +152,7 @@ router.delete("/:id",
   #swagger.summary = 'Xóa mềm tài khoản'
   #swagger.security = [{ "bearerAuth": [] }]
 */
-authMiddleware, roleMiddleware([Role.ADMIN]), validate(UserIdParamSchema), asyncHandler(userController.softDeleteUser));
+authMiddleware, requireOwnershipOrAdmin, validate(UserIdParamSchema), asyncHandler(userController.softDeleteUser));
 // =====================================================
 // RESTORE USER
 // =====================================================

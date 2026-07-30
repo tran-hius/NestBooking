@@ -1,5 +1,5 @@
 import swaggerAutogen from "swagger-autogen";
-import logger from "../config/logger.js";
+import logger from "@/config/logger";
 const services = [
     {
         name: "User Service",

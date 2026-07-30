@@ -8,17 +8,19 @@ import {
   Camera,
   Loader2,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 import { userService } from "@/api/services/userService";
 
 import { toast } from "sonner";
+import SecuritySettings from "@/components/user/SecuritySettings";
 
 export default function PersonalInfo() {
   const { user, setUser } = useAppStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const [activeTab, setActiveTab] = useState("personal");
 
   const [editingField, setEditingField] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -61,12 +63,12 @@ export default function PersonalInfo() {
   };
 
   const menuItems = [
-    { icon: User, label: "Thông tin cá nhân", active: true },
-    { icon: Shield, label: "Cài đặt bảo mật", active: false },
-    { icon: Users, label: "Những du khách khác", active: false },
-    { icon: Sliders, label: "Tùy chỉnh tùy chọn", active: false },
-    { icon: CreditCard, label: "Phương thức thanh toán", active: false },
-    { icon: Bell, label: "Bảo mật và quản lý dữ liệu", active: false },
+    { id: "personal", icon: User, label: "Thông tin cá nhân" },
+    { id: "security", icon: Shield, label: "Cài đặt bảo mật" },
+    { id: "guests", icon: Users, label: "Những du khách khác" },
+    { id: "preferences", icon: Sliders, label: "Tùy chỉnh tùy chọn" },
+    { id: "payment", icon: CreditCard, label: "Phương thức thanh toán" },
+    { id: "privacy", icon: Bell, label: "Bảo mật và quản lý dữ liệu" },
   ];
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,21 +120,22 @@ export default function PersonalInfo() {
             <nav className="flex flex-col gap-1 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
               {menuItems.map((item, index) => {
                 const Icon = item.icon;
+                const isActive = activeTab === item.id;
                 return (
-                  <Link
+                  <button
                     key={index}
-                    to="#"
-                    className={`flex items-center gap-3 px-5 py-4 transition-colors ${
-                      item.active
+                    onClick={() => setActiveTab(item.id)}
+                    className={`flex items-center gap-3 px-5 py-4 transition-colors w-full text-left ${
+                      isActive
                         ? "bg-slate-50 border-l-4 border-l-primary text-primary font-bold"
                         : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 border-l-4 border-l-transparent font-medium"
                     } ${index !== menuItems.length - 1 ? "border-b border-slate-100" : ""}`}
                   >
                     <Icon
-                      className={`w-5 h-5 ${item.active ? "text-primary" : "text-slate-400"}`}
+                      className={`w-5 h-5 ${isActive ? "text-primary" : "text-slate-400"}`}
                     />
                     <span>{item.label}</span>
-                  </Link>
+                  </button>
                 );
               })}
             </nav>
@@ -140,8 +143,10 @@ export default function PersonalInfo() {
 
           {/* Cột Nội dung Chính */}
           <div className="flex-1 bg-white border border-slate-200 rounded-xl shadow-sm p-6 md:p-10">
-            {/* Tiêu đề & Avatar */}
-            <div className="flex justify-between items-start mb-10">
+            {activeTab === "personal" && (
+              <>
+                {/* Tiêu đề & Avatar */}
+                <div className="flex justify-between items-start mb-10">
               <div
                 className="relative group cursor-pointer"
                 onClick={() => fileInputRef.current?.click()}
@@ -404,8 +409,13 @@ export default function PersonalInfo() {
                   </>
                 )}
               </div>
-
             </div>
+            </>
+            )}
+
+            {activeTab === "security" && (
+              <SecuritySettings />
+            )}
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import Redis from "ioredis";
-import logger from "../../config/logger.js";
-import { env } from "../../config/env.js";
+import logger from "@/config/logger";
+import { env } from "@/config/env";
 const REDIS_HOST = env.REDIS_HOST;
 const REDIS_PORT = env.REDIS_PORT;
 export class RedisConnection {

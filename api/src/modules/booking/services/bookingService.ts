@@ -1,38 +1,149 @@
 import { BookingStatus, PaymentMethod, PaymentStatus, PrismaClient, Role } from "#generated/prisma";
-import { IBookingReadRepository } from "../interfaces/iBookingReadRepository";
-import { IBookingWriteRepository } from "../interfaces/iBookingWriteRepository";
-import { BookingResponseDto, CreateBookingDto } from "../dtos/bookingDTO";
+import { IBookingReadRepository } from "../interfaces/IBookingReadRepository";
+import { IBookingWriteRepository } from "../interfaces/IBookingWriteRepository";
+import { BookingResponseDto, CreateBookingDto } from "../dtos/BookingDTO";
 import { BadRequestError, ForbiddenError, NotFoundError } from "@/utils/errors";
 import crypto from "crypto";
 
-import { BookingMapper } from "../mapper/bookingMapper";
-import { IHotelService } from "@/modules/hotel/interfaces/iHotelService";
-import { IRoomTypeService } from "@/modules/hotel/interfaces/iRoomTypeService";
-import { IRoomService } from "@/modules/hotel/interfaces/iRoomService";
+import { BookingMapper } from "../mapper/BookingMapper";
+import { IHotelService } from "@/modules/hotel/interfaces/IHotelService";
+import { IRoomTypeService } from "@/modules/hotel/interfaces/IRoomTypeService";
+import { IRoomService } from "@/modules/hotel/interfaces/IRoomService";
+import { IBookingStatisticsRepository } from "../interfaces/IBookingStatisticsRepository";
 import { redisClient, REDIS_KEYS, REDIS_TTL } from "@/infrastructure/redis";
-import { IBookingService } from "../interfaces/iBookingService";
-import { IBookingCreationService } from "../interfaces/iBookingCreationService";
-import { BookingCacheHelper } from "../utils/bookingCacheHelper";
+import { VnpayService } from "../../payment/services/VnpayService";
 
-export class BookingService implements IBookingService {
+export class BookingService {
+  private vnpayService: VnpayService;
   
   constructor(
     private readonly readRepo: IBookingReadRepository,
     private readonly writeRepo: IBookingWriteRepository,
+    private readonly statsRepo: IBookingStatisticsRepository,
     private readonly hotelService: IHotelService,
-    private readonly bookingCreationService: IBookingCreationService
-  ) {}
+    private readonly roomTypeService: IRoomTypeService,
+    private readonly roomService: IRoomService,
+  ) {
+    this.vnpayService = new VnpayService();
+  }
 
   async createBooking(
     userId: string,
     data: CreateBookingDto,
     ipAddr: string = "127.0.0.1"
   ): Promise<BookingResponseDto> {
-    return this.bookingCreationService.createBooking(userId, data, ipAddr);
+    const checkIn = new Date(data.checkInDate);
+    const checkOut = new Date(data.checkOutDate);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (checkIn < today) {
+      throw new BadRequestError(
+        "Lỗi: Ngày Check-in không được nằm trong quá khứ.",
+      );
+    }
+
+    const nights = Math.ceil(
+      (checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    if (nights <= 0) {
+      throw new BadRequestError("Ngày trả phòng phải sau ngày nhận phòng.");
+    }
+
+    const roomType = await this.roomTypeService.getRoomTypeById(data.roomTypeId);
+
+    if (!roomType || !roomType.isActive) {
+      throw new NotFoundError(
+        "Không tìm thấy loại phòng này hoặc phòng đang bị tạm khóa.",
+      );
+    }
+
+    const totalPhysicalRooms = (await this.roomService.getRoomsByRoomType(data.roomTypeId)).filter(r => r.isActive).length;
+
+    const bookedRoomsCount = await this.readRepo.getOverlappingBookingsCount(
+      data.roomTypeId,
+      checkIn,
+      checkOut,
+    );
+
+    const availableRooms = totalPhysicalRooms - bookedRoomsCount;
+    if (availableRooms < data.quantity) {
+      throw new BadRequestError(
+        `Rất tiếc! Chỉ còn lại ${availableRooms} phòng trống trong khoảng thời gian bạn chọn.`,
+      );
+    }
+
+    const timestampPart = Date.now().toString(36).toUpperCase();
+    const randomPart = crypto.randomBytes(2).toString("hex").toUpperCase();
+    const bookingCode = `BKG-${timestampPart}-${randomPart}`;
+
+    const totalAmount = Number(roomType.price) * nights * data.quantity;
+
+    const paymentMethod = data.paymentMethod || PaymentMethod.PAY_AT_HOTEL;
+    
+    const initialStatus = paymentMethod === PaymentMethod.PAY_AT_HOTEL 
+      ? BookingStatus.CONFIRMED 
+      : BookingStatus.PENDING;
+
+    const newBooking = await this.writeRepo.create({
+      bookingCode: bookingCode,
+      userId,
+      hotelId: data.hotelId,
+      roomTypeId: data.roomTypeId,
+      checkInDate: checkIn,
+      checkOutDate: checkOut,
+      quantity: data.quantity,
+      totalAmount,
+      status: initialStatus,
+      paymentMethod: paymentMethod,
+      paymentStatus: PaymentStatus.UNPAID,
+      paymentDate: null,
+      guestName: data.guestName,
+      guestPhone: data.guestPhone,
+      guestEmail: data.guestEmail,
+      specialRequests: data.specialRequests,
+    });
+
+    let paymentUrl = undefined;
+
+    if (paymentMethod === PaymentMethod.VNPAY) {
+      const orderInfo = `Thanh toan dat phong ${bookingCode}`;
+      paymentUrl = this.vnpayService.createPaymentUrl(ipAddr, totalAmount, orderInfo, newBooking.id);
+    }
+
+    if (initialStatus === BookingStatus.CONFIRMED) {
+      import("@/modules/auth/services/emailService").then(({ EmailService }) => {
+        import("@/config/transporter").then(({ Transporter }) => {
+          const emailService = new EmailService(Transporter.transporter);
+          emailService.sendBookingSuccessEmail(
+            newBooking.guestEmail, 
+            newBooking.bookingCode, 
+            newBooking.checkInDate.toISOString(), 
+            newBooking.checkOutDate.toISOString()
+          ).catch(err => console.error("Error sending booking email:", err));
+        });
+      });
+    }
+
+    await this.clearBookingCache(newBooking.id, newBooking.userId, newBooking.hotelId);
+
+    const response = BookingMapper.toResponseDto(newBooking);
+    response.paymentUrl = paymentUrl;
+    
+    return response;
   }
 
-  public async clearBookingCache(bookingId: string, userId: string, hotelId: string) {
-    await BookingCacheHelper.clearBookingCache(bookingId, userId, hotelId);
+  private async clearBookingCache(bookingId: string, userId: string, hotelId: string) {
+    const keys = [
+      REDIS_KEYS.BOOKING(bookingId),
+      REDIS_KEYS.USER_BOOKINGS(userId),
+      REDIS_KEYS.HOTEL_BOOKINGS(hotelId),
+    ];
+    if (keys.length > 0) {
+      await redisClient.del(...keys);
+    }
   }
 
   async getBookingById(
@@ -160,45 +271,48 @@ export class BookingService implements IBookingService {
     return BookingMapper.toResponseDto(updated);
   }
 
+  async getHotelRevenue(
+    hotelId: string,
+    agentId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<number> {
+    const hotel = await this.hotelService.getHotelById(hotelId);
 
-
-  async handlePaymentCallback(bookingId: string, amount: number, transactionId: string): Promise<{ rspCode: string; message: string }> {
-    const booking = await this.readRepo.findById(bookingId);
-    if (!booking) {
-      return { rspCode: "01", message: "Order not found" };
+    if (!hotel) {
+      throw new NotFoundError("Không tìm thấy khách sạn.");
     }
 
-    if (booking.paymentStatus === PaymentStatus.PAID) {
-      return { rspCode: "02", message: "Order already confirmed" };
+    if (hotel.ownerId !== agentId) {
+      throw new ForbiddenError(
+        "Bạn không có quyền xem doanh thu của khách sạn này.",
+      );
     }
 
-    if (Number(booking.totalAmount) !== amount) {
-      return { rspCode: "04", message: "Invalid amount" };
-    }
-
-    const updatedBooking = await this.writeRepo.update(bookingId, {
-      status: BookingStatus.CONFIRMED,
-      paymentStatus: PaymentStatus.PAID,
-      paymentDate: new Date(),
-      transactionId: transactionId
-    });
-
-    // Clean up cache
-    await this.clearBookingCache(updatedBooking.id, updatedBooking.userId, updatedBooking.hotelId);
-
-    // Notify
-    import("@/modules/booking/services/bookingCreation/bookingPostProcess").then(({ BookingPostProcess }) => {
-      import("@/modules/email/services/emailService").then(({ EmailService }) => {
-        import("@/config/transporter").then(({ Transporter }) => {
-          const emailService = new EmailService(Transporter.transporter);
-          const bookingPostProcess = new BookingPostProcess(emailService);
-          bookingPostProcess.execute(updatedBooking).catch(err => console.error(err));
-        });
-      });
-    });
-
-    return { rspCode: "00", message: "Confirm Success" };
+    return this.statsRepo.revenue(hotelId, startDate, endDate);
   }
+
+  async getHotelOccupancy(
+    hotelId: string,
+    agentId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<number> {
+    const hotel = await this.hotelService.getHotelById(hotelId);
+
+    if (!hotel) {
+      throw new NotFoundError("Không tìm thấy khách sạn.");
+    }
+
+    if (hotel.ownerId !== agentId) {
+      throw new ForbiddenError(
+        "Bạn không có quyền xem công suất phòng của khách sạn này.",
+      );
+    }
+
+    return this.statsRepo.occupancy(hotelId, startDate, endDate);
+  }
+
 }
 
 

@@ -1,4 +1,4 @@
-import { NotificationMapper } from "../mapper/notificationMapper.js";
+import { NotificationMapper } from "../mapper/notificationMapper";
 export class NotificationService {
     notificationRepository;
     constructor(notificationRepository) {
