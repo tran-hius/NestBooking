@@ -55,22 +55,4 @@ export class BookingController {
         const result = await this.bookingService.updateBookingStatus(id, agentId, status);
         successResponse(res, HttpStatus.OK, "Cập nhật trạng thái thành công.", result);
     };
-    getHotelRevenue = async (req, res) => {
-        const hotelId = req.params.hotelId;
-        logger.info("[BookingController] Get hotel revenue", { hotelId });
-        const agentId = req.user?.userId;
-        const startDate = req.query.startDate;
-        const endDate = req.query.endDate;
-        const revenue = await this.bookingService.getHotelRevenue(hotelId, agentId, new Date(startDate), new Date(endDate));
-        successResponse(res, HttpStatus.OK, "Thống kê doanh thu thành công.", { revenue });
-    };
-    getHotelOccupancy = async (req, res) => {
-        const hotelId = req.params.hotelId;
-        logger.info("[BookingController] Get hotel occupancy", { hotelId });
-        const agentId = req.user?.userId;
-        const startDate = req.query.startDate;
-        const endDate = req.query.endDate;
-        const occupancy = await this.bookingService.getHotelOccupancy(hotelId, agentId, new Date(startDate), new Date(endDate));
-        successResponse(res, HttpStatus.OK, "Thống kê tỷ lệ lấp đầy thành công.", { occupancy });
-    };
 }

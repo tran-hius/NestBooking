@@ -4,7 +4,7 @@ import {
   Prisma,
   PrismaClient,
 } from "../../../../generated/prisma";
-import { IHotelRepository } from "../interfaces/IHotelRepository";
+import { IHotelRepository } from "../interfaces/iHotelRepository";
 import { TxClient } from "@/config/prisma";
 
 export class HotelRepository implements IHotelRepository {

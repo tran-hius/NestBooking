@@ -1,0 +1,26 @@
+import express from "express";
+import { prisma } from "@/config/prisma";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { validate } from "@/middlewares/validationMiddleware";
+
+import { SearchRepository } from "../repositories/searchRepository";
+import { SearchService } from "../services/searchService";
+import { SearchController } from "../controllers/searchController";
+import { searchHotelSchema } from "../dtos/searchDTO";
+import { BookingServiceFactory } from "@/modules/booking/factory/bookingServiceFactory";
+
+const router = express.Router();
+
+const searchRepository = new SearchRepository(prisma);
+const bookingAvailabilityService = BookingServiceFactory.createBookingAvailabilityService();
+const searchService = new SearchService(searchRepository, bookingAvailabilityService);
+const searchController = new SearchController(searchService);
+
+
+router.get(
+  "/hotels",
+  validate(searchHotelSchema),
+  asyncHandler(searchController.searchHotels),
+);
+
+export default router;

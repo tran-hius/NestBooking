@@ -14,6 +14,11 @@ export class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
+    checkEmail = async (req, res) => {
+        logger.info("[AuthController] Check Email", { email: req.body.email });
+        const result = await this.authService.checkEmailExists(req.body.email);
+        successResponse(res, HttpStatus.OK, "Thành công", result);
+    };
     getMe = async (req, res) => {
         logger.info("[AuthController] Get Me", { userId: req.user?.userId });
         if (!req.user?.userId) {
@@ -48,6 +53,27 @@ export class AuthController {
             tokens: safeResult,
         });
     };
+    register = async (req, res) => {
+        logger.info("[AuthController] Register user", {
+            email: req.body.email,
+        });
+        const deviceMetadata = {
+            ipAddress: req.ip || req.connection?.remoteAddress || "Unknown IP",
+            userAgent: req.headers["user-agent"] || "Unknown Browser",
+            deviceName: req.headers["x-device-name"] || "Unknown Device",
+        };
+        const result = await this.authService.register(req.body, deviceMetadata);
+        res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
+        res.cookie("accessToken", result.tokens.accessToken, {
+            ...COOKIE_OPTIONS,
+            maxAge: appEnv.JWT_EXPIRES_IN_MS,
+        });
+        const { refreshToken, ...safeResult } = result.tokens;
+        successResponse(res, HttpStatus.CREATED, "Đăng ký thành công!", {
+            user: result.user,
+            tokens: safeResult,
+        });
+    };
     loginWithPassword = async (req, res) => {
         logger.info("[AuthController] Login with Password", {
             email: req.body.email,
@@ -65,6 +91,25 @@ export class AuthController {
         });
         const { refreshToken, ...safeResult } = result.tokens;
         successResponse(res, HttpStatus.OK, "Đăng nhập thành công!", {
+            user: result.user,
+            tokens: safeResult,
+        });
+    };
+    registerPartner = async (req, res) => {
+        logger.info("[AuthController] Register Partner", { userId: req.user?.userId });
+        const deviceMetadata = {
+            ipAddress: req.ip || req.connection?.remoteAddress || "Unknown IP",
+            userAgent: req.headers["user-agent"] || "Unknown Browser",
+            deviceName: req.headers["x-device-name"] || "Unknown Device",
+        };
+        const result = await this.authService.registerPartner(req.user.userId, req.body, deviceMetadata);
+        res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
+        res.cookie("accessToken", result.tokens.accessToken, {
+            ...COOKIE_OPTIONS,
+            maxAge: appEnv.JWT_EXPIRES_IN_MS,
+        });
+        const { refreshToken, ...safeResult } = result.tokens;
+        successResponse(res, HttpStatus.CREATED, "Đăng ký đối tác thành công!", {
             user: result.user,
             tokens: safeResult,
         });

@@ -62,12 +62,13 @@ export class BookingReadRepository {
     async count(where) {
         return this.prisma.booking.count({ where });
     }
-    async getOverlappingBookingsCount(roomTypeId, checkIn, checkOut) {
-        const overlappingBookings = await this.prisma.booking.aggregate({
+    async getOverlappingBookingsCount(roomTypeId, checkIn, checkOut, tx) {
+        const client = tx || this.prisma;
+        const overlappingBookings = await client.booking.aggregate({
             _sum: { quantity: true },
             where: {
                 roomTypeId,
-                status: { in: [BookingStatus.CONFIRMED] },
+                status: { in: [BookingStatus.CONFIRMED, BookingStatus.PENDING] },
                 NOT: {
                     OR: [
                         { checkOutDate: { lte: checkIn } },

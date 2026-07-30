@@ -23,12 +23,12 @@ export default function ExploreVietnam() {
           
           {/* Text Content */}
           <div className="w-full md:w-1/3 space-y-6 z-20">
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight">
               Khám phá <br />
               <span className="text-primary">Việt Nam</span> <br />
               đẹp bất tận.
             </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               Từ những thửa ruộng bậc thang ngút ngàn ở Tây Bắc, 
               đến những bãi biển cát trắng nắng vàng miền Trung. 
               Mỗi vùng đất là một câu chuyện đang chờ bạn khám phá.

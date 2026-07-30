@@ -224,7 +224,7 @@ export default function Destinations() {
           <div className="p-8 text-center text-muted-foreground">Không có dữ liệu.</div>
         ) : (
           <table className="w-full text-sm text-left text-muted-foreground">
-            <thead className="text-xs text-foreground uppercase bg-muted/50 border-b">
+            <thead className="text-xs text-foreground uppercase bg-slate-50 border-b">
               <tr>
                 <th className="px-6 py-4 font-semibold">Tên</th>
                 <th className="px-6 py-4 font-semibold">Slug</th>
@@ -236,7 +236,7 @@ export default function Destinations() {
             </thead>
             <tbody>
               {destinations.map((dest) => (
-                <tr key={dest.id} className="border-b hover:bg-muted/50">
+                <tr key={dest.id} className="border-b hover:bg-slate-50">
                   <td className="px-6 py-4 font-medium text-foreground">{dest.name}</td>
                   <td className="px-6 py-4">{dest.slug}</td>
                   <td className="px-6 py-4 text-xl">{dest.countryFlag}</td>

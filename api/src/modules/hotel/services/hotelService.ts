@@ -4,25 +4,27 @@ import {
   HotelResponseDto,
   UpdateHotelDto,
   AddHotelImagesDto
-} from "../dtos/HotelDTO";
-import { IHotelRepository } from "../interfaces/IHotelRepository";
-import { IHotelService } from "../interfaces/IHotelService";
-import { HotelMapper } from "../mapper/HotelMapper";
+} from "../dtos/hotelDTO";
+import { IHotelRepository } from "../interfaces/iHotelRepository";
+import { IHotelService } from "../interfaces/iHotelService";
+import { HotelMapper } from "../mapper/hotelMapper";
 import {
   ForbiddenError,
   NotFoundError,
 } from "@/utils/errors/errorCustomize";
 import logger from "@/config/logger";
-import { PaginatedResponse } from "../dtos/PaginationDto";
+import { PaginatedResponse } from "../dtos/paginationDto";
 import { REDIS_KEYS, redisClient, REDIS_TTL } from "@/infrastructure/redis";
-import { deleteFromCloudinary } from "@/utils/cloudinary.utils";
+import { IUploadService } from "@/modules/upload/interfaces/iUploadService";
 import crypto from "crypto";
 
 export class HotelService implements IHotelService {
   private readonly hotelRepository: IHotelRepository;
+  private readonly uploadService: IUploadService;
 
-  constructor(hotelRepository: IHotelRepository) {
+  constructor(hotelRepository: IHotelRepository, uploadService: IUploadService) {
     this.hotelRepository = hotelRepository;
+    this.uploadService = uploadService;
   }
 
   private async clearHotelCache(hotelId: string){
@@ -284,7 +286,7 @@ export class HotelService implements IHotelService {
     try {
       const match = image.imageUrl.match(/\/v\d+\/(.+)\.[a-z]+$/i);
       if (match && match[1]) {
-        await deleteFromCloudinary(match[1]);
+        await this.uploadService.deleteImage(match[1]);
       } else {
         logger.warn(`[Cloudinary] Không thể parse public_id từ URL: ${image.imageUrl}`);
       }

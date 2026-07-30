@@ -1,15 +1,14 @@
 import { Router } from "express";
-import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { PaymentController } from "../controllers/PaymentController.js";
-import { VnpayService } from "../services/VnpayService.js";
-import { BookingReadRepository } from "../../booking/repositories/BookingReadRepository.js";
-import { BookingWriteRepository } from "../../booking/repositories/BookingWriteRepository.js";
+import { PaymentController } from "../controllers/paymentController.js";
+import { VnpayService } from "../services/vnpayService.js";
+import { PaymentCallbackService } from "../services/paymentCallbackService.js";
+import { BookingServiceFactory } from "../../booking/factory/bookingServiceFactory.js";
 const router = Router();
 const vnpayService = new VnpayService();
-const bookingReadRepo = new BookingReadRepository(prisma);
-const bookingWriteRepo = new BookingWriteRepository(prisma);
-const paymentController = new PaymentController(vnpayService, bookingReadRepo, bookingWriteRepo);
+const bookingService = BookingServiceFactory.create();
+const paymentCallbackService = new PaymentCallbackService(vnpayService, bookingService);
+const paymentController = new PaymentController(paymentCallbackService);
 router.get("/vnpay_ipn", 
 /*
   #swagger.path = '/api/payments/vnpay_ipn'

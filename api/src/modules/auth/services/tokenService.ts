@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { ITokenService } from "@/modules/auth/interfaces/ITokenService";
+import { ITokenService } from "@/modules/auth/interfaces/iTokenService";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { AUTH_CONSTANTS } from "@/utils/constants";

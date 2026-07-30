@@ -4,8 +4,9 @@ export class BookingWriteRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(data) {
-        return this.prisma.booking.create({ data });
+    async create(data, tx) {
+        const client = tx || this.prisma;
+        return client.booking.create({ data });
     }
     async createMany(data) {
         return this.prisma.booking.createMany({ data });

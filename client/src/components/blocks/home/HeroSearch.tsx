@@ -1,9 +1,11 @@
 import { Building2, MapPin, Calendar, Users, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HeaderBanner from "@/assets/HeaderBanner.jpg";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import CalendarDropdown from "../search/CalendarDropdown";
 import GuestsDropdown from "../search/GuestsDropdown";
+
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 export default function HeroSearch() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -11,18 +13,8 @@ export default function HeroSearch() {
   const calendarRef = useRef<HTMLDivElement>(null);
   const guestsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
-        setIsCalendarOpen(false);
-      }
-      if (guestsRef.current && !guestsRef.current.contains(event.target as Node)) {
-        setIsGuestsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(calendarRef, () => setIsCalendarOpen(false));
+  useClickOutside(guestsRef, () => setIsGuestsOpen(false));
 
   return (
     <section className="relative w-full h-[550px] flex flex-col items-center justify-center pt-20">
@@ -50,20 +42,20 @@ export default function HeroSearch() {
             <div className="w-1/4">Khách và Phòng</div>
           </div>
 
-          <div className="w-full bg-white rounded-2xl p-2 flex flex-col md:flex-row shadow-2xl items-center gap-2 relative">
+          <div className="w-full bg-background rounded-2xl p-2 flex flex-col md:flex-row shadow-2xl items-center gap-2 relative">
             <div className="flex-1 w-full flex items-center gap-3 px-4 py-3 bg-slate-50 hover:bg-slate-100 transition rounded-xl cursor-text">
-              <MapPin className="w-5 h-5 text-slate-400" />
+              <MapPin className="w-5 h-5 text-muted-foreground" />
               <input 
                 type="text" 
                 placeholder="Thành phố, khách sạn, điểm đến" 
-                className="w-full bg-transparent outline-none text-slate-700 font-medium placeholder:text-slate-400 placeholder:font-normal"
+                className="w-full bg-transparent outline-none text-foreground font-medium placeholder:text-muted-foreground placeholder:font-normal"
               />
             </div>
             
-            <div className="w-px h-8 bg-slate-200 hidden md:block"></div>
+            <div className="w-px h-8 bg-border hidden md:block"></div>
 
             <div 
-              className={`flex-[0.7] w-full flex items-center px-4 py-3 transition rounded-xl relative ${isCalendarOpen ? 'bg-blue-50 ring-2 ring-primary' : 'bg-slate-50 hover:bg-slate-100'}`}
+              className={`flex-[0.7] w-full flex items-center px-4 py-3 transition rounded-xl relative ${isCalendarOpen ? 'bg-primary/10 ring-2 ring-primary' : 'bg-slate-50 hover:bg-slate-100'}`}
               ref={calendarRef}
             >
               <div 
@@ -71,17 +63,17 @@ export default function HeroSearch() {
                 onClick={() => setIsCalendarOpen(!isCalendarOpen)}
               >
                 <Calendar className="w-5 h-5 text-primary" />
-                <div className="text-slate-700 font-medium whitespace-nowrap">
+                <div className="text-foreground font-medium whitespace-nowrap">
                   18 Thg 7 - 19 Thg 7
                 </div>
               </div>
               {isCalendarOpen && <CalendarDropdown onClose={() => setIsCalendarOpen(false)} />}
             </div>
 
-            <div className="w-px h-8 bg-slate-200 hidden md:block"></div>
+            <div className="w-px h-8 bg-border hidden md:block"></div>
 
             <div 
-              className={`flex-[0.7] w-full flex items-center px-4 py-3 transition rounded-xl relative ${isGuestsOpen ? 'bg-blue-50 ring-2 ring-primary' : 'bg-slate-50 hover:bg-slate-100'}`}
+              className={`flex-[0.7] w-full flex items-center px-4 py-3 transition rounded-xl relative ${isGuestsOpen ? 'bg-primary/10 ring-2 ring-primary' : 'bg-slate-50 hover:bg-slate-100'}`}
               ref={guestsRef}
             >
               <div 
@@ -89,7 +81,7 @@ export default function HeroSearch() {
                 onClick={() => setIsGuestsOpen(!isGuestsOpen)}
               >
                 <Users className="w-5 h-5 text-primary" />
-                <div className="text-slate-700 font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+                <div className="text-foreground font-medium whitespace-nowrap overflow-hidden text-ellipsis">
                   2 người lớn, 0 trẻ em, 1 phòng
                 </div>
               </div>

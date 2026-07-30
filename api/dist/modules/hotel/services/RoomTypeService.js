@@ -1,16 +1,17 @@
-import { RoomTypeMapper } from "../mapper/RoomTypeMapper.js";
+import { RoomTypeMapper } from "../mapper/roomTypeMapper.js";
 import { ForbiddenError, NotFoundError, BadRequestError, } from "../../../utils/errors/errorCustomize.js";
 import { redisClient } from "../../../infrastructure/redis/RedisConnection.js";
 import { REDIS_KEYS } from "../../../infrastructure/redis/redisKeys.js";
 import { REDIS_TTL } from "../../../infrastructure/redis/redisTTL.js";
-import { deleteFromCloudinary } from "../../../utils/cloudinary.utils.js";
 import logger from "../../../config/logger.js";
 export class RoomTypeService {
     roomTypeRepo;
     hotelRepo;
-    constructor(roomTypeRepo, hotelRepo) {
+    uploadService;
+    constructor(roomTypeRepo, hotelRepo, uploadService) {
         this.roomTypeRepo = roomTypeRepo;
         this.hotelRepo = hotelRepo;
+        this.uploadService = uploadService;
     }
     // --- Helper Cache Invalidation ---
     async invalidateCache(hotelId, roomTypeId) {
@@ -74,12 +75,12 @@ export class RoomTypeService {
         await this.roomTypeRepo.delete(id);
         await this.invalidateCache(roomType.hotelId, id);
     }
-    async getRoomTypeById(id) {
+    async getRoomTypeById(id, tx) {
         const cacheKey = REDIS_KEYS.ROOM_TYPE(id);
         const cachedData = await redisClient.get(cacheKey);
         if (cachedData)
             return JSON.parse(cachedData);
-        const roomType = await this.roomTypeRepo.findById(id);
+        const roomType = await this.roomTypeRepo.findById(id, tx);
         if (!roomType)
             throw new NotFoundError("Không tìm thấy loại phòng.");
         const response = RoomTypeMapper.toResponseDto(roomType);
@@ -127,7 +128,7 @@ export class RoomTypeService {
         try {
             const match = image.imageUrl.match(/\/v\d+\/(.+)\.[a-z]+$/i);
             if (match && match[1]) {
-                await deleteFromCloudinary(match[1]);
+                await this.uploadService.deleteImage(match[1]);
             }
             else {
                 logger.warn(`[Cloudinary] Không thể parse public_id từ URL: ${image.imageUrl}`);

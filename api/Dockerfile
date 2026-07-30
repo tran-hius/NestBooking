@@ -5,6 +5,7 @@ WORKDIR /app
 
 # Chỉ copy package.json và thư mục prisma trước để cài đặt thư viện
 COPY package*.json ./
+COPY prisma.config.ts ./
 COPY prisma ./prisma/
 RUN npm install
 
@@ -21,6 +22,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
+COPY prisma.config.ts ./
 COPY prisma ./prisma/
 RUN npm install --omit=dev
 RUN npx prisma generate
@@ -28,4 +30,4 @@ RUN npx prisma generate
 COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]

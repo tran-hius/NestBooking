@@ -15,16 +15,6 @@ export class UserMapper {
                     address: user.profile.address,
                 }
                 : null,
-            agentProfile: user.agentProfile
-                ? {
-                    businessName: user.agentProfile.businessName,
-                    idNumber: user.agentProfile.idNumber,
-                    idCardImageUrl: user.agentProfile.idCardImageUrl,
-                    approvalStatus: user.agentProfile.approvalStatus,
-                    rejectedReason: user.agentProfile.rejectedReason,
-                    approvedAt: user.agentProfile.approvedAt,
-                }
-                : null,
         };
     }
     static toResponseDtoList(users) {

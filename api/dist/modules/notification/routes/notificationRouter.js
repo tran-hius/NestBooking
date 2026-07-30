@@ -1,0 +1,16 @@
+import { Router } from "express";
+import { NotificationController } from "../controllers/notificationController.js";
+import { NotificationService } from "../services/notificationService.js";
+import { NotificationRepository } from "../repositories/notificationRepository.js";
+import { authMiddleware } from "../../../middlewares/index.js";
+import { prisma } from "../../../config/prisma.js";
+import { asyncHandler } from "../../../utils/asyncHandler.js";
+const router = Router();
+const notificationRepository = new NotificationRepository(prisma);
+const notificationService = new NotificationService(notificationRepository);
+const notificationController = new NotificationController(notificationService);
+router.use(authMiddleware);
+router.get("/", asyncHandler(notificationController.getUserNotifications));
+router.patch("/:id/read", asyncHandler(notificationController.markAsRead));
+router.patch("/read-all", asyncHandler(notificationController.markAllAsRead));
+export const NotificationRouter = router;

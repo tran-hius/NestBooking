@@ -1,10 +1,11 @@
 import { successResponse } from "../../../utils/response.js";
 import { HttpStatus } from "../../../constants/httpStatus.js";
-import { uploadToCloudinary } from "../../../utils/cloudinary.utils.js";
 export class DestinationController {
     destinationService;
-    constructor(destinationService) {
+    uploadService;
+    constructor(destinationService, uploadService) {
         this.destinationService = destinationService;
+        this.uploadService = uploadService;
     }
     getActiveDestinations = async (req, res, next) => {
         try {
@@ -29,7 +30,7 @@ export class DestinationController {
             let imageUrl = req.body.imageUrl;
             if (req.file) {
                 const slug = req.body.slug || 'destination';
-                imageUrl = await uploadToCloudinary(req.file.buffer, `destinations/${slug}-${Date.now()}`);
+                imageUrl = await this.uploadService.uploadImage(req.file.buffer, `destinations/${slug}-${Date.now()}`);
             }
             const destinationData = {
                 ...req.body,

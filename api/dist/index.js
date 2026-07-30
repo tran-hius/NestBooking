@@ -3,9 +3,12 @@ import app from "./app.js";
 import logger from "./config/logger.js";
 import { redisConnection } from "./infrastructure/redis/RedisConnection.js";
 import { prisma } from "./config/prisma.js";
+import { SchedulerService } from "./modules/scheduler/services/schedulerService.js";
 const bootstrap = async () => {
     try {
         await prisma.$connect();
+        const schedulerService = new SchedulerService();
+        schedulerService.init();
         const server = app.listen(env.PORT || 3000, () => {
             logger.info(`Booking API Service đang chạy tại port ${env.PORT || 3000} (Môi trường: ${env.NODE_ENV})`);
         });

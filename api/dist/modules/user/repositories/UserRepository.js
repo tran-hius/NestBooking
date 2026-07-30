@@ -16,7 +16,7 @@ export class UserRepository {
     findById(id, tx) {
         return this.getClient(tx).user.findFirst({
             where: { id, deletedAt: null },
-            include: { profile: true, agentProfile: true },
+            include: { profile: true },
         });
     }
     findByEmail(email, tx) {
@@ -54,7 +54,7 @@ export class UserRepository {
         return this.getClient(tx).user.update({
             where: { id },
             data,
-            include: { profile: true, agentProfile: true },
+            include: { profile: true },
         });
     }
     async incrementLoginAttempts(id, tx) {
@@ -68,13 +68,21 @@ export class UserRepository {
         });
     }
     async resetLoginAttempts(id, tx) {
-        await this.getClient(tx).user.update({
-            where: { id },
-            data: {
-                loginAttempts: 0,
-                lockUntil: null,
-            },
-        });
+        try {
+            await this.getClient(tx).user.update({
+                where: { id },
+                data: {
+                    loginAttempts: 0,
+                    lockUntil: null,
+                },
+            });
+        }
+        catch (error) {
+            if (error.code === "P2025") {
+                return;
+            }
+            throw error;
+        }
     }
     updatePassword(id, passwordHash, tx) {
         return this.getClient(tx).user.update({

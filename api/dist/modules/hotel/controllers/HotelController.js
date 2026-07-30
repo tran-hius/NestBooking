@@ -1,12 +1,13 @@
 import { successResponse } from "../../../utils/response.js";
 import { HttpStatus } from "../../../constants/httpStatus.js";
 import logger from "../../../config/logger.js";
-import { uploadToCloudinary } from "../../../utils/cloudinary.utils.js";
 import { UnauthorizedError, BadRequestError } from "../../../utils/errors/errorCustomize.js";
 export class HotelController {
     hotelService;
-    constructor(hotelService) {
+    uploadService;
+    constructor(hotelService, uploadService) {
         this.hotelService = hotelService;
+        this.uploadService = uploadService;
     }
     createHotel = async (req, res) => {
         logger.info("[HotelController] Create hotel");
@@ -69,7 +70,7 @@ export class HotelController {
             if (!req.files || req.files.length === 0) {
                 throw new BadRequestError("Vui lòng tải lên ít nhất một ảnh.");
             }
-            const uploadPromises = req.files.map((file) => uploadToCloudinary(file.buffer, `hotels/${hotelId}`));
+            const uploadPromises = req.files.map((file) => this.uploadService.uploadImage(file.buffer, `hotels/${hotelId}`));
             const imageUrls = await Promise.all(uploadPromises);
             const data = { imageUrls };
             await this.hotelService.addHotelImages(ownerId, hotelId, data);

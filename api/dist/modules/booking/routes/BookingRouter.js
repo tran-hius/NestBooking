@@ -1,32 +1,13 @@
 import { Router } from "express";
-import { prisma } from "../../../config/prisma.js";
 import { authMiddleware, roleMiddleware } from "../../../middlewares/index.js";
 import { validate } from "../../../middlewares/validationMiddleware.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { Role } from "../../../../generated/prisma/index.js";
-import { CreateBookingSchema, UpdateBookingStatusSchema } from "../dtos/BookingDTO.js";
-import { BookingReadRepository } from "../repositories/BookingReadRepository.js";
-import { BookingWriteRepository } from "../repositories/BookingWriteRepository.js";
-import { BookingStatisticsRepository } from "../repositories/BookingStatisticsRepository.js";
-import { HotelService } from "../../hotel/services/HotelService.js";
-import { RoomTypeService } from "../../hotel/services/RoomTypeService.js";
-import { RoomService } from "../../hotel/services/RoomService.js";
-import { RoomTypeRepository } from "../../hotel/repositories/RoomTypeRepository.js";
-import { RoomRepository } from "../../hotel/repositories/RoomRepository.js";
-import { HotelRepository } from "../../hotel/repositories/HotelRepository.js";
-import { BookingService } from "../services/BookingService.js";
-import { BookingController } from "../controllers/BookingController.js";
+import { CreateBookingSchema, UpdateBookingStatusSchema } from "../dtos/bookingDTO.js";
+import { BookingController } from "../controllers/bookingController.js";
+import { BookingServiceFactory } from "../factory/bookingServiceFactory.js";
 const router = Router();
-const readRepo = new BookingReadRepository(prisma);
-const writeRepo = new BookingWriteRepository(prisma);
-const statsRepo = new BookingStatisticsRepository(prisma);
-const hotelRepo = new HotelRepository(prisma);
-const roomTypeRepo = new RoomTypeRepository(prisma);
-const roomRepo = new RoomRepository(prisma);
-const hotelService = new HotelService(hotelRepo);
-const roomTypeService = new RoomTypeService(roomTypeRepo, hotelRepo);
-const roomService = new RoomService(roomRepo, roomTypeRepo, hotelRepo);
-const bookingService = new BookingService(readRepo, writeRepo, statsRepo, hotelService, roomTypeService, roomService);
+const bookingService = BookingServiceFactory.create();
 const bookingController = new BookingController(bookingService);
 router.get("/my-bookings", 
 /*
@@ -78,46 +59,6 @@ router.get("/hotel/:hotelId",
   }]
 */
 authMiddleware, roleMiddleware([Role.AGENT, Role.ADMIN]), asyncHandler(bookingController.getHotelBookings));
-router.get("/hotel/:hotelId/revenue", 
-/*
-  #swagger.path = '/api/bookings/hotel/{hotelId}/revenue'
-  #swagger.tags = ['Bookings']
-  #swagger.summary = 'Thống kê doanh thu khách sạn theo thời gian'
-  #swagger.security = [{
-    "bearerAuth": []
-  }]
-  #swagger.parameters['startDate'] = {
-      in: 'query',
-      description: 'Ngày bắt đầu (YYYY-MM-DD)',
-      type: 'string'
-  }
-  #swagger.parameters['endDate'] = {
-      in: 'query',
-      description: 'Ngày kết thúc (YYYY-MM-DD)',
-      type: 'string'
-  }
-*/
-authMiddleware, roleMiddleware([Role.AGENT, Role.ADMIN]), asyncHandler(bookingController.getHotelRevenue));
-router.get("/hotel/:hotelId/occupancy", 
-/*
-  #swagger.path = '/api/bookings/hotel/{hotelId}/occupancy'
-  #swagger.tags = ['Bookings']
-  #swagger.summary = 'Thống kê tỷ lệ lấp đầy khách sạn theo thời gian'
-  #swagger.security = [{
-    "bearerAuth": []
-  }]
-  #swagger.parameters['startDate'] = {
-      in: 'query',
-      description: 'Ngày bắt đầu (YYYY-MM-DD)',
-      type: 'string'
-  }
-  #swagger.parameters['endDate'] = {
-      in: 'query',
-      description: 'Ngày kết thúc (YYYY-MM-DD)',
-      type: 'string'
-  }
-*/
-authMiddleware, roleMiddleware([Role.AGENT, Role.ADMIN]), asyncHandler(bookingController.getHotelOccupancy));
 router.patch("/:id/status", 
 /*
   #swagger.path = '/api/bookings/{id}/status'

@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+﻿import { lazy } from 'react';
 
 // Layouts (keep static to avoid layout flickering)
 import MainLayout from '@/layouts/MainLayout';
@@ -11,6 +11,7 @@ const Home = lazy(() => import('@/pages/Home'));
 const Auth = lazy(() => import('@/pages/Auth'));
 const AdminLogin = lazy(() => import('@/pages/admin/AdminLogin'));
 const PartnerAuth = lazy(() => import('@/pages/partner/PartnerAuth'));
+const PropertyTypeSelection = lazy(() => import('@/pages/partner/PropertyTypeSelection'));
 const Search = lazy(() => import('@/pages/Search'));
 const OTPVerification = lazy(() => import('@/pages/OTPVerification'));
 const PersonalInfo = lazy(() => import('@/pages/PersonalInfo'));
@@ -72,10 +73,15 @@ export const routers = [
     layout: null,
   },
   {
-    path: '/partner/register',
-    component: <PartnerAuth />,
-    layout: null,
-  },
+      path: '/partner/register',
+      component: <PartnerAuth />,
+      layout: null,
+    },
+    {
+      path: '/partner/property-type',
+      component: <PropertyTypeSelection />,
+      layout: null,
+    },
   {
     path: '/admin/dashboard',
     component: <Dashboard />,
@@ -147,3 +153,4 @@ export const routers = [
     layout: MainLayout,
   },
 ];
+

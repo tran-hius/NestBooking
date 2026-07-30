@@ -1,27 +1,6 @@
 import { axiosClient } from "@/api/config/axiosClient";
 import { API_ENDPOINTS } from "@/api/constants/endpoints";
-
-enum Role {
-  USER = "USER",
-  AGENT = "AGENT",
-  ADMIN = "ADMIN"
-}
-
-enum UserStatus {
-  PENDING = "PENDING",
-  ACTIVE = "ACTIVE",
-  INACTIVE = "INACTIVE",
-  REJECTED = "REJECTED",
-  BANNED = "BANNED"
-}
-
-interface User {
-  id: string,
-  email: string,
-  role: Role,
-  status: UserStatus,
-  createdAt: Date,
-}
+// import { User, Role, UserStatus } from "@/types";
 
 class UserService {
   async getAllUsers() {
@@ -42,6 +21,18 @@ class UserService {
 
   async updateProfile(userId: string, data: any) {
     return await axiosClient.put(API_ENDPOINTS.USER.UPDATE_PROFILE(userId), data);
+  }
+
+  async updateUserAdmin(userId: string, data: any) {
+    return await axiosClient.put(`/users/${userId}/admin`, data);
+  }
+
+  async createUser(data: any) {
+    return await axiosClient.post("/users", data);
+  }
+
+  async deleteUser(userId: string) {
+    return await axiosClient.delete(`/users/${userId}`);
   }
 }
 

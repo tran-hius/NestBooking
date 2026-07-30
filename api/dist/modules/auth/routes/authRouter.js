@@ -4,14 +4,15 @@ import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { validate, authLimiter, authMiddleware } from "../../../middlewares/index.js";
 // Import DTOs
-import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto.js";
+import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, RegisterSchema, RegisterPartnerSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto.js";
 // Import Repositories
-import { RefreshTokenRepository } from "../../../modules/auth/repositories/RefreshTokenRepository.js";
-import { UserRepository } from "../../../modules/user/repositories/UserRepository.js";
+import { RefreshTokenRepository } from "../../../modules/auth/repositories/refreshTokenRepository.js";
+import { UserRepository } from "../../../modules/user/repositories/userRepository.js";
 // Import Services
 import { OtpService } from "../../../modules/auth/services/otpService.js";
 import { TokenService } from "../../../modules/auth/services/tokenService.js";
-import { UserService } from "../../../modules/user/services/UserService.js";
+import { UserService } from "../../../modules/user/services/userService.js";
+import { UserProfileService } from "../../../modules/user/services/userProfileService.js";
 import { AuthService } from "../../../modules/auth/services/authService.js";
 // Import Controller
 import { AuthController } from "../../../modules/auth/controllers/authController.js";
@@ -23,9 +24,10 @@ const otpService = new OtpService();
 const tokenService = new TokenService();
 const refreshTokenRepository = new RefreshTokenRepository(prisma);
 const userRepository = new UserRepository(prisma);
-const userService = new UserService(userRepository, otpService);
+const userService = new UserService(userRepository);
+const userProfileService = new UserProfileService(userRepository);
 // Bơm tất cả vào AuthService (Tùy theo Constructor hiện tại của bạn)
-const authService = new AuthService(otpService, refreshTokenRepository, userService, tokenService);
+const authService = new AuthService(otpService, refreshTokenRepository, userService, tokenService, userProfileService);
 const authController = new AuthController(authService);
 // =====================================================
 // GET CURRENT USER
@@ -40,6 +42,16 @@ router.get("/me",
   }]
 */
 authMiddleware, asyncHandler(authController.getMe));
+// =====================================================
+// CHECK EMAIL EXISTS
+// =====================================================
+router.post("/check-email", 
+/*
+  #swagger.path = '/api/auth/check-email'
+  #swagger.tags = ['Auth']
+  #swagger.summary = 'Kiểm tra xem email đã tồn tại chưa'
+*/
+authLimiter, validate(SendOtpSchema), asyncHandler(authController.checkEmail));
 // =====================================================
 // SEND OTP
 // =====================================================
@@ -100,6 +112,36 @@ router.post("/login",
   }
 */
 authLimiter, validate(LoginWithPasswordSchema), asyncHandler(authController.loginWithPassword));
+// =====================================================
+// REGISTER
+// =====================================================
+router.post("/register", 
+/*
+  #swagger.path = '/api/auth/register'
+  #swagger.tags = ['Auth']
+  #swagger.summary = 'Đăng ký tài khoản'
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      "application/json": {
+        schema: {
+          $ref: "#/components/schemas/RegisterDto"
+        }
+      }
+    }
+  }
+*/
+authLimiter, validate(RegisterSchema), asyncHandler(authController.register));
+// =====================================================
+// REGISTER PARTNER
+// =====================================================
+router.post("/register-partner", 
+/*
+  #swagger.path = '/api/auth/register-partner'
+  #swagger.tags = ['Auth']
+  #swagger.summary = 'Đăng ký tài khoản đối tác'
+*/
+authMiddleware, authLimiter, validate(RegisterPartnerSchema), asyncHandler(authController.registerPartner));
 // =====================================================
 // REFRESH TOKENS
 // =====================================================

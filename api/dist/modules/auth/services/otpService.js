@@ -4,7 +4,7 @@ const OTP_TTL = Number(env.OTP_TTL);
 import { REDIS_KEYS, redisClient } from "../../../infrastructure/redis/index.js";
 import crypto from "crypto";
 import { randomUUID } from "crypto";
-import { EmailService } from "../../../modules/auth/services/emailService.js";
+import { EmailService } from "../../../modules/email/services/emailService.js";
 import { Transporter } from "../../../config/transporter.js";
 if (Number.isNaN(OTP_TTL)) {
     throw new Error("OTP_TTL không hợp lệ");

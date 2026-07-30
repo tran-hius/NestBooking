@@ -1,4 +1,4 @@
-import { RoomMapper } from "../mapper/RoomMapper.js";
+import { RoomMapper } from "../mapper/roomMapper.js";
 import { ForbiddenError, NotFoundError, BadRequestError, } from "../../../utils/errors/errorCustomize.js";
 import { redisClient } from "../../../infrastructure/redis/RedisConnection.js";
 import { REDIS_KEYS } from "../../../infrastructure/redis/redisKeys.js";
@@ -109,5 +109,11 @@ export class RoomService {
         const response = RoomMapper.toResponseDtoList(rooms);
         await redisClient.setex(cacheKey, REDIS_TTL.ROOM, JSON.stringify(response));
         return response;
+    }
+    async countActiveRoomsByRoomType(roomTypeId, tx) {
+        return this.roomRepo.count({
+            roomTypeId,
+            isActive: true,
+        }, tx);
     }
 }

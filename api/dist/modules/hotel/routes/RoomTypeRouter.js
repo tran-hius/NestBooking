@@ -3,15 +3,17 @@ import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { validate, authMiddleware, roleMiddleware } from "../../../middlewares/index.js";
 import { Role } from "../../../../generated/prisma/index.js";
-import { RoomTypeRepository } from "../repositories/RoomTypeRepository.js";
-import { HotelRepository } from "../repositories/HotelRepository.js";
-import { RoomTypeService } from "../services/RoomTypeService.js";
-import { RoomTypeController } from "../controllers/RoomTypeController.js";
-import { CreateRoomTypeSchema, UpdateRoomTypeSchema, AddRoomTypeImagesSchema } from "../dtos/RoomTypeDTO.js";
+import { RoomTypeRepository } from "../repositories/roomTypeRepository.js";
+import { HotelRepository } from "../repositories/hotelRepository.js";
+import { RoomTypeService } from "../services/roomTypeService.js";
+import { RoomTypeController } from "../controllers/roomTypeController.js";
+import { CreateRoomTypeSchema, UpdateRoomTypeSchema, AddRoomTypeImagesSchema } from "../dtos/roomTypeDTO.js";
+import { UploadService } from "../../../modules/upload/services/uploadService.js";
 const router = express.Router({ mergeParams: true }); // cho phép nhận hotelId từ parent route
 const roomTypeRepository = new RoomTypeRepository(prisma);
 const hotelRepository = new HotelRepository(prisma);
-const roomTypeService = new RoomTypeService(roomTypeRepository, hotelRepository);
+const uploadService = new UploadService();
+const roomTypeService = new RoomTypeService(roomTypeRepository, hotelRepository, uploadService);
 const roomTypeController = new RoomTypeController(roomTypeService);
 // =====================================================
 // PUBLIC APIs

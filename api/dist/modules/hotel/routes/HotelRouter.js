@@ -3,14 +3,16 @@ import { prisma } from "../../../config/prisma.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { validate, authMiddleware, roleMiddleware, upload } from "../../../middlewares/index.js";
 import { Role } from "../../../../generated/prisma/index.js";
-import { HotelRepository } from "../repositories/HotelRepository.js";
-import { HotelService } from "../services/HotelService.js";
-import { HotelController } from "../controllers/HotelController.js";
-import { CreateHotelSchema, UpdateHotelSchema } from "../dtos/HotelDTO.js";
+import { HotelRepository } from "../repositories/hotelRepository.js";
+import { HotelService } from "../services/hotelService.js";
+import { HotelController } from "../controllers/hotelController.js";
+import { CreateHotelSchema, UpdateHotelSchema } from "../dtos/hotelDTO.js";
+import { UploadService } from "../../../modules/upload/services/uploadService.js";
 const router = express.Router();
 const hotelRepository = new HotelRepository(prisma);
-const hotelService = new HotelService(hotelRepository);
-const hotelController = new HotelController(hotelService);
+const uploadService = new UploadService();
+const hotelService = new HotelService(hotelRepository, uploadService);
+const hotelController = new HotelController(hotelService, uploadService);
 // =====================================================
 // GET ALL HOTELS (Public API)
 // =====================================================

@@ -22,7 +22,17 @@ export default function Checkout() {
   const location = useLocation();
   const { user } = useAppStore();
   
-  const { hotelId, roomTypeId, hotel, roomType } = location.state || {};
+  const [checkoutData] = useState(() => {
+    if (location.state) {
+      sessionStorage.setItem('checkoutData', JSON.stringify(location.state));
+      return location.state;
+    }
+    const saved = sessionStorage.getItem('checkoutData');
+    if (saved) return JSON.parse(saved);
+    return {};
+  });
+
+  const { hotelId, roomTypeId, hotel, roomType, checkIn, checkOut } = checkoutData;
 
   const [paymentMethod, setPaymentMethod] = useState("VNPAY");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -56,26 +66,21 @@ export default function Checkout() {
     setIsProcessing(true);
     
     try {
+      const today = new Date();
+      const checkInDate = checkIn ? new Date(checkIn) : today;
+      const checkOutDate = checkOut ? new Date(checkOut) : new Date(today.getTime() + 86400000);
+
       const bookingData: import("@/api/services/bookingService").CreateBookingPayload = {
         hotelId: hotelId,
         roomTypeId: roomTypeId,
-        checkInDate: "2026-07-24", // Tạm fix cứng, thực tế lấy từ state
-        checkOutDate: "2026-07-25", // Tạm fix cứng, thực tế lấy từ state
+        checkInDate: checkInDate.toISOString(),
+        checkOutDate: checkOutDate.toISOString(),
         quantity: 1,
-        totalPrice: roomType?.price || 0, // Using actual price if available
         guestName: `${formData.lastName} ${formData.firstName}`.trim(),
         guestPhone: formData.phone,
         guestEmail: formData.email,
-        paymentMethod: paymentMethod,
+        paymentMethod: paymentMethod.toUpperCase(),
         specialRequests: formData.specialRequest,
-        customerInfo: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          phone: formData.phone,
-          country: formData.country,
-          specialRequest: formData.specialRequest
-        }
       };
 
       const res = await bookingService.createBooking(bookingData);

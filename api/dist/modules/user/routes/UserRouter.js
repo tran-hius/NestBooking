@@ -1,18 +1,22 @@
 import express from "express";
 import { prisma } from "../../../config/prisma.js";
-import { UserRepository } from "../../../modules/user/repositories/UserRepository.js";
-import { UserService } from "../../../modules/user/services/UserService.js";
-import { UserController } from "../../../modules/user/controllers/UserController.js";
+import { UserRepository } from "../../../modules/user/repositories/userRepository.js";
+import { UserService } from "../../../modules/user/services/userService.js";
+import { UserProfileService } from "../../../modules/user/services/userProfileService.js";
+import { UserController } from "../../../modules/user/controllers/userController.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { OtpService } from "../../../modules/auth/services/otpService.js";
+import { UploadService } from "../../../modules/upload/services/uploadService.js";
 import { validate, roleMiddleware, authMiddleware, requireOwnershipOrAdmin, upload } from "../../../middlewares/index.js";
-import { UserIdParamSchema, CreateUserSchema, UpdateUserProfileSchema, SubmitIdentityVerificationSchema, ChangeUserStatusSchema, RejectIdentityVerificationSchema, } from "../dtos/UserDTO.js";
+import { UserIdParamSchema, CreateUserSchema, UpdateUserProfileSchema, ChangeUserStatusSchema, UpdateUserAdminSchema, } from "../dtos/userDTO.js";
 import { Role } from "../../../../generated/prisma/index.js";
 const router = express.Router();
-const otpService = new OtpService();
 const userRepository = new UserRepository(prisma);
-const userService = new UserService(userRepository, otpService);
-const userController = new UserController(userService);
+const otpService = new OtpService();
+const userService = new UserService(userRepository);
+const userProfileService = new UserProfileService(userRepository);
+const uploadService = new UploadService();
+const userController = new UserController(userService, userProfileService, uploadService);
 // =====================================================
 // GET ALL USERS
 // =====================================================
@@ -78,6 +82,46 @@ router.put("/:id/profile",
 */
 authMiddleware, requireOwnershipOrAdmin, validate(UserIdParamSchema), validate(UpdateUserProfileSchema), asyncHandler(userController.updateProfile));
 // =====================================================
+// ADMIN UPDATE USER (Role, Status, FullName)
+// =====================================================
+router.put("/:id/admin", 
+/*
+  #swagger.path = '/api/users/{id}/admin'
+  #swagger.tags = ['Users']
+  #swagger.summary = 'Admin cập nhật người dùng (Role, Status, FullName)'
+  #swagger.security = [{ "bearerAuth": [] }]
+  #swagger.parameters['id'] = {
+      in: 'path',
+      description: 'ID của người dùng',
+      required: true,
+      type: 'string'
+  }
+  #swagger.requestBody = {
+      required: true,
+      content: {
+          "application/json": {
+              schema: {
+                  type: "object",
+                  properties: {
+                      fullName: { type: "string" },
+                      phoneNumber: { type: "string" },
+                      address: { type: "string" },
+                      role: { type: "string", enum: ["USER", "AGENT", "ADMIN"] },
+                      status: { type: "string", enum: ["ACTIVE", "PENDING", "INACTIVE", "BANNED", "REJECTED"] },
+                      businessName: { type: "string" },
+                      businessLicense: { type: "string" },
+                      taxCode: { type: "string" },
+                      idNumber: { type: "string" },
+                      idCardImageUrl: { type: "string" }
+                  }
+              }
+          }
+      }
+  }
+  #swagger.responses[200] = { description: 'Cập nhật thành công.' }
+*/
+authMiddleware, roleMiddleware([Role.ADMIN]), validate(UserIdParamSchema), validate(UpdateUserAdminSchema), asyncHandler(userController.updateUserAdmin));
+// =====================================================
 // CHANGE STATUS
 // =====================================================
 router.patch("/:id/status", 
@@ -120,62 +164,6 @@ router.post("/:id/restore",
   #swagger.security = [{ "bearerAuth": [] }]
 */
 authMiddleware, roleMiddleware([Role.ADMIN]), validate(UserIdParamSchema), asyncHandler(userController.restoreUser));
-// =====================================================
-// SUBMIT KYC
-// =====================================================
-router.post("/:id/kyc/submit", 
-/*
-  #swagger.path = '/api/users/{id}/kyc/submit'
-  #swagger.tags = ['Users']
-  #swagger.summary = 'Gửi hồ sơ KYC'
-  #swagger.security = [{ "bearerAuth": [] }]
-  #swagger.autoHeaders = false
-
-  #swagger.requestBody = {
-    required: true,
-    content: {
-      "application/json": {
-        schema: {
-          $ref: "#/components/schemas/SubmitIdentityVerificationDto"
-        }
-      }
-    }
-  }
-*/
-authMiddleware, requireOwnershipOrAdmin, validate(UserIdParamSchema), validate(SubmitIdentityVerificationSchema), asyncHandler(userController.submitIdentityVerification));
-// =====================================================
-// APPROVE KYC
-// =====================================================
-router.patch("/:id/kyc/approve", 
-/*
-  #swagger.path = '/api/users/{id}/kyc/approve'
-  #swagger.tags = ['Users']
-  #swagger.summary = 'Admin duyệt hồ sơ KYC'
-  #swagger.security = [{ "bearerAuth": [] }]
-*/
-authMiddleware, roleMiddleware([Role.ADMIN]), validate(UserIdParamSchema), asyncHandler(userController.approveIdentityVerification));
-// =====================================================
-// REJECT KYC
-// =====================================================
-router.patch("/:id/kyc/reject", 
-/*
-  #swagger.path = '/api/users/{id}/kyc/reject'
-  #swagger.tags = ['Users']
-  #swagger.summary = 'Admin từ chối hồ sơ KYC'
-  #swagger.security = [{ "bearerAuth": [] }]
-
-  #swagger.requestBody = {
-    required: true,
-    content: {
-      "application/json": {
-        schema: {
-          $ref: "#/components/schemas/RejectIdentityVerificationDto"
-        }
-      }
-    }
-  }
-*/
-authMiddleware, roleMiddleware([Role.ADMIN]), validate(UserIdParamSchema), validate(RejectIdentityVerificationSchema), asyncHandler(userController.rejectIdentityVerification));
 router.post("/:id/avatar", 
 /*
   #swagger.path = '/api/users/{id}/avatar'

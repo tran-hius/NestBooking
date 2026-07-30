@@ -1,0 +1,14 @@
+import { Router } from "express";
+import { StatisticsController } from "../controllers/statisticsController.js";
+import { StatisticsService } from "../services/statisticsService.js";
+import { StatisticsRepository } from "../repositories/statisticsRepository.js";
+import { prisma } from "../../../config/prisma.js";
+import { authMiddleware, roleMiddleware } from "../../../middlewares/index.js";
+import { asyncHandler } from "../../../utils/asyncHandler.js";
+const router = Router();
+const statsRepo = new StatisticsRepository(prisma);
+const statsService = new StatisticsService(statsRepo);
+const statsController = new StatisticsController(statsService);
+router.get("/hotel/:hotelId/revenue", authMiddleware, roleMiddleware(["HOTEL_MANAGER", "ADMIN"]), asyncHandler(statsController.getHotelRevenue));
+router.get("/hotel/:hotelId/occupancy", authMiddleware, roleMiddleware(["HOTEL_MANAGER", "ADMIN"]), asyncHandler(statsController.getHotelOccupancy));
+export const StatisticsRouter = router;

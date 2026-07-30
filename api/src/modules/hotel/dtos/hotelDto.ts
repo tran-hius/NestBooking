@@ -1,6 +1,6 @@
 import { z } from "zod/v3";
 import { Hotel, HotelStatus, PropertyType } from "../../../../generated/prisma";
-import { RoomTypeResponseDto } from "./RoomTypeDTO";
+import { RoomTypeResponseDto } from "./roomTypeDTO";
 
 export const CreateHotelSchema = z.object({
   body: z.object({

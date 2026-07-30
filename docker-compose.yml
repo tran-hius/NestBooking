@@ -68,11 +68,17 @@ services:
       - DB_HOST=postgres_db
       - DB_PORT=5432
       - REDIS_HOST=redis_cache
+      - DATABASE_URL=postgresql://postgres:123456@postgres_db:5432/booking?schema=public
+    command: >
+      sh -c "npm install && npx prisma migrate deploy && npm run dev"
     depends_on:
       postgres_db:
         condition: service_healthy
       redis_cache:
         condition: service_healthy
+    volumes:
+      - ./api:/app
+      - /app/node_modules
     networks:
       - booking_network
 

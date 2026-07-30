@@ -1,27 +1,33 @@
+import { DestinationMapper } from "../mapper/destinationMapper.js";
 export class DestinationService {
     destinationRepository;
     constructor(destinationRepository) {
         this.destinationRepository = destinationRepository;
     }
     async getActiveDestinations() {
-        return this.destinationRepository.getActiveDestinations();
+        const destinations = await this.destinationRepository.getActiveDestinations();
+        return DestinationMapper.toResponseDtoList(destinations);
     }
     async getAllDestinations() {
-        return this.destinationRepository.getAllDestinations();
+        const destinations = await this.destinationRepository.getAllDestinations();
+        return DestinationMapper.toResponseDtoList(destinations);
     }
     async createDestination(data) {
         if (!data.name || !data.slug || !data.imageUrl) {
             throw new Error("Missing required fields");
         }
-        return this.destinationRepository.createDestination(data);
+        const destination = await this.destinationRepository.createDestination(data);
+        return DestinationMapper.toResponseDto(destination);
     }
     async updateDestination(id, data) {
-        return this.destinationRepository.updateDestination(id, data);
+        const destination = await this.destinationRepository.updateDestination(id, data);
+        return DestinationMapper.toResponseDto(destination);
     }
     async deleteDestination(id) {
         return this.destinationRepository.deleteDestination(id);
     }
     async toggleFeatured(id) {
-        return this.destinationRepository.toggleFeatured(id);
+        const destination = await this.destinationRepository.toggleFeatured(id);
+        return DestinationMapper.toResponseDto(destination);
     }
 }

@@ -1,4 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { DollarSign, Building, CalendarCheck, BedDouble, Percent, Clock } from "lucide-react";
 import { 
   Bar, 
@@ -52,6 +54,12 @@ export default function AgentDashboard() {
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Tổng quan hiệu suất</h2>
           <p className="text-muted-foreground mt-1">Theo dõi hoạt động kinh doanh các chỗ nghỉ của bạn</p>
         </div>
+        <Link to="/partner/property-type">
+          <Button className="flex items-center gap-2 font-semibold bg-primary hover:bg-primary/90 text-white rounded-md">
+            <Building className="w-4 h-4" />
+            Tạo cơ sở lưu trú
+          </Button>
+        </Link>
       </div>
 
       {/* KPI Cards */}

@@ -6,21 +6,12 @@ export interface CreateBookingPayload {
   roomTypeId: string;
   checkInDate: string;
   checkOutDate: string;
-  totalPrice: number;
   quantity?: number;
   guestName?: string;
   guestPhone?: string;
   guestEmail?: string;
   paymentMethod?: string;
   specialRequests?: string;
-  customerInfo?: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    country: string;
-    specialRequest?: string;
-  };
 }
 
 class BookingService {

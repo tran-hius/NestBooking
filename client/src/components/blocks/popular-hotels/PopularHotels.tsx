@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import HotelCard from "./HotelCard";
 import HotelCardSkeleton from "./HotelCardSkeleton";
-import { hotelService, Hotel } from "@/api/services/hotelService";
+import { hotelService } from "@/api/services/hotelService"; import { Hotel } from "@/types";
 
 export default function PopularHotels() {
   const scrollRef = useRef<HTMLDivElement>(null);

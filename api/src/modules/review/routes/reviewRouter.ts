@@ -1,0 +1,20 @@
+import { Router } from "express";
+import { ReviewController } from "../controllers/reviewController";
+import { ReviewService } from "../services/reviewService";
+import { ReviewRepository } from "../repositories/reviewRepository";
+import { authMiddleware, validate } from "@/middlewares";
+import { CreateReviewSchema, UpdateReviewSchema } from "../dtos/reviewDTO";
+import { prisma } from "@/config/prisma";
+import { asyncHandler } from "@/utils/asyncHandler";
+
+const router = Router();
+const reviewRepository = new ReviewRepository(prisma);
+const reviewService = new ReviewService(reviewRepository);
+const reviewController = new ReviewController(reviewService);
+
+router.post("/", authMiddleware, validate(CreateReviewSchema as any), asyncHandler(reviewController.createReview));
+router.get("/hotel/:hotelId", asyncHandler(reviewController.getHotelReviews));
+router.put("/:id", authMiddleware, validate(UpdateReviewSchema as any), asyncHandler(reviewController.updateReview));
+router.delete("/:id", authMiddleware, asyncHandler(reviewController.deleteReview));
+
+export const ReviewRouter = router;

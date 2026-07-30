@@ -4,7 +4,7 @@ import { MapPin, Star, Users, Home, Loader2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
-import { hotelService, Hotel } from "@/api/services/hotelService";
+import { hotelService } from "@/api/services/hotelService"; import { Hotel } from "@/types";
 
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>();
@@ -55,7 +55,7 @@ export default function HotelDetail() {
   }
 
   const handleBookNow = (roomTypeId: string) => {
-    const roomType = hotel.roomTypes.find(rt => rt.id === roomTypeId);
+    const roomType = hotel.roomTypes.find((rt: any) => rt.id === roomTypeId);
     navigate("/checkout", {
       state: {
         hotelId: hotel.id,
@@ -66,7 +66,7 @@ export default function HotelDetail() {
     });
   };
 
-  const images = hotel.images?.length > 0 ? hotel.images.map(img => img.imageUrl) : [
+  const images = hotel.images?.length > 0 ? hotel.images.map((img: any) => img.imageUrl) : [
     "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1582719478250-c8940026e7ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"

@@ -1,53 +1,42 @@
-import { useState, useEffect } from "react";
-import { searchService } from "@/api/services/searchService";
 import { useLocation } from "react-router-dom";
 import PropertyCard from "./PropertyCard";
 import PropertyCardSkeleton from "./PropertyCardSkeleton";
+import { useSearchHotels } from "@/hooks/useSearchHotels";
 
 export default function SearchResults() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [properties, setProperties] = useState<any[]>([]);
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  
+  const params = {
+    location: searchParams.get("location") || undefined,
+    checkInDate: searchParams.get("checkIn") || undefined,
+    checkOutDate: searchParams.get("checkOut") || undefined,
+    adults: searchParams.get("adults") ? parseInt(searchParams.get("adults")!) : undefined,
+    children: searchParams.get("children") ? parseInt(searchParams.get("children")!) : undefined,
+    rooms: searchParams.get("rooms") ? parseInt(searchParams.get("rooms")!) : undefined,
+  };
 
-  useEffect(() => {
-    const fetchHotels = async () => {
-      try {
-        setIsLoading(true);
-        const searchParams = new URLSearchParams(location.search);
-        
-        const params = {
-          location: searchParams.get("location") || undefined,
-          // Extract other params if needed
-        };
+  const { hotels, isLoading, error } = useSearchHotels(params);
 
-        const res = await searchService.searchHotels(params);
-        
-        // Ensure the API matches PropertyProps format, or map it:
-        const formattedHotels = (res.data || []).map((h: any) => ({
-          id: h.id,
-          name: h.name,
-          image: h.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-          rating: 4.5, // Giả lập nếu chưa có
-          reviewCount: 100,
-          distance: `${h.city}, ${h.country}`,
-          roomType: h.roomTypes?.[0]?.name || "Phòng Tiêu Chuẩn",
-          bedType: "1 giường",
-          hasBreakfast: true,
-          freeCancellation: true,
-          noPrepayment: true,
-          salePrice: `VND ${(h.roomTypes?.[0]?.price || 1000000).toLocaleString('vi-VN')}`,
-        }));
+  const formattedHotels = hotels.map((h: any) => ({
+    id: h.id,
+    name: h.name,
+    image: h.thumbnail || h.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: h.rating || 4.5,
+    reviewCount: 100, // Fake data
+    reviewText: "Tuyệt vời",
+    distance: `${h.city || ''}, ${h.address || ''}`,
+    roomType: h.availableRoomTypes?.[0]?.name || "Phòng Tiêu Chuẩn",
+    bedType: "1 giường", // Fake data
+    hasBreakfast: h.amenities?.includes("BREAKFAST") || false,
+    freeCancellation: true,
+    noPrepayment: true,
+    salePrice: `VND ${(h.availableRoomTypes?.[0]?.price || 1000000).toLocaleString('vi-VN')}`,
+  }));
 
-        setProperties(formattedHotels);
-      } catch (error) {
-        console.error("Search failed:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchHotels();
-  }, [location.search]);
+  if (error) {
+    console.error("Search failed:", error);
+  }
 
   return (
     <div className="w-full">
@@ -69,7 +58,7 @@ export default function SearchResults() {
           ? Array.from({ length: 4 }).map((_, idx) => (
               <PropertyCardSkeleton key={idx} />
             ))
-          : properties.length > 0 ? properties.map((prop) => (
+          : formattedHotels.length > 0 ? formattedHotels.map((prop) => (
               <PropertyCard key={prop.id} prop={prop} />
             )) : (
               <div className="text-center py-10 text-slate-500">

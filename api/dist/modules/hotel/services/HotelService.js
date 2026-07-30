@@ -1,14 +1,15 @@
 import { HotelStatus } from "#generated/prisma";
-import { HotelMapper } from "../mapper/HotelMapper.js";
+import { HotelMapper } from "../mapper/hotelMapper.js";
 import { ForbiddenError, NotFoundError, } from "../../../utils/errors/errorCustomize.js";
 import logger from "../../../config/logger.js";
 import { REDIS_KEYS, redisClient, REDIS_TTL } from "../../../infrastructure/redis/index.js";
-import { deleteFromCloudinary } from "../../../utils/cloudinary.utils.js";
 import crypto from "crypto";
 export class HotelService {
     hotelRepository;
-    constructor(hotelRepository) {
+    uploadService;
+    constructor(hotelRepository, uploadService) {
         this.hotelRepository = hotelRepository;
+        this.uploadService = uploadService;
     }
     async clearHotelCache(hotelId) {
         const keysToDelete = [REDIS_KEYS.HOTEL(hotelId)];
@@ -199,7 +200,7 @@ export class HotelService {
         try {
             const match = image.imageUrl.match(/\/v\d+\/(.+)\.[a-z]+$/i);
             if (match && match[1]) {
-                await deleteFromCloudinary(match[1]);
+                await this.uploadService.deleteImage(match[1]);
             }
             else {
                 logger.warn(`[Cloudinary] Không thể parse public_id từ URL: ${image.imageUrl}`);

@@ -1,103 +1,24 @@
-import { BookingStatus, PaymentMethod, PaymentStatus, Role } from "#generated/prisma";
+import { BookingStatus, PaymentStatus, Role } from "#generated/prisma";
 import { BadRequestError, ForbiddenError, NotFoundError } from "../../../utils/errors/index.js";
-import crypto from "crypto";
-import { BookingMapper } from "../mapper/BookingMapper.js";
+import { BookingMapper } from "../mapper/bookingMapper.js";
 import { redisClient, REDIS_KEYS, REDIS_TTL } from "../../../infrastructure/redis/index.js";
-import { VnpayService } from "../../payment/services/VnpayService.js";
+import { BookingCacheHelper } from "../utils/bookingCacheHelper.js";
 export class BookingService {
     readRepo;
     writeRepo;
-    statsRepo;
     hotelService;
-    roomTypeService;
-    roomService;
-    vnpayService;
-    constructor(readRepo, writeRepo, statsRepo, hotelService, roomTypeService, roomService) {
+    bookingCreationService;
+    constructor(readRepo, writeRepo, hotelService, bookingCreationService) {
         this.readRepo = readRepo;
         this.writeRepo = writeRepo;
-        this.statsRepo = statsRepo;
         this.hotelService = hotelService;
-        this.roomTypeService = roomTypeService;
-        this.roomService = roomService;
-        this.vnpayService = new VnpayService();
+        this.bookingCreationService = bookingCreationService;
     }
     async createBooking(userId, data, ipAddr = "127.0.0.1") {
-        const checkIn = new Date(data.checkInDate);
-        const checkOut = new Date(data.checkOutDate);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        if (checkIn < today) {
-            throw new BadRequestError("Lỗi: Ngày Check-in không được nằm trong quá khứ.");
-        }
-        const nights = Math.ceil((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
-        if (nights <= 0) {
-            throw new BadRequestError("Ngày trả phòng phải sau ngày nhận phòng.");
-        }
-        const roomType = await this.roomTypeService.getRoomTypeById(data.roomTypeId);
-        if (!roomType || !roomType.isActive) {
-            throw new NotFoundError("Không tìm thấy loại phòng này hoặc phòng đang bị tạm khóa.");
-        }
-        const totalPhysicalRooms = (await this.roomService.getRoomsByRoomType(data.roomTypeId)).filter(r => r.isActive).length;
-        const bookedRoomsCount = await this.readRepo.getOverlappingBookingsCount(data.roomTypeId, checkIn, checkOut);
-        const availableRooms = totalPhysicalRooms - bookedRoomsCount;
-        if (availableRooms < data.quantity) {
-            throw new BadRequestError(`Rất tiếc! Chỉ còn lại ${availableRooms} phòng trống trong khoảng thời gian bạn chọn.`);
-        }
-        const timestampPart = Date.now().toString(36).toUpperCase();
-        const randomPart = crypto.randomBytes(2).toString("hex").toUpperCase();
-        const bookingCode = `BKG-${timestampPart}-${randomPart}`;
-        const totalAmount = Number(roomType.price) * nights * data.quantity;
-        const paymentMethod = data.paymentMethod || PaymentMethod.PAY_AT_HOTEL;
-        // Nếu là thanh toán tiền mặt thì CONFIRM luôn, nếu online thì PENDING chờ webhook
-        const initialStatus = paymentMethod === PaymentMethod.PAY_AT_HOTEL
-            ? BookingStatus.CONFIRMED
-            : BookingStatus.PENDING;
-        const newBooking = await this.writeRepo.create({
-            bookingCode: bookingCode,
-            userId,
-            hotelId: data.hotelId,
-            roomTypeId: data.roomTypeId,
-            checkInDate: checkIn,
-            checkOutDate: checkOut,
-            quantity: data.quantity,
-            totalAmount,
-            status: initialStatus,
-            paymentMethod: paymentMethod,
-            paymentStatus: PaymentStatus.UNPAID,
-            paymentDate: null,
-            guestName: data.guestName,
-            guestPhone: data.guestPhone,
-            guestEmail: data.guestEmail,
-            specialRequests: data.specialRequests,
-        });
-        let paymentUrl = undefined;
-        if (paymentMethod === PaymentMethod.VNPAY) {
-            const orderInfo = `Thanh toan dat phong ${bookingCode}`;
-            paymentUrl = this.vnpayService.createPaymentUrl(ipAddr, totalAmount, orderInfo, newBooking.id);
-        }
-        // Gửi email nếu tạo thành công (tiền mặt)
-        if (initialStatus === BookingStatus.CONFIRMED) {
-            import("../../../modules/auth/services/emailService.js").then(({ EmailService }) => {
-                import("../../../config/transporter.js").then(({ Transporter }) => {
-                    const emailService = new EmailService(Transporter.transporter);
-                    emailService.sendBookingSuccessEmail(newBooking.guestEmail, newBooking.bookingCode, newBooking.checkInDate.toISOString(), newBooking.checkOutDate.toISOString()).catch(err => console.error("Error sending booking email:", err));
-                });
-            });
-        }
-        await this.clearBookingCache(newBooking.id, newBooking.userId, newBooking.hotelId);
-        const response = BookingMapper.toResponseDto(newBooking);
-        response.paymentUrl = paymentUrl;
-        return response;
+        return this.bookingCreationService.createBooking(userId, data, ipAddr);
     }
     async clearBookingCache(bookingId, userId, hotelId) {
-        const keys = [
-            REDIS_KEYS.BOOKING(bookingId),
-            REDIS_KEYS.USER_BOOKINGS(userId),
-            REDIS_KEYS.HOTEL_BOOKINGS(hotelId),
-        ];
-        if (keys.length > 0) {
-            await redisClient.del(...keys);
-        }
+        await BookingCacheHelper.clearBookingCache(bookingId, userId, hotelId);
     }
     async getBookingById(id, requestId, requestRole) {
         const cacheKey = REDIS_KEYS.BOOKING(id);
@@ -186,24 +107,35 @@ export class BookingService {
         await this.clearBookingCache(updated.id, updated.userId, updated.hotelId);
         return BookingMapper.toResponseDto(updated);
     }
-    async getHotelRevenue(hotelId, agentId, startDate, endDate) {
-        const hotel = await this.hotelService.getHotelById(hotelId);
-        if (!hotel) {
-            throw new NotFoundError("Không tìm thấy khách sạn.");
+    async handlePaymentCallback(bookingId, amount, transactionId) {
+        const booking = await this.readRepo.findById(bookingId);
+        if (!booking) {
+            return { rspCode: "01", message: "Order not found" };
         }
-        if (hotel.ownerId !== agentId) {
-            throw new ForbiddenError("Bạn không có quyền xem doanh thu của khách sạn này.");
+        if (booking.paymentStatus === PaymentStatus.PAID) {
+            return { rspCode: "02", message: "Order already confirmed" };
         }
-        return this.statsRepo.revenue(hotelId, startDate, endDate);
-    }
-    async getHotelOccupancy(hotelId, agentId, startDate, endDate) {
-        const hotel = await this.hotelService.getHotelById(hotelId);
-        if (!hotel) {
-            throw new NotFoundError("Không tìm thấy khách sạn.");
+        if (Number(booking.totalAmount) !== amount) {
+            return { rspCode: "04", message: "Invalid amount" };
         }
-        if (hotel.ownerId !== agentId) {
-            throw new ForbiddenError("Bạn không có quyền xem công suất phòng của khách sạn này.");
-        }
-        return this.statsRepo.occupancy(hotelId, startDate, endDate);
+        const updatedBooking = await this.writeRepo.update(bookingId, {
+            status: BookingStatus.CONFIRMED,
+            paymentStatus: PaymentStatus.PAID,
+            paymentDate: new Date(),
+            transactionId: transactionId
+        });
+        // Clean up cache
+        await this.clearBookingCache(updatedBooking.id, updatedBooking.userId, updatedBooking.hotelId);
+        // Notify
+        import("../../../modules/booking/services/bookingCreation/bookingPostProcess.js").then(({ BookingPostProcess }) => {
+            import("../../../modules/email/services/emailService.js").then(({ EmailService }) => {
+                import("../../../config/transporter.js").then(({ Transporter }) => {
+                    const emailService = new EmailService(Transporter.transporter);
+                    const bookingPostProcess = new BookingPostProcess(emailService);
+                    bookingPostProcess.execute(updatedBooking).catch(err => console.error(err));
+                });
+            });
+        });
+        return { rspCode: "00", message: "Confirm Success" };
     }
 }

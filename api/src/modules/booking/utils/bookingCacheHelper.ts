@@ -1,0 +1,21 @@
+import { REDIS_KEYS } from "@/infrastructure/redis";
+import logger from "@/config/logger";
+import { CacheService } from "@/modules/cache/services/cacheService";
+
+const cacheService = new CacheService();
+
+export class BookingCacheHelper {
+  static async clearBookingCache(bookingId: string, userId: string, hotelId: string): Promise<void> {
+    try {
+      const keys = [
+        REDIS_KEYS.BOOKING(bookingId),
+        REDIS_KEYS.USER_BOOKINGS(userId),
+        REDIS_KEYS.HOTEL_BOOKINGS(hotelId),
+      ];
+      
+      await cacheService.deleteMultiple(keys);
+    } catch (error) {
+      logger.error(`[BookingCacheHelper] Error clearing cache for booking ${bookingId}: ${error}`);
+    }
+  }
+}

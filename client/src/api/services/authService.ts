@@ -21,8 +21,24 @@ class AuthService {
     return await axiosClient.post(API_ENDPOINTS.AUTH.VERIFY_OTP, payload);
   }
   
+  async checkEmail(email: string): Promise<ApiResponse> {
+    return await axiosClient.post('/auth/check-email', { email });
+  }
+
   async login(payload: any): Promise<ApiResponse> {
     return await axiosClient.post('/auth/login', payload);
+  }
+
+  async registerPartner(payload: any): Promise<ApiResponse> {
+    return await axiosClient.post('/auth/register-partner', payload);
+  }
+
+  async register(payload: any): Promise<ApiResponse> {
+    return await axiosClient.post('/auth/register', payload);
+  }
+
+  async resetPassword(payload: any): Promise<ApiResponse> {
+    return await axiosClient.post('/auth/reset-password', payload);
   }
 
   async logout(): Promise<ApiResponse> {

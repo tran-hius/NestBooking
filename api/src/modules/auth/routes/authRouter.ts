@@ -10,18 +10,21 @@ import {
   SendOtpSchema,
   VerifyOtpSchema,
   LoginWithPasswordSchema,
+  RegisterSchema,
+  RegisterPartnerSchema,
   ResetPasswordSchema,
   ChangePasswordSchema,
 } from "../dtos/authDto";
 
 // Import Repositories
-import { RefreshTokenRepository } from "@/modules/auth/repositories/RefreshTokenRepository";
-import { UserRepository } from "@/modules/user/repositories/UserRepository";
+import { RefreshTokenRepository } from "@/modules/auth/repositories/refreshTokenRepository";
+import { UserRepository } from "@/modules/user/repositories/userRepository";
 
 // Import Services
 import { OtpService } from "@/modules/auth/services/otpService";
 import { TokenService } from "@/modules/auth/services/tokenService";
-import { UserService } from "@/modules/user/services/UserService";
+import { UserService } from "@/modules/user/services/userService";
+import { UserProfileService } from "@/modules/user/services/userProfileService";
 import { AuthService } from "@/modules/auth/services/authService";
 
 // Import Controller
@@ -40,7 +43,8 @@ const tokenService = new TokenService();
 const refreshTokenRepository = new RefreshTokenRepository(prisma);
 
 const userRepository = new UserRepository(prisma);
-const userService = new UserService(userRepository, otpService);
+const userService = new UserService(userRepository);
+const userProfileService = new UserProfileService(userRepository);
 
 // Bơm tất cả vào AuthService (Tùy theo Constructor hiện tại của bạn)
 const authService = new AuthService(
@@ -48,6 +52,7 @@ const authService = new AuthService(
   refreshTokenRepository,
   userService,
   tokenService,
+  userProfileService,
 );
 
 const authController = new AuthController(authService);
@@ -67,6 +72,21 @@ router.get(
   */
   authMiddleware,
   asyncHandler(authController.getMe),
+);
+
+// =====================================================
+// CHECK EMAIL EXISTS
+// =====================================================
+router.post(
+  "/check-email",
+  /*
+    #swagger.path = '/api/auth/check-email'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Kiểm tra xem email đã tồn tại chưa'
+  */
+  authLimiter,
+  validate(SendOtpSchema),
+  asyncHandler(authController.checkEmail),
 );
 
 // =====================================================
@@ -142,6 +162,47 @@ router.post(
   authLimiter,
   validate(LoginWithPasswordSchema),
   asyncHandler(authController.loginWithPassword),
+);
+
+// =====================================================
+// REGISTER
+// =====================================================
+router.post(
+  "/register",
+  /*
+    #swagger.path = '/api/auth/register'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Đăng ký tài khoản'
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/RegisterDto"
+          }
+        }
+      }
+    }
+  */
+  authLimiter,
+  validate(RegisterSchema),
+  asyncHandler(authController.register),
+);
+
+// =====================================================
+// REGISTER PARTNER
+// =====================================================
+router.post(
+  "/register-partner",
+  /*
+    #swagger.path = '/api/auth/register-partner'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Đăng ký tài khoản đối tác'
+  */
+    authMiddleware,
+    authLimiter,
+    validate(RegisterPartnerSchema),
+  asyncHandler(authController.registerPartner),
 );
 
 // =====================================================

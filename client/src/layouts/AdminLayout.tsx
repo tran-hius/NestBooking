@@ -3,7 +3,7 @@ import { AdminSidebar } from "@/components/AdminSidebar";
 import { ReactNode } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,22 +18,22 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  const { clearAuth, user } = useAppStore();
+  const { clearAuth, user, isAuthenticated } = useAppStore();
 
   const handleLogout = () => {
     clearAuth();
     window.location.href = "/admin/login";
   };
 
-  // Protect route (Tạm thời tắt để dev giao diện)
-  // if (!isAuthenticated) {
-  //   return <Navigate to="/admin/login" replace />;
-  // }
+  // Protect route
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/login" replace />;
+  }
 
-  // Ensure only admins can access (Tạm thời tắt)
-  // if (user?.role !== "ADMIN") {
-  //   return <Navigate to="/" replace />;
-  // }
+  // Ensure only admins can access
+  if (user?.role !== "ADMIN") {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <SidebarProvider defaultOpen={true}>

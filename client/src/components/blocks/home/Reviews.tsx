@@ -32,20 +32,20 @@ export default function Reviews() {
     <section className="w-full py-16 bg-slate-50">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-slate-900 mb-4">Khách hàng nói gì về chúng tôi</h2>
-          <p className="text-slate-500 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-4">Khách hàng nói gì về chúng tôi</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Hàng ngàn đánh giá tích cực từ những người đã trải nghiệm dịch vụ.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {reviews.map((review) => (
-            <div key={review.id} className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-shadow relative">
-              <Quote className="absolute top-6 right-6 w-10 h-10 text-slate-100 rotate-180" />
+            <div key={review.id} className="bg-background p-8 rounded-3xl shadow-sm border border-border hover:shadow-lg transition-shadow relative">
+              <Quote className="absolute top-6 right-6 w-10 h-10 text-muted-foreground rotate-180" />
               
               <div className="flex gap-1 mb-6 text-primary">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-5 h-5 ${i < review.rating ? "fill-current" : "text-slate-200"}`} />
+                  <Star key={i} className={`w-5 h-5 ${i < review.rating ? "fill-current" : "text-muted"}`} />
                 ))}
               </div>
               

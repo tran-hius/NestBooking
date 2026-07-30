@@ -104,7 +104,7 @@ export default function MyBookings() {
               <Card key={booking.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
                 <div className="flex flex-col md:flex-row">
                   {/* Image */}
-                  <div className="w-full md:w-64 h-48 md:h-auto relative overflow-hidden bg-muted">
+                  <div className="w-full md:w-64 h-48 md:h-auto relative overflow-hidden bg-slate-50">
                     <img 
                       src={booking.hotel?.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"} 
                       alt={booking.hotel?.name || "Hotel"} 
@@ -130,7 +130,7 @@ export default function MyBookings() {
                         {booking.hotel?.address || booking.hotel?.city || "Vietnam"}
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4 bg-muted/50 rounded-lg p-3 border border-border">
+                      <div className="grid grid-cols-2 gap-4 bg-slate-50 rounded-lg p-3 border border-border">
                         <div>
                           <div className="text-xs text-muted-foreground uppercase font-semibold">Nhận phòng</div>
                           <div className="font-medium text-foreground mt-1">{formatDate(booking.checkInDate)}</div>

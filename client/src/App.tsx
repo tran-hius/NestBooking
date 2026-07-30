@@ -12,9 +12,12 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      authService.getMe().then((user) => {
-        if (user) {
-          setUser(user);
+      authService.getMe().then((res: any) => {
+        const userData = res.data?.data || res.data || res;
+        if (userData && Object.keys(userData).length > 0 && !userData.status) {
+          setUser(userData);
+        } else if (res.data) {
+          setUser(res.data);
         }
       }).catch(() => {
         clearAuth();

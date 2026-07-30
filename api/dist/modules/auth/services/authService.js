@@ -9,11 +9,17 @@ export class AuthService {
     refreshTokenRepository;
     userService;
     tokenService;
-    constructor(otpService, refreshTokenRepo, userService, tokenService) {
+    userProfileService;
+    constructor(otpService, refreshTokenRepo, userService, tokenService, userProfileService) {
         this.otpService = otpService;
         this.refreshTokenRepository = refreshTokenRepo;
         this.userService = userService;
         this.tokenService = tokenService;
+        this.userProfileService = userProfileService;
+    }
+    async checkEmailExists(email) {
+        const user = await this.userService.getUserByEmail(email);
+        return { exists: !!user, role: user?.role };
     }
     async getMe(userId) {
         const user = await this.userService.getUserById(userId);
@@ -30,36 +36,37 @@ export class AuthService {
         if (!email) {
             throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
         }
-        const executeTx = tx ? (fn) => fn(tx) : (fn) => prisma.$transaction(fn);
-        return executeTx(async (prismaTx) => {
-            let user = await this.userService.getUserByEmail(email);
-            if (!user) {
-                user = await this.userService.createUser({
-                    email: email,
-                    role: Role.USER,
-                }, prismaTx);
+        let user = await this.userService.getUserByEmail(email);
+        let isNewUser = false;
+        if (!user) {
+            user = await this.userService.createUser({
+                email: email,
+                role: Role.USER,
+            }, tx);
+            isNewUser = true;
+        }
+        else {
+            if (user.status === UserStatus.BANNED || user.status === UserStatus.REJECTED) {
+                throw new BadRequestError("Tài khoản của bạn đã bị khóa hoặc từ chối.");
             }
-            else {
-                if (user.status === UserStatus.BANNED || user.status === UserStatus.REJECTED) {
-                    throw new BadRequestError("Tài khoản của bạn đã bị khóa hoặc từ chối.");
-                }
-            }
-            if (user.status === UserStatus.PENDING) {
-                user = await this.userService.changeUserStatus(user.id, UserStatus.ACTIVE, prismaTx);
-            }
-            await this.userService.handleLoginSuccess(user.id, prismaTx);
-            const { accessToken, refreshToken, tokenHash } = this.tokenService.generateAuthTokens(user.id, user.role, user.status);
-            await this.refreshTokenRepository.create({
-                userId: user.id,
-                tokenHash: tokenHash,
-                ipAddress: device.ipAddress,
-                userAgent: device.userAgent,
-                deviceName: device.deviceName,
-                expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
-            }, prismaTx);
-            logger.info(`[AuthService] OTP Login successful for user: ${user.email}`);
-            return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
-        });
+        }
+        if (user.status === UserStatus.PENDING) {
+            user = await this.userService.changeUserStatus(user.id, UserStatus.ACTIVE, tx);
+        }
+        if (!isNewUser) {
+            await this.userService.handleLoginSuccess(user.id, tx);
+        }
+        const { accessToken, refreshToken, tokenHash } = this.tokenService.generateAuthTokens(user.id, user.role, user.status);
+        await this.refreshTokenRepository.create({
+            userId: user.id,
+            tokenHash: tokenHash,
+            ipAddress: device.ipAddress,
+            userAgent: device.userAgent,
+            deviceName: device.deviceName,
+            expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
+        }, tx);
+        logger.info(`[AuthService] OTP Login successful for user: ${user.email}`);
+        return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
     }
     async loginWithPassword(dto, device, tx) {
         const user = await this.userService.getUserWithPasswordByEmail(dto.email);
@@ -90,6 +97,71 @@ export class AuthService {
                 expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
             }, prismaTx);
             logger.info(`[AuthService] Password login successful for user: ${user.email}`);
+            return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
+        });
+    }
+    async register(dto, device, tx) {
+        const existingUser = await this.userService.getUserByEmail(dto.email);
+        if (existingUser) {
+            throw new BadRequestError("Email đã được đăng ký trên hệ thống.");
+        }
+        const passwordHash = await this.tokenService.hashPassword(dto.password);
+        let user = await this.userService.createUser({
+            email: dto.email,
+            passwordHash: passwordHash,
+            role: Role.USER,
+        }, tx);
+        const { accessToken, refreshToken, tokenHash } = this.tokenService.generateAuthTokens(user.id, user.role, user.status);
+        await this.refreshTokenRepository.create({
+            userId: user.id,
+            tokenHash,
+            ipAddress: device.ipAddress,
+            userAgent: device.userAgent,
+            deviceName: device.deviceName,
+            expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
+        }, tx);
+        logger.info(`[AuthService] Password registration successful for user: ${user.email}`);
+        return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
+    }
+    async registerPartner(userId, dto, device, tx) {
+        const existingUser = await this.userService.getUserById(userId);
+        if (!existingUser) {
+            throw new BadRequestError("Tài khoản chưa tồn tại.");
+        }
+        if (existingUser.role !== Role.USER) {
+            throw new BadRequestError("Tài khoản đã là đối tác hoặc quản trị viên.");
+        }
+        const executeTx = tx ? (fn) => fn(tx) : (fn) => prisma.$transaction(fn);
+        return executeTx(async (prismaTx) => {
+            // Upgrade existing user to AGENT
+            const user = await prismaTx.user.update({
+                where: { id: existingUser.id },
+                data: { role: Role.AGENT }
+            });
+            await prismaTx.userProfile.upsert({
+                where: { userId: user.id },
+                update: {
+                    fullName: dto.fullName,
+                    phoneNumber: dto.phoneNumber,
+                    address: dto.address,
+                },
+                create: {
+                    userId: user.id,
+                    fullName: dto.fullName,
+                    phoneNumber: dto.phoneNumber,
+                    address: dto.address,
+                }
+            });
+            const { accessToken, refreshToken, tokenHash } = this.tokenService.generateAuthTokens(user.id, user.role, user.status);
+            await this.refreshTokenRepository.create({
+                userId: user.id,
+                tokenHash,
+                ipAddress: device.ipAddress,
+                userAgent: device.userAgent,
+                deviceName: device.deviceName,
+                expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
+            }, prismaTx);
+            logger.info(`[AuthService] Partner registered/upgraded successfully: ${user.email}`);
             return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
         });
     }
@@ -150,7 +222,7 @@ export class AuthService {
             throw new NotFoundError("Tài khoản không tồn tại.");
         }
         const passwordHash = await this.tokenService.hashPassword(dto.newPassword);
-        await this.userService.updatePassword(user.id, passwordHash);
+        await this.userProfileService.updatePassword(user.id, passwordHash);
         await this.refreshTokenRepository.revokeAllForUser(user.id, "PASSWORD_RESET");
         logger.info(`[AuthService] Password reset successful for user: ${email}`);
     }
@@ -173,7 +245,7 @@ export class AuthService {
             }
         }
         const passwordHash = await this.tokenService.hashPassword(dto.newPassword);
-        await this.userService.updatePassword(user.id, passwordHash);
+        await this.userProfileService.updatePassword(user.id, passwordHash);
         logger.info(`[AuthService] Password changed successfully for user ID: ${user.id}`);
     }
 }

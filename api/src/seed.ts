@@ -19,12 +19,6 @@ async function main() {
     data: {
       email: "agent_" + Date.now() + "@example.com",
       role: "AGENT",
-      agentProfile: {
-        create: {
-          businessName: "Test Hotel Business",
-          approvalStatus: "ACTIVE"
-        }
-      }
     }
   });
 

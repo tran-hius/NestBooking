@@ -2,10 +2,9 @@ import { axiosClient } from "@/api/config/axiosClient";
 import { ApiResponse } from "@/api/types/apiResponse";
 
 export interface SearchHotelsParams {
-  city?: string;
   location?: string;
-  checkIn?: string;
-  checkOut?: string;
+  checkInDate?: string;
+  checkOutDate?: string;
   adults?: number;
   children?: number;
   rooms?: number;

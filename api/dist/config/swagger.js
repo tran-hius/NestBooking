@@ -187,6 +187,65 @@ const services = [
                 }
             }
         }
+    },
+    {
+        name: "Review Service",
+        description: "Tài liệu API của Module Review",
+        basePath: "/api/reviews",
+        outputFile: "./src/modules/review/docs/swagger-review.json",
+        routerFiles: ["./src/modules/review/routes/reviewRouter.ts"],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                },
+            },
+            schemas: {
+                CreateReviewDto: {
+                    $hotelId: "uuid-1234",
+                    $rating: 5,
+                    comment: "Khách sạn tuyệt vời"
+                },
+                UpdateReviewDto: {
+                    rating: 4,
+                    comment: "Khách sạn khá tốt"
+                }
+            }
+        }
+    },
+    {
+        name: "Statistics Service",
+        description: "Tài liệu API của Module Statistics",
+        basePath: "/api/statistics",
+        outputFile: "./src/modules/statistics/docs/swagger-statistics.json",
+        routerFiles: ["./src/modules/statistics/routes/statisticsRouter.ts"],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                },
+            }
+        }
+    },
+    {
+        name: "Notification Service",
+        description: "Tài liệu API của Module Notification",
+        basePath: "/api/notifications",
+        outputFile: "./src/modules/notification/docs/swagger-notification.json",
+        routerFiles: ["./src/modules/notification/routes/notificationRouter.ts"],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                },
+            }
+        }
     }
 ];
 const autogen = swaggerAutogen({ openapi: "3.0.0", autoHeaders: false });

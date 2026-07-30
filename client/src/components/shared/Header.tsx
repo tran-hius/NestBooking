@@ -60,8 +60,8 @@ export default function Header() {
           </Link>
 
           <Link to="/partner/register" className={`hidden md:flex items-center gap-2 text-base font-bold transition-colors ${linkClass}`}>
-            <Home className="h-5 w-5" />
-            <span>Đăng ký đối tác</span>
+  
+            <span>Đăng ký bất động sản của bạn</span>
           </Link>
 
           <div className="flex items-center gap-4">

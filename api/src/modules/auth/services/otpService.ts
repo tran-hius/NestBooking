@@ -1,4 +1,4 @@
-import { IOtpService } from "@/modules/auth/interfaces/IOtpService";
+import { IOtpService } from "@/modules/auth/interfaces/iOtpService";
 import logger from "@/config/logger";
 import { env } from "@/config/env";
 const OTP_TTL = Number(env.OTP_TTL);
@@ -7,7 +7,7 @@ import { REDIS_KEYS, redisClient } from "@/infrastructure/redis";
 import crypto from "crypto";
 import { randomUUID } from "crypto";
 import { OtpTokenResponse } from "../dtos/authDto";
-import { EmailService } from "@/modules/auth/services/emailService";
+import { EmailService } from "@/modules/email/services/emailService";
 import { Transporter } from "@/config/transporter";
 
 if (Number.isNaN(OTP_TTL)) {

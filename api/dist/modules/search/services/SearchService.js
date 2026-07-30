@@ -1,11 +1,13 @@
-import { SortByOption, } from "../dtos/SearchDTO.js";
+import { SortByOption, } from "../dtos/searchDTO.js";
 import { HotelStatus, BookingStatus } from "../../../../generated/prisma/index.js";
 import { BadRequestError } from "../../../utils/errors/errorCustomize.js";
-import { SearchMapper } from "../mapper/SearchMapper.js";
+import { SearchMapper } from "../mapper/searchMapper.js";
 export class SearchService {
     searchRepository;
-    constructor(searchRepository) {
+    bookingAvailabilityService;
+    constructor(searchRepository, bookingAvailabilityService) {
         this.searchRepository = searchRepository;
+        this.bookingAvailabilityService = bookingAvailabilityService;
     }
     async searchHotels(dto) {
         const { location, checkInDate, checkOutDate, adults = 1, children = 0, rooms = 1, minPrice, maxPrice, propertyType, amenities, sortBy, page = 1, limit = 10, } = dto;
@@ -17,7 +19,6 @@ export class SearchService {
                 throw new BadRequestError("Ngày nhận phòng không được trong quá khứ.");
             }
         }
-        // 1. Dựng Where cho Khách Sạn
         const hotelWhere = {
             status: HotelStatus.ACTIVE,
             deletedAt: null,
@@ -37,7 +38,6 @@ export class SearchService {
                 hotelWhere.amenities = { hasSome: amenitiesArray };
             }
         }
-        // 2. Dựng Where cho Bookings trùng ngày
         const bookingOverlapCondition = checkInDate && checkOutDate
             ? {
                 status: { notIn: [BookingStatus.CANCELLED] },
@@ -57,12 +57,7 @@ export class SearchService {
                     continue;
                 if (maxPrice && price > maxPrice)
                     continue;
-                let availableQuantity = roomType.rooms.length;
-                if (checkInDate && checkOutDate) {
-                    const bookings = roomType.bookings || [];
-                    const bookedQuantity = bookings.reduce((sum, b) => sum + b.quantity, 0);
-                    availableQuantity = availableQuantity - bookedQuantity;
-                }
+                const availableQuantity = this.bookingAvailabilityService.calculateAvailableRooms(roomType.rooms.length, roomType.bookings || [], checkInDate ? new Date(checkInDate) : undefined, checkOutDate ? new Date(checkOutDate) : undefined);
                 if (availableQuantity >= rooms) {
                     availableRoomTypes.push({
                         id: roomType.id,

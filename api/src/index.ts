@@ -3,10 +3,14 @@ import app from "@/app";
 import logger from "@/config/logger";
 import { redisConnection } from "@/infrastructure/redis/RedisConnection";
 import { prisma } from "@/config/prisma";
+import { SchedulerService } from "@/modules/scheduler/services/schedulerService";
 
 const bootstrap = async () => {
   try {
     await prisma.$connect();
+
+    const schedulerService = new SchedulerService();
+    schedulerService.init();
 
     const server = app.listen(env.PORT || 3000, () => {
       logger.info(
