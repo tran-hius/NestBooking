@@ -1,8 +1,8 @@
-import { RoomMapper } from "../mapper/roomMapper";
-import { ForbiddenError, NotFoundError, BadRequestError, } from "@/utils/errors/errorCustomize";
-import { redisClient } from "@/infrastructure/redis/RedisConnection";
-import { REDIS_KEYS } from "@/infrastructure/redis/redisKeys";
-import { REDIS_TTL } from "@/infrastructure/redis/redisTTL";
+import { RoomMapper } from "../mapper/roomMapper.js";
+import { ForbiddenError, NotFoundError, BadRequestError, } from "../../../utils/errors/errorCustomize.js";
+import { redisClient } from "../../../infrastructure/redis/RedisConnection.js";
+import { REDIS_KEYS } from "../../../infrastructure/redis/redisKeys.js";
+import { REDIS_TTL } from "../../../infrastructure/redis/redisTTL.js";
 export class RoomService {
     roomRepo;
     roomTypeRepo;
@@ -78,19 +78,24 @@ export class RoomService {
         await this.roomRepo.delete(id);
         await this.invalidateCache(room.hotelId, room.roomTypeId, id);
     }
-    async getRoomById(id) {
+    async getRoomById(id, ownerId) {
         const cacheKey = REDIS_KEYS.ROOM(id);
         const cachedData = await redisClient.get(cacheKey);
         if (cachedData)
             return JSON.parse(cachedData);
-        const room = await this.roomRepo.findById(id);
+        const room = ownerId
+            ? await this.verifyRoomOwnership(id, ownerId)
+            : await this.roomRepo.findById(id);
         if (!room)
             throw new NotFoundError("Không tìm thấy phòng.");
         const response = RoomMapper.toResponseDto(room);
         await redisClient.setex(cacheKey, REDIS_TTL.ROOM, JSON.stringify(response));
         return response;
     }
-    async getRoomsByHotel(hotelId) {
+    async getRoomsByHotel(hotelId, ownerId) {
+        if (ownerId) {
+            await this.verifyHotelOwnership(hotelId, ownerId);
+        }
         const cacheKey = REDIS_KEYS.ROOMS_BY_HOTEL(hotelId);
         const cachedData = await redisClient.get(cacheKey);
         if (cachedData)
@@ -100,7 +105,13 @@ export class RoomService {
         await redisClient.setex(cacheKey, REDIS_TTL.ROOM, JSON.stringify(response));
         return response;
     }
-    async getRoomsByRoomType(roomTypeId) {
+    async getRoomsByRoomType(roomTypeId, ownerId) {
+        if (ownerId) {
+            const roomType = await this.roomTypeRepo.findById(roomTypeId);
+            if (!roomType)
+                throw new NotFoundError("Không tìm thấy loại phòng.");
+            await this.verifyHotelOwnership(roomType.hotelId, ownerId);
+        }
         const cacheKey = REDIS_KEYS.ROOMS_BY_ROOM_TYPE(roomTypeId);
         const cachedData = await redisClient.get(cacheKey);
         if (cachedData)
@@ -114,6 +125,7 @@ export class RoomService {
         return this.roomRepo.count({
             roomTypeId,
             isActive: true,
+            status: "AVAILABLE",
         }, tx);
     }
 }

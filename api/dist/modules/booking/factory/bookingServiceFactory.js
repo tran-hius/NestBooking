@@ -1,22 +1,22 @@
-import { prisma } from "@/config/prisma";
-import { Transporter } from "@/config/transporter";
-import { BookingReadRepository } from "../repositories/bookingReadRepository";
-import { BookingWriteRepository } from "../repositories/bookingWriteRepository";
-import { HotelService } from "../../hotel/services/hotelService";
-import { RoomTypeService } from "../../hotel/services/roomTypeService";
-import { RoomService } from "../../hotel/services/roomService";
-import { RoomTypeRepository } from "../../hotel/repositories/roomTypeRepository";
-import { RoomRepository } from "../../hotel/repositories/roomRepository";
-import { HotelRepository } from "../../hotel/repositories/hotelRepository";
-import { BookingService } from "../services/bookingService";
-import { BookingAvailabilityService } from "../services/bookingCreation/bookingAvailability";
-import { BookingPayment } from "../services/bookingCreation/bookingPayment";
-import { BookingPostProcess } from "../services/bookingCreation/bookingPostProcess";
-import { BookingCreationService } from "../services/bookingCreation/bookingCreationService";
-import { BookingLockService } from "../services/bookingCreation/bookingLockService";
-import { VnpayService } from "../../payment/services/vnpayService";
-import { EmailService } from "../../email/services/emailService";
-import { UploadService } from "../../upload/services/uploadService";
+import { prisma } from "../../../config/prisma.js";
+import { Transporter } from "../../../config/transporter.js";
+import { BookingReadRepository } from "../repositories/bookingReadRepository.js";
+import { BookingWriteRepository } from "../repositories/bookingWriteRepository.js";
+import { HotelService } from "../../hotel/services/hotelService.js";
+import { RoomTypeService } from "../../hotel/services/roomTypeService.js";
+import { RoomService } from "../../hotel/services/roomService.js";
+import { RoomTypeRepository } from "../../hotel/repositories/roomTypeRepository.js";
+import { RoomRepository } from "../../hotel/repositories/roomRepository.js";
+import { HotelRepository } from "../../hotel/repositories/hotelRepository.js";
+import { BookingService } from "../services/bookingService.js";
+import { BookingAvailabilityService } from "../services/bookingCreation/bookingAvailability.js";
+import { BookingPayment } from "../services/bookingCreation/bookingPayment.js";
+import { BookingPostProcess } from "../services/bookingCreation/bookingPostProcess.js";
+import { BookingCreationService } from "../services/bookingCreation/bookingCreationService.js";
+import { BookingLockService } from "../services/bookingCreation/bookingLockService.js";
+import { VnpayService } from "../../payment/services/vnpayService.js";
+import { EmailService } from "../../email/services/emailService.js";
+import { UploadService } from "../../upload/services/uploadService.js";
 export class BookingServiceFactory {
     static createBookingAvailabilityService() {
         const readRepo = new BookingReadRepository(prisma);
@@ -45,6 +45,6 @@ export class BookingServiceFactory {
         const bookingPostProcess = new BookingPostProcess(emailService);
         const bookingLockService = new BookingLockService();
         const bookingCreationService = new BookingCreationService(bookingAvailability, writeRepo, bookingPayment, bookingPostProcess, bookingLockService);
-        return new BookingService(readRepo, writeRepo, hotelService, bookingCreationService);
+        return new BookingService(readRepo, writeRepo, hotelService, bookingCreationService, bookingPostProcess);
     }
 }

@@ -63,7 +63,8 @@ export class BookingServiceFactory {
       readRepo,
       writeRepo,
       hotelService,
-      bookingCreationService
+      bookingCreationService,
+      bookingPostProcess,
     );
   }
 }

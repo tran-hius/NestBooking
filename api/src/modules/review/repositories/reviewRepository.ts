@@ -13,12 +13,9 @@ export class ReviewRepository implements IReviewRepository {
   }
 
   async findByHotel(hotelId: string): Promise<Review[]> {
-    return this.prisma.review.findMany({ 
+    return this.prisma.review.findMany({
       where: { hotelId },
-      include: {
-        user: { select: { id: true, firstName: true, lastName: true, avatarUrl: true } }
-      },
-      orderBy: { createdAt: "desc" }
+      orderBy: { createdAt: "desc" },
     });
   }
 

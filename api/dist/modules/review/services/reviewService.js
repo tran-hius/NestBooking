@@ -1,5 +1,5 @@
-import { NotFoundError, ForbiddenError } from "@/utils/errors";
-import { ReviewMapper } from "../mapper/reviewMapper";
+import { NotFoundError, ForbiddenError } from "../../../utils/errors/index.js";
+import { ReviewMapper } from "../mapper/reviewMapper.js";
 export class ReviewService {
     reviewRepository;
     constructor(reviewRepository) {

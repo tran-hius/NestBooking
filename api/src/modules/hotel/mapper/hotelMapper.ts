@@ -1,4 +1,4 @@
-import { HotelResponseDto } from "../dtos/hotelDTO";
+import { HotelResponseDto } from "../dtos/hotelDto";
 import { RoomTypeMapper } from "./roomTypeMapper";
 
 import { Prisma, Hotel, HotelImage, RoomType } from "#generated/prisma";

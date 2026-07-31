@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { asyncHandler } from "@/utils/asyncHandler";
-import { PaymentController } from "../controllers/paymentController";
-import { VnpayService } from "../services/vnpayService";
-import { PaymentCallbackService } from "../services/paymentCallbackService";
-import { BookingServiceFactory } from "../../booking/factory/bookingServiceFactory";
+import { asyncHandler } from "../../../utils/asyncHandler.js";
+import { PaymentController } from "../controllers/paymentController.js";
+import { VnpayService } from "../services/vnpayService.js";
+import { PaymentCallbackService } from "../services/paymentCallbackService.js";
+import { BookingServiceFactory } from "../../booking/factory/bookingServiceFactory.js";
 const router = Router();
 const vnpayService = new VnpayService();
 const bookingService = BookingServiceFactory.create();
@@ -16,4 +16,5 @@ router.get("/vnpay_ipn",
   #swagger.summary = 'VNPay IPN Webhook'
 */
 asyncHandler(paymentController.vnpayIpn));
+router.get("/vnpay_return", asyncHandler(paymentController.vnpayReturn));
 export default router;

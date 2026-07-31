@@ -14,6 +14,7 @@ export class BookingMapper {
             paymentMethod: booking.paymentMethod,
             paymentStatus: booking.paymentStatus,
             paymentDate: booking.paymentDate,
+            transactionId: booking.transactionId,
             guestName: booking.guestName,
             guestPhone: booking.guestPhone,
             guestEmail: booking.guestEmail,
@@ -21,7 +22,13 @@ export class BookingMapper {
             createdAt: booking.createdAt,
             updatedAt: booking.updatedAt,
             hotel: booking.hotel
-                ? { id: booking.hotel.id, name: booking.hotel.name }
+                ? {
+                    id: booking.hotel.id,
+                    name: booking.hotel.name,
+                    address: booking.hotel.address,
+                    city: booking.hotel.city,
+                    images: booking.hotel.images,
+                }
                 : undefined,
             roomType: booking.roomType
                 ? { id: booking.roomType.id, name: booking.roomType.name }

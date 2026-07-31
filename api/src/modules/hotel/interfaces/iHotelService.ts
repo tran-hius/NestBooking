@@ -3,7 +3,7 @@ import {
   UpdateHotelDto,
   HotelResponseDto,
   AddHotelImagesDto,
-} from "../dtos/hotelDTO";
+} from "../dtos/hotelDto";
 import { PaginatedResponse } from "../dtos/paginationDto";
 
 export interface IHotelService {
@@ -19,6 +19,7 @@ export interface IHotelService {
     ownerId: string,
     data: UpdateHotelDto,
   ): Promise<HotelResponseDto>;
+  updateHotelStatus(id: string, status: string): Promise<HotelResponseDto>;
   softDeleteHotel(id: string, ownerId: string): Promise<void>;
   restoreHotel(id: string, ownerId: string): Promise<HotelResponseDto>;
   getAllHotels(

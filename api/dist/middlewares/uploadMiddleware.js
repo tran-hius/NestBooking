@@ -1,5 +1,5 @@
 import multer from "multer";
-import { BadRequestError } from "@/utils/errors/errorCustomize";
+import { BadRequestError } from "../utils/errors/errorCustomize.js";
 const storage = multer.memoryStorage();
 const fileFilter = (req, file, cb) => {
     if (file.mimetype.startsWith("image/")) {

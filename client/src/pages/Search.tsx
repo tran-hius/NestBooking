@@ -1,36 +1,18 @@
 import SearchHeader from "@/components/blocks/search/SearchHeader";
-import SidebarFilters from "@/components/blocks/search/SidebarFilters";
 import SearchResults from "@/components/blocks/search/SearchResults";
+import { Link, useSearchParams } from "react-router-dom";
+import { ChevronRight, Home, MapPin } from "lucide-react";
 
 export default function Search() {
+  const [searchParams] = useSearchParams();
+  const location = searchParams.get("location") || "Việt Nam";
+
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="flex min-h-screen flex-col bg-[#f5f8fc]">
       <SearchHeader />
-      
-      <div className="container mx-auto px-4 md:px-8 py-8 flex-1">
-        
-        {/* Breadcrumb */}
-        <div className="text-sm text-muted-foreground mb-6 flex items-center gap-2">
-          <a href="/" className="hover:text-primary transition-colors">Trang chủ</a>
-          <span>&gt;</span>
-          <a href="#" className="hover:text-primary transition-colors">Việt Nam</a>
-          <span>&gt;</span>
-          <span className="text-foreground font-medium">Kết quả tìm kiếm cho Hà Nội</span>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
-          
-          {/* Left Sidebar */}
-          <div className="w-full lg:w-1/4 shrink-0">
-            <SidebarFilters />
-          </div>
-
-          {/* Right Content */}
-          <div className="w-full lg:w-3/4">
-            <SearchResults />
-          </div>
-
-        </div>
+      <div className="container flex-1 py-7 md:py-9">
+        <nav className="mb-6 flex flex-wrap items-center gap-1.5 text-xs font-medium text-slate-500" aria-label="Breadcrumb"><Link to="/" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 hover:bg-white hover:text-primary"><Home className="h-3.5 w-3.5" />Trang chủ</Link><ChevronRight className="h-3.5 w-3.5 text-slate-300" /><span className="inline-flex items-center gap-1.5 rounded-lg bg-white px-2 py-1 text-slate-700 shadow-sm"><MapPin className="h-3.5 w-3.5 text-primary" />{location}</span></nav>
+        <SearchResults />
       </div>
     </div>
   );

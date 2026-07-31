@@ -1,6 +1,6 @@
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import logger from "@/config/logger";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import logger from "../../../config/logger.js";
 export class RoomTypeController {
     roomTypeService;
     constructor(roomTypeService) {
@@ -33,7 +33,8 @@ export class RoomTypeController {
     getRoomTypesByHotel = async (req, res) => {
         logger.info("[RoomTypeController] Get all room types for agent");
         const hotelId = req.params.hotelId;
-        const roomTypes = await this.roomTypeService.getRoomTypesByHotel(hotelId);
+        const ownerId = req.user?.userId;
+        const roomTypes = await this.roomTypeService.getRoomTypesByHotel(hotelId, ownerId);
         successResponse(res, HttpStatus.OK, "Lấy danh sách loại phòng thành công.", roomTypes);
     };
     getPublicRoomTypesByHotel = async (req, res) => {

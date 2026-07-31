@@ -1,4 +1,4 @@
-import { PrismaClient, PropertyType, BedType } from "../generated/prisma";
+import { PrismaClient, PropertyType, BedType } from "../generated/prisma/index.js";
 const prisma = new PrismaClient();
 async function main() {
     const user = await prisma.user.create({

@@ -12,6 +12,9 @@ export class NotificationRepository {
             orderBy: { createdAt: "desc" }
         });
     }
+    async findById(id) {
+        return this.prisma.notification.findUnique({ where: { id } });
+    }
     async markAsRead(id) {
         return this.prisma.notification.update({
             where: { id },

@@ -3,7 +3,7 @@ import { IHotelService } from "../interfaces/iHotelService";
 import { successResponse } from "@/utils/response";
 import { HttpStatus } from "@/constants/httpStatus";
 import logger from "@/config/logger";
-import { AddHotelImagesDto } from "../dtos/hotelDTO";
+import { AddHotelImagesDto } from "../dtos/hotelDto";
 import { IUploadService } from "@/modules/upload/interfaces/iUploadService";
 import { UnauthorizedError, BadRequestError } from "@/utils/errors/errorCustomize";
 
@@ -54,12 +54,12 @@ export class HotelController {
     logger.info("[HotelController] Get hotel by id", {
       hotelId: (req.params.id as string),
     });
-    // Lấy ownerId từ user đang đăng nhập (Nếu là khách Public thì req.user có thể undefined)
-    const ownerId = req.user?.userId;
     const hotel = await this.hotelService.getHotelById(
       (req.params.id as string) as string,
-      ownerId,
     );
+    if (!hotel || hotel.status !== "ACTIVE") {
+      throw new BadRequestError("Chỗ nghỉ chưa được mở công khai.");
+    }
     successResponse(
       res,
       HttpStatus.OK,
@@ -84,6 +84,17 @@ export class HotelController {
       "Cập nhật khách sạn thành công.",
       hotel,
     );
+  };
+
+  getManagedHotelById = async (req: Request, res: Response): Promise<void> => {
+    const ownerId = req.user?.role === "ADMIN" ? undefined : req.user?.userId;
+    const hotel = await this.hotelService.getHotelById(req.params.id as string, ownerId);
+    successResponse(res, HttpStatus.OK, "Lấy thông tin quản lý khách sạn thành công.", hotel);
+  };
+
+  updateHotelStatus = async (req: Request, res: Response): Promise<void> => {
+    const hotel = await this.hotelService.updateHotelStatus(req.params.id as string, req.body.status);
+    successResponse(res, HttpStatus.OK, "Cập nhật trạng thái khách sạn thành công.", hotel);
   };
 
   softDeleteHotel = async (req: Request, res: Response): Promise<void> => {
@@ -120,10 +131,10 @@ export class HotelController {
     const page = parseInt(req.query.page as string, 10) || 1;
     const limit = parseInt(req.query.limit as string, 10) || 10;
 
-    const { page: _p, limit: _l, ...filterQuery } = req.query;
+    const { page: _p, limit: _l, status: _status, ...filterQuery } = req.query;
 
     const result = await this.hotelService.getAllHotels(
-      filterQuery,
+      { ...filterQuery, status: "ACTIVE" },
       page,
       limit,
     );
@@ -134,6 +145,14 @@ export class HotelController {
       "Lấy danh sách khách sạn thành công.",
       result,
     );
+  };
+
+  getAdminHotels = async (req: Request, res: Response): Promise<void> => {
+    const page = parseInt(req.query.page as string, 10) || 1;
+    const limit = parseInt(req.query.limit as string, 10) || 100;
+    const { page: _page, limit: _limit, ...filterQuery } = req.query;
+    const result = await this.hotelService.getAllHotels(filterQuery, page, limit);
+    successResponse(res, HttpStatus.OK, "Lấy danh sách khách sạn quản trị thành công.", result);
   };
 
   addImages = async (req: Request, res: Response, next: NextFunction): Promise<void> => {

@@ -1,4 +1,4 @@
-import cloudinary from "@/config/cloudinary";
+import cloudinary from "../../../config/cloudinary.js";
 export class UploadService {
     async uploadImage(fileBuffer, folderName, publicId) {
         return new Promise((resolve, reject) => {

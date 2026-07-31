@@ -1,7 +1,7 @@
-import logger from "@/config/logger";
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import { BadRequestError } from "@/utils/errors";
+import logger from "../../../config/logger.js";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import { BadRequestError } from "../../../utils/errors/index.js";
 export class UserController {
     userService;
     userProfileService;
@@ -48,6 +48,9 @@ export class UserController {
      */
     updateUserAdmin = async (req, res) => {
         logger.info("[UserController] Admin update user", { userId: req.params.id });
+        if (req.user?.userId === req.params.id && (req.body.role && req.body.role !== "ADMIN" || req.body.status && req.body.status !== "ACTIVE")) {
+            throw new BadRequestError("Bạn không thể tự hạ quyền hoặc vô hiệu hóa tài khoản Admin đang đăng nhập.");
+        }
         const user = await this.userService.updateUserAdmin(req.params.id, req.body);
         successResponse(res, HttpStatus.OK, "Cập nhật người dùng thành công.", user);
     };
@@ -56,6 +59,9 @@ export class UserController {
      */
     changeUserStatus = async (req, res) => {
         logger.info("[UserController] Change user status", { userId: req.params.id, status: req.body.status });
+        if (req.user?.userId === req.params.id && req.body.status !== "ACTIVE") {
+            throw new BadRequestError("Bạn không thể tự vô hiệu hóa tài khoản Admin đang đăng nhập.");
+        }
         const user = await this.userService.changeUserStatus(req.params.id, req.body.status);
         successResponse(res, HttpStatus.OK, "Cập nhật trạng thái tài khoản thành công.", user);
     };

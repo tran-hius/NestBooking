@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { RoomStatus } from "../../../../generated/prisma";
+import { RoomStatus } from "../../../../generated/prisma/index.js";
 export const CreateRoomSchema = z.object({
     body: z.object({
         roomTypeId: z.string().uuid("ID loại phòng không hợp lệ"),

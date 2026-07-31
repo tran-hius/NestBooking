@@ -1,6 +1,6 @@
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import logger from "@/config/logger";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import logger from "../../../config/logger.js";
 export class RoomController {
     roomService;
     constructor(roomService) {
@@ -27,19 +27,19 @@ export class RoomController {
     };
     getRoomById = async (req, res) => {
         logger.info("[RoomController] Get room by id", { id: req.params.id });
-        const room = await this.roomService.getRoomById(req.params.id);
+        const room = await this.roomService.getRoomById(req.params.id, req.user?.userId);
         successResponse(res, HttpStatus.OK, "Lấy thông tin phòng thành công.", room);
     };
     getRoomsByHotel = async (req, res) => {
         logger.info("[RoomController] Get rooms by hotel");
         const hotelId = req.params.hotelId;
-        const rooms = await this.roomService.getRoomsByHotel(hotelId);
+        const rooms = await this.roomService.getRoomsByHotel(hotelId, req.user?.userId);
         successResponse(res, HttpStatus.OK, "Lấy danh sách phòng thành công.", rooms);
     };
     getRoomsByRoomType = async (req, res) => {
         logger.info("[RoomController] Get rooms by roomType");
         const roomTypeId = req.params.roomTypeId;
-        const rooms = await this.roomService.getRoomsByRoomType(roomTypeId);
+        const rooms = await this.roomService.getRoomsByRoomType(roomTypeId, req.user?.userId);
         successResponse(res, HttpStatus.OK, "Lấy danh sách phòng thành công.", rooms);
     };
 }

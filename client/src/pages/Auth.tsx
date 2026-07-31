@@ -2,7 +2,7 @@
 import { authService } from "@/api/services/authService";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useAppStore } from "@/stores/useAppStore";
@@ -15,7 +15,9 @@ import {
 type AuthMode = "login" | "register" | "forgot_email" | "forgot_otp" | "forgot_reset";
 
 export default function Auth() {
-  const [mode, setMode] = useState<AuthMode>("login");
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const [mode, setMode] = useState<AuthMode>(location.pathname === "/register" ? "register" : "login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -25,6 +27,7 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setToken, setUser } = useAppStore();
+  const redirect = searchParams.get("redirect") || "/";
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -47,7 +50,7 @@ export default function Auth() {
       if (user) setUser(user);
 
       toast.success("Đăng nhập thành công!");
-      navigate("/");
+      navigate(redirect, { replace: true });
     } catch (error: any) {
       console.error("Lỗi đăng nhập", error);
       toast.error(error.response?.data?.message || "Email hoặc mật khẩu không chính xác");
@@ -81,7 +84,7 @@ export default function Auth() {
       if (user) setUser(user);
 
       toast.success("Đăng ký thành công!");
-      navigate("/");
+      navigate(redirect, { replace: true });
     } catch (error: any) {
       console.error("Lỗi đăng ký", error);
       toast.error(error.response?.data?.message || "Đăng ký thất bại");

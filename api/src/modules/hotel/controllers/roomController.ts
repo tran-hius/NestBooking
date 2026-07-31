@@ -38,21 +38,21 @@ export class RoomController {
 
   getRoomById = async (req: Request, res: Response): Promise<void> => {
     logger.info("[RoomController] Get room by id", { id: (req.params.id as string) });
-    const room = await this.roomService.getRoomById((req.params.id as string));
+    const room = await this.roomService.getRoomById((req.params.id as string), req.user?.userId as string);
     successResponse(res, HttpStatus.OK, "Lấy thông tin phòng thành công.", room);
   };
 
   getRoomsByHotel = async (req: Request, res: Response): Promise<void> => {
     logger.info("[RoomController] Get rooms by hotel");
     const hotelId = req.params.hotelId as string;
-    const rooms = await this.roomService.getRoomsByHotel(hotelId);
+    const rooms = await this.roomService.getRoomsByHotel(hotelId, req.user?.userId as string);
     successResponse(res, HttpStatus.OK, "Lấy danh sách phòng thành công.", rooms);
   };
 
   getRoomsByRoomType = async (req: Request, res: Response): Promise<void> => {
     logger.info("[RoomController] Get rooms by roomType");
     const roomTypeId = req.params.roomTypeId as string;
-    const rooms = await this.roomService.getRoomsByRoomType(roomTypeId);
+    const rooms = await this.roomService.getRoomsByRoomType(roomTypeId, req.user?.userId as string);
     successResponse(res, HttpStatus.OK, "Lấy danh sách phòng thành công.", rooms);
   };
 }

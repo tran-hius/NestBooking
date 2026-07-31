@@ -18,7 +18,7 @@ export interface IRoomTypeService {
   ): Promise<RoomTypeResponseDto>;
   deleteRoomType(ownerId: string, id: string): Promise<void>;
   getRoomTypeById(id: string, tx?: any): Promise<RoomTypeResponseDto | null>;
-  getRoomTypesByHotel(hotelId: string): Promise<RoomTypeResponseDto[]>;
+  getRoomTypesByHotel(hotelId: string, ownerId?: string): Promise<RoomTypeResponseDto[]>;
   getPublicRoomTypesByHotel(hotelId: string): Promise<RoomTypeResponseDto[]>;
 
   addRoomTypeImages(

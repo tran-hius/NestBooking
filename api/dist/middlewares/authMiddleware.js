@@ -1,8 +1,8 @@
-import { NotFoundError, UnauthorizedError } from "@/utils/errors/errorCustomize";
+import { NotFoundError, UnauthorizedError } from "../utils/errors/errorCustomize.js";
 import jwt from "jsonwebtoken";
-import { Role } from "../../generated/prisma";
-import { env } from "@/config/env";
-import logger from "@/config/logger";
+import { Role } from "../../generated/prisma/index.js";
+import { env } from "../config/env.js";
+import logger from "../config/logger.js";
 const JWT_SECRET = env.JWT_SECRET;
 if (!JWT_SECRET) {
     throw new NotFoundError("Invalid jwt secret");

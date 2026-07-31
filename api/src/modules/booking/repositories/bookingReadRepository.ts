@@ -39,6 +39,21 @@ export class BookingReadRepository implements IBookingReadRepository {
       skip,
       take,
       orderBy: { createdAt: "desc" },
+      include: {
+        hotel: {
+          select: {
+            id: true,
+            name: true,
+            address: true,
+            city: true,
+            images: {
+              select: { imageUrl: true },
+              take: 1,
+            },
+          },
+        },
+        roomType: { select: { id: true, name: true } },
+      },
     });
   }
 

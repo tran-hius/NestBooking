@@ -1,8 +1,9 @@
-import { BookingMapper } from "../../mapper/bookingMapper";
+import { NotificationType } from "#generated/prisma";
+import { BookingMapper } from "../../mapper/bookingMapper.js";
 import crypto from "crypto";
-import { prisma } from "@/config/prisma";
-import { BadRequestError } from "@/utils/errors";
-import logger from "@/config/logger";
+import { prisma } from "../../../../config/prisma.js";
+import { BadRequestError } from "../../../../utils/errors/index.js";
+import logger from "../../../../config/logger.js";
 export class BookingCreationService {
     availabilityService;
     bookingWriteRepo;
@@ -53,13 +54,16 @@ export class BookingCreationService {
     }
     async executeBookingTransaction(userId, data, checkIn, checkOut, nights, tx) {
         const roomType = await this.availabilityService.validateAvailability(data.roomTypeId, data.quantity, checkIn, checkOut, tx);
+        if (roomType.hotelId !== data.hotelId) {
+            throw new BadRequestError("Loại phòng không thuộc khách sạn đã chọn.");
+        }
         const bookingCode = `BKG-${Date.now().toString(36).toUpperCase()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
         const totalAmount = Number(roomType.price) * nights * data.quantity;
         if (totalAmount <= 0) {
             throw new BadRequestError("Tổng tiền đặt phòng không hợp lệ.");
         }
         const paymentDetails = this.bookingPayment.determineStatus(data.paymentMethod);
-        return this.bookingWriteRepo.create({
+        const booking = await this.bookingWriteRepo.create({
             bookingCode,
             userId,
             hotelId: data.hotelId,
@@ -77,6 +81,28 @@ export class BookingCreationService {
             guestEmail: data.guestEmail,
             specialRequests: data.specialRequests,
         }, tx);
+        const hotel = await tx.hotel.findUnique({
+            where: { id: data.hotelId },
+            select: { name: true, ownerId: true },
+        });
+        if (!hotel) {
+            throw new BadRequestError("Khách sạn không tồn tại.");
+        }
+        const dateFormatter = new Intl.DateTimeFormat("vi-VN", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            timeZone: "Asia/Ho_Chi_Minh",
+        });
+        await tx.notification.create({
+            data: {
+                userId: hotel.ownerId,
+                title: "Có đặt phòng mới",
+                message: `${data.guestName} vừa đặt ${data.quantity} phòng ${roomType.name} tại ${hotel.name}, từ ${dateFormatter.format(checkIn)} đến ${dateFormatter.format(checkOut)}. Mã đặt phòng: ${bookingCode}.`,
+                type: NotificationType.BOOKING_SUCCESS,
+            },
+        });
+        return booking;
     }
     generatePaymentUrlSafe(booking, ipAddr) {
         try {

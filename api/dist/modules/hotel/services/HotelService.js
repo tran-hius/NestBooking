@@ -1,8 +1,8 @@
 import { HotelStatus } from "#generated/prisma";
-import { HotelMapper } from "../mapper/hotelMapper";
-import { ForbiddenError, NotFoundError, } from "@/utils/errors/errorCustomize";
-import logger from "@/config/logger";
-import { REDIS_KEYS, redisClient, REDIS_TTL } from "@/infrastructure/redis";
+import { HotelMapper } from "../mapper/hotelMapper.js";
+import { ForbiddenError, NotFoundError, } from "../../../utils/errors/errorCustomize.js";
+import logger from "../../../config/logger.js";
+import { REDIS_KEYS, redisClient, REDIS_TTL } from "../../../infrastructure/redis/index.js";
 import crypto from "crypto";
 export class HotelService {
     hotelRepository;
@@ -108,6 +108,17 @@ export class HotelService {
         });
         await this.clearHotelCache(id);
         return HotelMapper.toResponseDto(updatedHotel);
+    }
+    async updateHotelStatus(id, status) {
+        const hotel = await this.hotelRepository.findById(id);
+        if (!hotel || hotel.deletedAt)
+            throw new NotFoundError("Không tìm thấy khách sạn này.");
+        const updated = await this.hotelRepository.update(id, { status: status });
+        await this.clearHotelCache(id);
+        const listKeys = await redisClient.keys("hotel_list:*");
+        if (listKeys.length > 0)
+            await redisClient.del(...listKeys);
+        return HotelMapper.toResponseDto(updated);
     }
     async softDeleteHotel(id, ownerId) {
         logger.warn(`Thực hiện xóa mềm hotel ID: ${id}`);

@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { BookingStatus, PaymentMethod } from "../../../../generated/prisma";
+import { BookingStatus, PaymentMethod } from "../../../../generated/prisma/index.js";
 export const CreateBookingSchema = z.object({
     body: z
         .object({

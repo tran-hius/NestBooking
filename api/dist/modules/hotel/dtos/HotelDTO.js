@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { HotelStatus, PropertyType } from "../../../../generated/prisma";
+import { HotelStatus, PropertyType } from "../../../../generated/prisma/index.js";
 export const CreateHotelSchema = z.object({
     body: z.object({
         name: z.string().min(1, "Tên khách sạn không được để trống"),
@@ -46,5 +46,10 @@ export const UpdateHotelSchema = z.object({
 export const AddHotelImagesSchema = z.object({
     body: z.object({
         imageUrls: z.array(z.string().url("Link ảnh không hợp lệ")).min(1, "Phải có ít nhất 1 ảnh"),
+    }),
+});
+export const UpdateHotelStatusSchema = z.object({
+    body: z.object({
+        status: z.nativeEnum(HotelStatus, { message: "Trạng thái không hợp lệ." }),
     }),
 });

@@ -7,7 +7,7 @@ import { Role } from "../../../../generated/prisma";
 import { HotelRepository } from "../repositories/hotelRepository";
 import { HotelService } from "../services/hotelService";
 import { HotelController } from "../controllers/hotelController";
-import { CreateHotelSchema, UpdateHotelSchema } from "../dtos/hotelDTO";
+import { CreateHotelSchema, UpdateHotelSchema, UpdateHotelStatusSchema } from "../dtos/hotelDto";
 
 import { UploadService } from "@/modules/upload/services/uploadService";
 
@@ -33,6 +33,14 @@ router.get(
   asyncHandler(hotelController.getAllHotels),
 );
 
+router.patch(
+  "/:id/admin-status",
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
+  validate(UpdateHotelStatusSchema),
+  asyncHandler(hotelController.updateHotelStatus),
+);
+
 // =====================================================
 // GET MY HOTELS (Agent Only)
 // =====================================================
@@ -49,6 +57,20 @@ router.get(
   authMiddleware,
   roleMiddleware([Role.AGENT]),
   asyncHandler(hotelController.getMyHotels),
+);
+
+router.get(
+  "/admin/all",
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
+  asyncHandler(hotelController.getAdminHotels),
+);
+
+router.get(
+  "/manage/:id",
+  authMiddleware,
+  roleMiddleware([Role.AGENT, Role.ADMIN]),
+  asyncHandler(hotelController.getManagedHotelById),
 );
 
 // =====================================================

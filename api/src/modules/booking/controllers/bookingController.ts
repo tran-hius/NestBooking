@@ -54,6 +54,11 @@ export class BookingController {
     successResponse(res, HttpStatus.OK, "Lấy danh sách đơn đặt phòng thành công.", result);
   };
 
+  public getAllBookings = async (_req: Request, res: Response): Promise<void> => {
+    const result = await this.bookingService.getAllBookings();
+    successResponse(res, HttpStatus.OK, "Lấy toàn bộ booking thành công.", result);
+  };
+
   public cancelBooking = async (req: Request, res: Response): Promise<void> => {
     const id = req.params.id as string;
     logger.info("[BookingController] Cancel booking", { bookingId: id });
@@ -78,9 +83,10 @@ export class BookingController {
     const id = req.params.id as string;
     logger.info("[BookingController] Update booking status", { bookingId: id });
     
-    const agentId = req.user?.userId as string;
+    const requesterId = req.user?.userId as string;
+    const requesterRole = req.user?.role as string;
     const { status } = req.body as { status: BookingStatus };
-    const result = await this.bookingService.updateBookingStatus(id, agentId, status);
+    const result = await this.bookingService.updateBookingStatus(id, requesterId, requesterRole, status);
     
     successResponse(res, HttpStatus.OK, "Cập nhật trạng thái thành công.", result);
   };

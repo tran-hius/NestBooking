@@ -4,7 +4,7 @@ import {
   HotelResponseDto,
   UpdateHotelDto,
   AddHotelImagesDto
-} from "../dtos/hotelDTO";
+} from "../dtos/hotelDto";
 import { IHotelRepository } from "../interfaces/iHotelRepository";
 import { IHotelService } from "../interfaces/iHotelService";
 import { HotelMapper } from "../mapper/hotelMapper";
@@ -167,6 +167,16 @@ export class HotelService implements IHotelService {
     await this.clearHotelCache(id);
 
     return HotelMapper.toResponseDto(updatedHotel);
+  }
+
+  async updateHotelStatus(id: string, status: string): Promise<HotelResponseDto> {
+    const hotel = await this.hotelRepository.findById(id);
+    if (!hotel || hotel.deletedAt) throw new NotFoundError("Không tìm thấy khách sạn này.");
+    const updated = await this.hotelRepository.update(id, { status: status as HotelStatus });
+    await this.clearHotelCache(id);
+    const listKeys = await redisClient.keys("hotel_list:*");
+    if (listKeys.length > 0) await redisClient.del(...listKeys);
+    return HotelMapper.toResponseDto(updated);
   }
 
   async softDeleteHotel(id: string, ownerId: string): Promise<void> {

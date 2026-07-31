@@ -1,4 +1,4 @@
-import { PaymentMethod, PaymentStatus } from "#generated/prisma";
+import { NotificationType, PaymentMethod, PaymentStatus } from "#generated/prisma";
 import { BookingResponseDto, CreateBookingDto } from "../../dtos/bookingDTO";
 import { BookingMapper } from "../../mapper/bookingMapper";
 import { BookingWriteRepository } from "../../repositories/bookingWriteRepository";
@@ -67,6 +67,10 @@ export class BookingCreationService implements IBookingCreationService {
   private async executeBookingTransaction(userId: string, data: CreateBookingDto, checkIn: Date, checkOut: Date, nights: number, tx: any) {
     const roomType = await this.availabilityService.validateAvailability(data.roomTypeId, data.quantity, checkIn, checkOut, tx);
 
+    if (roomType.hotelId !== data.hotelId) {
+      throw new BadRequestError("Loại phòng không thuộc khách sạn đã chọn.");
+    }
+
     const bookingCode = `BKG-${Date.now().toString(36).toUpperCase()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
     const totalAmount = Number(roomType.price) * nights * data.quantity;
     
@@ -76,7 +80,7 @@ export class BookingCreationService implements IBookingCreationService {
 
     const paymentDetails = this.bookingPayment.determineStatus(data.paymentMethod);
 
-    return this.bookingWriteRepo.create({
+    const booking = await this.bookingWriteRepo.create({
       bookingCode,
       userId,
       hotelId: data.hotelId,
@@ -94,6 +98,33 @@ export class BookingCreationService implements IBookingCreationService {
       guestEmail: data.guestEmail,
       specialRequests: data.specialRequests,
     }, tx);
+
+    const hotel = await tx.hotel.findUnique({
+      where: { id: data.hotelId },
+      select: { name: true, ownerId: true },
+    });
+
+    if (!hotel) {
+      throw new BadRequestError("Khách sạn không tồn tại.");
+    }
+
+    const dateFormatter = new Intl.DateTimeFormat("vi-VN", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      timeZone: "Asia/Ho_Chi_Minh",
+    });
+
+    await tx.notification.create({
+      data: {
+        userId: hotel.ownerId,
+        title: "Có đặt phòng mới",
+        message: `${data.guestName} vừa đặt ${data.quantity} phòng ${roomType.name} tại ${hotel.name}, từ ${dateFormatter.format(checkIn)} đến ${dateFormatter.format(checkOut)}. Mã đặt phòng: ${bookingCode}.`,
+        type: NotificationType.BOOKING_SUCCESS,
+      },
+    });
+
+    return booking;
   }
 
   private generatePaymentUrlSafe(booking: any, ipAddr: string): string | undefined {

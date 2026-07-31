@@ -1,5 +1,6 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Compass, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 import HaNoi from "@/assets/HaNoi.jpg";
 import HaLong from "@/assets/HaLong.jpg";
@@ -8,59 +9,55 @@ import NinhBinh from "@/assets/NinhBinh.jpg";
 import CatBa from "@/assets/CatBa.jpg";
 
 export default function ExploreVietnam() {
+  const navigate = useNavigate();
   const images = [
-    { src: HaNoi, name: "Hà Nội", classes: "col-span-6 md:col-span-4 aspect-[4/5] -rotate-2 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-xl rounded-2xl" },
-    { src: HaLong, name: "Hạ Long", classes: "col-span-6 md:col-span-3 aspect-square rotate-3 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-lg rounded-2xl md:mt-12" },
-    { src: DaNang, name: "Đà Nẵng", classes: "col-span-6 md:col-span-5 aspect-video -rotate-1 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-2xl rounded-2xl md:-ml-8 md:mt-24" },
-    { src: NinhBinh, name: "Ninh Bình", classes: "col-span-6 md:col-span-5 aspect-[16/10] rotate-2 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-xl rounded-2xl md:-mt-16" },
-    { src: CatBa, name: "Cát Bà", classes: "col-span-6 md:col-span-7 aspect-[21/9] -rotate-1 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-2xl rounded-2xl md:-ml-12" },
+    { src: HaNoi, name: "Hà Nội", classes: "col-span-7 row-span-2" },
+    { src: HaLong, name: "Hạ Long", classes: "col-span-5" },
+    { src: DaNang, name: "Đà Nẵng", classes: "col-span-5" },
+    { src: NinhBinh, name: "Ninh Bình", classes: "col-span-5" },
+    { src: CatBa, name: "Cát Bà", classes: "col-span-7" },
   ];
 
+  const searchDestination = (location?: string) => {
+    const params = new URLSearchParams();
+    if (location) params.set("location", location);
+    navigate(`/search${params.size ? `?${params.toString()}` : ""}`);
+  };
+
   return (
-    <section className="py-20 bg-slate-50 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="flex flex-col md:flex-row gap-12 items-center">
-          
-          {/* Text Content */}
-          <div className="w-full md:w-1/3 space-y-6 z-20">
-            <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight">
-              Khám phá <br />
-              <span className="text-primary">Việt Nam</span> <br />
-              đẹp bất tận.
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Từ những thửa ruộng bậc thang ngút ngàn ở Tây Bắc, 
-              đến những bãi biển cát trắng nắng vàng miền Trung. 
-              Mỗi vùng đất là một câu chuyện đang chờ bạn khám phá.
-            </p>
-            <Button className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg shadow-primary/30 flex items-center gap-2 group">
-              Lên lịch trình ngay
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
+    <section className="relative z-0 overflow-hidden bg-slate-50 py-20 md:py-24">
+      <div className="container">
+        <div className="grid items-center gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-16">
+          <div className="relative z-20">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-blue-700"><Compass className="h-4 w-4" />Cảm hứng Việt Nam</div>
+            <h2 className="text-4xl font-black leading-tight tracking-tight text-slate-950 md:text-5xl">Mỗi điểm đến, <span className="text-primary">một nhịp sống riêng.</span></h2>
+            <p className="mt-5 text-base leading-relaxed text-slate-600 md:text-lg">Từ phố cổ, vịnh biển đến những thành phố ven sông. Chọn nơi bạn muốn đến và bắt đầu với các chỗ nghỉ đang mở đặt phòng.</p>
+            <div className="mt-7 flex flex-wrap gap-2">{["Biển", "Thành phố", "Thiên nhiên"].map((item) => <span key={item} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-600">{item}</span>)}</div>
+            <Button type="button" onClick={() => searchDestination()} className="group mt-8 h-12 rounded-xl px-6 font-bold text-white shadow-lg shadow-primary/20">Khám phá chỗ nghỉ<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" /></Button>
           </div>
 
-          {/* Jumbled Collage */}
-          <div className="w-full md:w-2/3">
-            <div className="grid grid-cols-12 gap-4 md:gap-6 relative">
+          <div className="relative">
+            <div className="absolute -inset-8 rounded-full bg-cyan-200/35 blur-3xl" />
+            <div className="relative grid h-[430px] grid-cols-12 grid-rows-3 gap-3 sm:h-[520px] sm:gap-4">
               {images.map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className={`relative overflow-hidden group cursor-pointer ${img.classes}`}
+                <button
+                  type="button"
+                  key={idx}
+                  onClick={() => searchDestination(img.name)}
+                  aria-label={`Tìm chỗ nghỉ tại ${img.name}`}
+                  className={`group relative overflow-hidden rounded-[22px] border-4 border-white text-left shadow-xl ${img.classes}`}
                 >
                   <img 
                     src={img.src} 
                     alt={img.name} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                  <h3 className="absolute bottom-6 left-6 text-2xl font-black text-white drop-shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                    {img.name}
-                  </h3>
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 p-3 text-white sm:p-4"><MapPin className="h-4 w-4 shrink-0 text-cyan-300" /><h3 className="font-bold sm:text-lg">{img.name}</h3></div>
+                </button>
               ))}
             </div>
           </div>
-
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@ import { INotificationService } from "../interfaces/iNotificationService";
 import { INotificationRepository } from "../interfaces/iNotificationRepository";
 import { CreateNotificationDto, NotificationResponseDto } from "../dtos/notificationDTO";
 import { NotificationMapper } from "../mapper/notificationMapper";
+import { ForbiddenError, NotFoundError } from "@/utils/errors";
 
 export class NotificationService implements INotificationService {
   constructor(private readonly notificationRepository: INotificationRepository) {}
@@ -17,7 +18,12 @@ export class NotificationService implements INotificationService {
   }
 
   async markAsRead(id: string, userId: string): Promise<NotificationResponseDto> {
-    // Optionally check if notification belongs to user
+    const existingNotification = await this.notificationRepository.findById(id);
+    if (!existingNotification) throw new NotFoundError("Không tìm thấy thông báo.");
+    if (existingNotification.userId !== userId) {
+      throw new ForbiddenError("Bạn không có quyền cập nhật thông báo này.");
+    }
+
     const notification = await this.notificationRepository.markAsRead(id);
     return NotificationMapper.toResponseDto(notification);
   }

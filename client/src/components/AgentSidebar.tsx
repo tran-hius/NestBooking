@@ -13,8 +13,6 @@ import {
   LayoutDashboard,
   Hotel,
   CalendarCheck,
-  CreditCard,
-  MessageSquare
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -30,8 +28,6 @@ const menuGroups = [
     items: [
       { title: "Chỗ nghỉ của tôi", url: "/partner/hotels", icon: Hotel },
       { title: "Lịch đặt phòng", url: "/partner/bookings", icon: CalendarCheck },
-      { title: "Doanh thu & Thanh toán", url: "/partner/payments", icon: CreditCard },
-      { title: "Đánh giá của khách", url: "/partner/reviews", icon: MessageSquare },
     ],
   },
 ];

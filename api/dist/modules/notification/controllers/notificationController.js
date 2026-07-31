@@ -1,5 +1,5 @@
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
 export class NotificationController {
     notificationService;
     constructor(notificationService) {

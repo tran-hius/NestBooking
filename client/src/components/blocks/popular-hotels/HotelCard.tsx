@@ -8,10 +8,7 @@ interface HotelCardProps {
     name: string;
     location: string;
     rating: number;
-    reviews: number;
-    originalPrice: number;
-    salePrice: number;
-    nights: number;
+    price: number | null;
     imageUrl: string;
     badge?: string;
   };
@@ -31,7 +28,7 @@ export default function HotelCard({ hotel }: HotelCardProps) {
   return (
     <div 
       onClick={handleClick}
-      className="snap-start shrink-0 w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] group flex flex-col bg-white rounded-2xl overflow-hidden border border-slate-200 hover:shadow-xl transition-all duration-300 cursor-pointer"
+      className="group flex w-[82vw] shrink-0 snap-start cursor-pointer flex-col overflow-hidden rounded-[22px] border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl sm:w-[calc(50%-10px)] lg:w-[calc(25%-15px)]"
     >
       <div className="relative w-full overflow-hidden">
         <AspectRatio ratio={4 / 3}>
@@ -43,13 +40,13 @@ export default function HotelCard({ hotel }: HotelCardProps) {
         </AspectRatio>
         
         {hotel.badge && (
-          <div className="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+          <div className="absolute left-3 top-3 rounded-full bg-slate-950/70 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md backdrop-blur">
             {hotel.badge}
           </div>
         )}
       </div>
 
-      <div className="p-4 flex flex-col flex-1">
+      <div className="flex flex-1 flex-col p-4">
         <h3 className="text-lg font-bold text-slate-800 line-clamp-1 mb-1 group-hover:text-primary transition-colors">
           {hotel.name}
         </h3>
@@ -59,25 +56,27 @@ export default function HotelCard({ hotel }: HotelCardProps) {
           <span className="truncate">{hotel.location}</span>
         </div>
 
-        <div className="flex items-center gap-2 mb-4">
-          <div className="flex items-center text-primary">
-            <Star className="w-4 h-4 fill-current" />
-            <span className="font-bold ml-1 text-sm">{hotel.rating}</span>
-          </div>
-          <span className="text-gray-500 ml-2">({hotel.reviews} đánh giá)</span>
+        <div className="mb-4 flex items-center gap-2">
+          {hotel.rating > 0 ? (
+            <>
+              <div className="flex items-center text-primary">
+                <Star className="w-4 h-4 fill-current" />
+                <span className="font-bold ml-1 text-sm">{hotel.rating}</span>
+              </div>
+              <span className="ml-1 text-sm text-gray-500">Điểm đánh giá</span>
+            </>
+          ) : (
+            <span className="text-sm text-gray-500">Chưa có đánh giá</span>
+          )}
         </div>
 
-        <div className="mt-auto pt-4 border-t border-slate-100 flex items-end justify-between">
-          <span className="text-sm font-medium text-slate-500">
-            / {hotel.nights} đêm
-          </span>
+        <div className="mt-auto flex items-end justify-between border-t border-slate-100 pt-4">
+          <span className="text-sm font-medium text-slate-500">Giá từ</span>
           <div className="flex flex-col items-end">
-            <span className="text-xs text-slate-400 line-through">
-              {formatCurrency(hotel.originalPrice)}
-            </span>
             <span className="text-lg font-black text-primary">
-              {formatCurrency(hotel.salePrice)}
+              {hotel.price === null ? "Liên hệ" : formatCurrency(hotel.price)}
             </span>
+            {hotel.price !== null && <span className="text-xs text-slate-400">/ phòng / đêm</span>}
           </div>
         </div>
       </div>

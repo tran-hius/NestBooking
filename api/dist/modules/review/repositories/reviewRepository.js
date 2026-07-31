@@ -12,10 +12,7 @@ export class ReviewRepository {
     async findByHotel(hotelId) {
         return this.prisma.review.findMany({
             where: { hotelId },
-            include: {
-                user: { select: { id: true, firstName: true, lastName: true, avatarUrl: true } }
-            },
-            orderBy: { createdAt: "desc" }
+            orderBy: { createdAt: "desc" },
         });
     }
     async update(id, data) {
