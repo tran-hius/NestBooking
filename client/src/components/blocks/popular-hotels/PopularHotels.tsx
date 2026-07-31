@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Building2, ChevronLeft, ChevronRight } from "lucide-react";
 import HotelCard from "./HotelCard";
 import HotelCardSkeleton from "./HotelCardSkeleton";
 import { hotelService } from "@/api/services/hotelService";
@@ -41,19 +41,20 @@ export default function PopularHotels() {
   };
 
   return (
-    <section className="w-full py-12">
-      <div className="container mx-auto relative">
-        <div className="flex items-end justify-between mb-8">
+    <section className="w-full bg-slate-50 py-20 md:py-24">
+      <div className="container relative">
+        <div className="mb-9 flex items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl font-bold">Chỗ nghỉ nổi bật</h2>
-            <p className="text-gray-500 mt-2">Những chỗ nghỉ đang mở đặt phòng trên NestBooking</p>
+            <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary"><Building2 className="h-4 w-4" />Chỗ nghỉ đang hoạt động</div>
+            <h2 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Chọn nơi ở cho hành trình</h2>
+            <p className="mt-2 text-slate-500">Xem giá khởi điểm từ các loại phòng đang được mở bán.</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="hidden items-center gap-2 sm:flex">
             <button
               type="button"
               aria-label="Xem khách sạn trước"
               onClick={() => scroll("left")}
-              className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-primary transition shadow-sm"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-primary"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -61,7 +62,7 @@ export default function PopularHotels() {
               type="button"
               aria-label="Xem khách sạn tiếp theo"
               onClick={() => scroll("right")}
-              className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 hover:text-primary transition shadow-sm"
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-primary"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -70,7 +71,7 @@ export default function PopularHotels() {
 
         <div 
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-4 -mx-4 px-4 md:mx-0 md:px-0"
+          className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 md:mx-0 md:px-0"
         >
           {isLoading
             ? Array.from({ length: 4 }).map((_, idx) => (
@@ -108,9 +109,9 @@ export default function PopularHotels() {
           </div>
         )}
 
-        <div className="mt-10 flex justify-center">
-          <button type="button" onClick={() => navigate("/search")} className="px-8 py-3 rounded-full border-2 border-primary text-primary font-bold hover:bg-primary hover:text-white transition-all duration-300">
-            Xem tất cả chỗ nghỉ
+        <div className="mt-8 flex justify-center">
+          <button type="button" onClick={() => navigate("/search")} className="group inline-flex items-center gap-2 rounded-xl border border-blue-200 bg-white px-6 py-3 font-bold text-primary shadow-sm transition hover:border-primary hover:bg-blue-50">
+            Xem tất cả chỗ nghỉ<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
       </div>

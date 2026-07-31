@@ -30,6 +30,7 @@ const MyBookings = lazy(() => import('@/pages/MyBookings'));
 const Checkout = lazy(() => import('@/pages/Checkout'));
 const HotelDetail = lazy(() => import('@/pages/HotelDetail'));
 const Destinations = lazy(() => import('@/pages/admin/Destinations'));
+const Support = lazy(() => import('@/pages/Support'));
 
 export const routers = [
   {
@@ -45,6 +46,11 @@ export const routers = [
   {
     path: '/search',
     component: <Search />,
+    layout: MainLayout,
+  },
+  {
+    path: '/support',
+    component: <Support />,
     layout: MainLayout,
   },
   {

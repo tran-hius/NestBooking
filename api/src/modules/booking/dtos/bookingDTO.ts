@@ -59,6 +59,7 @@ export interface BookingResponseDto {
   paymentMethod: PaymentMethod;
   paymentStatus: PaymentStatus;
   paymentDate?: Date | null;
+  transactionId?: string | null;
   paymentUrl?: string;
   guestName: string;
   guestPhone: string;

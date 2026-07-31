@@ -1,4 +1,4 @@
-import { Building2, Calendar, Users, Search } from "lucide-react";
+import { Building2, Calendar, CheckCircle2, MapPin, Search, ShieldCheck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HeaderBanner from "@/assets/HeaderBanner.jpg";
 import { useRef, useState } from "react";
@@ -60,26 +60,40 @@ export default function HeroSearch() {
   };
 
   return (
-    <section className="relative flex min-h-[650px] w-full flex-col items-center justify-center pt-24 md:min-h-[550px] md:pt-20">
-      <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-black/10" style={{ backgroundImage: `url(${HeaderBanner})` }} />
-      <div className="container relative z-50 mx-auto mt-8 flex flex-col items-center px-4 md:px-8">
-        <h1 className="mb-10 text-center text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] md:text-5xl">Tìm chỗ nghỉ phù hợp cho chuyến đi của bạn</h1>
-        <div className="flex w-full max-w-5xl flex-col">
-          <div className="mb-4 flex items-center gap-2">
-            <button type="button" className="flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-6 py-2.5 font-semibold text-white backdrop-blur-md"><Building2 className="h-5 w-5" />Khách sạn</button>
-          </div>
-          <div className="relative flex w-full flex-col items-center gap-2 rounded-2xl bg-background p-2 shadow-2xl md:flex-row">
-            <LocationInput value={location} onChange={setLocation} onSubmit={handleSearch} className="flex-1 rounded-xl bg-slate-50 px-4 py-3" inputClassName="font-medium text-foreground" />
-            <div ref={calendarRef} className={`relative flex w-full flex-[0.7] items-center rounded-xl px-4 py-3 ${isCalendarOpen ? "bg-primary/10 ring-2 ring-primary" : "bg-slate-50"}`}>
-              <button type="button" className="flex w-full items-center gap-3" onClick={() => setIsCalendarOpen((open) => !open)}><Calendar className="h-5 w-5 text-primary" /><span className="font-medium text-foreground">{formatDateRange()}</span></button>
+    <section className="relative z-20 flex min-h-[720px] w-full isolate items-center pt-24 md:min-h-[680px] md:pt-20">
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${HeaderBanner})` }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#031b3d]/95 via-[#063b70]/75 to-[#061d3a]/25" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-slate-50 to-transparent" />
+        <div className="absolute -right-20 top-28 h-72 w-72 rounded-full border border-white/15" />
+        <div className="absolute -right-5 top-44 h-44 w-44 rounded-full border border-white/10" />
+      </div>
+
+      <div className="container relative z-20 py-14">
+        <div className="max-w-4xl">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-cyan-100 backdrop-blur-md"><ShieldCheck className="h-4 w-4" />Đặt phòng trực tiếp trên NestBooking</div>
+          <h1 className="max-w-3xl text-4xl font-black leading-[1.08] tracking-tight text-white drop-shadow-lg sm:text-5xl lg:text-6xl">Chỗ nghỉ phù hợp cho <span className="text-cyan-300">hành trình của bạn.</span></h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-blue-50/90 sm:text-lg">Tìm kiếm theo điểm đến, ngày lưu trú và số khách. So sánh loại phòng trước khi hoàn tất đặt chỗ.</p>
+
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/85"><span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-cyan-300" />Dữ liệu chỗ nghỉ đang hoạt động</span><span className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-cyan-300" />Theo dõi booking trong tài khoản</span></div>
+
+          <div className="relative z-50 mt-9 w-full rounded-[24px] border border-white/20 bg-white/95 p-2.5 shadow-[0_24px_70px_rgba(2,20,45,0.35)] backdrop-blur-xl">
+            <div className="mb-2 flex items-center gap-2 px-2 py-1 text-xs font-bold uppercase tracking-[0.13em] text-slate-500"><Building2 className="h-4 w-4 text-primary" />Tìm chỗ nghỉ</div>
+            <div className="relative grid gap-2 lg:grid-cols-[1.25fr_.8fr_1fr_auto]">
+              <LocationInput value={location} onChange={setLocation} onSubmit={handleSearch} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5" inputClassName="font-semibold text-slate-900" iconClassName="text-primary" />
+              <div ref={calendarRef} className={`relative flex min-w-0 items-center rounded-2xl border px-4 py-3.5 transition ${isCalendarOpen ? "border-primary bg-blue-50 ring-4 ring-blue-100" : "border-slate-200 bg-slate-50 hover:border-blue-300"}`}>
+              <button type="button" className="flex w-full min-w-0 items-center gap-3 text-left" onClick={() => setIsCalendarOpen((open) => !open)}><Calendar className="h-5 w-5 shrink-0 text-primary" /><span className="min-w-0"><span className="block text-[10px] font-bold uppercase tracking-wide text-slate-400">Ngày lưu trú</span><span className="block truncate font-semibold text-slate-900">{formatDateRange()}</span></span></button>
               {isCalendarOpen && <CalendarDropdown checkIn={checkIn} checkOut={checkOut} onChange={(nextIn, nextOut) => { setCheckIn(nextIn); setCheckOut(nextOut); }} onClose={() => setIsCalendarOpen(false)} />}
             </div>
-            <div ref={guestsRef} className={`relative flex w-full flex-[0.7] items-center rounded-xl px-4 py-3 ${isGuestsOpen ? "bg-primary/10 ring-2 ring-primary" : "bg-slate-50"}`}>
-              <button type="button" className="flex w-full items-center gap-3" onClick={() => setIsGuestsOpen((open) => !open)}><Users className="h-5 w-5 text-primary" /><span className="truncate font-medium text-foreground">{guests.adults} người lớn, {guests.children} trẻ em, {guests.rooms} phòng</span></button>
+            <div ref={guestsRef} className={`relative flex min-w-0 items-center rounded-2xl border px-4 py-3.5 transition ${isGuestsOpen ? "border-primary bg-blue-50 ring-4 ring-blue-100" : "border-slate-200 bg-slate-50 hover:border-blue-300"}`}>
+              <button type="button" className="flex w-full min-w-0 items-center gap-3 text-left" onClick={() => setIsGuestsOpen((open) => !open)}><Users className="h-5 w-5 shrink-0 text-primary" /><span className="min-w-0"><span className="block text-[10px] font-bold uppercase tracking-wide text-slate-400">Khách & phòng</span><span className="block truncate font-semibold text-slate-900">{guests.adults + guests.children} khách, {guests.rooms} phòng</span></span></button>
               {isGuestsOpen && <GuestsDropdown {...guests} onChange={setGuests} onClose={() => setIsGuestsOpen(false)} />}
             </div>
-            <Button type="button" onClick={handleSearch} className="h-12 w-full rounded-xl px-8 text-white md:w-auto"><Search className="h-5 w-5" /><span className="md:hidden">Tìm kiếm</span></Button>
+              <Button type="button" onClick={handleSearch} className="h-auto min-h-14 rounded-2xl bg-[#087fd1] px-7 text-base font-bold text-white shadow-lg shadow-blue-500/20 hover:bg-[#056eb8]"><Search className="h-5 w-5" />Tìm kiếm</Button>
+            </div>
           </div>
+
+          <div className="mt-5 flex items-center gap-2 text-sm text-blue-50/80"><MapPin className="h-4 w-4 text-cyan-300" /><span>Gợi ý phổ biến:</span>{["Hà Nội", "Đà Nẵng", "Hạ Long"].map((item) => <button key={item} type="button" onClick={() => setLocation(item)} className="font-semibold text-white underline-offset-4 hover:underline">{item}</button>)}</div>
         </div>
       </div>
     </section>

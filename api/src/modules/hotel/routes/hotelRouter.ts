@@ -59,6 +59,20 @@ router.get(
   asyncHandler(hotelController.getMyHotels),
 );
 
+router.get(
+  "/admin/all",
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
+  asyncHandler(hotelController.getAdminHotels),
+);
+
+router.get(
+  "/manage/:id",
+  authMiddleware,
+  roleMiddleware([Role.AGENT, Role.ADMIN]),
+  asyncHandler(hotelController.getManagedHotelById),
+);
+
 // =====================================================
 // GET HOTEL BY ID (Public / Agent)
 // =====================================================

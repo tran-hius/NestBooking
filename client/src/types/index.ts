@@ -108,6 +108,8 @@ export interface Booking {
   guestPhone: string;
   guestEmail: string;
   paymentMethod?: "VNPAY" | "MOMO" | "ZALOPAY" | "CREDIT_CARD" | "PAY_AT_HOTEL";
+  paymentDate?: string | null;
+  transactionId?: string | null;
   specialRequests?: string | null;
   createdAt?: string;
   updatedAt?: string;

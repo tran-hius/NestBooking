@@ -3,7 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Be Vietnam Pro", "Segoe UI", "Noto Sans", Arial, sans-serif;
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -76,6 +76,10 @@
   }
   body {
     @apply bg-background text-foreground font-sans;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 

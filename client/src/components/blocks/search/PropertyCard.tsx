@@ -1,4 +1,4 @@
-import { Heart, MapPin, Check } from "lucide-react";
+import { ArrowRight, BedDouble, Check, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -7,112 +7,26 @@ export interface PropertyProps {
   name: string;
   image: string;
   rating: number;
-  reviewCount: number;
-  reviewText: string;
   distance: string;
   roomType: string;
-  bedType: string;
+  availableRooms: number;
   hasBreakfast: boolean;
-  freeCancellation: boolean;
-  noPrepayment: boolean;
-  leftCount?: number;
-  originalPrice?: string;
-  salePrice: string;
+  salePrice: number;
 }
 
 export default function PropertyCard({ prop, search }: { prop: PropertyProps; search: string }) {
   const navigate = useNavigate();
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[240px_1fr_200px] gap-6 p-4 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-      
-      {/* Image Section */}
-      <div className="relative w-full h-48 md:h-full min-h-[200px] overflow-hidden rounded-xl">
-        <img src={prop.image} alt={prop.name} className="absolute inset-0 w-full h-full object-cover" />
-        <button className="absolute top-3 right-3 p-2 bg-white/80 hover:bg-white rounded-full text-slate-400 hover:text-red-500 transition-colors shadow-sm backdrop-blur-sm">
-          <Heart className="w-4 h-4" />
-        </button>
-      </div>
+    <article className="group grid overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-lg md:grid-cols-[260px_1fr_210px]">
+      <div className="relative min-h-56 overflow-hidden bg-slate-100 md:min-h-[250px]"><img src={prop.image} alt={prop.name} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" /><div className="absolute bottom-3 left-3 rounded-lg bg-white/90 px-2.5 py-1 text-xs font-bold text-slate-800 backdrop-blur"><BedDouble className="mr-1 inline h-3.5 w-3.5 text-primary" />{prop.availableRooms} phòng phù hợp</div></div>
 
-      {/* Details Section */}
-      <div className="flex flex-col justify-between py-1 min-w-0">
-        <div>
-          <div className="flex items-start justify-between gap-4 w-full">
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="text-xl font-bold text-primary truncate" title={prop.name}>{prop.name}</h3>
-                <div className="flex text-amber-500 text-sm shrink-0">
-                  {'★'.repeat(Math.floor(prop.rating))}
-                </div>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-primary underline mb-2 truncate">
-                <MapPin className="w-3 h-3 shrink-0" />
-                <a href="#" className="hover:text-blue-700 whitespace-nowrap">Hiển thị trên bản đồ</a>
-                <span className="text-slate-500 no-underline whitespace-nowrap hidden sm:inline">• {prop.distance}</span>
-              </div>
-            </div>
-          </div>
+      <div className="flex min-w-0 flex-col p-5"><div className="flex flex-wrap items-start justify-between gap-3"><div className="min-w-0"><h3 className="text-xl font-black text-slate-900 transition group-hover:text-primary">{prop.name}</h3><div className="mt-2 flex items-start gap-1.5 text-sm text-slate-500"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" /><span className="line-clamp-2">{prop.distance}</span></div></div>{prop.rating > 0 && <div className="flex shrink-0 items-center gap-1 rounded-lg bg-blue-50 px-2 py-1 text-sm font-bold text-blue-700"><Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />{prop.rating.toFixed(1)}</div>}</div><div className="mt-5 rounded-xl border-l-4 border-blue-400 bg-blue-50/60 p-3"><div className="font-bold text-slate-800">{prop.roomType}</div><div className="mt-1 text-xs text-slate-500">Loại phòng có mức giá khởi điểm thấp nhất trong kết quả.</div></div><div className="mt-auto flex flex-wrap gap-x-4 gap-y-2 pt-5 text-xs font-semibold text-emerald-700">{prop.hasBreakfast && <span className="flex items-center gap-1"><Check className="h-3.5 w-3.5" />Có bữa sáng</span>}<span className="flex items-center gap-1"><Check className="h-3.5 w-3.5" />Xem điều kiện khi chọn phòng</span></div></div>
 
-          <div className="mt-2 pl-3 border-l-2 border-slate-200 space-y-1">
-            <h4 className="font-bold text-slate-800 text-sm truncate">{prop.roomType}</h4>
-            <p className="text-xs text-slate-600 truncate">{prop.bedType}</p>
-            
-            <div className="pt-1 space-y-1">
-              {prop.hasBreakfast && (
-                <div className="text-green-600 font-bold text-xs truncate">Bao gồm bữa sáng</div>
-              )}
-              {prop.freeCancellation && (
-                <div className="flex items-center gap-1 text-green-600 font-bold text-xs truncate">
-                  <Check className="w-3 h-3 shrink-0" /> Miễn phí hủy phòng
-                </div>
-              )}
-              {prop.noPrepayment && (
-                <div className="flex items-center gap-1 text-green-600 font-bold text-xs truncate">
-                  <Check className="w-3 h-3 shrink-0" /> Không cần thanh toán trước
-                </div>
-              )}
-            </div>
-            
-            {prop.leftCount && (
-              <div className="text-red-500 font-bold text-xs mt-1 truncate">
-                Chỉ còn {prop.leftCount} phòng với giá này trên trang của chúng tôi
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Price Section */}
-      <div className="flex flex-col justify-between items-end shrink-0 pt-4 md:pt-0 border-t md:border-t-0 border-slate-100">
-        
-        {/* Rating Box at Top Right */}
-        <div className="bg-primary text-white font-bold text-lg p-2 rounded-lg rounded-br-none shadow-sm flex items-center justify-center w-10 h-10 shrink-0 mb-4 md:mb-0">
-          {prop.rating}
-        </div>
-
-        {/* Pricing at Bottom Right */}
-        <div className="flex flex-col items-end w-full">
-          <div className="text-xs text-slate-500 mb-1 whitespace-nowrap">1 đêm, 2 người lớn</div>
-          
-          {prop.originalPrice && (
-            <div className="text-sm text-red-500 line-through font-medium whitespace-nowrap">
-              {prop.originalPrice}
-            </div>
-          )}
-          
-          <div className="text-2xl font-black text-slate-900 mb-1 whitespace-nowrap">
-            {prop.salePrice}
-          </div>
-          
-          <div className="text-xs text-slate-500 mb-4 text-right whitespace-nowrap">
-            Đã bao gồm thuế và phí
-          </div>
-          
-          <Button onClick={() => navigate(`/hotel/${prop.id}${search}`)} className="w-full bg-primary hover:bg-primary/90 text-white font-bold rounded-lg shadow-md h-10 shrink-0">
-            Xem chỗ trống
-          </Button>
-        </div>
-      </div>
-
-    </div>
+      <div className="flex flex-col justify-between border-t border-slate-100 bg-slate-50/60 p-5 md:border-l md:border-t-0"><div className="text-right"><div className="text-xs font-medium text-slate-500">Giá từ mỗi đêm</div><div className="mt-1 text-2xl font-black tracking-tight text-slate-950">{prop.salePrice > 0 ? formatCurrency(prop.salePrice) : "Liên hệ"}</div><div className="mt-1 text-xs text-slate-400">Giá có thể thay đổi theo ngày</div></div><Button onClick={() => navigate(`/hotel/${prop.id}${search}`)} disabled={prop.availableRooms === 0} className="mt-6 h-11 w-full rounded-xl font-bold text-white">{prop.availableRooms > 0 ? <>Xem phòng<ArrowRight className="ml-1 h-4 w-4" /></> : "Hết phòng"}</Button></div>
+    </article>
   );
+}
+
+function formatCurrency(value: number) {
+  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 }).format(value);
 }

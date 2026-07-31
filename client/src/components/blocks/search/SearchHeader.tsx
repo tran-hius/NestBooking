@@ -1,4 +1,4 @@
-import { Calendar, Users } from "lucide-react";
+import { Calendar, Search, SlidersHorizontal, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -44,21 +44,27 @@ export default function SearchHeader() {
   };
 
   return (
-    <div className="relative z-20 w-full border-b border-slate-800 bg-slate-900 pb-8 pt-24">
-      <div className="container mx-auto px-4 md:px-8">
-        <div className="flex w-full flex-col items-center gap-1.5 rounded-xl bg-white p-1.5 shadow-lg md:flex-row">
-          <LocationInput value={location} onChange={setLocation} onSubmit={submitSearch} className="flex-[1.2] rounded-lg bg-slate-50 px-4 py-2" inputClassName="font-bold text-slate-900" iconClassName="text-slate-400" />
-          <div ref={calendarRef} className={`relative flex w-full flex-1 items-center rounded-lg px-4 py-2 ${isCalendarOpen ? "bg-blue-50 ring-2 ring-primary" : "bg-slate-50"}`}>
-            <button type="button" className="flex w-full items-center gap-3" onClick={() => setIsCalendarOpen((open) => !open)}><Calendar className="h-5 w-5 text-slate-500" /><span className="font-bold text-slate-900">{checkIn} - {checkOut}</span></button>
+    <section className="relative z-30 w-full border-b border-blue-950 bg-[#05285d] pb-7 pt-24 text-white">
+      <div className="absolute inset-0 overflow-hidden"><div className="absolute -right-20 -top-32 h-80 w-80 rounded-full border border-white/10" /><div className="absolute right-12 top-4 h-44 w-44 rounded-full bg-cyan-400/10 blur-3xl" /></div>
+      <div className="container relative">
+        <div className="mb-5"><div className="mb-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-cyan-300"><SlidersHorizontal className="h-4 w-4" />Điều chỉnh tìm kiếm</div><h1 className="text-2xl font-black tracking-tight md:text-3xl">Tìm chỗ nghỉ còn phòng</h1></div>
+        <div className="grid w-full gap-2 rounded-[22px] border border-white/15 bg-white p-2.5 shadow-[0_20px_55px_rgba(1,15,35,0.28)] lg:grid-cols-[1.25fr_.8fr_1fr_auto]">
+          <LocationInput value={location} onChange={setLocation} onSubmit={submitSearch} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3" inputClassName="font-semibold text-slate-900" iconClassName="text-primary" />
+          <div ref={calendarRef} className={`relative flex min-w-0 items-center rounded-2xl border px-4 py-3 transition ${isCalendarOpen ? "border-primary bg-blue-50 ring-4 ring-blue-100" : "border-slate-200 bg-slate-50 hover:border-blue-300"}`}>
+            <button type="button" className="flex w-full min-w-0 items-center gap-3 text-left" onClick={() => setIsCalendarOpen((open) => !open)}><Calendar className="h-5 w-5 shrink-0 text-primary" /><span className="min-w-0"><span className="block text-[10px] font-bold uppercase tracking-wide text-slate-400">Ngày lưu trú</span><span className="block truncate text-sm font-semibold text-slate-900">{formatDate(checkIn)} - {formatDate(checkOut)}</span></span></button>
             {isCalendarOpen && <CalendarDropdown checkIn={checkIn} checkOut={checkOut} onChange={(nextIn, nextOut) => { setCheckIn(nextIn); setCheckOut(nextOut); }} onClose={() => setIsCalendarOpen(false)} />}
           </div>
-          <div ref={guestsRef} className={`relative flex w-full flex-1 items-center rounded-lg px-4 py-2 ${isGuestsOpen ? "bg-blue-50 ring-2 ring-primary" : "bg-slate-50"}`}>
-            <button type="button" className="flex w-full items-center gap-3" onClick={() => setIsGuestsOpen((open) => !open)}><Users className="h-5 w-5 text-slate-500" /><span className="truncate font-bold text-slate-900">{guests.adults} người lớn, {guests.children} trẻ em, {guests.rooms} phòng</span></button>
+          <div ref={guestsRef} className={`relative flex min-w-0 items-center rounded-2xl border px-4 py-3 transition ${isGuestsOpen ? "border-primary bg-blue-50 ring-4 ring-blue-100" : "border-slate-200 bg-slate-50 hover:border-blue-300"}`}>
+            <button type="button" className="flex w-full min-w-0 items-center gap-3 text-left" onClick={() => setIsGuestsOpen((open) => !open)}><Users className="h-5 w-5 shrink-0 text-primary" /><span className="min-w-0"><span className="block text-[10px] font-bold uppercase tracking-wide text-slate-400">Khách & phòng</span><span className="block truncate text-sm font-semibold text-slate-900">{guests.adults + guests.children} khách, {guests.rooms} phòng</span></span></button>
             {isGuestsOpen && <GuestsDropdown {...guests} onChange={setGuests} onClose={() => setIsGuestsOpen(false)} />}
           </div>
-          <Button type="button" onClick={submitSearch} disabled={!location.trim() || !checkIn || !checkOut || checkOut <= checkIn} className="h-11 w-full rounded-lg px-8 text-lg font-bold text-white md:w-auto">Tìm kiếm</Button>
+          <Button type="button" onClick={submitSearch} disabled={!location.trim() || !checkIn || !checkOut || checkOut <= checkIn} className="min-h-14 rounded-2xl px-7 text-base font-bold text-white"><Search className="h-5 w-5" />Tìm lại</Button>
         </div>
       </div>
-    </div>
+    </section>
   );
+}
+
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("vi-VN", { day: "2-digit", month: "2-digit" }).format(new Date(`${value}T00:00:00`));
 }

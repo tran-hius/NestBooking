@@ -27,9 +27,10 @@ export class HotelController {
         logger.info("[HotelController] Get hotel by id", {
             hotelId: req.params.id,
         });
-        // Lấy ownerId từ user đang đăng nhập (Nếu là khách Public thì req.user có thể undefined)
-        const ownerId = req.user?.userId;
-        const hotel = await this.hotelService.getHotelById(req.params.id, ownerId);
+        const hotel = await this.hotelService.getHotelById(req.params.id);
+        if (!hotel || hotel.status !== "ACTIVE") {
+            throw new BadRequestError("Chỗ nghỉ chưa được mở công khai.");
+        }
         successResponse(res, HttpStatus.OK, "Lấy thông tin khách sạn thành công.", hotel);
     };
     updateHotel = async (req, res) => {
@@ -37,6 +38,11 @@ export class HotelController {
         const ownerId = req.user?.userId;
         const hotel = await this.hotelService.updateHotel(req.params.id, ownerId, req.body);
         successResponse(res, HttpStatus.OK, "Cập nhật khách sạn thành công.", hotel);
+    };
+    getManagedHotelById = async (req, res) => {
+        const ownerId = req.user?.role === "ADMIN" ? undefined : req.user?.userId;
+        const hotel = await this.hotelService.getHotelById(req.params.id, ownerId);
+        successResponse(res, HttpStatus.OK, "Lấy thông tin quản lý khách sạn thành công.", hotel);
     };
     updateHotelStatus = async (req, res) => {
         const hotel = await this.hotelService.updateHotelStatus(req.params.id, req.body.status);
@@ -60,9 +66,16 @@ export class HotelController {
         logger.info("[HotelController] Get all hotels with queries", req.query);
         const page = parseInt(req.query.page, 10) || 1;
         const limit = parseInt(req.query.limit, 10) || 10;
-        const { page: _p, limit: _l, ...filterQuery } = req.query;
-        const result = await this.hotelService.getAllHotels(filterQuery, page, limit);
+        const { page: _p, limit: _l, status: _status, ...filterQuery } = req.query;
+        const result = await this.hotelService.getAllHotels({ ...filterQuery, status: "ACTIVE" }, page, limit);
         successResponse(res, HttpStatus.OK, "Lấy danh sách khách sạn thành công.", result);
+    };
+    getAdminHotels = async (req, res) => {
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 100;
+        const { page: _page, limit: _limit, ...filterQuery } = req.query;
+        const result = await this.hotelService.getAllHotels(filterQuery, page, limit);
+        successResponse(res, HttpStatus.OK, "Lấy danh sách khách sạn quản trị thành công.", result);
     };
     addImages = async (req, res, next) => {
         try {

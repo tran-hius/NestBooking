@@ -6146,3 +6146,3340 @@
   level: 'info',
   timestamp: '2026-07-31T04:05:00.040Z'
 }
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-07-31T13:24:37.841Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-07-31T13:24:37.987Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-07-31T13:24:37.995Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:00.016Z'
+}
+{
+  email: 'admin@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-07-31T13:25:02.205Z'
+}
+{
+  message: 'User ID 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:02.331Z'
+}
+{
+  message: '[AuthService] Password login successful for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:02.349Z'
+}
+{
+  email: 'agent1@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-07-31T13:25:02.373Z'
+}
+{
+  message: 'User ID b9ec6910-a1ff-4d4e-8a5a-e0d2b53596cf đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:02.442Z'
+}
+{
+  message: '[AuthService] Password login successful for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:02.446Z'
+}
+{
+  message: '[HotelController] Create hotel',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:02.469Z'
+}
+{
+  page: '1',
+  limit: '100',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T13:25:02.530Z'
+}
+{
+  hotelId: '1776ea5c-4759-4fe9-aff4-fd90f8b9c3af',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T13:25:02.629Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 1776ea5c-4759-4fe9-aff4-fd90f8b9c3af trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T13:25:02.631Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Chỗ nghỉ chưa được mở công khai.\n' +
+    '    at getHotelById (/app/src/modules/hotel/controllers/hotelController.ts:61:13)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)',
+  level: 'error',
+  timestamp: '2026-07-31T13:25:02.647Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1776ea5c-4759-4fe9-aff4-fd90f8b9c3af từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T13:25:02.725Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  status: 'BANNED',
+  level: 'info',
+  message: '[UserController] Change user status',
+  timestamp: '2026-07-31T13:25:02.796Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Bạn không thể tự vô hiệu hóa tài khoản Admin đang đăng nhập.\n' +
+    '    at changeUserStatus (/app/src/modules/user/controllers/userController.ts:71:13)\n' +
+    '    at <anonymous> (/app/src/utils/asyncHandler.ts:5:25)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at <anonymous> (/app/src/middlewares/validationMiddleware.ts:32:7)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)',
+  level: 'error',
+  timestamp: '2026-07-31T13:25:02.807Z'
+}
+{
+  email: 'admin@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-07-31T13:25:24.780Z'
+}
+{
+  message: 'User ID 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:24.910Z'
+}
+{
+  message: '[AuthService] Password login successful for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T13:25:24.925Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T13:30:00.008Z'
+}
+{
+  message: '[SchedulerService] Đã hủy 1 booking do hết hạn thanh toán.',
+  level: 'info',
+  timestamp: '2026-07-31T13:30:00.034Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-07-31T13:35:05.594Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-07-31T13:35:05.662Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-07-31T13:35:05.666Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-07-31T13:37:20.434Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-07-31T13:37:20.505Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-07-31T13:37:20.511Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-07-31T13:39:47.386Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-07-31T13:39:47.454Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-07-31T13:39:47.459Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T13:40:00.003Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-07-31T13:40:40.605Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-07-31T13:40:40.686Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-07-31T13:40:40.691Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T13:45:00.013Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T13:50:00.006Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T13:55:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:00:00.001Z'
+}
+{
+  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
+  level: 'info',
+  timestamp: '2026-07-31T14:04:45.700Z'
+}
+{
+  message: 'Express HTTP server đã đóng.',
+  level: 'info',
+  timestamp: '2026-07-31T14:04:45.701Z'
+}
+{
+  message: '[Redis] Đã đóng kết nối Redis',
+  level: 'info',
+  timestamp: '2026-07-31T14:04:45.705Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-07-31T14:05:07.969Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-07-31T14:05:08.056Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-07-31T14:05:08.065Z'
+}
+{
+  email: 'admin@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-07-31T14:05:56.784Z'
+}
+{
+  message: 'User ID 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-07-31T14:05:57.015Z'
+}
+{
+  message: '[AuthService] Password login successful for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:05:57.037Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T14:05:57.102Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:05:57.103Z'
+}
+{
+  message: '[Cache Miss] Tìm user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T14:05:57.104Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T14:05:57.233Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T14:05:57.412Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T14:06:07.312Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:06:07.313Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:06:07.315Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T14:06:07.323Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:06:07.324Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:06:07.325Z'
+}
+{
+  email: 'admin@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-07-31T14:06:08.730Z'
+}
+{
+  message: 'User ID 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:08.813Z'
+}
+{
+  message: '[AuthService] Password login successful for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:08.819Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:09.090Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:09.092Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:09.194Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:09.195Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:13.925Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:13.925Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:13.938Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:13.938Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:16.328Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:16.328Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:16.336Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:16.336Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:30.809Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:30.810Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:30.847Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:06:30.847Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:08.219Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:08.220Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:08.252Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:08.252Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:46.133Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:46.133Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:46.201Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:07:46.201Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:08:56.542Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:08:56.542Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:08:56.585Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:08:56.586Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:09:27.912Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:09:27.914Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:09:27.920Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:09:27.922Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T14:09:27.936Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:09:27.993Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:09:27.994Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:09:28.021Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T14:09:28.098Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:09:28.099Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:09:28.101Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T14:09:28.107Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:09:28.108Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:09:28.109Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:09:28.374Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:09:28.375Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:09:28.442Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:09:28.443Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:10:00.006Z'
+}
+{
+  email: 'admin@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-07-31T14:10:26.680Z'
+}
+{
+  message: 'User ID 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-07-31T14:10:26.826Z'
+}
+{
+  message: '[AuthService] Password login successful for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:10:26.842Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:10:27.101Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:10:27.102Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:01.733Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:01.734Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:01.769Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:01.769Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:02.605Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:02.606Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:02.629Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:11:02.630Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:12:35.222Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:12:35.224Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:12:35.231Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:12:35.233Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:12:35.248Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:12:35.249Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T14:12:35.259Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:12:35.294Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:12:35.295Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:12:35.314Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:12:35.381Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:12:35.381Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:15.609Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:15.610Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:15.640Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:15.640Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:16.863Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:16.863Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:16.882Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:13:16.883Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T14:14:34.365Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T14:14:34.371Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:14:36.120Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:14:36.121Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:14:36.186Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:14:36.187Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:14:59.875Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:14:59.876Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:00.003Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:10.577Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:10.578Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:10.603Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:10.603Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:28.606Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:28.607Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:28.655Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:28.655Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:30.617Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:30.618Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:30.633Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:30.634Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:31.636Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:31.636Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:31.665Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:31.665Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:32.889Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:32.890Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:32.897Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:32.897Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:33.460Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:33.461Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:33.506Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:33.507Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:15:35.062Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:15:35.064Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:15:35.070Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:15:35.071Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:35.078Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:15:35.089Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:15:35.090Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:35.109Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:35.137Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:35.137Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:35.147Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:35.147Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:36.451Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:36.452Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:36.479Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:36.480Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:42.850Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:42.851Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:42.858Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:42.859Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:45.526Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:45.527Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:45.539Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:15:45.540Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:16:05.761Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:16:05.761Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:16:05.791Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:16:05.792Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:28.150Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:28.151Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:28.199Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:28.199Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:29.365Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:29.366Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:29.379Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:29.379Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:57.210Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:17:57.210Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:12.895Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:12.895Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:21.915Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:21.916Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:21.970Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:21.970Z'
+}
+{
+  email: 'admin@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-07-31T14:18:22.388Z'
+}
+{
+  message: 'User ID 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:22.502Z'
+}
+{
+  message: '[AuthService] Password login successful for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:22.516Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:22.598Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:22.598Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:24.574Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:24.574Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:24.592Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:24.593Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:28.632Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:28.633Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:28.655Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:18:28.655Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:19:44.153Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:19:44.154Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:19:44.158Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:19:44.159Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T14:19:44.164Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:19:44.179Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:19:44.180Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:19:44.195Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:19:44.216Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:19:44.217Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:19:44.227Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:19:44.227Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:20:00.003Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:21:21.640Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:21:21.640Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:21:21.665Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:21:21.665Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:25:00.003Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:30:00.006Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:35:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:40:00.004Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:00.004Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:45:55.167Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:45:55.168Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:45:55.175Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:45:55.176Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.185Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:45:55.210Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:45:55.210Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.224Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.311Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.311Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.329Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.330Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.338Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:45:55.338Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:50:00.001Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:51:23.777Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:51:23.778Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:51:23.783Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:51:23.783Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T14:51:23.789Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:51:23.807Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:51:23.807Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:51:23.818Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.054Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.055Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.061Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.062Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.068Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.068Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.075Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T14:54:27.076Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T14:54:27.080Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T14:54:27.104Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T14:54:27.105Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T14:54:27.122Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:54:27.155Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:54:27.156Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T14:54:27.176Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T14:54:27.176Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T14:55:00.003Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:00:00.001Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.129Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.130Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.147Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.148Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.161Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.164Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:00:59.167Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.176Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:00:59.177Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:00:59.206Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:00:59.208Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:00:59.228Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:00:59.257Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:00:59.257Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:00:59.279Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:00:59.280Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:03:42.220Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:03:42.222Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:05:00.002Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:07:27.619Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:07:27.620Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:07:27.625Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:07:27.626Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:07:27.634Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:07:27.661Z'
+}
+{
+  message: '[Cache Miss] Tìm user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T15:07:27.662Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:07:27.680Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:10:00.004Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:10:12.839Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:10:12.839Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:10:12.857Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:10:12.857Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:10:50.886Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:10:50.888Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:10:50.897Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:10:50.898Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:10:50.908Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:10:50.929Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:10:50.930Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:10:50.945Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:01.195Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:01.195Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:01.251Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:01.252Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:07.803Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:07.803Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:07.818Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:07.818Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:13.586Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:13.587Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:13.645Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:13.646Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:56.280Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:56.282Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:56.319Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:11:56.319Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:03.714Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:03.714Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:03.722Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:03.722Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:07.070Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:07.070Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:07.089Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:12:07.089Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:14:47.768Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:14:47.772Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:14:47.779Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:14:47.780Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:14:47.789Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:14:47.812Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:14:47.813Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:14:47.826Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:14:54.409Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:14:54.410Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:14:54.428Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:14:54.428Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:15:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:20:00.002Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:20:00.089Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:20:00.092Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:20:00.108Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:20:00.117Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:20:00.121Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:20:00.139Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:25:00.002Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:30:00.001Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:32:28.269Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:32:28.271Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:32:28.277Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:32:28.278Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:28.284Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:32:28.309Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:32:28.310Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:28.323Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:28.367Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:28.367Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:28.391Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:28.391Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:29.281Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:29.281Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:29.295Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:32:29.296Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:35:00.003Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.912Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.913Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.919Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.924Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.932Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.933Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.946Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:38:13.947Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:13.951Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:38:13.975Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:38:13.976Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:13.991Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:14.052Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:14.053Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:14.080Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:14.081Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:16.965Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:16.965Z'
+}
+{
+  message: '[UserController] Get all users',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:16.995Z'
+}
+{
+  message: 'Fetching all users from repository',
+  level: 'info',
+  timestamp: '2026-07-31T15:38:16.996Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:38:24.854Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:38:24.854Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:38:24.855Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:38:24.869Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:38:24.869Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:38:24.870Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:38:25.057Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:38:25.107Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:40:00.002Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:43:15.733Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:43:15.740Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:45:00.004Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:45:29.133Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:45:29.134Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:45:29.144Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:45:29.146Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:45:29.163Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:45:29.214Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:45:29.215Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:45:29.245Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:45:29.284Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:45:29.284Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:45:29.285Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:45:29.291Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:45:29.292Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:45:29.293Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:45:29.411Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:45:29.418Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-07-31T15:46:37.482Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-07-31T15:46:37.565Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:46:41.211Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:46:41.220Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:46:52.397Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:46:52.397Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:46:52.398Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:46:52.402Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:46:52.403Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:46:52.404Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:46:52.609Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:46:52.622Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:47:38.905Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:47:38.987Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:47:47.465Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:47:47.471Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:47:52.283Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:47:52.319Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:48:12.291Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:48:12.301Z'
+}
+{
+  query: [Object: null prototype] { location: 'Ninh Bình' },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:48:17.402Z'
+}
+{
+  query: [Object: null prototype] { location: 'Ninh Bình' },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:48:17.487Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:48:20.230Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T15:48:20.243Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:48:25.830Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:48:25.875Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:50:00.003Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:50:02.038Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:50:02.094Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:51:20.300Z'
+}
+{
+  hotelId: '47f2265b-e71a-4c5c-b2b4-706d929e6c57',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:52:12.959Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 47f2265b-e71a-4c5c-b2b4-706d929e6c57 trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T15:52:12.961Z'
+}
+{
+  hotelId: '47f2265b-e71a-4c5c-b2b4-706d929e6c57',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:52:13.023Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47f2265b-e71a-4c5c-b2b4-706d929e6c57 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:52:13.024Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T15:55:00.007Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:55:05.187Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:55:05.188Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T15:55:05.201Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T15:55:05.202Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T15:55:05.216Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.226Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.229Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T15:55:05.249Z'
+}
+{
+  hotelId: 'ninh-binh',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:55:05.282Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: ninh-binh trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.284Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: PrismaClientKnownRequestError: \n' +
+    'Invalid `client.hotel.findUnique()` invocation in\n' +
+    '/app/src/modules/hotel/repositories/hotelRepository.ts:35:25\n' +
+    '\n' +
+    '  32 \n' +
+    '  33 async findById(id: string, tx?: TxClient): Promise<Hotel | null> {\n' +
+    '  34   const client = tx || this.prisma;\n' +
+    '→ 35   return client.hotel.findUnique(\n' +
+    'Invalid input value: invalid input syntax for type uuid: "ninh-binh"\n' +
+    '    at zr.handleRequestError (/app/generated/prisma/runtime/client.js:69:8286)\n' +
+    '    at zr.handleAndLogRequestError (/app/generated/prisma/runtime/client.js:69:7581)\n' +
+    '    at zr.request (/app/generated/prisma/runtime/client.js:69:7288)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async a (/app/generated/prisma/runtime/client.js:79:6862)\n' +
+    '    at async HotelService.getHotelById (/app/src/modules/hotel/services/hotelService.ts:122:19)\n' +
+    '    at async getHotelById (/app/src/modules/hotel/controllers/hotelController.ts:57:19)',
+  level: 'error',
+  timestamp: '2026-07-31T15:55:05.330Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:55:05.336Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.337Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.340Z'
+}
+{
+  hotelId: 'ninh-binh',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:55:05.343Z'
+}
+{
+  userId: '2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-07-31T15:55:05.347Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.347Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: ninh-binh trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.348Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:05.348Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: PrismaClientKnownRequestError: \n' +
+    'Invalid `client.hotel.findUnique()` invocation in\n' +
+    '/app/src/modules/hotel/repositories/hotelRepository.ts:35:25\n' +
+    '\n' +
+    '  32 \n' +
+    '  33 async findById(id: string, tx?: TxClient): Promise<Hotel | null> {\n' +
+    '  34   const client = tx || this.prisma;\n' +
+    '→ 35   return client.hotel.findUnique(\n' +
+    'Invalid input value: invalid input syntax for type uuid: "ninh-binh"\n' +
+    '    at zr.handleRequestError (/app/generated/prisma/runtime/client.js:69:8286)\n' +
+    '    at zr.handleAndLogRequestError (/app/generated/prisma/runtime/client.js:69:7581)\n' +
+    '    at zr.request (/app/generated/prisma/runtime/client.js:69:7288)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async a (/app/generated/prisma/runtime/client.js:79:6862)\n' +
+    '    at async HotelService.getHotelById (/app/src/modules/hotel/services/hotelService.ts:122:19)\n' +
+    '    at async getHotelById (/app/src/modules/hotel/controllers/hotelController.ts:57:19)',
+  level: 'error',
+  timestamp: '2026-07-31T15:55:05.386Z'
+}
+{
+  hotelId: '47f2265b-e71a-4c5c-b2b4-706d929e6c57',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:55:09.372Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47f2265b-e71a-4c5c-b2b4-706d929e6c57 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:09.373Z'
+}
+{
+  hotelId: '47f2265b-e71a-4c5c-b2b4-706d929e6c57',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:55:09.378Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47f2265b-e71a-4c5c-b2b4-706d929e6c57 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:09.380Z'
+}
+{
+  hotelId: '47f2265b-e71a-4c5c-b2b4-706d929e6c57',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:55:42.163Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47f2265b-e71a-4c5c-b2b4-706d929e6c57 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:55:42.164Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:56:01.521Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:56:01.583Z'
+}
+{
+  hotelId: 'f6168b41-05c7-4c40-a16c-668648f6a3ee',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:56:06.122Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: f6168b41-05c7-4c40-a16c-668648f6a3ee trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T15:56:06.123Z'
+}
+{
+  hotelId: 'f6168b41-05c7-4c40-a16c-668648f6a3ee',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T15:56:06.133Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: f6168b41-05c7-4c40-a16c-668648f6a3ee từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T15:56:06.135Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:59:44.179Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T15:59:44.239Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T16:00:00.003Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:00:18.779Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:00:18.784Z'
+}
+{
+  query: [Object: null prototype] { location: 'Hà Nội' },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:00:39.587Z'
+}
+{
+  query: [Object: null prototype] { location: 'Hà Nội' },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:00:39.656Z'
+}
+{
+  hotelId: '4d2f20ca-19f2-4c2b-a536-336f6e39c865',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T16:00:51.115Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 4d2f20ca-19f2-4c2b-a536-336f6e39c865 trong Database',
+  level: 'debug',
+  timestamp: '2026-07-31T16:00:51.116Z'
+}
+{
+  hotelId: '4d2f20ca-19f2-4c2b-a536-336f6e39c865',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-07-31T16:00:51.167Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 4d2f20ca-19f2-4c2b-a536-336f6e39c865 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T16:00:51.168Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:02:27.205Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:02:27.211Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:03:30.276Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:03:30.348Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:03:33.470Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:03:33.480Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:03:35.610Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:03:35.630Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:03:36.023Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:03:36.034Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:03:50.550Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-07-31T16:03:50.558Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T16:03:54.746Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T16:03:54.746Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-07-31T16:03:54.755Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-07-31T16:03:54.756Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-07-31T16:03:54.766Z'
+}
+{
+  message: 'Fetching user details for ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60',
+  level: 'debug',
+  timestamp: '2026-07-31T16:03:54.781Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 2f8dfd25-ab5a-40fb-9951-66b6b71d3b60 từ Redis',
+  level: 'debug',
+  timestamp: '2026-07-31T16:03:54.782Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: admin@booking.com',
+  level: 'info',
+  timestamp: '2026-07-31T16:03:54.797Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-07-31T16:03:54.827Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-07-31T16:03:54.865Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:04:10.772Z'
+}
+{
+  query: [Object: null prototype] {},
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-07-31T16:04:10.848Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-07-31T16:05:00.007Z'
+}

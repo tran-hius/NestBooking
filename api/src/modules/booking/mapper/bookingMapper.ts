@@ -30,6 +30,7 @@ export class BookingMapper {
       paymentMethod: booking.paymentMethod,
       paymentStatus: booking.paymentStatus,
       paymentDate: booking.paymentDate,
+      transactionId: booking.transactionId,
       guestName: booking.guestName,
       guestPhone: booking.guestPhone,
       guestEmail: booking.guestEmail,

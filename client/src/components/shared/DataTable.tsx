@@ -20,6 +20,7 @@ export interface DataTableProps<T> {
   onSearchChange: (val: string) => void;
   actionButton?: ReactNode;
   emptyMessage?: string;
+  getRowKey?: (item: T) => string;
 }
 
 export function DataTable<T>({
@@ -31,7 +32,8 @@ export function DataTable<T>({
   searchValue,
   onSearchChange,
   actionButton,
-  emptyMessage = "Không có dữ liệu."
+  emptyMessage = "Không có dữ liệu.",
+  getRowKey,
 }: DataTableProps<T>) {
   return (
     <div className="flex-1 space-y-6 animate-in fade-in duration-500 pb-10">
@@ -48,8 +50,8 @@ export function DataTable<T>({
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="relative w-full max-w-sm">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative w-full sm:max-w-sm">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="text"
@@ -62,8 +64,9 @@ export function DataTable<T>({
         {actionButton}
       </div>
 
-      <div className="rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 shadow-sm overflow-hidden">
-        <Table>
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-900/50">
+        <div className="overflow-x-auto">
+        <Table className="min-w-[900px]">
           <TableHeader className="bg-slate-50 dark:bg-zinc-900/80">
             <TableRow>
               {columns.map((col: Column<T>, idx: number) => (
@@ -74,7 +77,7 @@ export function DataTable<T>({
           <TableBody>
             {data.length > 0 ? (
               data.map((item: T, rowIdx: number) => (
-                <TableRow key={rowIdx} className="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors">
+                <TableRow key={getRowKey ? getRowKey(item) : rowIdx} className="hover:bg-slate-50 dark:hover:bg-zinc-800/50 transition-colors">
                   {columns.map((col: Column<T>, colIdx: number) => (
                     <TableCell key={colIdx} className={col.className}>
                       {col.cell ? col.cell(item) : col.accessorKey ? String(item[col.accessorKey]) : null}
@@ -91,6 +94,7 @@ export function DataTable<T>({
             )}
           </TableBody>
         </Table>
+        </div>
       </div>
     </div>
   );

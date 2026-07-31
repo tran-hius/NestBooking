@@ -26,7 +26,7 @@ export default function AgentHotelForm() {
   const loadHotel = useCallback(async () => {
     if (!hotelId) return;
     try {
-      const { data } = await hotelService.getHotelById(hotelId);
+      const { data } = await hotelService.getManagedHotelById(hotelId);
       setForm({ name: data.name, description: data.description || "", address: data.address, city: data.city, country: data.country, phone: data.phone || "", email: data.email || "", thumbnail: data.thumbnail || "", amenities: data.amenities || [], checkInTime: data.checkInTime || "14:00", checkOutTime: data.checkOutTime || "12:00", propertyType: data.propertyType as PropertyType });
       setAmenities((data.amenities || []).join(", "));
       setImages(data.images || []);
