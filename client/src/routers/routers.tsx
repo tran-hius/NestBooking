@@ -86,7 +86,7 @@ export const routers = [
     {
       path: '/partner/property-type',
       component: <PropertyTypeSelection />,
-      layout: null,
+      layout: AgentLayout,
     },
   {
     path: '/admin/dashboard',

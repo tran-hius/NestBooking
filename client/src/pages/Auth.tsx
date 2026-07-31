@@ -1,21 +1,30 @@
-﻿
+import { useState } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  KeyRound,
+  Loader2,
+  LockKeyhole,
+  Mail,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { authService } from "@/api/services/authService";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { useAppStore } from "@/stores/useAppStore";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+import HeaderBanner from "@/assets/HeaderBanner.jpg";
+import { toast } from "sonner";
 
 type AuthMode = "login" | "register" | "forgot_email" | "forgot_otp" | "forgot_reset";
 
 export default function Auth() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [mode, setMode] = useState<AuthMode>(location.pathname === "/register" ? "register" : "login");
   const [email, setEmail] = useState("");
@@ -23,36 +32,36 @@ export default function Auth() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [otpToken, setOtpToken] = useState("");
-  
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const { setToken, setUser } = useAppStore();
   const redirect = searchParams.get("redirect") || "/";
+  const isRegister = mode === "register";
+  const isForgot = mode.startsWith("forgot");
+
+  const switchMode = (nextMode: "login" | "register") => {
+    setMode(nextMode);
+    setPassword("");
+    setConfirmPassword("");
+    setOtp("");
+    setOtpToken("");
+    const query = searchParams.toString();
+    navigate(`${nextMode === "login" ? "/login" : "/register"}${query ? `?${query}` : ""}`, { replace: true });
+  };
 
   const handleLogin = async () => {
-    if (!email || !password) {
-      toast.error("Vui lòng nhập email và mật khẩu");
-      return;
-    }
-
+    if (!email || !password) return toast.error("Vui lòng nhập email và mật khẩu");
     setLoading(true);
     try {
       const response = await authService.login({ email, password });
-      
       const accessToken = response.data?.tokens?.accessToken || response.data?.data?.tokens?.accessToken;
       const user = response.data?.user || response.data?.data?.user;
-
-      if (!accessToken) {
-        throw new Error("Không nhận được access token");
-      }
-
+      if (!accessToken) throw new Error("Không nhận được access token");
       setToken(accessToken);
       if (user) setUser(user);
-
-      toast.success("Đăng nhập thành công!");
+      toast.success("Đăng nhập thành công");
       navigate(redirect, { replace: true });
     } catch (error: any) {
-      console.error("Lỗi đăng nhập", error);
       toast.error(error.response?.data?.message || "Email hoặc mật khẩu không chính xác");
     } finally {
       setLoading(false);
@@ -60,274 +69,134 @@ export default function Auth() {
   };
 
   const handleRegister = async () => {
-    if (!email || !password || !confirmPassword) {
-      toast.error("Vui lòng nhập đầy đủ thông tin");
-      return;
-    }
-    if (password !== confirmPassword) {
-      toast.error("Mật khẩu không khớp");
-      return;
-    }
-
+    if (!email || !password || !confirmPassword) return toast.error("Vui lòng nhập đầy đủ thông tin");
+    if (password !== confirmPassword) return toast.error("Mật khẩu không khớp");
     setLoading(true);
     try {
       const response = await authService.register({ email, password, confirmPassword });
-      
       const accessToken = response.data?.tokens?.accessToken || response.data?.data?.tokens?.accessToken;
       const user = response.data?.user || response.data?.data?.user;
-
-      if (!accessToken) {
-        throw new Error("Không nhận được access token");
-      }
-
+      if (!accessToken) throw new Error("Không nhận được access token");
       setToken(accessToken);
       if (user) setUser(user);
-
-      toast.success("Đăng ký thành công!");
+      toast.success("Đăng ký thành công");
       navigate(redirect, { replace: true });
     } catch (error: any) {
-      console.error("Lỗi đăng ký", error);
       toast.error(error.response?.data?.message || "Đăng ký thất bại");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSendForgotPasswordOtp = async () => {
-    if (!email) {
-      toast.error("Vui lòng nhập email");
-      return;
-    }
+  const handleSendOtp = async () => {
+    if (!email) return toast.error("Vui lòng nhập email");
     setLoading(true);
     try {
       const response = await authService.sendOtp({ email });
       const receivedToken = response.data?.data?.otpToken || response.data?.otpToken;
-      if (receivedToken) {
-        setOtpToken(receivedToken);
-        setMode("forgot_otp");
-        toast.success("Mã OTP đã được gửi đến email của bạn");
-      } else {
-        throw new Error("Không nhận được OTP token");
-      }
+      if (!receivedToken) throw new Error("Không nhận được OTP token");
+      setOtpToken(receivedToken);
+      setMode("forgot_otp");
+      toast.success("Mã OTP đã được gửi đến email của bạn");
     } catch (error: any) {
-      console.error("Lỗi gửi OTP", error);
-      toast.error(error.response?.data?.message || "Có lỗi xảy ra khi gửi mã OTP");
+      toast.error(error.response?.data?.message || "Không thể gửi mã OTP");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleVerifyForgotPasswordOtp = async () => {
-    if (!otp || otp.length !== 6) {
-      toast.error("Vui lòng nhập mã OTP 6 số");
-      return;
-    }
-    setMode("forgot_reset");
-  };
-
   const handleResetPassword = async () => {
-    if (!password || !confirmPassword) {
-      toast.error("Vui lòng nhập mật khẩu mới");
-      return;
-    }
-    if (password !== confirmPassword) {
-      toast.error("Mật khẩu không khớp");
-      return;
-    }
-    
+    if (!password || !confirmPassword) return toast.error("Vui lòng nhập mật khẩu mới");
+    if (password !== confirmPassword) return toast.error("Mật khẩu không khớp");
     setLoading(true);
     try {
       await authService.resetPassword({ otp, otpToken, newPassword: password });
-      toast.success("Đổi mật khẩu thành công! Vui lòng đăng nhập lại.");
-      setMode("login");
-      setPassword("");
-      setConfirmPassword("");
-      setOtp("");
-      setOtpToken("");
+      toast.success("Đổi mật khẩu thành công. Vui lòng đăng nhập lại.");
+      switchMode("login");
     } catch (error: any) {
-      console.error("Lỗi đổi mật khẩu", error);
       toast.error(error.response?.data?.message || "Đổi mật khẩu thất bại");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (mode === "login") await handleLogin();
-    else if (mode === "register") await handleRegister();
-    else if (mode === "forgot_email") await handleSendForgotPasswordOtp();
-    else if (mode === "forgot_otp") await handleVerifyForgotPasswordOtp();
-    else if (mode === "forgot_reset") await handleResetPassword();
+    if (mode === "register") await handleRegister();
+    if (mode === "forgot_email") await handleSendOtp();
+    if (mode === "forgot_otp") {
+      if (otp.length !== 6) return toast.error("Vui lòng nhập mã OTP 6 số");
+      setMode("forgot_reset");
+    }
+    if (mode === "forgot_reset") await handleResetPassword();
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto mt-16 mb-20 px-4">
-      <h1 className="text-3xl font-black text-slate-900 mb-3">
-        {mode === "login" && "Đăng nhập"}
-        {mode === "register" && "Tạo tài khoản"}
-        {mode.startsWith("forgot") && "Khôi phục mật khẩu"}
-      </h1>
-      <p className="text-slate-600 text-lg mb-10">
-        {mode === "login" && "Đăng nhập bằng tài khoản NestBooking để truy cập các dịch vụ."}
-        {mode === "register" && "Đăng ký tài khoản để nhận nhiều ưu đãi từ NestBooking."}
-        {mode.startsWith("forgot") && "Làm theo các bước để đặt lại mật khẩu của bạn."}
-      </p>
-
-      <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Email Field - Shared across multiple modes */}
-        {(mode === "login" || mode === "register" || mode === "forgot_email") && (
-          <div className="space-y-3">
-            <label htmlFor="email" className="text-base font-bold text-slate-900">
-              Địa chỉ email
-            </label>
-            <input 
-              id="email"
-              type="email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Nhập địa chỉ email của bạn" 
-              className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-slate-900 bg-white"
-            />
+    <div className="relative min-h-[calc(100svh-72px)] overflow-hidden bg-slate-50">
+      <div className="grid min-h-[calc(100svh-72px)] lg:grid-cols-2">
+        <section className={`relative min-h-64 overflow-hidden bg-[#05285d] transition-transform duration-700 ease-in-out lg:absolute lg:inset-y-0 lg:left-0 lg:w-1/2 ${isRegister ? "lg:translate-x-full" : "lg:translate-x-0"}`}>
+          <img src={HeaderBanner} alt="Điểm đến du lịch Việt Nam" className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#031b3d]/95 via-[#064c87]/75 to-[#05285d]/35" />
+          <div className="absolute -right-16 top-16 h-64 w-64 rounded-full border border-white/15" />
+          <div className="relative flex h-full min-h-64 flex-col justify-between p-6 text-white sm:p-10 lg:min-h-full lg:p-14 xl:p-16">
+            <div className="hidden lg:block"><div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-cyan-200 backdrop-blur"><Sparkles className="h-4 w-4" />Hành trình bắt đầu tại đây</div></div>
+            <div className="max-w-lg"><h2 className="text-3xl font-black leading-tight tracking-tight sm:text-4xl lg:text-5xl">{isRegister ? "Chào mừng bạn quay lại." : "Lưu giữ hành trình trong một tài khoản."}</h2><p className="mt-4 max-w-md text-sm leading-7 text-blue-100/80 sm:text-base">{isRegister ? "Đăng nhập để tiếp tục quản lý booking và thông tin chuyến đi của bạn." : "Tạo tài khoản để hoàn tất đặt phòng, theo dõi trạng thái và xem lại các chuyến đi."}</p><div className="mt-6 hidden space-y-3 lg:block">{["Theo dõi booking trong tài khoản", "Lưu thông tin liên hệ cho checkout", "Truy cập lịch sử chuyến đi"].map((item) => <div key={item} className="flex items-center gap-2 text-sm text-blue-50"><CheckCircle2 className="h-4 w-4 text-cyan-300" />{item}</div>)}</div><Button type="button" variant="outline" onClick={() => switchMode(isRegister ? "login" : "register")} className="mt-7 rounded-xl border-white/25 bg-white/10 px-6 font-bold text-white backdrop-blur hover:bg-white hover:text-[#05285d]">{isRegister ? "Chuyển sang đăng nhập" : "Tạo tài khoản mới"}<ArrowRight className="ml-2 h-4 w-4" /></Button></div>
+            <div className="hidden text-xs text-blue-100/45 lg:block">NestBooking · Tìm kiếm và đặt chỗ nghỉ</div>
           </div>
-        )}
+        </section>
 
-        {/* OTP Field */}
-        {mode === "forgot_otp" && (
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <label htmlFor="otp" className="text-base font-bold text-slate-900">
-                Mã OTP
-              </label>
-              <button type="button" onClick={() => setMode("forgot_email")} className="text-sm text-primary hover:underline">
-                Thay đổi email
-              </button>
-            </div>
-            <p className="text-sm text-slate-500 mb-4 text-center">Mã OTP gồm 6 chữ số đã được gửi đến: <span className="font-semibold text-slate-700">{email}</span></p>
-            <div className="flex w-full mt-2">
-              <InputOTP
-                maxLength={6}
-                value={otp}
-                onChange={(value) => setOtp(value)}
-                containerClassName="w-full"
-                className="w-full"
-              >
-                <InputOTPGroup className="flex w-full justify-between gap-2 sm:gap-4">
-                  <InputOTPSlot index={0} className="w-full h-14 sm:h-16 text-2xl font-bold bg-white !border border-slate-300 !rounded-md" />
-                  <InputOTPSlot index={1} className="w-full h-14 sm:h-16 text-2xl font-bold bg-white !border border-slate-300 !rounded-md" />
-                  <InputOTPSlot index={2} className="w-full h-14 sm:h-16 text-2xl font-bold bg-white !border border-slate-300 !rounded-md" />
-                  <InputOTPSlot index={3} className="w-full h-14 sm:h-16 text-2xl font-bold bg-white !border border-slate-300 !rounded-md" />
-                  <InputOTPSlot index={4} className="w-full h-14 sm:h-16 text-2xl font-bold bg-white !border border-slate-300 !rounded-md" />
-                  <InputOTPSlot index={5} className="w-full h-14 sm:h-16 text-2xl font-bold bg-white !border border-slate-300 !rounded-md" />
-                </InputOTPGroup>
-              </InputOTP>
-            </div>
+        <section className={`flex min-h-[620px] items-center justify-center px-4 py-10 transition-transform duration-700 ease-in-out sm:px-8 lg:absolute lg:inset-y-0 lg:left-0 lg:w-1/2 lg:px-12 ${isRegister ? "lg:translate-x-0" : "lg:translate-x-full"}`}>
+          <div className="w-full max-w-md">
+            <div className="mb-7"><div className="mb-4 flex items-center justify-between"><div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">{isForgot ? <KeyRound className="h-4 w-4" /> : <ShieldCheck className="h-4 w-4" />}{isForgot ? "Khôi phục tài khoản" : "Tài khoản khách hàng"}</div>{isForgot && <button type="button" onClick={() => switchMode("login")} className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-primary"><ArrowLeft className="h-3.5 w-3.5" />Đăng nhập</button>}</div><h1 className="text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">{getTitle(mode)}</h1><p className="mt-2 text-sm leading-6 text-slate-500">{getDescription(mode, email)}</p></div>
+
+            {!isForgot && <div className="mb-6 grid grid-cols-2 rounded-xl bg-slate-100 p-1"><button type="button" onClick={() => switchMode("login")} className={`rounded-lg px-3 py-2.5 text-sm font-bold transition ${mode === "login" ? "bg-white text-primary shadow-sm" : "text-slate-500"}`}>Đăng nhập</button><button type="button" onClick={() => switchMode("register")} className={`rounded-lg px-3 py-2.5 text-sm font-bold transition ${mode === "register" ? "bg-white text-primary shadow-sm" : "text-slate-500"}`}>Đăng ký</button></div>}
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              {(mode === "login" || mode === "register" || mode === "forgot_email") && <AuthField label="Địa chỉ email" icon={Mail}><input id="email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" className="h-12 w-full bg-transparent pl-10 pr-4 text-sm text-slate-900 outline-none" /></AuthField>}
+
+              {mode === "forgot_otp" && <div><div className="mb-3 flex items-center justify-between"><label className="text-sm font-bold text-slate-800">Mã xác thực</label><button type="button" onClick={() => setMode("forgot_email")} className="text-xs font-semibold text-primary hover:underline">Đổi email</button></div><InputOTP maxLength={6} value={otp} onChange={setOtp} containerClassName="w-full"><InputOTPGroup className="grid w-full grid-cols-6 gap-2">{Array.from({ length: 6 }).map((_, index) => <InputOTPSlot key={index} index={index} className="h-12 w-full rounded-xl border border-slate-300 bg-white text-lg font-bold" />)}</InputOTPGroup></InputOTP></div>}
+
+              {(mode === "login" || mode === "register" || mode === "forgot_reset") && <div><div className="mb-2 flex items-center justify-between"><label htmlFor="password" className="text-sm font-bold text-slate-800">{mode === "forgot_reset" ? "Mật khẩu mới" : "Mật khẩu"}</label>{mode === "login" && <button type="button" onClick={() => setMode("forgot_email")} className="text-xs font-semibold text-primary hover:underline">Quên mật khẩu?</button>}</div><div className="relative rounded-xl border border-slate-300 bg-white transition focus-within:border-primary focus-within:ring-4 focus-within:ring-blue-100"><LockKeyhole className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input id="password" type={showPassword ? "text" : "password"} autoComplete={mode === "login" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Nhập mật khẩu" className="h-12 w-full bg-transparent pl-10 pr-11 text-sm text-slate-900 outline-none" /><button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary">{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button></div></div>}
+
+              {(mode === "register" || mode === "forgot_reset") && <AuthField label="Nhập lại mật khẩu" icon={LockKeyhole}><input id="confirmPassword" type={showPassword ? "text" : "password"} autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Nhập lại mật khẩu" className="h-12 w-full bg-transparent pl-10 pr-4 text-sm text-slate-900 outline-none" /></AuthField>}
+
+              <Button disabled={loading} className="h-12 w-full rounded-xl text-sm font-bold text-white shadow-lg shadow-blue-500/15">{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{getSubmitLabel(mode)}</Button>
+            </form>
+
+            <div className="mt-6 text-center text-sm text-slate-500">{mode === "login" ? <>Chưa có tài khoản? <button type="button" onClick={() => switchMode("register")} className="font-bold text-primary hover:underline">Đăng ký ngay</button></> : mode === "register" ? <>Đã có tài khoản? <button type="button" onClick={() => switchMode("login")} className="font-bold text-primary hover:underline">Đăng nhập</button></> : null}</div>
+            <div className="mt-7 border-t border-slate-200 pt-5 text-center text-xs leading-5 text-slate-400">NestBooking chỉ sử dụng thông tin tài khoản để đăng nhập, đặt phòng và quản lý chuyến đi. <Link to="/support" className="font-semibold text-primary hover:underline">Cần trợ giúp?</Link></div>
           </div>
-        )}
-        
-        {/* Password Field */}
-        {(mode === "login" || mode === "register" || mode === "forgot_reset") && (
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <label htmlFor="password" className="text-base font-bold text-slate-900">
-                {mode === "forgot_reset" ? "Mật khẩu mới" : "Mật khẩu"}
-              </label>
-              {mode === "login" && (
-                <button type="button" onClick={() => setMode("forgot_email")} className="text-sm text-primary hover:underline">
-                  Quên mật khẩu?
-                </button>
-              )}
-            </div>
-            <input 
-              id="password"
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Nhập mật khẩu" 
-              className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-slate-900 bg-white"
-            />
-          </div>
-        )}
-
-        {/* Confirm Password Field */}
-        {(mode === "register" || mode === "forgot_reset") && (
-          <div className="space-y-3">
-            <label htmlFor="confirmPassword" className="text-base font-bold text-slate-900">
-              Nhập lại mật khẩu
-            </label>
-            <input 
-              id="confirmPassword"
-              type="password" 
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Nhập lại mật khẩu" 
-              className="w-full h-14 px-5 text-lg rounded-md border border-slate-300 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-slate-900 bg-white"
-            />
-          </div>
-        )}
-
-        <Button disabled={loading} className="w-full h-14 bg-primary hover:bg-primary/90 text-white font-bold text-lg rounded-md shadow-md mt-4">
-          {loading && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
-          {mode === "login" && "Đăng nhập"}
-          {mode === "register" && "Đăng ký"}
-          {mode === "forgot_email" && "Tiếp tục"}
-          {mode === "forgot_otp" && "Xác nhận OTP"}
-          {mode === "forgot_reset" && "Đổi mật khẩu"}
-        </Button>
-      </form>
-
-      <div className="text-center mt-6">
-        {mode === "login" && (
-          <span className="text-sm text-slate-600">
-            Chưa có tài khoản?{" "}
-            <button onClick={() => setMode("register")} className="font-medium text-primary hover:underline">
-              Đăng ký ngay
-            </button>
-          </span>
-        )}
-        {(mode === "register" || mode.startsWith("forgot")) && (
-          <span className="text-sm text-slate-600">
-            Đã có tài khoản?{" "}
-            <button onClick={() => setMode("login")} className="font-medium text-primary hover:underline">
-              Đăng nhập
-            </button>
-          </span>
-        )}
-      </div>
-
-      <div className="relative my-8">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-slate-200"></div>
-        </div>
-        <div className="relative flex justify-center text-sm">
-          <span className="px-4 bg-white text-slate-500">
-            hoặc đăng nhập bằng
-          </span>
-        </div>
-      </div>
-
-      <div className="flex justify-center gap-6 mb-10">
-        <button className="w-20 h-20 flex items-center justify-center border border-slate-200 rounded-xl hover:bg-slate-50 transition shadow-sm hover:shadow-md">
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-8 h-8" />
-        </button>
-        <button className="w-20 h-20 flex items-center justify-center border border-slate-200 rounded-xl hover:bg-slate-50 transition shadow-sm hover:shadow-md">
-          <img src="https://www.svgrepo.com/show/512317/github-142.svg" alt="Github" className="w-9 h-9" />
-        </button>
-        <button className="w-20 h-20 flex items-center justify-center border border-slate-200 rounded-xl hover:bg-slate-50 transition shadow-sm hover:shadow-md">
-          <img src="https://www.svgrepo.com/show/475647/facebook-color.svg" alt="Facebook" className="w-8 h-8" />
-        </button>
-      </div>
-
-      <div className="text-center border-t border-slate-200 pt-8 text-xs text-slate-500 space-y-2">
-        <p>
-          Bằng cách đăng nhập hoặc tạo tài khoản, bạn đồng ý với <a href="#" className="text-primary hover:underline">Điều khoản và Điều kiện</a> cũng như <a href="#" className="text-primary hover:underline">Chính sách Bảo mật</a> của chúng tôi.
-        </p>
-        <p>
-          Bảo lưu mọi quyền. <br/>
-          Bản quyền (2006-2026) - NestBooking™
-        </p>
+        </section>
       </div>
     </div>
   );
 }
 
+function AuthField({ label, icon: Icon, children }: { label: string; icon: typeof Mail; children: React.ReactNode }) {
+  return <div><label className="mb-2 block text-sm font-bold text-slate-800">{label}</label><div className="relative rounded-xl border border-slate-300 bg-white transition focus-within:border-primary focus-within:ring-4 focus-within:ring-blue-100"><Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />{children}</div></div>;
+}
+
+function getTitle(mode: AuthMode) {
+  if (mode === "login") return "Đăng nhập";
+  if (mode === "register") return "Tạo tài khoản";
+  if (mode === "forgot_email") return "Quên mật khẩu?";
+  if (mode === "forgot_otp") return "Nhập mã OTP";
+  return "Đặt mật khẩu mới";
+}
+
+function getDescription(mode: AuthMode, email: string) {
+  if (mode === "login") return "Tiếp tục đến booking và các chuyến đi đã lưu trong tài khoản.";
+  if (mode === "register") return "Tạo tài khoản khách hàng để hoàn tất đặt phòng trên NestBooking.";
+  if (mode === "forgot_email") return "Nhập email tài khoản để nhận mã xác thực đặt lại mật khẩu.";
+  if (mode === "forgot_otp") return `Mã OTP gồm 6 số đã được gửi đến ${email}.`;
+  return "Nhập mật khẩu mới và xác nhận lại để hoàn tất khôi phục.";
+}
+
+function getSubmitLabel(mode: AuthMode) {
+  if (mode === "login") return "Đăng nhập";
+  if (mode === "register") return "Tạo tài khoản";
+  if (mode === "forgot_email") return "Gửi mã OTP";
+  if (mode === "forgot_otp") return "Xác nhận mã";
+  return "Cập nhật mật khẩu";
+}

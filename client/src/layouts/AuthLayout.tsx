@@ -1,35 +1,17 @@
-import { MapPin, HelpCircle } from "lucide-react";
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import React from "react";
+import { Headphones, MapPin } from "lucide-react";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <header className="w-full bg-slate-900 h-16 flex items-center">
-        <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-          <Link to="/" className="flex items-center gap-2 transition-transform hover:scale-105">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white shadow-lg">
-              <MapPin className="h-5 w-5" />
-            </div>
-            <span className="text-xl font-black tracking-tighter text-white">
-              NestBooking
-            </span>
-          </Link>
-
-          <div className="flex items-center gap-4">
-            <button className="text-white hover:bg-white/10 p-2 rounded-full transition">
-              <span className="font-bold">VN</span>
-            </button>
-            <button className="text-white hover:bg-white/10 p-2 rounded-full transition">
-              <HelpCircle className="w-6 h-6" />
-            </button>
-          </div>
+    <div className="min-h-screen bg-slate-50">
+      <header className="relative z-50 flex h-[72px] items-center border-b border-slate-200 bg-white">
+        <div className="container flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5 text-slate-900"><span className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 text-white shadow-lg shadow-blue-500/20"><MapPin className="h-5 w-5" /><span className="absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full border border-blue-600 bg-emerald-300" /></span><span className="text-xl font-black tracking-tight sm:text-2xl">NestBooking</span></Link>
+          <Link to="/support" className="inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-primary"><Headphones className="h-4 w-4" /><span className="hidden sm:inline">Cần hỗ trợ?</span></Link>
         </div>
       </header>
-
-      <main className="flex-1 flex flex-col">
-        {children}
-      </main>
+      <main>{children}</main>
     </div>
   );
 }

@@ -1,427 +1,123 @@
+import { useEffect, useRef, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import {
-  User,
-  Shield,
-  Users,
-  Sliders,
-  CreditCard,
-  Bell,
   Camera,
+  CheckCircle2,
   Loader2,
+  Mail,
+  MapPin,
+  Phone,
+  Save,
+  ShieldCheck,
+  TicketCheck,
+  UserRound,
 } from "lucide-react";
-import { useRef, useState } from "react";
-import { useAppStore } from "@/stores/useAppStore";
 import { userService } from "@/api/services/userService";
-
-import { toast } from "sonner";
 import SecuritySettings from "@/components/user/SecuritySettings";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAppStore } from "@/stores/useAppStore";
+import { toast } from "sonner";
+
+type ProfileTab = "personal" | "security";
 
 export default function PersonalInfo() {
-  const { user, setUser } = useAppStore();
+  const { user, setUser, isAuthenticated } = useAppStore();
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  const [activeTab, setActiveTab] = useState<ProfileTab>("personal");
+  const [uploading, setUploading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [form, setForm] = useState({ fullName: "", phoneNumber: "", address: "" });
 
-  const [activeTab, setActiveTab] = useState("personal");
-
-  const [editingField, setEditingField] = useState<string | null>(null);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    phoneNumber: "",
-    address: "",
-  });
-  const [isSaving, setIsSaving] = useState(false);
-
-  const handleEdit = (field: string) => {
-    setEditingField(field);
-    setFormData({
+  useEffect(() => {
+    setForm({
       fullName: user?.profile?.fullName || "",
       phoneNumber: user?.profile?.phoneNumber || "",
-      address: (user?.profile as any)?.address || "",
+      address: user?.profile?.address || "",
     });
-  };
+  }, [user]);
 
-  const handleCancel = () => {
-    setEditingField(null);
-  };
+  if (!isAuthenticated || !user) return <Navigate to="/login?redirect=/settings/personal-details" replace />;
 
-  const handleSave = async (field: string) => {
-    if (!user) return;
+  const completedFields = [user.profile?.fullName, user.profile?.phoneNumber, user.profile?.address, user.profile?.avatarUrl].filter(Boolean).length;
+  const profilePercent = Math.round(completedFields / 4 * 100);
+  const hasChanges = form.fullName !== (user.profile?.fullName || "")
+    || form.phoneNumber !== (user.profile?.phoneNumber || "")
+    || form.address !== (user.profile?.address || "");
+
+  const saveProfile = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!form.fullName.trim()) return toast.error("Họ tên không được để trống");
+    if (form.phoneNumber && !/^[0-9]{9,15}$/.test(form.phoneNumber)) return toast.error("Số điện thoại phải có từ 9 đến 15 chữ số");
+    setSaving(true);
     try {
-      setIsSaving(true);
-      const dataToUpdate = { [field]: formData[field as keyof typeof formData] };
-      const result = await userService.updateProfile(user.id, dataToUpdate);
-      toast.success("Cập nhật thành công!");
-      
-      const updatedUser = result.data || result; if (updatedUser) { 
-         setUser(updatedUser); 
-       }
-      setEditingField(null);
-    } catch (error) {
-      toast.error("Cập nhật thất bại, vui lòng thử lại!");
+      const response = await userService.updateProfile(user.id, {
+        fullName: form.fullName.trim(),
+        phoneNumber: form.phoneNumber.trim(),
+        address: form.address.trim(),
+      });
+      setUser(response.data || response);
+      toast.success("Đã cập nhật hồ sơ cá nhân");
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Không thể cập nhật hồ sơ");
     } finally {
-      setIsSaving(false);
+      setSaving(false);
     }
   };
 
-  const menuItems = [
-    { id: "personal", icon: User, label: "Thông tin cá nhân" },
-    { id: "security", icon: Shield, label: "Cài đặt bảo mật" },
-    { id: "guests", icon: Users, label: "Những du khách khác" },
-    { id: "preferences", icon: Sliders, label: "Tùy chỉnh tùy chọn" },
-    { id: "payment", icon: CreditCard, label: "Phương thức thanh toán" },
-    { id: "privacy", icon: Bell, label: "Bảo mật và quản lý dữ liệu" },
-  ];
-
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !user) return;
-
-    if (!file.type.startsWith("image/")) {
-      toast.error("Vui lòng chọn định dạng ảnh hợp lệ!");
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("Kích thước ảnh không được vượt quá 5MB!");
-      return;
-    }
-
+  const uploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) return toast.error("Vui lòng chọn một tệp hình ảnh");
+    if (file.size > 5 * 1024 * 1024) return toast.error("Ảnh đại diện không được vượt quá 5 MB");
+    setUploading(true);
     try {
-      setIsUploading(true);
-      const formData = new FormData();
-      formData.append("avatar", file);
-
-      // Gọi API Upload và lấy user mới nhất trả về
-      const result = await userService.uploadAvatar(user.id, formData);
-
-      toast.success("Cập nhật ảnh đại diện thành công!");
-
-      // Cập nhật Store luôn mà ko cần gọi lại getMe (tránh cache 304)
-      const updatedUser = result.data || result; if (updatedUser) { 
-         setUser(updatedUser); 
-       }
-    } catch (error) {
-      toast.error("Tải ảnh thất bại, vui lòng thử lại!");
+      const data = new FormData();
+      data.append("avatar", file);
+      const response = await userService.uploadAvatar(user.id, data);
+      setUser(response.data || response);
+      toast.success("Đã cập nhật ảnh đại diện");
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Không thể tải ảnh đại diện");
     } finally {
-      setIsUploading(false);
-      // Reset input để chọn lại file cũ nếu muốn
+      setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-20">
-      {/* Khoảng trống bù cho Header cố định */}
-      <div className="h-20 bg-primary"></div>
+    <div className="min-h-screen bg-[#f5f8fc] pb-20 pt-24">
+      <section className="relative overflow-hidden bg-[#05285d] py-12 text-white"><div className="absolute inset-0"><div className="absolute -right-20 -top-32 h-80 w-80 rounded-full border border-white/10" /><div className="absolute right-16 top-5 h-52 w-52 rounded-full bg-cyan-400/10 blur-3xl" /></div><div className="container relative"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-300"><UserRound className="h-4 w-4" />Account settings</div><h1 className="text-3xl font-black tracking-tight md:text-4xl">Hồ sơ cá nhân</h1><p className="mt-3 max-w-xl text-sm leading-relaxed text-blue-100/70">Cập nhật thông tin dùng trong quá trình đặt phòng và quản lý bảo mật tài khoản.</p></div><Button asChild className="w-fit rounded-xl bg-white font-bold text-[#05285d] hover:bg-blue-50"><Link to="/my-bookings">Xem chuyến đi<TicketCheck className="ml-2 h-4 w-4" /></Link></Button></div></div></section>
 
-      <div className="container mx-auto max-w-6xl px-4 mt-10">
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Cột Sidebar Trái */}
-          <div className="w-full md:w-1/4 flex-shrink-0">
-            <nav className="flex flex-col gap-1 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-              {menuItems.map((item, index) => {
-                const Icon = item.icon;
-                const isActive = activeTab === item.id;
-                return (
-                  <button
-                    key={index}
-                    onClick={() => setActiveTab(item.id)}
-                    className={`flex items-center gap-3 px-5 py-4 transition-colors w-full text-left ${
-                      isActive
-                        ? "bg-slate-50 border-l-4 border-l-primary text-primary font-bold"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 border-l-4 border-l-transparent font-medium"
-                    } ${index !== menuItems.length - 1 ? "border-b border-slate-100" : ""}`}
-                  >
-                    <Icon
-                      className={`w-5 h-5 ${isActive ? "text-primary" : "text-slate-400"}`}
-                    />
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
+      <div className="container relative -mt-6">
+        <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+          <aside className="space-y-4">
+            <Card className="overflow-hidden border-0 shadow-sm ring-1 ring-slate-200"><CardContent className="p-5"><div className="flex flex-col items-center text-center"><div className="relative"><Avatar className={`h-24 w-24 border-4 border-white shadow-lg ${uploading ? "opacity-50" : ""}`}><AvatarImage src={user.profile?.avatarUrl || ""} /><AvatarFallback className="bg-gradient-to-br from-blue-600 to-cyan-500 text-3xl font-black text-white">{getInitials(user.profile?.fullName, user.email)}</AvatarFallback></Avatar><button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading} aria-label="Thay ảnh đại diện" className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-xl border-2 border-white bg-primary text-white shadow-md hover:bg-blue-600">{uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Camera className="h-4 w-4" />}</button><input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={uploadAvatar} /></div><h2 className="mt-4 max-w-full truncate text-lg font-black text-slate-900">{user.profile?.fullName || "Chưa cập nhật tên"}</h2><p className="mt-1 max-w-full truncate text-xs text-slate-500">{user.email}</p><Badge variant="outline" className="mt-3 border-blue-200 bg-blue-50 text-blue-700">{user.role === "AGENT" ? "Đối tác" : "Khách hàng"}</Badge></div><div className="mt-5"><div className="mb-2 flex items-center justify-between text-xs"><span className="font-semibold text-slate-500">Hoàn thiện hồ sơ</span><span className="font-black text-slate-800">{profilePercent}%</span></div><div className="h-2 overflow-hidden rounded-full bg-slate-100"><div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all" style={{ width: `${profilePercent}%` }} /></div><p className="mt-2 text-[11px] leading-relaxed text-slate-400">Tên, điện thoại, địa chỉ và ảnh đại diện giúp checkout thuận tiện hơn.</p></div></CardContent></Card>
 
-          {/* Cột Nội dung Chính */}
-          <div className="flex-1 bg-white border border-slate-200 rounded-xl shadow-sm p-6 md:p-10">
-            {activeTab === "personal" && (
-              <>
-                {/* Tiêu đề & Avatar */}
-                <div className="flex justify-between items-start mb-10">
-              <div
-                className="relative group cursor-pointer"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  accept="image/*"
-                  className="hidden"
-                />
+            <nav className="rounded-2xl border border-slate-200 bg-white p-2 shadow-sm"><button type="button" onClick={() => setActiveTab("personal")} className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold transition ${activeTab === "personal" ? "bg-blue-50 text-primary" : "text-slate-600 hover:bg-slate-50"}`}><span className={`flex h-9 w-9 items-center justify-center rounded-xl ${activeTab === "personal" ? "bg-white shadow-sm" : "bg-slate-100"}`}><UserRound className="h-4 w-4" /></span>Thông tin cá nhân</button><button type="button" onClick={() => setActiveTab("security")} className={`mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold transition ${activeTab === "security" ? "bg-blue-50 text-primary" : "text-slate-600 hover:bg-slate-50"}`}><span className={`flex h-9 w-9 items-center justify-center rounded-xl ${activeTab === "security" ? "bg-white shadow-sm" : "bg-slate-100"}`}><ShieldCheck className="h-4 w-4" /></span>Mật khẩu & bảo mật</button></nav>
+          </aside>
 
-                {user?.profile?.avatarUrl ? (
-                  <img
-                    src={user.profile.avatarUrl}
-                    alt="Avatar"
-                    className={`w-20 h-20 rounded-full object-cover border-4 border-white shadow-md flex-shrink-0 ${isUploading ? "opacity-50" : ""}`}
-                  />
-                ) : (
-                  <div
-                    className={`w-20 h-20 bg-purple-700 text-white rounded-full flex items-center justify-center text-3xl font-bold border-4 border-white shadow-md flex-shrink-0 ${isUploading ? "opacity-50" : ""}`}
-                  >
-                    {user?.email?.[0].toUpperCase() || "U"}
-                  </div>
-                )}
+          <main className="min-w-0">
+            {activeTab === "personal" ? <Card className="border-0 shadow-sm ring-1 ring-slate-200"><CardContent className="p-6 md:p-8"><div className="flex flex-col justify-between gap-3 border-b border-slate-100 pb-6 sm:flex-row sm:items-start"><div><div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Thông tin liên hệ</div><h2 className="mt-1 text-2xl font-black text-slate-900">Thông tin cá nhân</h2><p className="mt-2 text-sm text-slate-500">Dữ liệu này được dùng để điền thông tin khách khi bạn đặt phòng.</p></div>{profilePercent === 100 && <span className="inline-flex w-fit items-center gap-1.5 rounded-lg bg-emerald-50 px-3 py-2 text-xs font-bold text-emerald-700"><CheckCircle2 className="h-4 w-4" />Hồ sơ đầy đủ</span>}</div>
 
-                {/* Overlay hiệu ứng hover / loading */}
-                <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  {isUploading ? (
-                    <Loader2 className="w-6 h-6 text-white animate-spin" />
-                  ) : (
-                    <Camera className="w-6 h-6 text-white" />
-                  )}
-                </div>
-              </div>
-              <div className="px-2">
-                <h2 className="text-3xl font-bold text-slate-900 mb-2">
-                  Thông tin cá nhân
-                </h2>
-                <p className="text-slate-500 text-lg">
-                  Hãy cập nhật thông tin của bạn và tìm hiểu xem thông tin đó
-                  được sử dụng như thế nào.
-                </p>
-              </div>
-
-              {/* KHỐI HIỂN THỊ AVATAR CÓ THỂ CLICK */}
-            </div>
-
-            {/* Danh sách các trường thông tin */}
-            <div className="flex flex-col">
-              {/* Tên */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between py-6 border-b border-slate-200 gap-4">
-                <div className="w-full sm:w-1/4 text-slate-900 font-medium">
-                  Tên
-                </div>
-                {editingField === "fullName" ? (
-                  <div className="flex-1 flex flex-col gap-2">
-                    <input
-                      type="text"
-                      className="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                      value={formData.fullName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, fullName: e.target.value })
-                      }
-                      placeholder="Nhập tên của bạn"
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleSave("fullName")}
-                        disabled={isSaving}
-                        className="bg-primary text-white px-4 py-2 rounded font-medium hover:bg-blue-700 disabled:opacity-50"
-                      >
-                        {isSaving ? "Đang lưu..." : "Lưu"}
-                      </button>
-                      <button
-                        onClick={handleCancel}
-                        disabled={isSaving}
-                        className="bg-slate-100 text-slate-700 px-4 py-2 rounded font-medium hover:bg-slate-200"
-                      >
-                        Hủy
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div className="flex-1 text-slate-700">
-                      {user?.profile?.fullName || (
-                        <span className="text-slate-400 italic">
-                          Chưa cập nhật tên
-                        </span>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => handleEdit("fullName")}
-                      className="text-primary hover:text-blue-700 font-bold hover:underline text-left sm:text-right"
-                    >
-                      Biên tập
-                    </button>
-                  </>
-                )}
-              </div>
-
-              {/* Địa chỉ email */}
-              <div className="flex flex-col sm:flex-row items-start justify-between py-6 border-b border-slate-200 gap-4">
-                <div className="w-full sm:w-1/4 text-slate-900 font-medium mt-1">
-                  Địa chỉ email
-                </div>
-                <div className="flex-1 flex flex-col gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-slate-700 font-medium">
-                      {user?.email}
-                    </span>
-                    <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded flex items-center gap-1">
-                      Đã xác minh
-                    </span>
-                  </div>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    Đây là địa chỉ email bạn dùng để đăng nhập. Đây cũng là địa
-                    chỉ chúng tôi gửi xác nhận đặt chỗ cho bạn.
-                  </p>
-
-                  {/* Hộp thoại gợi ý đổi số điện thoại */}
-                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-5 mt-2">
-                    <p className="text-slate-800 text-sm font-bold mb-2">
-                      Không thể truy cập email của bạn?
-                    </p>
-                    <p className="text-slate-600 text-sm mb-4 leading-relaxed">
-                      Nếu bạn đã thêm số điện thoại di động cho một trong những
-                      lần lưu trú trước đây, bạn có thể thay đổi địa chỉ email
-                      bằng cách xác minh qua điện thoại di động.
-                    </p>
-                    <button className="text-primary hover:text-blue-700 text-sm font-bold hover:underline">
-                      Thay đổi email bằng xác minh số điện thoại
-                    </button>
-                  </div>
-                </div>
-                <button className="text-primary hover:text-blue-700 font-bold hover:underline text-left sm:text-right mt-1">
-                  Biên tập
-                </button>
-              </div>
-
-              {/* Số điện thoại */}
-              <div className="flex flex-col sm:flex-row items-start justify-between py-6 border-b border-slate-200 gap-4">
-                <div className="w-full sm:w-1/4 text-slate-900 font-medium mt-1">
-                  Số điện thoại
-                </div>
-                {editingField === "phoneNumber" ? (
-                  <div className="flex-1 flex flex-col gap-2">
-                    <input
-                      type="text"
-                      className="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-                      value={formData.phoneNumber}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          phoneNumber: e.target.value,
-                        })
-                      }
-                      placeholder="Nhập số điện thoại"
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleSave("phoneNumber")}
-                        disabled={isSaving}
-                        className="bg-primary text-white px-4 py-2 rounded font-medium hover:bg-blue-700 disabled:opacity-50"
-                      >
-                        {isSaving ? "Đang lưu..." : "Lưu"}
-                      </button>
-                      <button
-                        onClick={handleCancel}
-                        disabled={isSaving}
-                        className="bg-slate-100 text-slate-700 px-4 py-2 rounded font-medium hover:bg-slate-200"
-                      >
-                        Hủy
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div className="flex-1 flex flex-col gap-2">
-                      {user?.profile?.phoneNumber ? (
-                        <span className="text-slate-700">
-                          {user.profile.phoneNumber}
-                        </span>
-                      ) : (
-                        <span className="text-slate-400 italic">
-                          Thêm số điện thoại của bạn
-                        </span>
-                      )}
-                      <p className="text-slate-500 text-sm leading-relaxed">
-                        Các cơ sở lưu trú hoặc điểm tham quan mà bạn đặt chỗ sẽ
-                        sử dụng số điện thoại này nếu cần liên lạc với bạn.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => handleEdit("phoneNumber")}
-                      className="text-primary hover:text-blue-700 font-bold hover:underline text-left sm:text-right mt-1"
-                    >
-                      Biên tập
-                    </button>
-                  </>
-                )}
-              </div>
-
-              {/* Địa chỉ */}
-              <div className="flex flex-col sm:flex-row items-start justify-between py-6 border-b border-slate-200 gap-4">
-                <div className="w-full sm:w-1/4 text-slate-900 font-medium mt-1">
-                  Địa chỉ
-                </div>
-                {editingField === "address" ? (
-                  <div className="flex-1 flex flex-col gap-2">
-                    <textarea
-                      className="w-full px-3 py-2 border border-slate-300 rounded focus:outline-none focus:ring-2 focus:ring-primary min-h-[80px]"
-                      value={formData.address}
-                      onChange={(e) =>
-                        setFormData({ ...formData, address: e.target.value })
-                      }
-                      placeholder="Nhập địa chỉ của bạn"
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleSave("address")}
-                        disabled={isSaving}
-                        className="bg-primary text-white px-4 py-2 rounded font-medium hover:bg-blue-700 disabled:opacity-50"
-                      >
-                        {isSaving ? "Đang lưu..." : "Lưu"}
-                      </button>
-                      <button
-                        onClick={handleCancel}
-                        disabled={isSaving}
-                        className="bg-slate-100 text-slate-700 px-4 py-2 rounded font-medium hover:bg-slate-200"
-                      >
-                        Hủy
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div className="flex-1 flex flex-col gap-2">
-                      {(user?.profile as any)?.address ? (
-                        <span className="text-slate-700">
-                          {(user?.profile as any)?.address}
-                        </span>
-                      ) : (
-                        <span className="text-slate-400 italic">
-                          Thêm địa chỉ của bạn
-                        </span>
-                      )}
-                      <p className="text-slate-500 text-sm leading-relaxed">
-                        Chúng tôi sẽ lưu thông tin này để việc đặt chỗ sau này
-                        của bạn được thuận tiện hơn.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => handleEdit("address")}
-                      className="text-primary hover:text-blue-700 font-bold hover:underline text-left sm:text-right mt-1"
-                    >
-                      Biên tập
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-            </>
-            )}
-
-            {activeTab === "security" && (
-              <SecuritySettings />
-            )}
-          </div>
+              <form onSubmit={saveProfile} className="mt-7 space-y-6"><div className="grid gap-5 sm:grid-cols-2"><ProfileField label="Họ và tên" icon={UserRound}><Input value={form.fullName} maxLength={100} required className="h-11 rounded-xl pl-10" onChange={(event) => setForm({ ...form, fullName: event.target.value })} placeholder="Nhập họ và tên" /></ProfileField><ProfileField label="Số điện thoại" icon={Phone}><Input value={form.phoneNumber} inputMode="numeric" maxLength={15} className="h-11 rounded-xl pl-10" onChange={(event) => setForm({ ...form, phoneNumber: event.target.value.replace(/\D/g, "") })} placeholder="9-15 chữ số" /></ProfileField></div><ProfileField label="Địa chỉ email" icon={Mail}><Input value={user.email} readOnly className="h-11 rounded-xl bg-slate-50 pl-10 text-slate-500" /></ProfileField><div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3 text-xs leading-relaxed text-blue-700">Email là định danh đăng nhập và hiện không thể thay đổi trong trang hồ sơ.</div><div><Label htmlFor="address" className="text-sm font-bold text-slate-800">Địa chỉ</Label><div className="relative mt-2"><MapPin className="absolute left-3 top-3 h-4 w-4 text-slate-400" /><textarea id="address" value={form.address} maxLength={255} rows={4} className="w-full rounded-xl border border-input bg-background py-2.5 pl-10 pr-3 text-sm outline-none ring-offset-background placeholder:text-muted-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2" onChange={(event) => setForm({ ...form, address: event.target.value })} placeholder="Nhập địa chỉ liên hệ" /></div><div className="mt-1 text-right text-[11px] text-slate-400">{form.address.length}/255</div></div><div className="flex flex-col-reverse gap-2 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end"><Button type="button" variant="outline" className="rounded-xl" disabled={!hasChanges || saving} onClick={() => setForm({ fullName: user.profile?.fullName || "", phoneNumber: user.profile?.phoneNumber || "", address: user.profile?.address || "" })}>Hoàn tác</Button><Button type="submit" className="rounded-xl font-bold text-white" disabled={!hasChanges || saving}>{saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}Lưu thay đổi</Button></div></form>
+            </CardContent></Card> : <SecuritySettings />}
+          </main>
         </div>
       </div>
     </div>
   );
 }
 
+function ProfileField({ label, icon: Icon, children }: { label: string; icon: typeof UserRound; children: React.ReactNode }) {
+  return <div><Label className="text-sm font-bold text-slate-800">{label}</Label><div className="relative mt-2"><Icon className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />{children}</div></div>;
+}
 
-
+function getInitials(name?: string | null, email?: string) {
+  if (!name?.trim()) return email?.charAt(0).toUpperCase() || "U";
+  return name.trim().split(/\s+/).slice(-2).map((part) => part.charAt(0).toUpperCase()).join("");
+}
