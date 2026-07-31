@@ -1,184 +1,68 @@
 import { useState } from "react";
-import { useAppStore } from "@/stores/useAppStore";
+import { useNavigate } from "react-router-dom";
+import { AlertTriangle, Eye, EyeOff, KeyRound, Loader2, LockKeyhole, ShieldCheck, Trash2 } from "lucide-react";
 import { authService } from "@/api/services/authService";
 import { userService } from "@/api/services/userService";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Loader2, AlertTriangle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAppStore } from "@/stores/useAppStore";
+import { toast } from "sonner";
 
 export default function SecuritySettings() {
   const { user, clearAuth, setUser } = useAppStore();
   const navigate = useNavigate();
-
-  // Change Password state
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [showPasswords, setShowPasswords] = useState(false);
+  const [changing, setChanging] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
-  // Delete Account state
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
-  const handleChangePassword = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newPassword !== confirmPassword) {
-      toast.error("Mật khẩu mới không khớp!");
-      return;
-    }
-    if (newPassword.length < 6) {
-      toast.error("Mật khẩu mới phải có ít nhất 6 ký tự!");
-      return;
-    }
-
+  const changePassword = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (newPassword.length < 6) return toast.error("Mật khẩu mới phải có ít nhất 6 ký tự");
+    if (newPassword !== confirmPassword) return toast.error("Mật khẩu mới không khớp");
+    setChanging(true);
     try {
-      setIsChangingPassword(true);
-      await authService.changePassword({
-        currentPassword,
-        newPassword,
-      });
-      toast.success("Đổi mật khẩu thành công!");
+      await authService.changePassword({ currentPassword, newPassword });
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
+      toast.success("Đã đổi mật khẩu");
     } catch (error: any) {
-      console.error(error);
-      toast.error(error.response?.data?.message || "Đổi mật khẩu thất bại!");
+      toast.error(error.response?.data?.message || "Không thể đổi mật khẩu");
     } finally {
-      setIsChangingPassword(false);
+      setChanging(false);
     }
   };
 
-  const handleDeleteAccount = async () => {
+  const deleteAccount = async () => {
     if (!user) return;
+    setDeleting(true);
     try {
-      setIsDeleting(true);
       await userService.deleteUser(user.id);
-      toast.success("Đã xóa tài khoản thành công!");
       clearAuth();
       setUser(null);
+      toast.success("Tài khoản đã được vô hiệu hóa");
       navigate("/");
     } catch (error: any) {
-      console.error(error);
-      toast.error(error.response?.data?.message || "Xóa tài khoản thất bại!");
+      toast.error(error.response?.data?.message || "Không thể xóa tài khoản");
     } finally {
-      setIsDeleting(false);
-      setShowDeleteConfirm(false);
+      setDeleting(false);
     }
   };
 
-  return (
-    <div className="space-y-8">
-      {/* HEADER */}
-      <div className="border-b border-slate-200 pb-5">
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Cài đặt bảo mật</h2>
-        <p className="text-slate-600">
-          Quản lý mật khẩu và bảo mật tài khoản của bạn
-        </p>
-      </div>
+  return <div className="space-y-6"><Card className="border-0 shadow-sm ring-1 ring-slate-200"><CardContent className="p-6 md:p-8"><div className="border-b border-slate-100 pb-6"><div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Account security</div><h2 className="mt-1 text-2xl font-black text-slate-900">Mật khẩu & bảo mật</h2><p className="mt-2 text-sm text-slate-500">Thay đổi mật khẩu dùng để đăng nhập vào NestBooking.</p></div><div className="mt-6 grid gap-6 lg:grid-cols-[1fr_260px]"><form onSubmit={changePassword} className="space-y-4"><PasswordField label="Mật khẩu hiện tại" value={currentPassword} onChange={setCurrentPassword} visible={showPasswords} autoComplete="current-password" /><PasswordField label="Mật khẩu mới" value={newPassword} onChange={setNewPassword} visible={showPasswords} autoComplete="new-password" /><PasswordField label="Xác nhận mật khẩu mới" value={confirmPassword} onChange={setConfirmPassword} visible={showPasswords} autoComplete="new-password" /><button type="button" onClick={() => setShowPasswords((value) => !value)} className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-primary">{showPasswords ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}{showPasswords ? "Ẩn mật khẩu" : "Hiện mật khẩu"}</button><div><Button type="submit" disabled={changing} className="rounded-xl font-bold text-white">{changing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <KeyRound className="mr-2 h-4 w-4" />}Cập nhật mật khẩu</Button></div></form><div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5"><div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-primary shadow-sm"><ShieldCheck className="h-5 w-5" /></div><h3 className="mt-4 font-black text-slate-900">Bảo vệ tài khoản</h3><ul className="mt-3 space-y-2 text-xs leading-relaxed text-slate-600"><li>Không chia sẻ mật khẩu hoặc mã OTP.</li><li>Dùng mật khẩu khác với các dịch vụ khác.</li><li>Liên hệ hỗ trợ nếu phát hiện truy cập bất thường.</li></ul></div></div></CardContent></Card>
 
-      {/* CHANGE PASSWORD */}
-      <div className="border border-slate-200 rounded-xl p-6">
-        <h3 className="text-lg font-bold text-slate-900 mb-4">Đổi mật khẩu</h3>
-        <form onSubmit={handleChangePassword} className="space-y-4 max-w-md">
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
-              Mật khẩu hiện tại
-            </label>
-            <input
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              required
-              className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-              placeholder="Nhập mật khẩu hiện tại"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
-              Mật khẩu mới
-            </label>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-              className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-              placeholder="Mật khẩu mới (ít nhất 6 ký tự)"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">
-              Xác nhận mật khẩu mới
-            </label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="w-full border border-slate-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
-              placeholder="Nhập lại mật khẩu mới"
-            />
-          </div>
-          <Button
-            type="submit"
-            disabled={isChangingPassword}
-            className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg px-6"
-          >
-            {isChangingPassword ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-            Lưu mật khẩu mới
-          </Button>
-        </form>
-      </div>
+    <Card className="border-0 bg-red-50/60 shadow-sm ring-1 ring-red-200"><CardContent className="flex flex-col justify-between gap-5 p-6 md:flex-row md:items-center"><div className="flex items-start gap-4"><div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white text-red-600 shadow-sm"><AlertTriangle className="h-5 w-5" /></div><div><h3 className="font-black text-red-900">Vô hiệu hóa tài khoản</h3><p className="mt-1 max-w-xl text-sm leading-relaxed text-red-800/70">Thao tác này xóa mềm tài khoản và đăng xuất bạn khỏi NestBooking. Việc khôi phục cần được xử lý bởi quản trị viên.</p></div></div><Button variant="destructive" className="shrink-0 rounded-xl" onClick={() => setDeleteOpen(true)}><Trash2 className="mr-2 h-4 w-4" />Xóa tài khoản</Button></CardContent></Card>
 
-      {/* DELETE ACCOUNT */}
-      <div className="border border-red-200 bg-red-50/50 rounded-xl p-6">
-        <h3 className="text-lg font-bold text-red-600 mb-2 flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5" />
-          Xóa tài khoản
-        </h3>
-        <p className="text-sm text-slate-700 mb-4">
-          Xóa vĩnh viễn tài khoản của bạn và mọi dữ liệu liên quan. Hành động này không thể hoàn tác.
-        </p>
+    <Dialog open={deleteOpen} onOpenChange={(open) => { if (!deleting) setDeleteOpen(open); }}><DialogContent className="max-w-md rounded-2xl"><DialogHeader><div className="mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-red-100 text-red-600"><Trash2 className="h-6 w-6" /></div><DialogTitle>Xóa tài khoản NestBooking?</DialogTitle><DialogDescription>Tài khoản sẽ bị vô hiệu hóa và bạn sẽ được đăng xuất. Bạn không thể tự khôi phục tài khoản từ giao diện hiện tại.</DialogDescription></DialogHeader><DialogFooter className="mt-3"><Button variant="outline" onClick={() => setDeleteOpen(false)} disabled={deleting}>Quay lại</Button><Button variant="destructive" onClick={() => void deleteAccount()} disabled={deleting}>{deleting ? "Đang xử lý..." : "Xác nhận xóa"}</Button></DialogFooter></DialogContent></Dialog></div>;
+}
 
-        {!showDeleteConfirm ? (
-          <Button
-            type="button"
-            variant="destructive"
-            onClick={() => setShowDeleteConfirm(true)}
-            className="font-semibold"
-          >
-            Yêu cầu xóa tài khoản
-          </Button>
-        ) : (
-          <div className="bg-white p-4 rounded-lg border border-red-200 mt-4">
-            <p className="font-semibold text-slate-900 mb-2">Bạn có chắc chắn muốn xóa?</p>
-            <p className="text-sm text-slate-600 mb-4">
-              Tất cả thông tin cá nhân, lịch sử đặt phòng và đánh giá sẽ bị mất.
-            </p>
-            <div className="flex gap-3">
-              <Button
-                type="button"
-                variant="destructive"
-                onClick={handleDeleteAccount}
-                disabled={isDeleting}
-              >
-                {isDeleting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                Đồng ý xóa
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setShowDeleteConfirm(false)}
-                disabled={isDeleting}
-              >
-                Hủy bỏ
-              </Button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+function PasswordField({ label, value, onChange, visible, autoComplete }: { label: string; value: string; onChange: (value: string) => void; visible: boolean; autoComplete: string }) {
+  return <div><Label className="text-sm font-bold text-slate-800">{label}</Label><div className="relative mt-2"><LockKeyhole className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><Input type={visible ? "text" : "password"} value={value} onChange={(event) => onChange(event.target.value)} required autoComplete={autoComplete} className="h-11 rounded-xl pl-10" /></div></div>;
 }
