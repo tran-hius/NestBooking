@@ -1,6 +1,6 @@
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { AgentSidebar } from "@/components/AgentSidebar";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 
 import { Navigate, Link } from "react-router-dom";
@@ -16,9 +16,67 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { notificationService, Notification } from "@/api/services/notificationService";
 
 export default function AgentLayout({ children }: { children: ReactNode }) {
   const { isAuthenticated, user, clearAuth } = useAppStore();
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [isLoadingNotifications, setIsLoadingNotifications] = useState(true);
+  const unreadCount = notifications.filter((notification) => !notification.isRead).length;
+
+  useEffect(() => {
+    if (!isAuthenticated || user?.role !== "AGENT") return;
+
+    let isMounted = true;
+    const loadNotifications = async () => {
+      try {
+        const response = await notificationService.getMine();
+        if (isMounted) setNotifications(response.data);
+      } catch (error) {
+        console.error("Failed to load partner notifications:", error);
+      } finally {
+        if (isMounted) setIsLoadingNotifications(false);
+      }
+    };
+
+    loadNotifications();
+    const intervalId = window.setInterval(loadNotifications, 15_000);
+    window.addEventListener("focus", loadNotifications);
+
+    return () => {
+      isMounted = false;
+      window.clearInterval(intervalId);
+      window.removeEventListener("focus", loadNotifications);
+    };
+  }, [isAuthenticated, user?.role]);
+
+  const markAsRead = async (notification: Notification) => {
+    if (!notification.isRead) {
+      try {
+        await notificationService.markAsRead(notification.id);
+        setNotifications((current) => current.map((item) => item.id === notification.id ? { ...item, isRead: true } : item));
+      } catch (error) {
+        console.error("Failed to mark notification as read:", error);
+      }
+    }
+  };
+
+  const markAllAsRead = async () => {
+    try {
+      await notificationService.markAllAsRead();
+      setNotifications((current) => current.map((notification) => ({ ...notification, isRead: true })));
+    } catch (error) {
+      console.error("Failed to mark all notifications as read:", error);
+    }
+  };
+
+  const formatNotificationTime = (createdAt: string) => new Intl.DateTimeFormat("vi-VN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(new Date(createdAt));
 
   const handleLogout = () => {
     clearAuth();
@@ -27,7 +85,7 @@ export default function AgentLayout({ children }: { children: ReactNode }) {
 
   // Protect route
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login?redirect=/partner/dashboard" replace />;
   }
 
   // Ensure only agents can access
@@ -60,15 +118,46 @@ export default function AgentLayout({ children }: { children: ReactNode }) {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
                   <Bell className="h-5 w-5" />
+                  {unreadCount > 0 && (
+                    <span className="absolute right-0.5 top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white">
+                      {unreadCount > 9 ? "9+" : unreadCount}
+                    </span>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-80">
-                <DropdownMenuLabel>Thông báo</DropdownMenuLabel>
+              <DropdownMenuContent align="end" className="w-[min(380px,calc(100vw-2rem))]">
+                <DropdownMenuLabel className="flex items-center justify-between gap-4">
+                  <span>Thông báo {unreadCount > 0 && `(${unreadCount} mới)`}</span>
+                  {unreadCount > 0 && (
+                    <button type="button" onClick={markAllAsRead} className="text-xs font-medium text-primary hover:underline">
+                      Đánh dấu tất cả đã đọc
+                    </button>
+                  )}
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer text-muted-foreground">
-                  <span className="font-medium text-sm text-foreground">Chào mừng bạn đến với Kênh đối tác</span>
-                  <span className="text-xs">Bắt đầu thêm chỗ nghỉ đầu tiên của bạn ngay!</span>
-                </DropdownMenuItem>
+                <div className="max-h-[420px] overflow-y-auto">
+                  {isLoadingNotifications ? (
+                    <p className="px-3 py-8 text-center text-sm text-muted-foreground">Đang tải thông báo...</p>
+                  ) : notifications.length === 0 ? (
+                    <p className="px-3 py-8 text-center text-sm text-muted-foreground">Bạn chưa có thông báo nào.</p>
+                  ) : notifications.slice(0, 8).map((notification) => (
+                    <DropdownMenuItem
+                      key={notification.id}
+                      asChild
+                      onSelect={() => markAsRead(notification)}
+                      className={`cursor-pointer p-0 ${notification.isRead ? "opacity-70" : "bg-blue-50 dark:bg-blue-950/30"}`}
+                    >
+                      <Link to="/partner/bookings" className="flex w-full flex-col items-start gap-1.5 px-3 py-3">
+                        <span className="flex w-full items-center justify-between gap-3">
+                          <span className="text-sm font-semibold text-foreground">{notification.title}</span>
+                          {!notification.isRead && <span className="h-2 w-2 shrink-0 rounded-full bg-blue-500" />}
+                        </span>
+                        <span className="whitespace-normal text-xs leading-relaxed text-muted-foreground">{notification.message}</span>
+                        <span className="text-[11px] text-slate-400">{formatNotificationTime(notification.createdAt)}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
 

@@ -1,6 +1,6 @@
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import logger from "@/config/logger";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import logger from "../../../config/logger.js";
 export class BookingController {
     bookingService;
     constructor(bookingService) {
@@ -33,6 +33,10 @@ export class BookingController {
         const result = await this.bookingService.getUserBookings(userId);
         successResponse(res, HttpStatus.OK, "Lấy danh sách đơn đặt phòng thành công.", result);
     };
+    getAllBookings = async (_req, res) => {
+        const result = await this.bookingService.getAllBookings();
+        successResponse(res, HttpStatus.OK, "Lấy toàn bộ booking thành công.", result);
+    };
     cancelBooking = async (req, res) => {
         const id = req.params.id;
         logger.info("[BookingController] Cancel booking", { bookingId: id });
@@ -50,9 +54,10 @@ export class BookingController {
     updateBookingStatus = async (req, res) => {
         const id = req.params.id;
         logger.info("[BookingController] Update booking status", { bookingId: id });
-        const agentId = req.user?.userId;
+        const requesterId = req.user?.userId;
+        const requesterRole = req.user?.role;
         const { status } = req.body;
-        const result = await this.bookingService.updateBookingStatus(id, agentId, status);
+        const result = await this.bookingService.updateBookingStatus(id, requesterId, requesterRole, status);
         successResponse(res, HttpStatus.OK, "Cập nhật trạng thái thành công.", result);
     };
 }

@@ -1,13 +1,30 @@
-import { Building2, MapPin, Calendar, Users, Search } from "lucide-react";
+import { Building2, Calendar, Users, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HeaderBanner from "@/assets/HeaderBanner.jpg";
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import CalendarDropdown from "../search/CalendarDropdown";
-import GuestsDropdown from "../search/GuestsDropdown";
-
+import GuestsDropdown, { GuestSelection } from "../search/GuestsDropdown";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import LocationInput from "../search/LocationInput";
+
+const toDateInput = (date: Date) => {
+  const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60_000);
+  return localDate.toISOString().slice(0, 10);
+};
 
 export default function HeroSearch() {
+  const navigate = useNavigate();
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dayAfterTomorrow = new Date(tomorrow);
+  dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+
+  const [location, setLocation] = useState("Hà Nội");
+  const [checkIn, setCheckIn] = useState(toDateInput(tomorrow));
+  const [checkOut, setCheckOut] = useState(toDateInput(dayAfterTomorrow));
+  const [guests, setGuests] = useState<GuestSelection>({ adults: 2, children: 0, rooms: 1 });
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isGuestsOpen, setIsGuestsOpen] = useState(false);
   const calendarRef = useRef<HTMLDivElement>(null);
@@ -16,81 +33,52 @@ export default function HeroSearch() {
   useClickOutside(calendarRef, () => setIsCalendarOpen(false));
   useClickOutside(guestsRef, () => setIsGuestsOpen(false));
 
+  const handleSearch = () => {
+    if (!location.trim()) {
+      toast.error("Vui lòng nhập điểm đến");
+      return;
+    }
+    if (!checkIn || !checkOut || checkOut <= checkIn) {
+      toast.error("Vui lòng chọn ngày nhận và trả phòng hợp lệ");
+      return;
+    }
+
+    const params = new URLSearchParams({
+      location: location.trim(),
+      checkIn: new Date(`${checkIn}T00:00:00`).toISOString(),
+      checkOut: new Date(`${checkOut}T00:00:00`).toISOString(),
+      adults: String(guests.adults),
+      children: String(guests.children),
+      rooms: String(guests.rooms),
+    });
+    navigate(`/search?${params.toString()}`);
+  };
+
+  const formatDateRange = () => {
+    const formatter = new Intl.DateTimeFormat("vi-VN", { day: "2-digit", month: "2-digit" });
+    return `${formatter.format(new Date(`${checkIn}T00:00:00`))} - ${formatter.format(new Date(`${checkOut}T00:00:00`))}`;
+  };
+
   return (
-    <section className="relative w-full h-[550px] flex flex-col items-center justify-center pt-20">
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-black/10"
-        style={{ backgroundImage: `url(${HeaderBanner})` }}
-      />
-      
-      <div className="relative z-50 container mx-auto px-4 md:px-8 flex flex-col items-center mt-8">
-        <h1 className="text-3xl md:text-5xl font-bold text-white text-center mb-10 drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
-          Ứng dụng du lịch hàng đầu – Một chạm, vạn điểm đến
-        </h1>
-
-        <div className="w-full max-w-5xl flex flex-col">
-          <div className="flex items-center gap-2 mb-4">
-            <button className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/20 text-white font-semibold backdrop-blur-md border border-white/30 hover:bg-white/30 transition">
-              <Building2 className="w-5 h-5" />
-              Khách sạn
-            </button>
+    <section className="relative flex min-h-[650px] w-full flex-col items-center justify-center pt-24 md:min-h-[550px] md:pt-20">
+      <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat before:absolute before:inset-0 before:bg-black/10" style={{ backgroundImage: `url(${HeaderBanner})` }} />
+      <div className="container relative z-50 mx-auto mt-8 flex flex-col items-center px-4 md:px-8">
+        <h1 className="mb-10 text-center text-3xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] md:text-5xl">Tìm chỗ nghỉ phù hợp cho chuyến đi của bạn</h1>
+        <div className="flex w-full max-w-5xl flex-col">
+          <div className="mb-4 flex items-center gap-2">
+            <button type="button" className="flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-6 py-2.5 font-semibold text-white backdrop-blur-md"><Building2 className="h-5 w-5" />Khách sạn</button>
           </div>
-
-          <div className="flex w-full text-white text-sm font-medium mb-2 px-2 hidden md:flex drop-shadow-md">
-            <div className="w-2/5">Thành phố, điểm đến, hoặc tên khách sạn</div>
-            <div className="w-1/4">Ngày nhận & trả phòng</div>
-            <div className="w-1/4">Khách và Phòng</div>
-          </div>
-
-          <div className="w-full bg-background rounded-2xl p-2 flex flex-col md:flex-row shadow-2xl items-center gap-2 relative">
-            <div className="flex-1 w-full flex items-center gap-3 px-4 py-3 bg-slate-50 hover:bg-slate-100 transition rounded-xl cursor-text">
-              <MapPin className="w-5 h-5 text-muted-foreground" />
-              <input 
-                type="text" 
-                placeholder="Thành phố, khách sạn, điểm đến" 
-                className="w-full bg-transparent outline-none text-foreground font-medium placeholder:text-muted-foreground placeholder:font-normal"
-              />
+          <div className="relative flex w-full flex-col items-center gap-2 rounded-2xl bg-background p-2 shadow-2xl md:flex-row">
+            <LocationInput value={location} onChange={setLocation} onSubmit={handleSearch} className="flex-1 rounded-xl bg-slate-50 px-4 py-3" inputClassName="font-medium text-foreground" />
+            <div ref={calendarRef} className={`relative flex w-full flex-[0.7] items-center rounded-xl px-4 py-3 ${isCalendarOpen ? "bg-primary/10 ring-2 ring-primary" : "bg-slate-50"}`}>
+              <button type="button" className="flex w-full items-center gap-3" onClick={() => setIsCalendarOpen((open) => !open)}><Calendar className="h-5 w-5 text-primary" /><span className="font-medium text-foreground">{formatDateRange()}</span></button>
+              {isCalendarOpen && <CalendarDropdown checkIn={checkIn} checkOut={checkOut} onChange={(nextIn, nextOut) => { setCheckIn(nextIn); setCheckOut(nextOut); }} onClose={() => setIsCalendarOpen(false)} />}
             </div>
-            
-            <div className="w-px h-8 bg-border hidden md:block"></div>
-
-            <div 
-              className={`flex-[0.7] w-full flex items-center px-4 py-3 transition rounded-xl relative ${isCalendarOpen ? 'bg-primary/10 ring-2 ring-primary' : 'bg-slate-50 hover:bg-slate-100'}`}
-              ref={calendarRef}
-            >
-              <div 
-                className="flex items-center gap-3 w-full h-full cursor-pointer" 
-                onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-              >
-                <Calendar className="w-5 h-5 text-primary" />
-                <div className="text-foreground font-medium whitespace-nowrap">
-                  18 Thg 7 - 19 Thg 7
-                </div>
-              </div>
-              {isCalendarOpen && <CalendarDropdown onClose={() => setIsCalendarOpen(false)} />}
+            <div ref={guestsRef} className={`relative flex w-full flex-[0.7] items-center rounded-xl px-4 py-3 ${isGuestsOpen ? "bg-primary/10 ring-2 ring-primary" : "bg-slate-50"}`}>
+              <button type="button" className="flex w-full items-center gap-3" onClick={() => setIsGuestsOpen((open) => !open)}><Users className="h-5 w-5 text-primary" /><span className="truncate font-medium text-foreground">{guests.adults} người lớn, {guests.children} trẻ em, {guests.rooms} phòng</span></button>
+              {isGuestsOpen && <GuestsDropdown {...guests} onChange={setGuests} onClose={() => setIsGuestsOpen(false)} />}
             </div>
-
-            <div className="w-px h-8 bg-border hidden md:block"></div>
-
-            <div 
-              className={`flex-[0.7] w-full flex items-center px-4 py-3 transition rounded-xl relative ${isGuestsOpen ? 'bg-primary/10 ring-2 ring-primary' : 'bg-slate-50 hover:bg-slate-100'}`}
-              ref={guestsRef}
-            >
-              <div 
-                className="flex items-center gap-3 w-full h-full cursor-pointer"
-                onClick={() => setIsGuestsOpen(!isGuestsOpen)}
-              >
-                <Users className="w-5 h-5 text-primary" />
-                <div className="text-foreground font-medium whitespace-nowrap overflow-hidden text-ellipsis">
-                  2 người lớn, 0 trẻ em, 1 phòng
-                </div>
-              </div>
-              {isGuestsOpen && <GuestsDropdown onClose={() => setIsGuestsOpen(false)} />}
-            </div>
-
-            <Button className="h-12 w-full md:w-auto px-8 bg-primary hover:bg-primary/90 text-white rounded-xl shadow-lg shadow-primary/30">
-              <Search className="w-5 h-5" />
-            </Button>
+            <Button type="button" onClick={handleSearch} className="h-12 w-full rounded-xl px-8 text-white md:w-auto"><Search className="h-5 w-5" /><span className="md:hidden">Tìm kiếm</span></Button>
           </div>
         </div>
       </div>

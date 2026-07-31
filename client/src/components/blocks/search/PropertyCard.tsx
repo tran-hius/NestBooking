@@ -1,5 +1,6 @@
 import { Heart, MapPin, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export interface PropertyProps {
   id: string;
@@ -19,7 +20,8 @@ export interface PropertyProps {
   salePrice: string;
 }
 
-export default function PropertyCard({ prop }: { prop: PropertyProps }) {
+export default function PropertyCard({ prop, search }: { prop: PropertyProps; search: string }) {
+  const navigate = useNavigate();
   return (
     <div className="grid grid-cols-1 md:grid-cols-[240px_1fr_200px] gap-6 p-4 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
       
@@ -105,7 +107,7 @@ export default function PropertyCard({ prop }: { prop: PropertyProps }) {
             Đã bao gồm thuế và phí
           </div>
           
-          <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold rounded-lg shadow-md h-10 shrink-0">
+          <Button onClick={() => navigate(`/hotel/${prop.id}${search}`)} className="w-full bg-primary hover:bg-primary/90 text-white font-bold rounded-lg shadow-md h-10 shrink-0">
             Xem chỗ trống
           </Button>
         </div>

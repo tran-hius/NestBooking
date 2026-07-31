@@ -14,6 +14,13 @@ const bookingService = BookingServiceFactory.create();
 const bookingController = new BookingController(bookingService);
 
 router.get(
+  "/admin",
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
+  asyncHandler(bookingController.getAllBookings),
+);
+
+router.get(
   "/my-bookings",
   /*
     #swagger.path = '/api/bookings/my-bookings'

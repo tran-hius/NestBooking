@@ -1,22 +1,23 @@
 import { axiosClient } from "@/api/config/axiosClient";
 import { ApiResponse } from "@/api/types/apiResponse";
+import { Booking, BookingStatus } from "@/types";
 
 export interface CreateBookingPayload {
   hotelId: string;
   roomTypeId: string;
   checkInDate: string;
   checkOutDate: string;
-  quantity?: number;
-  guestName?: string;
-  guestPhone?: string;
-  guestEmail?: string;
-  paymentMethod?: string;
+  quantity: number;
+  guestName: string;
+  guestPhone: string;
+  guestEmail: string;
+  paymentMethod: "PAY_AT_HOTEL" | "VNPAY";
   specialRequests?: string;
 }
 
 class BookingService {
-  async getAllBookings(): Promise<ApiResponse> {
-    return await axiosClient.get('/bookings');
+  async getAllBookings(): Promise<ApiResponse<Booking[]>> {
+    return await axiosClient.get('/bookings/admin');
   }
 
   async getMyBookings(): Promise<ApiResponse> {
@@ -31,12 +32,12 @@ class BookingService {
     return await axiosClient.post(`/bookings/${id}/cancel`);
   }
 
-  async getHotelBookings(hotelId: string): Promise<ApiResponse> {
+  async getHotelBookings(hotelId: string): Promise<ApiResponse<Booking[]>> {
     return await axiosClient.get(`/bookings/hotel/${hotelId}`);
   }
 
-  async updateBookingStatus(id: string, status: string): Promise<ApiResponse> {
-    return await axiosClient.patch(`/bookings/${id}`, { status });
+  async updateBookingStatus(id: string, status: BookingStatus): Promise<ApiResponse<Booking>> {
+    return await axiosClient.patch(`/bookings/${id}/status`, { status });
   }
 
   async getBookingDetails(id: string): Promise<ApiResponse> {

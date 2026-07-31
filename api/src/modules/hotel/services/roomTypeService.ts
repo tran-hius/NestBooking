@@ -125,7 +125,10 @@ export class RoomTypeService implements IRoomTypeService {
     return response;
   }
 
-  async getRoomTypesByHotel(hotelId: string): Promise<RoomTypeResponseDto[]> {
+  async getRoomTypesByHotel(hotelId: string, ownerId?: string): Promise<RoomTypeResponseDto[]> {
+    if (ownerId) {
+      await this.verifyHotelOwnership(hotelId, ownerId);
+    }
     const cacheKey = REDIS_KEYS.ROOM_TYPES_BY_HOTEL(hotelId);
     const cachedData = await redisClient.get(cacheKey);
     if (cachedData) return JSON.parse(cachedData);

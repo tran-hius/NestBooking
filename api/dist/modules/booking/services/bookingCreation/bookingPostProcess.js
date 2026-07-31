@@ -1,6 +1,6 @@
 import { BookingStatus } from "#generated/prisma";
-import { BookingCacheHelper } from "../../utils/bookingCacheHelper";
-import logger from "@/config/logger";
+import { BookingCacheHelper } from "../../utils/bookingCacheHelper.js";
+import logger from "../../../../config/logger.js";
 export class BookingPostProcess {
     emailService;
     constructor(emailService) {

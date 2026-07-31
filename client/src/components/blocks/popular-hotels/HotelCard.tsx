@@ -8,10 +8,7 @@ interface HotelCardProps {
     name: string;
     location: string;
     rating: number;
-    reviews: number;
-    originalPrice: number;
-    salePrice: number;
-    nights: number;
+    price: number | null;
     imageUrl: string;
     badge?: string;
   };
@@ -60,24 +57,26 @@ export default function HotelCard({ hotel }: HotelCardProps) {
         </div>
 
         <div className="flex items-center gap-2 mb-4">
-          <div className="flex items-center text-primary">
-            <Star className="w-4 h-4 fill-current" />
-            <span className="font-bold ml-1 text-sm">{hotel.rating}</span>
-          </div>
-          <span className="text-gray-500 ml-2">({hotel.reviews} đánh giá)</span>
+          {hotel.rating > 0 ? (
+            <>
+              <div className="flex items-center text-primary">
+                <Star className="w-4 h-4 fill-current" />
+                <span className="font-bold ml-1 text-sm">{hotel.rating}</span>
+              </div>
+              <span className="text-gray-500 ml-2">Điểm đánh giá</span>
+            </>
+          ) : (
+            <span className="text-sm text-gray-500">Chưa có đánh giá</span>
+          )}
         </div>
 
         <div className="mt-auto pt-4 border-t border-slate-100 flex items-end justify-between">
-          <span className="text-sm font-medium text-slate-500">
-            / {hotel.nights} đêm
-          </span>
+          <span className="text-sm font-medium text-slate-500">Giá từ</span>
           <div className="flex flex-col items-end">
-            <span className="text-xs text-slate-400 line-through">
-              {formatCurrency(hotel.originalPrice)}
-            </span>
             <span className="text-lg font-black text-primary">
-              {formatCurrency(hotel.salePrice)}
+              {hotel.price === null ? "Liên hệ" : formatCurrency(hotel.price)}
             </span>
+            {hotel.price !== null && <span className="text-xs text-slate-400">/ phòng / đêm</span>}
           </div>
         </div>
       </div>

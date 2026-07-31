@@ -53,6 +53,12 @@ export const AddHotelImagesSchema = z.object({
   }),
 });
 
+export const UpdateHotelStatusSchema = z.object({
+  body: z.object({
+    status: z.nativeEnum(HotelStatus, { message: "Trạng thái không hợp lệ." }),
+  }),
+});
+
 export type CreateHotelDto = z.infer<typeof CreateHotelSchema>["body"];
 export type UpdateHotelDto = z.infer<typeof UpdateHotelSchema>["body"];
 export type AddHotelImagesDto = z.infer<typeof AddHotelImagesSchema>["body"];

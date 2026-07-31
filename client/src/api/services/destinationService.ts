@@ -1,4 +1,5 @@
 import api from "@/api";
+import { ApiResponse } from "@/api/types/apiResponse";
 
 export interface Destination {
   id: string;
@@ -15,15 +16,9 @@ export interface Destination {
 }
 
 export const destinationService = {
-  getAllDestinations: async () => {
-    const response = await api.get('/destinations');
-    return response;
-  },
+  getAllDestinations: (): Promise<ApiResponse<Destination[]>> => api.get('/destinations'),
 
-  getAdminDestinations: async () => {
-    const response = await api.get('/destinations/all');
-    return response;
-  },
+  getAdminDestinations: (): Promise<ApiResponse<Destination[]>> => api.get('/destinations/all'),
 
   createDestination: async (data: FormData | Partial<Destination>) => {
     let response;

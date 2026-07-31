@@ -15,10 +15,6 @@ import {
   UserCheck,
   Hotel,
   CalendarCheck,
-  CreditCard,
-  MessageSquare,
-  AlertTriangle,
-  Activity,
   Map
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
@@ -42,21 +38,12 @@ const menuGroups = [
     items: [
       { title: "Khách sạn", url: "/admin/hotels", icon: Hotel },
       { title: "Đặt phòng (Booking)", url: "/admin/bookings", icon: CalendarCheck },
-      { title: "Thanh toán", url: "/admin/payments", icon: CreditCard },
-    ],
-  },
-  {
-    label: "Kiểm duyệt & Hỗ trợ",
-    items: [
-      { title: "Đánh giá (Review)", url: "/admin/reviews", icon: MessageSquare },
-      { title: "Báo cáo/Khiếu nại", url: "/admin/reports", icon: AlertTriangle },
     ],
   },
   {
     label: "Hệ thống",
     items: [
       { title: "Quản lý Điểm đến", url: "/admin/destinations", icon: Map },
-      { title: "Nhật ký (Audit Log)", url: "/admin/audit", icon: Activity },
     ],
   },
 ];

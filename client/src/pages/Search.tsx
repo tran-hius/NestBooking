@@ -1,8 +1,12 @@
 import SearchHeader from "@/components/blocks/search/SearchHeader";
 import SidebarFilters from "@/components/blocks/search/SidebarFilters";
 import SearchResults from "@/components/blocks/search/SearchResults";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function Search() {
+  const [searchParams] = useSearchParams();
+  const location = searchParams.get("location") || "Việt Nam";
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <SearchHeader />
@@ -11,11 +15,11 @@ export default function Search() {
         
         {/* Breadcrumb */}
         <div className="text-sm text-muted-foreground mb-6 flex items-center gap-2">
-          <a href="/" className="hover:text-primary transition-colors">Trang chủ</a>
+          <Link to="/" className="hover:text-primary transition-colors">Trang chủ</Link>
           <span>&gt;</span>
-          <a href="#" className="hover:text-primary transition-colors">Việt Nam</a>
+          <span>Việt Nam</span>
           <span>&gt;</span>
-          <span className="text-foreground font-medium">Kết quả tìm kiếm cho Hà Nội</span>
+          <span className="text-foreground font-medium">Kết quả tìm kiếm cho {location}</span>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 items-start">

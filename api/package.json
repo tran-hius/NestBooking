@@ -5,6 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
+    "generate": "prisma generate",
+    "seed": "prisma db seed",
+    "predev": "prisma generate",
+    "prebuild": "prisma generate",
     "build": "tsc && tsc-alias -f && copyfiles -u 1 \"src/**/*.json\" dist",
     "start": "node dist/index.js",
     "swagger": "tsx src/config/swagger.ts"

@@ -1,13 +1,13 @@
 import express from "express";
-import { prisma } from "@/config/prisma";
-import { asyncHandler } from "@/utils/asyncHandler";
-import { validate, authMiddleware, roleMiddleware, upload } from "@/middlewares";
-import { Role } from "../../../../generated/prisma";
-import { HotelRepository } from "../repositories/hotelRepository";
-import { HotelService } from "../services/hotelService";
-import { HotelController } from "../controllers/hotelController";
-import { CreateHotelSchema, UpdateHotelSchema } from "../dtos/hotelDTO";
-import { UploadService } from "@/modules/upload/services/uploadService";
+import { prisma } from "../../../config/prisma.js";
+import { asyncHandler } from "../../../utils/asyncHandler.js";
+import { validate, authMiddleware, roleMiddleware, upload } from "../../../middlewares/index.js";
+import { Role } from "../../../../generated/prisma/index.js";
+import { HotelRepository } from "../repositories/hotelRepository.js";
+import { HotelService } from "../services/hotelService.js";
+import { HotelController } from "../controllers/hotelController.js";
+import { CreateHotelSchema, UpdateHotelSchema, UpdateHotelStatusSchema } from "../dtos/hotelDto.js";
+import { UploadService } from "../../../modules/upload/services/uploadService.js";
 const router = express.Router();
 const hotelRepository = new HotelRepository(prisma);
 const uploadService = new UploadService();
@@ -25,6 +25,7 @@ router.get("/",
   #swagger.parameters['limit'] = { in: 'query', description: 'Số lượng trên 1 trang', type: 'integer' }
 */
 asyncHandler(hotelController.getAllHotels));
+router.patch("/:id/admin-status", authMiddleware, roleMiddleware([Role.ADMIN]), validate(UpdateHotelStatusSchema), asyncHandler(hotelController.updateHotelStatus));
 // =====================================================
 // GET MY HOTELS (Agent Only)
 // =====================================================

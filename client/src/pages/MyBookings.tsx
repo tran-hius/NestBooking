@@ -1,172 +1,135 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { bookingService } from "@/api/services/bookingService";
-import { Link } from "react-router-dom";
-import { CalendarDays, MapPin, Search, ChevronRight, CheckCircle2, XCircle, Clock } from "lucide-react";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { CalendarDays, MapPin, Search, CheckCircle2, XCircle, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
+import { useAppStore } from "@/stores/useAppStore";
 
-// Giả lập dữ liệu booking (rỗng để test state chưa có booking)
-// const MOCK_BOOKINGS = []; 
-const getStatusBadge = (status: string) => {
-  switch (status) {
-    case 'CONFIRMED':
-      return <Badge className="bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 border-none font-medium px-3 py-1 text-sm"><CheckCircle2 className="w-4 h-4 mr-1.5" /> Đã xác nhận</Badge>;
-    case 'PENDING':
-      return <Badge className="bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 border-none font-medium px-3 py-1 text-sm"><Clock className="w-4 h-4 mr-1.5" /> Chờ thanh toán</Badge>;
-    case 'CANCELLED':
-      return <Badge className="bg-destructive/10 text-destructive hover:bg-destructive/20 border-none font-medium px-3 py-1 text-sm"><XCircle className="w-4 h-4 mr-1.5" /> Đã hủy</Badge>;
-    case 'COMPLETED':
-      return <Badge className="bg-primary/10 text-primary hover:bg-primary/20 border-none font-medium px-3 py-1 text-sm"><CheckCircle2 className="w-4 h-4 mr-1.5" /> Đã hoàn thành</Badge>;
-    default:
-      return <Badge>{status}</Badge>;
-  }
+interface BookingItem {
+  id: string;
+  bookingCode: string;
+  hotelId: string;
+  checkInDate: string;
+  checkOutDate: string;
+  totalAmount: number;
+  status: "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED";
+  paymentStatus: "UNPAID" | "PAID" | "REFUNDED";
+  hotel?: {
+    id: string;
+    name: string;
+    address?: string;
+    city?: string;
+    images?: { imageUrl: string }[];
+  };
+  roomType?: { id: string; name: string };
+}
+
+const getStatusBadge = (status: BookingItem["status"]) => {
+  if (status === "CONFIRMED") return <Badge className="border-none bg-emerald-500/10 px-3 py-1 text-sm font-medium text-emerald-600"><CheckCircle2 className="mr-1.5 h-4 w-4" />Đã xác nhận</Badge>;
+  if (status === "PENDING") return <Badge className="border-none bg-amber-500/10 px-3 py-1 text-sm font-medium text-amber-600"><Clock className="mr-1.5 h-4 w-4" />Chờ thanh toán</Badge>;
+  if (status === "CANCELLED") return <Badge className="border-none bg-destructive/10 px-3 py-1 text-sm font-medium text-destructive"><XCircle className="mr-1.5 h-4 w-4" />Đã hủy</Badge>;
+  return <Badge className="border-none bg-primary/10 px-3 py-1 text-sm font-medium text-primary"><CheckCircle2 className="mr-1.5 h-4 w-4" />Đã hoàn thành</Badge>;
 };
 
-const formatDate = (dateString: string) => {
-  const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'short', year: 'numeric' };
-  return new Date(dateString).toLocaleDateString('vi-VN', options);
-};
+const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString("vi-VN", { day: "2-digit", month: "short", year: "numeric" });
 
 export default function MyBookings() {
-  const [filter, setFilter] = useState("ALL"); // ALL, PENDING, CONFIRMED, CANCELLED
-  const [bookings, setBookings] = useState<any[]>([]);
+  const { isAuthenticated } = useAppStore();
+  const [searchParams] = useSearchParams();
+  const [filter, setFilter] = useState("ALL");
+  const [bookings, setBookings] = useState<BookingItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fetchBookings = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      const response = await bookingService.getMyBookings();
+      setBookings(response.data || []);
+    } catch {
+      setError("Không thể tải danh sách đặt phòng. Vui lòng thử lại.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        setLoading(true);
-        const data = await bookingService.getMyBookings();
-        setBookings(data.data || []);
-      } catch (error) {
-        console.error("Failed to fetch bookings:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBookings();
-  }, []);
+    if (isAuthenticated) void fetchBookings();
+  }, [isAuthenticated]);
 
-  const filteredBookings = bookings.filter((booking) => {
-    if (filter === "ALL") return true;
-    return booking.status === filter;
-  });
+  useEffect(() => {
+    if (searchParams.get("created")) toast.success("Đặt phòng thành công. Booking mới đã được thêm vào danh sách.");
+  }, [searchParams]);
+
+  if (!isAuthenticated) return <Navigate to="/login?redirect=/my-bookings" replace />;
+
+  const filteredBookings = bookings.filter((booking) => filter === "ALL" || booking.status === filter);
+
+  const cancelBooking = async (booking: BookingItem) => {
+    if (!window.confirm(`Bạn có chắc muốn hủy booking ${booking.bookingCode}?`)) return;
+    try {
+      await bookingService.cancelBooking(booking.id);
+      toast.success("Hủy đặt phòng thành công");
+      await fetchBookings();
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Không thể hủy đặt phòng");
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-background pt-28 pb-10">
+    <div className="min-h-screen bg-background pb-10 pt-28">
       <div className="container mx-auto max-w-5xl px-4">
-        
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground">Chuyến đi của tôi</h1>
-          <p className="text-muted-foreground mt-2">Quản lý và xem lại tất cả các đặt phòng của bạn tại đây.</p>
+          <p className="mt-2 text-muted-foreground">Quản lý tất cả các đặt phòng của bạn tại đây.</p>
         </div>
 
-        {/* Tabs Filter */}
-        <div className="flex gap-2 overflow-x-auto pb-4 mb-6 hide-scrollbar">
-          <Button 
-            variant={filter === "ALL" ? "default" : "outline"} 
-            className="rounded-full"
-            onClick={() => setFilter("ALL")}
-          >
-            Tất cả chuyến đi
-          </Button>
-          <Button 
-            variant={filter === "PENDING" ? "default" : "outline"} 
-            className="rounded-full"
-            onClick={() => setFilter("PENDING")}
-          >
-            Chờ thanh toán
-          </Button>
-          <Button 
-            variant={filter === "CONFIRMED" ? "default" : "outline"} 
-            className="rounded-full"
-            onClick={() => setFilter("CONFIRMED")}
-          >
-            Đã xác nhận
-          </Button>
-          <Button 
-            variant={filter === "CANCELLED" ? "default" : "outline"} 
-            className="rounded-full"
-            onClick={() => setFilter("CANCELLED")}
-          >
-            Đã hủy
-          </Button>
+        <div className="mb-6 flex gap-2 overflow-x-auto pb-4">
+          {[
+            ["ALL", "Tất cả chuyến đi"],
+            ["PENDING", "Chờ thanh toán"],
+            ["CONFIRMED", "Đã xác nhận"],
+            ["CANCELLED", "Đã hủy"],
+          ].map(([value, label]) => (
+            <Button key={value} variant={filter === value ? "default" : "outline"} className="rounded-full" onClick={() => setFilter(value)}>{label}</Button>
+          ))}
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <div className="flex justify-center py-20"><div className="h-12 w-12 animate-spin rounded-full border-b-2 border-primary" /></div>
+        ) : error ? (
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center text-red-700">
+            <p>{error}</p>
+            <Button variant="outline" className="mt-4" onClick={() => void fetchBookings()}>Thử lại</Button>
           </div>
         ) : filteredBookings.length > 0 ? (
           <div className="space-y-6">
             {filteredBookings.map((booking) => (
-              <Card key={booking.id} className="overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+              <Card key={booking.id} className="overflow-hidden shadow-sm">
                 <div className="flex flex-col md:flex-row">
-                  {/* Image */}
-                  <div className="w-full md:w-64 h-48 md:h-auto relative overflow-hidden bg-slate-50">
-                    <img 
-                      src={booking.hotel?.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"} 
-                      alt={booking.hotel?.name || "Hotel"} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    />
-                    <div className="absolute top-3 left-3">
-                      {getStatusBadge(booking.status)}
-                    </div>
+                  <div className="relative h-48 w-full overflow-hidden bg-slate-50 md:h-auto md:w-64">
+                    <img src={booking.hotel?.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"} alt={booking.hotel?.name || "Hotel"} className="h-full w-full object-cover" />
+                    <div className="absolute left-3 top-3">{getStatusBadge(booking.status)}</div>
                   </div>
-                  
-                  {/* Content */}
-                  <div className="flex-1 p-6 flex flex-col justify-between">
+                  <div className="flex flex-1 flex-col justify-between p-6">
                     <div>
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
-                          <Link to={`/hotel/${booking.hotelId}`}>{booking.hotel?.name}</Link>
-                        </h3>
-                        <span className="text-sm text-muted-foreground font-medium">ID: {booking.id.substring(0, 8).toUpperCase()}</span>
+                      <div className="mb-2 flex items-start justify-between gap-4">
+                        <h3 className="text-xl font-bold text-foreground"><Link to={`/hotel/${booking.hotelId}`} className="hover:text-primary">{booking.hotel?.name || "Khách sạn"}</Link></h3>
+                        <span className="text-sm font-medium text-muted-foreground">{booking.bookingCode}</span>
                       </div>
-                      
-                      <div className="flex items-center text-muted-foreground text-sm mb-4">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        {booking.hotel?.address || booking.hotel?.city || "Vietnam"}
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 bg-slate-50 rounded-lg p-3 border border-border">
-                        <div>
-                          <div className="text-xs text-muted-foreground uppercase font-semibold">Nhận phòng</div>
-                          <div className="font-medium text-foreground mt-1">{formatDate(booking.checkInDate)}</div>
-                        </div>
-                        <div>
-                          <div className="text-xs text-muted-foreground uppercase font-semibold">Trả phòng</div>
-                          <div className="font-medium text-foreground mt-1">{formatDate(booking.checkOutDate)}</div>
-                        </div>
+                      <div className="mb-4 flex items-center text-sm text-muted-foreground"><MapPin className="mr-1 h-4 w-4" />{booking.hotel?.address || booking.hotel?.city || "Vietnam"}</div>
+                      <div className="grid grid-cols-2 gap-4 rounded-lg border border-border bg-slate-50 p-3">
+                        <div><div className="text-xs font-semibold uppercase text-muted-foreground">Nhận phòng</div><div className="mt-1 font-medium">{formatDate(booking.checkInDate)}</div></div>
+                        <div><div className="text-xs font-semibold uppercase text-muted-foreground">Trả phòng</div><div className="mt-1 font-medium">{formatDate(booking.checkOutDate)}</div></div>
                       </div>
                     </div>
-
-                    <div className="flex items-end justify-between mt-6 pt-4 border-t border-border">
-                      <div>
-                        <div className="text-sm text-muted-foreground">{booking.roomType?.name || "Phòng Standard"}</div>
-                        <div className="text-xl font-black text-foreground mt-1">
-                          {booking.totalPrice.toLocaleString('vi-VN')} <span className="text-sm font-normal text-muted-foreground">VND</span>
-                        </div>
-                      </div>
-                      
-                      <div className="flex gap-3">
-                        {booking.status === 'PENDING' && (
-                          <Button variant="outline" className="border-destructive/30 text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={async () => {
-                            if (window.confirm("Bạn có chắc chắn muốn hủy đặt phòng này?")) {
-                              try {
-                                await bookingService.cancelBooking(booking.id);
-                                const newData = await bookingService.getMyBookings();
-                                setBookings(newData.data || []);
-                              } catch(e) {}
-                            }
-                          }}>Hủy đặt phòng</Button>
-                        )}
-                        <Button className="gap-2">
-                          Xem chi tiết
-                          <ChevronRight className="w-4 h-4" />
-                        </Button>
-                      </div>
+                    <div className="mt-6 flex flex-col gap-4 border-t border-border pt-4 sm:flex-row sm:items-end sm:justify-between">
+                      <div><div className="text-sm text-muted-foreground">{booking.roomType?.name || "Phòng đã chọn"}</div><div className="mt-1 text-xl font-black">{Number(booking.totalAmount).toLocaleString("vi-VN")} <span className="text-sm font-normal text-muted-foreground">VND</span></div></div>
+                      {(booking.status === "PENDING" || booking.status === "CONFIRMED") && <Button variant="outline" className="border-destructive/30 text-destructive hover:bg-destructive/10" onClick={() => void cancelBooking(booking)}>Hủy đặt phòng</Button>}
                     </div>
                   </div>
                 </div>
@@ -174,26 +137,14 @@ export default function MyBookings() {
             ))}
           </div>
         ) : (
-          /* Empty State khi chưa có booking */
-          <div className="bg-card rounded-3xl shadow-sm border border-border p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
-            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-              <CalendarDays className="w-12 h-12 text-primary" />
-            </div>
-            <h3 className="text-2xl font-bold text-foreground mb-2">Bạn chưa có chuyến đi nào</h3>
-            <p className="text-muted-foreground max-w-md mx-auto mb-8">
-              Thế giới bao la, muôn ngả chờ khám phá. Hãy bắt đầu lên kế hoạch cho kỳ nghỉ dưỡng tuyệt vời tiếp theo của bạn ngay hôm nay!
-            </p>
-            <Link to="/search">
-              <Button size="lg" className="h-14 px-8 text-lg rounded-full font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all hover:-translate-y-1 gap-2">
-                <Search className="w-5 h-5" />
-                Booking ngay
-              </Button>
-            </Link>
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-3xl border border-border bg-card p-12 text-center shadow-sm">
+            <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-primary/10"><CalendarDays className="h-12 w-12 text-primary" /></div>
+            <h3 className="mb-2 text-2xl font-bold">Bạn chưa có chuyến đi nào</h3>
+            <p className="mb-8 max-w-md text-muted-foreground">Hãy tìm một khách sạn phù hợp và bắt đầu chuyến đi tiếp theo.</p>
+            <Link to="/search"><Button size="lg" className="gap-2 rounded-full px-8"><Search className="h-5 w-5" />Booking ngay</Button></Link>
           </div>
         )}
-
       </div>
     </div>
   );
 }
-

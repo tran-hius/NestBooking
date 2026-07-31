@@ -1,4 +1,4 @@
-import { BadRequestError, NotFoundError } from "@/utils/errors";
+import { BadRequestError, NotFoundError } from "../../../../utils/errors/index.js";
 export class BookingAvailabilityService {
     roomTypeService;
     roomService;

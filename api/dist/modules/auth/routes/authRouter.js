@@ -1,21 +1,21 @@
 import express from "express";
-import { prisma } from "@/config/prisma";
+import { prisma } from "../../../config/prisma.js";
 // Import Middleware
-import { asyncHandler } from "@/utils/asyncHandler";
-import { validate, authLimiter, authMiddleware } from "@/middlewares";
+import { asyncHandler } from "../../../utils/asyncHandler.js";
+import { validate, authLimiter, authMiddleware } from "../../../middlewares/index.js";
 // Import DTOs
-import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, RegisterSchema, RegisterPartnerSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto";
+import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, RegisterSchema, RegisterPartnerSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto.js";
 // Import Repositories
-import { RefreshTokenRepository } from "@/modules/auth/repositories/refreshTokenRepository";
-import { UserRepository } from "@/modules/user/repositories/userRepository";
+import { RefreshTokenRepository } from "../../../modules/auth/repositories/refreshTokenRepository.js";
+import { UserRepository } from "../../../modules/user/repositories/userRepository.js";
 // Import Services
-import { OtpService } from "@/modules/auth/services/otpService";
-import { TokenService } from "@/modules/auth/services/tokenService";
-import { UserService } from "@/modules/user/services/userService";
-import { UserProfileService } from "@/modules/user/services/userProfileService";
-import { AuthService } from "@/modules/auth/services/authService";
+import { OtpService } from "../../../modules/auth/services/otpService.js";
+import { TokenService } from "../../../modules/auth/services/tokenService.js";
+import { UserService } from "../../../modules/user/services/userService.js";
+import { UserProfileService } from "../../../modules/user/services/userProfileService.js";
+import { AuthService } from "../../../modules/auth/services/authService.js";
 // Import Controller
-import { AuthController } from "@/modules/auth/controllers/authController";
+import { AuthController } from "../../../modules/auth/controllers/authController.js";
 const router = express.Router();
 // =====================================================
 // KHỞI TẠO DEPENDENCY INJECTION (DI)

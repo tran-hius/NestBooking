@@ -1,4 +1,4 @@
-import { DestinationMapper } from "../mapper/destinationMapper";
+import { DestinationMapper } from "../mapper/destinationMapper.js";
 export class DestinationService {
     destinationRepository;
     constructor(destinationRepository) {

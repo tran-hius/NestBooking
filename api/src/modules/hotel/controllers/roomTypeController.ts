@@ -53,7 +53,8 @@ export class RoomTypeController {
   getRoomTypesByHotel = async (req: Request, res: Response): Promise<void> => {
     logger.info("[RoomTypeController] Get all room types for agent");
     const hotelId = req.params.hotelId as string;
-    const roomTypes = await this.roomTypeService.getRoomTypesByHotel(hotelId);
+    const ownerId = req.user?.userId as string;
+    const roomTypes = await this.roomTypeService.getRoomTypesByHotel(hotelId, ownerId);
     successResponse(res, HttpStatus.OK, "Lấy danh sách loại phòng thành công.", roomTypes);
   };
 

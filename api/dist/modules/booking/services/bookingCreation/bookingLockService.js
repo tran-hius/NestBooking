@@ -1,5 +1,5 @@
-import { redisClient } from "@/infrastructure/redis";
-import logger from "@/config/logger";
+import { redisClient } from "../../../../infrastructure/redis/index.js";
+import logger from "../../../../config/logger.js";
 import { randomBytes } from "crypto";
 const LOCK_PREFIX = "booking_lock:";
 const DEFAULT_TTL_MS = 60000; // 60s

@@ -119,12 +119,14 @@ export class RoomService implements IRoomService {
     await this.invalidateCache(room.hotelId, room.roomTypeId, id);
   }
 
-  async getRoomById(id: string): Promise<RoomResponseDto | null> {
+  async getRoomById(id: string, ownerId?: string): Promise<RoomResponseDto | null> {
     const cacheKey = REDIS_KEYS.ROOM(id);
     const cachedData = await redisClient.get(cacheKey);
     if (cachedData) return JSON.parse(cachedData);
 
-    const room = await this.roomRepo.findById(id);
+    const room = ownerId
+      ? await this.verifyRoomOwnership(id, ownerId)
+      : await this.roomRepo.findById(id);
     if (!room) throw new NotFoundError("Không tìm thấy phòng.");
 
     const response = RoomMapper.toResponseDto(room);
@@ -132,7 +134,10 @@ export class RoomService implements IRoomService {
     return response;
   }
 
-  async getRoomsByHotel(hotelId: string): Promise<RoomResponseDto[]> {
+  async getRoomsByHotel(hotelId: string, ownerId?: string): Promise<RoomResponseDto[]> {
+    if (ownerId) {
+      await this.verifyHotelOwnership(hotelId, ownerId);
+    }
     const cacheKey = REDIS_KEYS.ROOMS_BY_HOTEL(hotelId);
     const cachedData = await redisClient.get(cacheKey);
     if (cachedData) return JSON.parse(cachedData);
@@ -144,7 +149,12 @@ export class RoomService implements IRoomService {
     return response;
   }
 
-  async getRoomsByRoomType(roomTypeId: string): Promise<RoomResponseDto[]> {
+  async getRoomsByRoomType(roomTypeId: string, ownerId?: string): Promise<RoomResponseDto[]> {
+    if (ownerId) {
+      const roomType = await this.roomTypeRepo.findById(roomTypeId);
+      if (!roomType) throw new NotFoundError("Không tìm thấy loại phòng.");
+      await this.verifyHotelOwnership(roomType.hotelId, ownerId);
+    }
     const cacheKey = REDIS_KEYS.ROOMS_BY_ROOM_TYPE(roomTypeId);
     const cachedData = await redisClient.get(cacheKey);
     if (cachedData) return JSON.parse(cachedData);
@@ -160,6 +170,7 @@ export class RoomService implements IRoomService {
     return this.roomRepo.count({
       roomTypeId,
       isActive: true,
+      status: "AVAILABLE",
     }, tx);
   }
 }

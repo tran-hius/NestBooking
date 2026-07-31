@@ -7,7 +7,7 @@ import { Role } from "../../../../generated/prisma";
 import { HotelRepository } from "../repositories/hotelRepository";
 import { HotelService } from "../services/hotelService";
 import { HotelController } from "../controllers/hotelController";
-import { CreateHotelSchema, UpdateHotelSchema } from "../dtos/hotelDTO";
+import { CreateHotelSchema, UpdateHotelSchema, UpdateHotelStatusSchema } from "../dtos/hotelDto";
 
 import { UploadService } from "@/modules/upload/services/uploadService";
 
@@ -31,6 +31,14 @@ router.get(
     #swagger.parameters['limit'] = { in: 'query', description: 'Số lượng trên 1 trang', type: 'integer' }
   */
   asyncHandler(hotelController.getAllHotels),
+);
+
+router.patch(
+  "/:id/admin-status",
+  authMiddleware,
+  roleMiddleware([Role.ADMIN]),
+  validate(UpdateHotelStatusSchema),
+  asyncHandler(hotelController.updateHotelStatus),
 );
 
 // =====================================================

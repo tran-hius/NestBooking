@@ -3,7 +3,13 @@ import { BookingResponseDto } from "../dtos/bookingDTO";
 import { Prisma, Booking } from "#generated/prisma";
 
 type BookingWithRelations = Booking & {
-  hotel?: { id: string; name: string } | null;
+  hotel?: {
+    id: string;
+    name: string;
+    address?: string;
+    city?: string;
+    images?: { imageUrl: string }[];
+  } | null;
   roomType?: { id: string; name: string } | null;
   user?: { id: string; email: string } | null;
 };
@@ -32,7 +38,13 @@ export class BookingMapper {
       updatedAt: booking.updatedAt,
 
       hotel: booking.hotel
-        ? { id: booking.hotel.id, name: booking.hotel.name }
+        ? {
+            id: booking.hotel.id,
+            name: booking.hotel.name,
+            address: booking.hotel.address,
+            city: booking.hotel.city,
+            images: booking.hotel.images,
+          }
         : undefined,
       roomType: booking.roomType
         ? { id: booking.roomType.id, name: booking.roomType.name }

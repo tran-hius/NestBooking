@@ -7,8 +7,8 @@ import { useAppStore } from "@/stores/useAppStore";
 import { toast } from "sonner";
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@booking.com");
+  const [password, setPassword] = useState("123456");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { setToken, setUser } = useAppStore();
@@ -104,11 +104,6 @@ export default function AdminLogin() {
                 </label>
               </div>
 
-              <div className="text-sm">
-                <a href="#" className="font-semibold text-primary hover:text-blue-400">
-                  Quên mật khẩu?
-                </a>
-              </div>
             </div>
 
             <div>

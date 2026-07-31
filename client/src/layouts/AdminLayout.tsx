@@ -3,19 +3,11 @@ import { AdminSidebar } from "@/components/AdminSidebar";
 import { ReactNode } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Bell } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const { clearAuth, user, isAuthenticated } = useAppStore();
@@ -50,37 +42,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-3">
             <ModeToggle />
             
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative">
-                  <Bell className="h-5 w-5" />
-                  <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-600 border-2 border-white dark:border-zinc-900"></span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-80">
-                <DropdownMenuLabel>Thông báo (3 mới)</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
-                  <span className="font-medium text-sm">Có 1 đối tác mới đăng ký</span>
-                  <span className="text-xs text-muted-foreground">Khách sạn "Boutique Hanoi" đang chờ duyệt.</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer">
-                  <span className="font-medium text-sm">Người dùng báo cáo lỗi</span>
-                  <span className="text-xs text-muted-foreground">User USR-002 vừa gửi một phản hồi.</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1 p-3 cursor-pointer text-muted-foreground">
-                  <span className="font-medium text-sm text-foreground">Bảo trì hệ thống</span>
-                  <span className="text-xs">Lên lịch bảo trì vào 2h sáng Chủ Nhật.</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <Button variant="ghost" asChild className="w-full text-center text-sm text-blue-600 hover:text-blue-700">
-                  <Link to="/admin/notifications">Xem tất cả thông báo</Link>
-                </Button>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
             <div className="h-8 w-[1px] bg-slate-200 dark:bg-zinc-800 mx-1"></div>
             
             <div className="flex flex-col text-right hidden sm:flex">

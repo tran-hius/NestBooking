@@ -15,6 +15,10 @@ export class NotificationRepository implements INotificationRepository {
     });
   }
 
+  async findById(id: string): Promise<Notification | null> {
+    return this.prisma.notification.findUnique({ where: { id } });
+  }
+
   async markAsRead(id: string): Promise<Notification> {
     return this.prisma.notification.update({
       where: { id },

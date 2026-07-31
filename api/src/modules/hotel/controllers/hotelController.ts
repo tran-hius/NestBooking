@@ -3,7 +3,7 @@ import { IHotelService } from "../interfaces/iHotelService";
 import { successResponse } from "@/utils/response";
 import { HttpStatus } from "@/constants/httpStatus";
 import logger from "@/config/logger";
-import { AddHotelImagesDto } from "../dtos/hotelDTO";
+import { AddHotelImagesDto } from "../dtos/hotelDto";
 import { IUploadService } from "@/modules/upload/interfaces/iUploadService";
 import { UnauthorizedError, BadRequestError } from "@/utils/errors/errorCustomize";
 
@@ -84,6 +84,11 @@ export class HotelController {
       "Cập nhật khách sạn thành công.",
       hotel,
     );
+  };
+
+  updateHotelStatus = async (req: Request, res: Response): Promise<void> => {
+    const hotel = await this.hotelService.updateHotelStatus(req.params.id as string, req.body.status);
+    successResponse(res, HttpStatus.OK, "Cập nhật trạng thái khách sạn thành công.", hotel);
   };
 
   softDeleteHotel = async (req: Request, res: Response): Promise<void> => {

@@ -70,6 +70,9 @@ export interface BookingResponseDto {
   hotel?: {
     id: string;
     name: string;
+    address?: string;
+    city?: string;
+    images?: { imageUrl: string }[];
   };
   roomType?: {
     id: string;

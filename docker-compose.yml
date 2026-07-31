@@ -3,16 +3,14 @@ services:
     image: postgres:15-alpine
     container_name: booking_postgres
     restart: always
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+    env_file:
+      - ./api/.env.dev
     ports:
       - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d booking"]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 10s
       start_period: 10s
     networks:
@@ -25,12 +23,12 @@ services:
     working_dir: /app
     volumes:
       - ./api/prisma:/app/prisma
-    environment:
-      - DATABASE_URL=postgresql://postgres:123456@postgres_db:5432/booking?schema=public
+    env_file:
+      - ./api/.env.dev
     ports:
       - "5555:5555"
     command: >
-      sh -c "apk add --no-cache socat && socat TCP-LISTEN:5555,fork,bind=0.0.0.0 TCP:127.0.0.1:5556 & npx -y prisma@7.8.0 studio --port 5556 --browser none --url postgresql://postgres:123456@postgres_db:5432/booking?schema=public"
+      sh -c "apk add --no-cache socat && socat TCP-LISTEN:5555,fork,bind=0.0.0.0 TCP:127.0.0.1:5556 & npx -y prisma@7.8.0 studio --port 5556 --browser none --url postgresql://$${POSTGRES_USER}:$${POSTGRES_PASSWORD}@postgres_db:5432/$${POSTGRES_DB}?schema=public"
     depends_on:
       postgres_db:
         condition: service_healthy
@@ -42,7 +40,7 @@ services:
     container_name: booking_redis
     restart: always
     ports:
-      - "6379:6379"
+      - "${REDIS_HOST_PORT:-6380}:6379"
     volumes:
       - redis_data:/data
     healthcheck:
@@ -68,7 +66,6 @@ services:
       - DB_HOST=postgres_db
       - DB_PORT=5432
       - REDIS_HOST=redis_cache
-      - DATABASE_URL=postgresql://postgres:123456@postgres_db:5432/booking?schema=public
     command: >
       sh -c "npm install && npx prisma migrate deploy && npm run dev"
     depends_on:

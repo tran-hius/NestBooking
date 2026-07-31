@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { MapPin, Star, Users, Home, Loader2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +9,7 @@ import { hotelService } from "@/api/services/hotelService"; import { Hotel } fro
 export default function HotelDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   
   const [hotel, setHotel] = useState<Hotel | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,7 +62,12 @@ export default function HotelDetail() {
         hotelId: hotel.id,
         roomTypeId,
         hotel,
-        roomType
+        roomType,
+        checkIn: searchParams.get("checkIn"),
+        checkOut: searchParams.get("checkOut"),
+        adults: Number(searchParams.get("adults") || 2),
+        children: Number(searchParams.get("children") || 0),
+        rooms: Number(searchParams.get("rooms") || 1),
       }
     });
   };
@@ -84,7 +90,7 @@ export default function HotelDetail() {
                 {hotel.propertyType}
               </span>
               <div className="flex text-yellow-400">
-                {[...Array(hotel.starRating || 5)].map((_, i) => (
+                {[...Array(Math.max(1, Math.round(hotel.rating || 5)))].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>

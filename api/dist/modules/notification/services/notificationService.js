@@ -1,4 +1,5 @@
-import { NotificationMapper } from "../mapper/notificationMapper";
+import { NotificationMapper } from "../mapper/notificationMapper.js";
+import { ForbiddenError, NotFoundError } from "../../../utils/errors/index.js";
 export class NotificationService {
     notificationRepository;
     constructor(notificationRepository) {
@@ -13,7 +14,12 @@ export class NotificationService {
         return NotificationMapper.toResponseDtoList(notifications);
     }
     async markAsRead(id, userId) {
-        // Optionally check if notification belongs to user
+        const existingNotification = await this.notificationRepository.findById(id);
+        if (!existingNotification)
+            throw new NotFoundError("Không tìm thấy thông báo.");
+        if (existingNotification.userId !== userId) {
+            throw new ForbiddenError("Bạn không có quyền cập nhật thông báo này.");
+        }
         const notification = await this.notificationRepository.markAsRead(id);
         return NotificationMapper.toResponseDto(notification);
     }

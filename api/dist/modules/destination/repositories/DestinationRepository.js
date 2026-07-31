@@ -1,4 +1,4 @@
-import { prisma } from "@/config/prisma";
+import { prisma } from "../../../config/prisma.js";
 export class DestinationRepository {
     async getActiveDestinations() {
         return prisma.destination.findMany({

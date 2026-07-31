@@ -7,18 +7,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 const TrendingDestinations = () => {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
         const res = await destinationService.getAllDestinations();
-        console.log("data", res)
-        if (res) {
-          // res is already the array because destinationService returns response.data
-          setDestinations(res.data as any);
-        }
+        setDestinations(res.data.filter((destination) => destination.isActive).slice(0, 5));
       } catch (error) {
         console.error("Failed to fetch destinations:", error);
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -49,27 +47,31 @@ const TrendingDestinations = () => {
 
         {isLoading ? (
           <div className="flex flex-col gap-6">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
               <Skeleton className="w-full aspect-[16/10] rounded-xl" />
               <Skeleton className="w-full aspect-[16/10] rounded-xl" />
             </div>
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6">
               <Skeleton className="w-full aspect-[16/10] rounded-xl" />
               <Skeleton className="w-full aspect-[16/10] rounded-xl" />
               <Skeleton className="w-full aspect-[16/10] rounded-xl" />
             </div>
           </div>
+        ) : hasError ? (
+          <div className="rounded-xl border border-dashed border-slate-300 py-10 text-center text-gray-500">
+            Chưa thể tải điểm đến. Vui lòng thử lại sau.
+          </div>
         ) : destinations.length > 0 ? (
           <>
             {/* Row 1 */}
-            <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 gap-4 mb-4 sm:grid-cols-2 md:gap-6 md:mb-6">
               {destinations.slice(0, 2).map((item) => (
                 <DestinationCard key={item.id} destination={item} />
               ))}
             </div>
 
             {/* Row 2 */}
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6">
               {destinations.slice(2, 5).map((item) => (
                 <DestinationCard key={item.id} destination={item} />
               ))}

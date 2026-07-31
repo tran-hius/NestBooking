@@ -24,4 +24,9 @@ router.get(
   asyncHandler(paymentController.vnpayIpn)
 );
 
+router.get(
+  "/vnpay_return",
+  asyncHandler(paymentController.vnpayReturn),
+);
+
 export default router;

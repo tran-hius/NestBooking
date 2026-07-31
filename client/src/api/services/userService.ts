@@ -27,6 +27,10 @@ class UserService {
     return await axiosClient.put(`/users/${userId}/admin`, data);
   }
 
+  async updateStatus(userId: string, status: string) {
+    return await axiosClient.patch(`/users/${userId}/status`, { status });
+  }
+
   async createUser(data: any) {
     return await axiosClient.post("/users", data);
   }

@@ -1,7 +1,7 @@
-import logger from "@/config/logger";
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import { BadRequestError } from "@/utils/errors";
+import logger from "../../../config/logger.js";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import { BadRequestError } from "../../../utils/errors/index.js";
 export class UserController {
     userService;
     userProfileService;

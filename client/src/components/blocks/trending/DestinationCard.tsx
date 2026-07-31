@@ -12,11 +12,11 @@ const DestinationCard = ({ destination }: DestinationCardProps) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/search?city=${encodeURIComponent(destination.name)}`);
+    navigate(`/search?location=${encodeURIComponent(destination.name)}`);
   };
 
   return (
-    <div className="overflow-hidden rounded-xl" onClick={handleClick}>
+    <button type="button" aria-label={`Tìm chỗ nghỉ tại ${destination.name}`} className="w-full overflow-hidden rounded-xl text-left" onClick={handleClick}>
       <AspectRatio ratio={16 / 10}>
         <div className="relative w-full h-full group cursor-pointer">
           <img
@@ -42,7 +42,7 @@ const DestinationCard = ({ destination }: DestinationCardProps) => {
           </div>
         </div>
       </AspectRatio>
-    </div>
+    </button>
   );
 };
 

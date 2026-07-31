@@ -1,7 +1,11 @@
 import dotenv from "dotenv";
 import ms from "ms";
+import path from "path";
 dotenv.config({
-    path: process.env.NODE_ENV === "production" ? ".env.prod" : ".env.dev",
+    path: [
+        process.env.NODE_ENV === "production" ? ".env.prod" : ".env.dev",
+        path.resolve(process.cwd(), "../.env"),
+    ],
 });
 // Lấy thông tin DB từ file env, cài sẵn giá trị mặc định để chống sập
 const DB_USER = process.env.POSTGRES_USER || "postgres";
@@ -15,7 +19,7 @@ const DB_PORT = process.env.DB_PORT || "5433";
 const CONSTRUCTED_DATABASE_URL = `postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public`;
 export const env = {
     NODE_ENV: process.env.NODE_ENV ?? "development",
-    PORT: Number(process.env.PORT) || 8080,
+    PORT: Number(process.env.PORT) || 3000,
     DATABASE_URL: process.env.DATABASE_URL || CONSTRUCTED_DATABASE_URL,
     REDIS_HOST: process.env.REDIS_HOST ?? "127.0.0.1",
     REDIS_PORT: Number(process.env.REDIS_PORT) || 6379,
@@ -30,7 +34,8 @@ export const env = {
     VNP_HASH_SECRET: process.env.VNP_HASH_SECRET || "FDBDSZCDVXMXJZZYRYYQXOWUIPQJPOKH", // Mock Secret
     VNP_URL: process.env.VNP_URL || "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
     VNP_API_URL: process.env.VNP_API_URL || "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction",
-    VNP_RETURN_URL: process.env.VNP_RETURN_URL || "http://localhost:5173/payment/result",
+    VNP_RETURN_URL: process.env.VNP_RETURN_URL || "http://localhost:3000/api/payments/vnpay_return",
+    CLIENT_URL: process.env.CLIENT_URL || "http://localhost:5173",
     COOKIE_SECRET: process.env.COOKIE_SECRET || "default_cookie_secret_change_me_in_prod",
     SMTP_HOST: process.env.SMTP_HOST,
     SMTP_PORT: Number(process.env.SMTP_PORT),

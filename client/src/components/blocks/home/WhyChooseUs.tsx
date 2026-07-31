@@ -1,28 +1,28 @@
-import { ShieldCheck, Tag, HeadphonesIcon, Globe2 } from "lucide-react";
+import { BadgeCheck, BedDouble, CalendarCheck, SearchCheck } from "lucide-react";
 
 const features = [
   {
-    icon: <Tag className="w-8 h-8 text-primary" />,
-    title: "Giá rẻ mỗi ngày",
-    description: "Luôn có các chương trình khuyến mãi và giá tốt nhất cho chuyến đi của bạn.",
+    icon: <SearchCheck className="w-8 h-8 text-primary" />,
+    title: "Tìm kiếm dễ dàng",
+    description: "Tìm chỗ nghỉ theo điểm đến, ngày lưu trú và số lượng khách chỉ trong vài bước.",
     bgColor: "bg-blue-50"
   },
   {
-    icon: <ShieldCheck className="w-8 h-8 text-primary" />,
-    title: "Thanh toán an toàn",
-    description: "Hệ thống thanh toán bảo mật 100%, hỗ trợ đa dạng các cổng thanh toán uy tín.",
+    icon: <BedDouble className="w-8 h-8 text-primary" />,
+    title: "Thông tin phòng rõ ràng",
+    description: "Xem loại phòng, sức chứa, mức giá và số phòng còn trống trước khi đặt.",
     bgColor: "bg-blue-50"
   },
   {
-    icon: <Globe2 className="w-8 h-8 text-primary" />,
-    title: "Mạng lưới toàn cầu",
-    description: "Kết nối hơn 1.2 triệu khách sạn và hàng ngàn chuyến bay trên toàn thế giới.",
+    icon: <CalendarCheck className="w-8 h-8 text-primary" />,
+    title: "Đặt phòng nhanh chóng",
+    description: "Hoàn tất thông tin lưu trú và nhận mã đặt phòng ngay sau khi xác nhận.",
     bgColor: "bg-blue-50"
   },
   {
-    icon: <HeadphonesIcon className="w-8 h-8 text-primary" />,
-    title: "Hỗ trợ 24/7",
-    description: "Đội ngũ chuyên viên chăm sóc khách hàng luôn sẵn sàng hỗ trợ bất cứ lúc nào.",
+    icon: <BadgeCheck className="w-8 h-8 text-primary" />,
+    title: "Quản lý thuận tiện",
+    description: "Theo dõi lịch sử, trạng thái và chủ động hủy các đặt phòng đủ điều kiện.",
     bgColor: "bg-blue-50"
   }
 ];
@@ -34,7 +34,7 @@ export default function WhyChooseUs() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-slate-900 mb-4">Tại sao chọn NestBooking?</h2>
           <p className="text-slate-500 max-w-2xl mx-auto">
-            Chúng tôi cam kết mang lại trải nghiệm đặt phòng dễ dàng, an toàn và tiết kiệm nhất cho hàng triệu khách hàng tin dùng mỗi ngày.
+            Các bước từ tìm kiếm đến quản lý đặt phòng được thiết kế rõ ràng và thuận tiện.
           </p>
         </div>
 

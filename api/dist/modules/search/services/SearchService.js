@@ -1,7 +1,7 @@
-import { SortByOption, } from "../dtos/searchDTO";
-import { HotelStatus, BookingStatus } from "@/../generated/prisma";
-import { BadRequestError } from "@/utils/errors/errorCustomize";
-import { SearchMapper } from "../mapper/searchMapper";
+import { SortByOption, } from "../dtos/searchDTO.js";
+import { HotelStatus, BookingStatus } from "../../../../generated/prisma/index.js";
+import { BadRequestError } from "../../../utils/errors/errorCustomize.js";
+import { SearchMapper } from "../mapper/searchMapper.js";
 export class SearchService {
     searchRepository;
     bookingAvailabilityService;

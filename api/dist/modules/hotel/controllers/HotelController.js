@@ -1,7 +1,7 @@
-import { successResponse } from "@/utils/response";
-import { HttpStatus } from "@/constants/httpStatus";
-import logger from "@/config/logger";
-import { UnauthorizedError, BadRequestError } from "@/utils/errors/errorCustomize";
+import { successResponse } from "../../../utils/response.js";
+import { HttpStatus } from "../../../constants/httpStatus.js";
+import logger from "../../../config/logger.js";
+import { UnauthorizedError, BadRequestError } from "../../../utils/errors/errorCustomize.js";
 export class HotelController {
     hotelService;
     uploadService;
@@ -37,6 +37,10 @@ export class HotelController {
         const ownerId = req.user?.userId;
         const hotel = await this.hotelService.updateHotel(req.params.id, ownerId, req.body);
         successResponse(res, HttpStatus.OK, "Cập nhật khách sạn thành công.", hotel);
+    };
+    updateHotelStatus = async (req, res) => {
+        const hotel = await this.hotelService.updateHotelStatus(req.params.id, req.body.status);
+        successResponse(res, HttpStatus.OK, "Cập nhật trạng thái khách sạn thành công.", hotel);
     };
     softDeleteHotel = async (req, res) => {
         logger.warn("[HotelController] Soft delete hotel", {

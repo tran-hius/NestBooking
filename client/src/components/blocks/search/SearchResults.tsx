@@ -8,7 +8,7 @@ export default function SearchResults() {
   const searchParams = new URLSearchParams(location.search);
   
   const params = {
-    location: searchParams.get("location") || undefined,
+    location: searchParams.get("location") || searchParams.get("city") || undefined,
     checkInDate: searchParams.get("checkIn") || undefined,
     checkOutDate: searchParams.get("checkOut") || undefined,
     adults: searchParams.get("adults") ? parseInt(searchParams.get("adults")!) : undefined,
@@ -21,17 +21,17 @@ export default function SearchResults() {
   const formattedHotels = hotels.map((h: any) => ({
     id: h.id,
     name: h.name,
-    image: h.thumbnail || h.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: h.rating || 4.5,
-    reviewCount: 100, // Fake data
+    image: h.thumbnail || h.images?.[0] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    rating: h.rating ?? 0,
+    reviewCount: 0,
     reviewText: "Tuyệt vời",
     distance: `${h.city || ''}, ${h.address || ''}`,
     roomType: h.availableRoomTypes?.[0]?.name || "Phòng Tiêu Chuẩn",
-    bedType: "1 giường", // Fake data
+    bedType: `${h.availableRoomTypes?.[0]?.availableRooms || 0} phòng còn trống`,
     hasBreakfast: h.amenities?.includes("BREAKFAST") || false,
     freeCancellation: true,
     noPrepayment: true,
-    salePrice: `VND ${(h.availableRoomTypes?.[0]?.price || 1000000).toLocaleString('vi-VN')}`,
+    salePrice: `VND ${Number(h.startingPrice || 0).toLocaleString('vi-VN')}`,
   }));
 
   if (error) {
@@ -59,7 +59,7 @@ export default function SearchResults() {
               <PropertyCardSkeleton key={idx} />
             ))
           : formattedHotels.length > 0 ? formattedHotels.map((prop) => (
-              <PropertyCard key={prop.id} prop={prop} />
+               <PropertyCard key={prop.id} prop={prop} search={location.search} />
             )) : (
               <div className="text-center py-10 text-slate-500">
                 Không tìm thấy chỗ nghỉ nào phù hợp.

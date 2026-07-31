@@ -38,14 +38,12 @@ export default function PropertyTypeSelection() {
 
   useEffect(() => {
     if (!user || user.role !== "AGENT") {
-      navigate("/partner/login");
+      navigate("/login?redirect=/partner/property-type");
     }
   }, [user, navigate]);
 
   const handleSelect = (typeId: string) => {
-    // Navigate to create property page with the selected type
-    // Currently we just navigate to dashboard or a create page
-    navigate(`/partner/dashboard?create=true&type=${typeId}`);
+    navigate(`/partner/hotels/new?type=${typeId}`);
   };
 
   return (

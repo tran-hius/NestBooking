@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 import HaNoi from "@/assets/HaNoi.jpg";
 import HaLong from "@/assets/HaLong.jpg";
@@ -8,6 +9,7 @@ import NinhBinh from "@/assets/NinhBinh.jpg";
 import CatBa from "@/assets/CatBa.jpg";
 
 export default function ExploreVietnam() {
+  const navigate = useNavigate();
   const images = [
     { src: HaNoi, name: "Hà Nội", classes: "col-span-6 md:col-span-4 aspect-[4/5] -rotate-2 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-xl rounded-2xl" },
     { src: HaLong, name: "Hạ Long", classes: "col-span-6 md:col-span-3 aspect-square rotate-3 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-lg rounded-2xl md:mt-12" },
@@ -15,6 +17,12 @@ export default function ExploreVietnam() {
     { src: NinhBinh, name: "Ninh Bình", classes: "col-span-6 md:col-span-5 aspect-[16/10] rotate-2 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-xl rounded-2xl md:-mt-16" },
     { src: CatBa, name: "Cát Bà", classes: "col-span-6 md:col-span-7 aspect-[21/9] -rotate-1 hover:rotate-0 hover:z-10 transition-all duration-500 shadow-2xl rounded-2xl md:-ml-12" },
   ];
+
+  const searchDestination = (location?: string) => {
+    const params = new URLSearchParams();
+    if (location) params.set("location", location);
+    navigate(`/search${params.size ? `?${params.toString()}` : ""}`);
+  };
 
   return (
     <section className="py-20 bg-slate-50 overflow-hidden">
@@ -33,8 +41,8 @@ export default function ExploreVietnam() {
               đến những bãi biển cát trắng nắng vàng miền Trung. 
               Mỗi vùng đất là một câu chuyện đang chờ bạn khám phá.
             </p>
-            <Button className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg shadow-primary/30 flex items-center gap-2 group">
-              Lên lịch trình ngay
+            <Button type="button" onClick={() => searchDestination()} className="h-14 px-8 text-lg font-bold bg-primary hover:bg-primary/90 text-white rounded-full shadow-lg shadow-primary/30 flex items-center gap-2 group">
+              Tìm chỗ nghỉ ngay
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
@@ -43,9 +51,12 @@ export default function ExploreVietnam() {
           <div className="w-full md:w-2/3">
             <div className="grid grid-cols-12 gap-4 md:gap-6 relative">
               {images.map((img, idx) => (
-                <div 
-                  key={idx} 
-                  className={`relative overflow-hidden group cursor-pointer ${img.classes}`}
+                <button
+                  type="button"
+                  key={idx}
+                  onClick={() => searchDestination(img.name)}
+                  aria-label={`Tìm chỗ nghỉ tại ${img.name}`}
+                  className={`relative overflow-hidden group cursor-pointer text-left ${img.classes}`}
                 >
                   <img 
                     src={img.src} 
@@ -56,7 +67,7 @@ export default function ExploreVietnam() {
                   <h3 className="absolute bottom-6 left-6 text-2xl font-black text-white drop-shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                     {img.name}
                   </h3>
-                </div>
+                </button>
               ))}
             </div>
           </div>

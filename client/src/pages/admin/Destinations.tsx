@@ -27,13 +27,10 @@ export default function Destinations() {
   const fetchDestinations = async () => {
     try {
       const res = await destinationService.getAdminDestinations();
-      console.log("Admin destinations response:", res);
-      if (res) {
-        // res is already the array because destinationService returns response.data
-        setDestinations(res.data as any);
-      }
+      setDestinations(res.data);
     } catch (error) {
       console.error("Failed to fetch destinations:", error);
+      toast.error("Không thể tải danh sách điểm đến");
     } finally {
       setIsLoading(false);
     }
@@ -46,9 +43,11 @@ export default function Destinations() {
   const handleToggleFeatured = async (id: string) => {
     try {
       await destinationService.toggleFeatured(id);
-      fetchDestinations();
+      await fetchDestinations();
+      toast.success("Đã cập nhật trạng thái nổi bật");
     } catch (error) {
       console.error("Failed to toggle featured status", error);
+      toast.error("Không thể cập nhật điểm đến");
     }
   };
 
@@ -56,9 +55,11 @@ export default function Destinations() {
     if (confirm("Bạn có chắc chắn muốn xóa điểm đến này?")) {
       try {
         await destinationService.deleteDestination(id);
-        fetchDestinations();
+        await fetchDestinations();
+        toast.success("Đã xóa điểm đến");
       } catch (error) {
         console.error("Failed to delete destination", error);
+        toast.error("Không thể xóa điểm đến");
       }
     }
   };
@@ -90,7 +91,7 @@ export default function Destinations() {
         description: "",
       });
       setSelectedFile(null);
-      fetchDestinations();
+      await fetchDestinations();
       toast.success("Tạo điểm đến thành công!");
     } catch (error: any) {
       console.error("Failed to add destination", error);

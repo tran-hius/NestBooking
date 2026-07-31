@@ -1,194 +1,34 @@
-import { useState, useMemo } from "react";
-import { format } from "date-fns";
+import { useEffect, useState } from "react";
+import { bookingService } from "@/api/services/bookingService";
+import { Booking, BookingStatus } from "@/types";
 import { DataTable, Column } from "@/components/shared/DataTable";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  MoreHorizontal,
-  Eye,
-  History,
-  XCircle,
-  CheckCircle2,
-  RotateCcw,
-} from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
 
-const mockBookings = [
-  {
-    id: "BK-10293",
-    customerName: "Nguyễn Văn A",
-    hotelName: "InterContinental Hanoi",
-    checkIn: new Date("2023-11-20"),
-    checkOut: new Date("2023-11-25"),
-    totalPrice: "$1,200",
-    status: "ACTIVE",
-    createdAt: new Date("2023-11-15"),
-  },
-  {
-    id: "BK-10294",
-    customerName: "Trần Thị B",
-    hotelName: "Vinpearl Resort Nha Trang",
-    checkIn: new Date("2023-12-01"),
-    checkOut: new Date("2023-12-05"),
-    totalPrice: "$850",
-    status: "PENDING",
-    createdAt: new Date("2023-11-20"),
-  },
-  {
-    id: "BK-10295",
-    customerName: "Lê Văn C",
-    hotelName: "Boutique Hotel Sài Gòn",
-    checkIn: new Date("2023-10-15"),
-    checkOut: new Date("2023-10-18"),
-    totalPrice: "$300",
-    status: "COMPLETED",
-    createdAt: new Date("2023-10-01"),
-  },
-  {
-    id: "BK-10296",
-    customerName: "Phạm D",
-    hotelName: "Đà Lạt Mộng Mơ Homestay",
-    checkIn: new Date("2023-11-22"),
-    checkOut: new Date("2023-11-24"),
-    totalPrice: "$120",
-    status: "CANCELLED",
-    createdAt: new Date("2023-11-20"),
-  },
-];
+const labels: Record<BookingStatus, string> = { PENDING: "Chờ xác nhận", CONFIRMED: "Đã xác nhận", CANCELLED: "Đã hủy", COMPLETED: "Hoàn thành" };
+const colors: Record<BookingStatus, string> = { PENDING: "bg-amber-100 text-amber-700", CONFIRMED: "bg-blue-100 text-blue-700", CANCELLED: "bg-red-100 text-red-700", COMPLETED: "bg-emerald-100 text-emerald-700" };
+const formatDate = (value: string) => new Date(value).toLocaleDateString("vi-VN");
 
 export default function Bookings() {
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredBookings = useMemo(() => {
-    return mockBookings.filter(
-      (booking) =>
-        booking.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        booking.hotelName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        booking.id.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [searchTerm]);
-
-  const columns: Column<typeof mockBookings[0]>[] = [
-    {
-      header: "Mã Đơn",
-      accessorKey: "id",
-      className: "w-[100px] font-medium text-blue-600 dark:text-blue-400",
-    },
-    {
-      header: "Khách hàng",
-      cell: (booking) => (
-        <div className="flex flex-col">
-          <span className="font-semibold text-slate-900 dark:text-slate-100">{booking.customerName}</span>
-          <span className="text-xs text-muted-foreground">Tạo: {format(booking.createdAt, "dd/MM/yyyy")}</span>
-        </div>
-      ),
-    },
-    {
-      header: "Khách sạn",
-      accessorKey: "hotelName",
-      className: "font-medium",
-    },
-    {
-      header: "Lịch trình (In - Out)",
-      cell: (booking) => (
-        <div className="flex flex-col text-sm text-slate-600 dark:text-slate-400">
-          <span>In: {format(booking.checkIn, "dd/MM/yyyy")}</span>
-          <span>Out: {format(booking.checkOut, "dd/MM/yyyy")}</span>
-        </div>
-      ),
-    },
-    {
-      header: "Tổng tiền",
-      accessorKey: "totalPrice",
-      className: "font-bold text-slate-800 dark:text-slate-200",
-    },
-    {
-      header: "Trạng thái",
-      cell: (booking) => (
-        <>
-          {booking.status === "ACTIVE" && <Badge className="bg-blue-500 hover:bg-blue-600">Đang lưu trú</Badge>}
-          {booking.status === "PENDING" && <Badge className="bg-amber-500 hover:bg-amber-600">Chờ xác nhận</Badge>}
-          {booking.status === "COMPLETED" && <Badge className="bg-emerald-500 hover:bg-emerald-600">Hoàn thành</Badge>}
-          {booking.status === "CANCELLED" && <Badge variant="destructive">Đã hủy</Badge>}
-        </>
-      ),
-    },
-    {
-      header: "",
-      className: "w-[70px]",
-      cell: (booking) => (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Mở menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuLabel>Hành động</DropdownMenuLabel>
-            <DropdownMenuItem className="cursor-pointer">
-              <Eye className="mr-2 h-4 w-4 text-blue-500" />
-              <span>Chi tiết Booking</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="cursor-pointer">
-              <History className="mr-2 h-4 w-4 text-indigo-500" />
-              <span>Timeline trạng thái</span>
-            </DropdownMenuItem>
-            
-            {(booking.status === "PENDING" || booking.status === "ACTIVE") && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
-                  <XCircle className="mr-2 h-4 w-4" />
-                  <span>Force Cancel (Hủy)</span>
-                </DropdownMenuItem>
-              </>
-            )}
-
-            {booking.status === "ACTIVE" && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer text-emerald-600 focus:text-emerald-600">
-                  <CheckCircle2 className="mr-2 h-4 w-4" />
-                  <span>Force Complete</span>
-                </DropdownMenuItem>
-              </>
-            )}
-
-            {booking.status === "CANCELLED" && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer text-amber-600 focus:text-amber-600">
-                  <RotateCcw className="mr-2 h-4 w-4" />
-                  <span>Xử lý Hoàn tiền (Refund)</span>
-                </DropdownMenuItem>
-              </>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ),
-    },
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState<BookingStatus | "ALL">("ALL");
+  const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState<string | null>(null);
+  useEffect(() => { bookingService.getAllBookings().then((response) => setBookings(response.data)).catch(() => toast.error("Không thể tải booking")).finally(() => setLoading(false)); }, []);
+  const update = async (booking: Booking, nextStatus: BookingStatus) => { if (!window.confirm(`Chuyển ${booking.bookingCode} sang ${labels[nextStatus]}?`)) return; try { setUpdating(booking.id); const response = await bookingService.updateBookingStatus(booking.id, nextStatus); setBookings((current) => current.map((item) => item.id === booking.id ? { ...item, ...response.data } : item)); toast.success("Đã cập nhật booking"); } catch (error: any) { toast.error(error.response?.data?.message || "Không thể cập nhật booking"); } finally { setUpdating(null); } };
+  const filtered = bookings.filter((booking) => (status === "ALL" || booking.status === status) && `${booking.bookingCode} ${booking.guestName} ${booking.guestEmail} ${booking.hotel?.name || ""}`.toLowerCase().includes(search.toLowerCase()));
+  const columns: Column<Booking>[] = [
+    { header: "Mã booking", cell: (booking) => <div><div className="font-semibold">{booking.bookingCode}</div><div className="text-xs text-muted-foreground">{booking.createdAt ? formatDate(booking.createdAt) : ""}</div></div> },
+    { header: "Khách", cell: (booking) => <div><div>{booking.guestName}</div><div className="text-xs text-muted-foreground">{booking.guestEmail}</div></div> },
+    { header: "Chỗ nghỉ", cell: (booking) => <div><div className="font-medium">{booking.hotel?.name || booking.hotelId.slice(0, 8)}</div><div className="text-xs text-muted-foreground">{booking.roomType?.name}</div></div> },
+    { header: "Lưu trú", cell: (booking) => <span>{formatDate(booking.checkInDate)} - {formatDate(booking.checkOutDate)}</span> },
+    { header: "Tổng tiền", cell: (booking) => <div><div className="font-medium">{Number(booking.totalAmount).toLocaleString("vi-VN")} VND</div><div className="text-xs text-muted-foreground">{booking.paymentStatus}</div></div> },
+    { header: "Trạng thái", cell: (booking) => <Badge className={colors[booking.status]}>{labels[booking.status]}</Badge> },
+    { header: "Thao tác", className: "text-right", cell: (booking) => <div className="flex min-w-[180px] justify-end gap-2">{booking.status === "PENDING" && <Button size="sm" disabled={updating === booking.id} onClick={() => void update(booking, "CONFIRMED")}>Xác nhận</Button>}{(booking.status === "PENDING" || booking.status === "CONFIRMED") && <Button size="sm" variant="outline" className="text-destructive" disabled={updating === booking.id} onClick={() => void update(booking, "CANCELLED")}>Hủy</Button>}{booking.status === "CONFIRMED" && <Button size="sm" disabled={updating === booking.id} onClick={() => void update(booking, "COMPLETED")}>Hoàn thành</Button>}</div> },
   ];
-
-  return (
-    <div className="flex-1 space-y-6 animate-in fade-in duration-500 pb-10">
-      <DataTable
-        title="Quản lý Booking"
-        subtitle="Tra cứu thông tin đặt phòng, xử lý hoàn tiền hoặc hủy đơn thủ công."
-        data={filteredBookings}
-        columns={columns}
-        searchValue={searchTerm}
-        onSearchChange={setSearchTerm}
-        searchPlaceholder="Mã booking, tên khách, khách sạn..."
-        emptyMessage="Không tìm thấy đơn đặt phòng nào."
-      />
-    </div>
-  );
+  if (loading) return <div className="py-20 text-center text-muted-foreground">Đang tải booking...</div>;
+  return <div className="space-y-4"><div className="max-w-xs"><Select value={status} onValueChange={(value) => setStatus(value as BookingStatus | "ALL")}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="ALL">Tất cả trạng thái</SelectItem>{Object.entries(labels).map(([value, label]) => <SelectItem key={value} value={value}>{label}</SelectItem>)}</SelectContent></Select></div><DataTable title="Quản lý booking" subtitle={`${filtered.length} booking trên toàn hệ thống`} data={filtered} columns={columns} searchValue={search} onSearchChange={setSearch} searchPlaceholder="Mã booking, khách hoặc chỗ nghỉ" emptyMessage="Không có booking phù hợp." /></div>;
 }

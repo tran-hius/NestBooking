@@ -1,206 +1,22 @@
 import { useEffect, useState } from "react";
-import { format } from "date-fns";
-import { MoreHorizontal, Search, Eye, Pencil, Trash2 } from "lucide-react";
-
+import { Search } from "lucide-react";
 import { userService } from "@/api/services/userService";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableHeader,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-} from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { toast } from "sonner";
 
-const roleColors = {
-  ADMIN:
-    "bg-red-100 text-red-700 border-red-300 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800",
-  AGENT:
-    "bg-blue-100 text-blue-700 border-blue-300 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800",
-  USER: "bg-emerald-100 text-emerald-700 border-emerald-300 hover:bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800",
-};
-
-const statusColors = {
-  ACTIVE:
-    "bg-emerald-100 text-emerald-700 border-emerald-300 hover:bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800",
-  PENDING:
-    "bg-yellow-100 text-yellow-700 border-yellow-300 hover:bg-yellow-100 dark:bg-yellow-900/30 dark:text-yellow-400 dark:border-yellow-800",
-  BLOCKED:
-    "bg-red-100 text-red-700 border-red-300 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800",
-  BANNED:
-    "bg-red-100 text-red-700 border-red-300 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-400 dark:border-red-800",
-  REJECTED:
-    "bg-orange-100 text-orange-700 border-orange-300 hover:bg-orange-100 dark:bg-orange-900/30 dark:text-orange-400 dark:border-orange-800",
-};
+interface AdminUser { id: string; email: string; role: string; status: string; createdAt: string; profile?: { fullName?: string | null; phoneNumber?: string | null; address?: string | null } | null }
+const statusLabel: Record<string, string> = { ACTIVE: "Hoạt động", PENDING: "Chờ duyệt", INACTIVE: "Tạm ngưng", BANNED: "Đã khóa", REJECTED: "Từ chối" };
 
 export default function UserManagement() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [users, setUsers] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchUser = async () => {
-    try {
-      const res = await userService.getAllUsers();
-      setUsers(res.data);
-    } catch (error) {
-      console.error("Failed to fetch users:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  
-
-  return (
-    <div className="flex-1 space-y-6 animate-in fade-in duration-500 pb-10">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold">Quản lý Người Dùng</h2>
-          <p className="text-muted-foreground">
-            Xem, tìm kiếm và quản lý tài khoản người dùng.
-          </p>
-        </div>
-
-        <Button>Thêm Quản Trị Viên</Button>
-      </div>
-
-      <div className="flex justify-between">
-        <div className="relative w-[320px]">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-
-          <Input
-            className="pl-9"
-            placeholder="Tìm kiếm..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div className="rounded-xl border overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Người dùng</TableHead>
-              <TableHead>Vai trò</TableHead>
-              <TableHead>Trạng thái</TableHead>
-              <TableHead>Ngày tham gia</TableHead>
-              <TableHead className="text-right">Booking</TableHead>
-              <TableHead className="w-16 text-center"></TableHead>
-            </TableRow>
-          </TableHeader>
-
-          <TableBody>
-            {!isLoading && users.length > 0 ? (
-              users.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell>
-                    <div className="flex items-center gap-3">
-                    
-
-                      <div>
-                        <p className="font-medium">{user.name}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {user.email}
-                        </p>
-                      </div>
-                    </div>
-                  </TableCell>
-
-                  <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={
-                        roleColors[user.role as keyof typeof roleColors] ??
-                        "bg-gray-100 text-gray-700"
-                      }
-                    >
-                      {user.role}
-                    </Badge>
-                  </TableCell>
-
-                  <TableCell>
-                    <Badge
-                      variant="outline"
-                      className={
-                        statusColors[
-                          user.status as keyof typeof statusColors
-                        ] ?? "bg-gray-100 text-gray-700"
-                      }
-                    >
-                      {user.status}
-                    </Badge>
-                  </TableCell>
-
-                  <TableCell>
-                    {format(new Date(user.createdAt), "dd/MM/yyyy")}
-                  </TableCell>
-
-                  <TableCell className="text-right">
-                    {user.bookingsCount ?? 0}
-                  </TableCell>
-
-                  <TableCell className="text-center">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="mx-auto">
-                          <MoreHorizontal className="h-5 w-5" />
-                        </Button>
-                      </DropdownMenuTrigger>
-
-                      <DropdownMenuContent align="end" className="w-52">
-                        <DropdownMenuLabel>Hành động</DropdownMenuLabel>
-
-                        <DropdownMenuSeparator />
-
-                        <DropdownMenuItem className="cursor-pointer">
-                          <Eye className="mr-2 h-4 w-4 text-blue-500" />
-                          Xem chi tiết
-                        </DropdownMenuItem>
-
-                        <DropdownMenuItem className="cursor-pointer">
-                          <Pencil className="mr-2 h-4 w-4 text-amber-500" />
-                          Chỉnh sửa
-                        </DropdownMenuItem>
-
-                        <DropdownMenuSeparator />
-
-                        <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
-                          <Trash2 className="mr-2 h-4 w-4" />
-                          Xóa người dùng
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell className="text-center py-10" colSpan={6}>
-                  {isLoading ? "Đang tải..." : "Không có dữ liệu"}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
-  );
+  const [users, setUsers] = useState<AdminUser[]>([]);
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState<string | null>(null);
+  useEffect(() => { userService.getAllUsers().then((response) => setUsers(response.data.filter((user: AdminUser) => user.role === "USER"))).catch(() => toast.error("Không thể tải người dùng")).finally(() => setLoading(false)); }, []);
+  const updateStatus = async (user: AdminUser, status: string) => { if (!window.confirm(`Chuyển ${user.email} sang ${statusLabel[status]}?`)) return; try { setUpdating(user.id); const response = await userService.updateStatus(user.id, status); setUsers((current) => current.map((item) => item.id === user.id ? response.data : item)); toast.success("Đã cập nhật trạng thái người dùng"); } catch (error: any) { toast.error(error.response?.data?.message || "Không thể cập nhật người dùng"); } finally { setUpdating(null); } };
+  const filtered = users.filter((user) => `${user.email} ${user.profile?.fullName || ""} ${user.profile?.phoneNumber || ""}`.toLowerCase().includes(search.toLowerCase()));
+  return <div className="space-y-6"><div><h1 className="text-3xl font-bold">Quản lý người dùng</h1><p className="mt-1 text-muted-foreground">Theo dõi và khóa/mở khóa tài khoản khách hàng.</p></div><div className="relative max-w-sm"><Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} className="pl-9" placeholder="Tìm tên, email hoặc số điện thoại" /></div><div className="overflow-hidden rounded-xl border bg-white"><Table><TableHeader><TableRow><TableHead>Người dùng</TableHead><TableHead>Liên hệ</TableHead><TableHead>Ngày tham gia</TableHead><TableHead>Trạng thái</TableHead><TableHead className="text-right">Thao tác</TableHead></TableRow></TableHeader><TableBody>{!loading && filtered.length ? filtered.map((user) => <TableRow key={user.id}><TableCell><div className="font-medium">{user.profile?.fullName || "Chưa cập nhật tên"}</div><div className="text-xs text-muted-foreground">{user.email}</div></TableCell><TableCell><div>{user.profile?.phoneNumber || "Chưa có SĐT"}</div><div className="text-xs text-muted-foreground">{user.profile?.address || "Chưa có địa chỉ"}</div></TableCell><TableCell>{new Date(user.createdAt).toLocaleDateString("vi-VN")}</TableCell><TableCell><Badge variant={user.status === "BANNED" ? "destructive" : user.status === "ACTIVE" ? "default" : "secondary"}>{statusLabel[user.status] || user.status}</Badge></TableCell><TableCell className="text-right">{user.status === "BANNED" ? <Button size="sm" disabled={updating === user.id} onClick={() => void updateStatus(user, "ACTIVE")}>Mở khóa</Button> : <Button size="sm" variant="outline" className="text-destructive" disabled={updating === user.id} onClick={() => void updateStatus(user, "BANNED")}>Khóa tài khoản</Button>}</TableCell></TableRow>) : <TableRow><TableCell colSpan={5} className="h-24 text-center text-muted-foreground">{loading ? "Đang tải..." : "Không có người dùng phù hợp."}</TableCell></TableRow>}</TableBody></Table></div></div>;
 }
