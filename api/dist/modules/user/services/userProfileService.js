@@ -1,7 +1,7 @@
-import logger from "../../../config/logger.js";
-import { UserMapper } from "../../../modules/user/mapper/userMapper.js";
-import { NotFoundError, ConflictError } from "../../../utils/errors/errorCustomize.js";
-import { UserCacheHelper } from "../utils/userCacheHelper.js";
+import logger from "@/config/logger";
+import { UserMapper } from "@/modules/user/mapper/userMapper";
+import { NotFoundError, ConflictError } from "@/utils/errors/errorCustomize";
+import { UserCacheHelper } from "../utils/userCacheHelper";
 export class UserProfileService {
     userRepository;
     constructor(userRepository) {
@@ -14,7 +14,7 @@ export class UserProfileService {
             throw new NotFoundError("Tài khoản không tồn tại để cập nhật hồ sơ");
         }
         if (dto.phoneNumber) {
-            const checkPhone = await this.userRepository.findByEmailOrPhone("", dto.phoneNumber);
+            const checkPhone = await this.userRepository.findByPhone(dto.phoneNumber);
             if (checkPhone && checkPhone.id !== userId) {
                 logger.warn(`Cập nhật hồ sơ thất bại: Số điện thoại ${dto.phoneNumber} đã bị trùng`);
                 throw new ConflictError("Số điện thoại này đã được sử dụng bởi một tài khoản khác!");

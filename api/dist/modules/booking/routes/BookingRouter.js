@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { authMiddleware, roleMiddleware } from "../../../middlewares/index.js";
-import { validate } from "../../../middlewares/validationMiddleware.js";
-import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { Role } from "../../../../generated/prisma/index.js";
-import { CreateBookingSchema, UpdateBookingStatusSchema } from "../dtos/bookingDTO.js";
-import { BookingController } from "../controllers/bookingController.js";
-import { BookingServiceFactory } from "../factory/bookingServiceFactory.js";
+import { authMiddleware, roleMiddleware } from "@/middlewares";
+import { validate } from "@/middlewares/validationMiddleware";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { Role } from "../../../../generated/prisma";
+import { CreateBookingSchema, UpdateBookingStatusSchema, UpdatePaymentStatusSchema } from "../dtos/bookingDTO";
+import { BookingController } from "../controllers/bookingController";
+import { BookingServiceFactory } from "../factory/bookingServiceFactory";
 const router = Router();
 const bookingService = BookingServiceFactory.create();
 const bookingController = new BookingController(bookingService);
@@ -80,6 +80,7 @@ router.patch("/:id/status",
   }
 */
 authMiddleware, roleMiddleware([Role.AGENT, Role.ADMIN]), validate(UpdateBookingStatusSchema), asyncHandler(bookingController.updateBookingStatus));
+router.patch("/:id/payment-status", authMiddleware, roleMiddleware([Role.AGENT, Role.ADMIN]), validate(UpdatePaymentStatusSchema), asyncHandler(bookingController.updatePaymentStatus));
 router.get("/:id", 
 /*
   #swagger.path = '/api/bookings/{id}'

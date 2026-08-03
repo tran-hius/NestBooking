@@ -11,7 +11,7 @@ export class SearchRepository {
                 roomTypes: {
                     where: { isActive: true },
                     include: {
-                        rooms: { where: { isActive: true, status: "AVAILABLE" } },
+                        rooms: { where: { isActive: true } },
                         bookings: bookingOverlapCondition
                             ? { where: bookingOverlapCondition }
                             : false,

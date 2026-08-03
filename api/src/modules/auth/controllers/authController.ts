@@ -90,18 +90,18 @@ export class AuthController {
       deviceMetadata,
     );
 
-    res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
-    res.cookie("accessToken", result.tokens.accessToken, {
-      ...COOKIE_OPTIONS,
-      maxAge: appEnv.JWT_EXPIRES_IN_MS,
-    });
+    successResponse(res, HttpStatus.CREATED, "Đăng ký thành công, vui lòng kiểm tra email để nhận mã OTP.", result);
+  };
 
-    const { refreshToken, ...safeResult } = result.tokens;
+  verifyRegistrationOtp = async (req: Request, res: Response): Promise<void> => {
+    logger.info("[AuthController] Verify Registration OTP");
+    
+    await this.authService.verifyRegistrationOtp(
+      req.body.otp,
+      req.body.otpToken
+    );
 
-    successResponse(res, HttpStatus.CREATED, "Đăng ký thành công!", {
-      user: result.user,
-      tokens: safeResult,
-    });
+    successResponse(res, HttpStatus.OK, "Tài khoản đã được xác thực thành công. Vui lòng đăng nhập.");
   };
 
   loginWithPassword = async (req: Request, res: Response): Promise<void> => {

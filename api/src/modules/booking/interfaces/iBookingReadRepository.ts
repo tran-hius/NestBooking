@@ -25,4 +25,12 @@ export interface IBookingReadRepository {
     checkOut: Date,
     tx?: any
   ): Promise<number>;
+  
+  getAvailableRooms(
+    roomTypeId: string,
+    checkIn: Date,
+    checkOut: Date,
+    quantity: number,
+    tx?: any
+  ): Promise<string[]>;
 }

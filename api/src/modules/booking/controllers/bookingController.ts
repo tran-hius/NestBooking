@@ -85,12 +85,44 @@ export class BookingController {
     
     const requesterId = req.user?.userId as string;
     const requesterRole = req.user?.role as string;
-    const { status } = req.body as { status: BookingStatus };
-    const result = await this.bookingService.updateBookingStatus(id, requesterId, requesterRole, status);
+    const { status, roomIds } = req.body as { status: BookingStatus, roomIds?: string[] };
+    const result = await this.bookingService.updateBookingStatus(id, requesterId, requesterRole, status, roomIds);
     
     successResponse(res, HttpStatus.OK, "Cập nhật trạng thái thành công.", result);
   };
 
+  public updatePaymentStatus = async (req: Request, res: Response): Promise<void> => {
+    const id = req.params.id as string;
+    logger.info("[BookingController] Update payment status", { bookingId: id });
+    
+    const requesterId = req.user?.userId as string;
+    const requesterRole = req.user?.role as string;
+    const { paymentStatus } = req.body as { paymentStatus: any };
+    const result = await this.bookingService.updatePaymentStatus(id, requesterId, requesterRole, paymentStatus);
+    
+    successResponse(res, HttpStatus.OK, "Cập nhật trạng thái thanh toán thành công.", result);
+  };
 
 
+  public getHotelAvailability = async (req: Request, res: Response): Promise<void> => {
+    const hotelId = req.params.hotelId as string;
+    const { checkIn, checkOut } = req.query;
+
+    if (!checkIn || !checkOut) {
+      successResponse(res, HttpStatus.BAD_REQUEST, "Thiếu checkIn hoặc checkOut.", null);
+      return;
+    }
+
+    const checkInDate = new Date(checkIn as string);
+    const checkOutDate = new Date(checkOut as string);
+
+    if (isNaN(checkInDate.getTime()) || isNaN(checkOutDate.getTime())) {
+      successResponse(res, HttpStatus.BAD_REQUEST, "Định dạng ngày không hợp lệ.", null);
+      return;
+    }
+
+    const result = await this.bookingService.getHotelAvailability(hotelId, checkInDate, checkOutDate);
+    
+    successResponse(res, HttpStatus.OK, "Lấy thông tin phòng trống thành công.", result);
+  };
 }

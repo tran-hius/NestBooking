@@ -1,5 +1,5 @@
-import { REDIS_KEYS } from "../../../infrastructure/redis/index.js";
-import { CacheService } from "../../../modules/cache/services/cacheService.js";
+import { REDIS_KEYS } from "@/infrastructure/redis";
+import { CacheService } from "@/modules/cache/services/cacheService";
 const cacheService = new CacheService();
 export class UserCacheHelper {
     static async clearUserCache(userId, email) {

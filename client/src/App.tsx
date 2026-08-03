@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { useEffect, Suspense } from "react";
 import { useAppStore } from "@/stores/useAppStore";
 import { authService } from "@/api/services/authService";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeWrapper } from "@/components/ThemeWrapper";
 import PaymentResult from "./pages/PaymentResult";
 
 function App() {
@@ -26,8 +26,8 @@ function App() {
   }, [isAuthenticated, setUser, clearAuth]);
 
   return (
-    <ThemeProvider defaultTheme="system" storageKey="nest-booking-theme">
-      <Router>
+    <Router>
+      <ThemeWrapper>
         <Suspense fallback={<div className="flex h-screen w-screen items-center justify-center bg-white"><div className="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-primary"></div></div>}>
           <Routes>
             <Route path="/payment/result" element={<PaymentResult />} />
@@ -45,9 +45,9 @@ function App() {
             })}
           </Routes>
         </Suspense>
-      </Router>
-      <Toaster position="top-center" richColors />
-    </ThemeProvider>
+        <Toaster position="top-center" richColors />
+      </ThemeWrapper>
+    </Router>
   );
 }
 

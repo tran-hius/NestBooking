@@ -52,6 +52,20 @@ export const REDIS_KEYS = {
      */
     WISHLIST: (userId) => `wishlist:${userId}`,
     /**
+     * Destination
+     */
+    DESTINATIONS_ACTIVE: "destinations:active",
+    DESTINATIONS_ALL: "destinations:all",
+    /**
+     * Review
+     */
+    REVIEWS_HOTEL: (hotelId) => `reviews:hotel:${hotelId}`,
+    /**
+     * Statistics
+     */
+    STATS_REVENUE: (hash) => `stats:revenue:${hash}`,
+    STATS_OCCUPANCY: (hash) => `stats:occupancy:${hash}`,
+    /**
      * Rate Limit
      */
     RATE_LIMIT: (ip) => `rate_limit:${ip}`,

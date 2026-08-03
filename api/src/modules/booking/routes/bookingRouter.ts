@@ -4,7 +4,7 @@ import { validate } from "@/middlewares/validationMiddleware";
 import { asyncHandler } from "@/utils/asyncHandler";
 import { Role } from "../../../../generated/prisma";
 
-import { CreateBookingSchema, UpdateBookingStatusSchema } from "../dtos/bookingDTO";
+import { CreateBookingSchema, UpdateBookingStatusSchema, UpdatePaymentStatusSchema } from "../dtos/bookingDTO";
 import { BookingController } from "../controllers/bookingController";
 import { BookingServiceFactory } from "../factory/bookingServiceFactory";
 
@@ -12,6 +12,11 @@ const router = Router();
 
 const bookingService = BookingServiceFactory.create();
 const bookingController = new BookingController(bookingService);
+
+router.get(
+  "/availability/hotel/:hotelId",
+  asyncHandler(bookingController.getHotelAvailability)
+);
 
 router.get(
   "/admin",
@@ -112,6 +117,14 @@ router.patch(
   roleMiddleware([Role.AGENT, Role.ADMIN]),
   validate(UpdateBookingStatusSchema),
   asyncHandler(bookingController.updateBookingStatus)
+);
+
+router.patch(
+  "/:id/payment-status",
+  authMiddleware,
+  roleMiddleware([Role.AGENT, Role.ADMIN]),
+  validate(UpdatePaymentStatusSchema),
+  asyncHandler(bookingController.updatePaymentStatus)
 );
 
 

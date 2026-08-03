@@ -1,4 +1,4 @@
-import { RoomTypeMapper } from "./roomTypeMapper.js";
+import { RoomTypeMapper } from "./roomTypeMapper";
 export class HotelMapper {
     static toResponseDto(hotel) {
         return {

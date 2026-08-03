@@ -38,17 +38,22 @@ export default function SearchResults() {
       return 0;
     });
 
-  const formattedHotels = filteredHotels.map((hotel) => ({
-    id: hotel.id,
-    name: hotel.name,
-    image: hotel.thumbnail || hotel.images?.[0] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    rating: hotel.rating,
-    distance: `${hotel.city}${hotel.address ? `, ${hotel.address}` : ""}`,
-    roomType: hotel.availableRoomTypes?.[0]?.name || "Chưa có loại phòng phù hợp",
-    availableRooms: hotel.availableRoomTypes?.[0]?.availableRooms || 0,
-    hasBreakfast: hotel.amenities.includes("BREAKFAST"),
-    salePrice: hotel.startingPrice,
-  }));
+  const formattedHotels = filteredHotels.map((hotel) => {
+    const firstRoom = hotel.availableRoomTypes?.[0];
+    return {
+      id: hotel.id,
+      name: hotel.name,
+      image: hotel.thumbnail || hotel.images?.[0] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      rating: hotel.rating,
+      distance: `${hotel.city}${hotel.address ? `, ${hotel.address}` : ""}`,
+      roomType: firstRoom?.name || "Chưa có loại phòng phù hợp",
+      bedCount: firstRoom?.bedCount || 0,
+      bedType: firstRoom?.bedType || "",
+      availableRooms: firstRoom?.availableRooms || 0,
+      hasBreakfast: hotel.amenities.includes("BREAKFAST"),
+      salePrice: hotel.startingPrice,
+    };
+  });
 
   return (
     <div className="w-full">
@@ -64,7 +69,7 @@ export default function SearchResults() {
       </div>
 
       <div className="flex flex-col gap-5">
-        {isLoading ? Array.from({ length: 4 }).map((_, index) => <PropertyCardSkeleton key={index} />) : error ? <EmptyState title="Chưa thể tải kết quả" description="Vui lòng kiểm tra kết nối và thử tìm kiếm lại." /> : formattedHotels.length ? formattedHotels.map((property) => <PropertyCard key={property.id} prop={property} search={location.search} />) : <EmptyState title="Không tìm thấy chỗ nghỉ phù hợp" description="Hãy thử bỏ bớt bộ lọc, đổi ngày lưu trú hoặc tìm một điểm đến khác." />}
+        {isLoading ? Array.from({ length: 4 }).map((_, index) => <PropertyCardSkeleton key={index} />) : error ? <EmptyState title="Chưa thể tải kết quả" description={error instanceof Error ? error.message : JSON.stringify(error)} /> : formattedHotels.length ? formattedHotels.map((property) => <PropertyCard key={property.id} prop={property} search={location.search} />) : <EmptyState title="Không tìm thấy chỗ nghỉ phù hợp" description="Hãy thử bỏ bớt bộ lọc, đổi ngày lưu trú hoặc tìm một điểm đến khác." />}
       </div>
     </div>
   );

@@ -1,13 +1,24 @@
 import { Calendar, Search, SlidersHorizontal, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import CalendarDropdown from "./CalendarDropdown";
 import GuestsDropdown, { GuestSelection } from "./GuestsDropdown";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import LocationInput from "./LocationInput";
 
-const isoToInput = (value: string | null, fallback: string) => value ? new Date(value).toISOString().slice(0, 10) : fallback;
+const isoToInput = (value: string | null, fallback: string) => {
+  if (!value) return fallback;
+  // If the value is a full ISO string like 2026-08-03T17:00... from old bookmarks, try to extract YYYY-MM-DD
+  if (value.includes("T")) {
+    const localDate = new Date(value);
+    if (!Number.isNaN(localDate.getTime())) {
+      return new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
+    }
+  }
+  // Otherwise it's already YYYY-MM-DD format or something we can use directly
+  return value.slice(0, 10);
+};
 
 export default function SearchHeader() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,8 +28,8 @@ export default function SearchHeader() {
   dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
 
   const [location, setLocation] = useState(searchParams.get("location") || "Hà Nội");
-  const [checkIn, setCheckIn] = useState(isoToInput(searchParams.get("checkIn"), tomorrow.toISOString().slice(0, 10)));
-  const [checkOut, setCheckOut] = useState(isoToInput(searchParams.get("checkOut"), dayAfterTomorrow.toISOString().slice(0, 10)));
+  const [checkIn, setCheckIn] = useState(isoToInput(searchParams.get("checkIn"), ""));
+  const [checkOut, setCheckOut] = useState(isoToInput(searchParams.get("checkOut"), ""));
   const [guests, setGuests] = useState<GuestSelection>({
     adults: Number(searchParams.get("adults") || 2),
     children: Number(searchParams.get("children") || 0),
@@ -32,15 +43,25 @@ export default function SearchHeader() {
   useClickOutside(calendarRef, () => setIsCalendarOpen(false));
   useClickOutside(guestsRef, () => setIsGuestsOpen(false));
 
+  useEffect(() => {
+    const handleOpenCalendar = () => {
+      setIsCalendarOpen(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    window.addEventListener("open-calendar", handleOpenCalendar);
+    return () => window.removeEventListener("open-calendar", handleOpenCalendar);
+  }, []);
+
   const submitSearch = () => {
-    setSearchParams({
+    const newParams: Record<string, string> = {
       location: location.trim(),
-      checkIn: new Date(`${checkIn}T00:00:00`).toISOString(),
-      checkOut: new Date(`${checkOut}T00:00:00`).toISOString(),
       adults: String(guests.adults),
       children: String(guests.children),
       rooms: String(guests.rooms),
-    });
+    };
+    if (checkIn) newParams.checkIn = checkIn;
+    if (checkOut) newParams.checkOut = checkOut;
+    setSearchParams(newParams);
   };
 
   return (
@@ -66,5 +87,6 @@ export default function SearchHeader() {
 }
 
 function formatDate(value: string) {
+  if (!value) return "Chọn ngày";
   return new Intl.DateTimeFormat("vi-VN", { day: "2-digit", month: "2-digit" }).format(new Date(`${value}T00:00:00`));
 }

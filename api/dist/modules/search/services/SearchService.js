@@ -1,7 +1,8 @@
-import { SortByOption, } from "../dtos/searchDTO.js";
-import { HotelStatus, BookingStatus } from "../../../../generated/prisma/index.js";
-import { BadRequestError } from "../../../utils/errors/errorCustomize.js";
-import { SearchMapper } from "../mapper/searchMapper.js";
+import { SortByOption, } from "../dtos/searchDTO";
+import { HotelStatus, BookingStatus } from "@/../generated/prisma";
+import { BadRequestError } from "@/utils/errors/errorCustomize";
+import { SearchMapper } from "../mapper/searchMapper";
+import { isPastDate, isValidDateRange } from "@/utils/dateUtils";
 export class SearchService {
     searchRepository;
     bookingAvailabilityService;
@@ -12,10 +13,10 @@ export class SearchService {
     async searchHotels(dto) {
         const { location, checkInDate, checkOutDate, adults = 1, children = 0, rooms = 1, minPrice, maxPrice, propertyType, amenities, sortBy, page = 1, limit = 10, } = dto;
         if (checkInDate && checkOutDate) {
-            if (new Date(checkInDate) >= new Date(checkOutDate)) {
+            if (!isValidDateRange(checkInDate, checkOutDate)) {
                 throw new BadRequestError("Ngày nhận phòng phải trước ngày trả phòng.");
             }
-            if (new Date(checkInDate) < new Date(new Date().setHours(0, 0, 0, 0))) {
+            if (isPastDate(checkInDate)) {
                 throw new BadRequestError("Ngày nhận phòng không được trong quá khứ.");
             }
         }
@@ -45,7 +46,9 @@ export class SearchService {
                 checkOutDate: { gt: new Date(checkInDate) },
             }
             : false;
+        console.log("Before findHotelsForSearch");
         const hotels = await this.searchRepository.findHotelsForSearch(hotelWhere, bookingOverlapCondition);
+        console.log("After findHotelsForSearch, length:", hotels.length);
         let filteredHotels = [];
         for (const hotel of hotels) {
             const availableRoomTypes = [];

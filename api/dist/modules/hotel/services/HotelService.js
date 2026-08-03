@@ -1,8 +1,8 @@
 import { HotelStatus } from "#generated/prisma";
-import { HotelMapper } from "../mapper/hotelMapper.js";
-import { ForbiddenError, NotFoundError, } from "../../../utils/errors/errorCustomize.js";
-import logger from "../../../config/logger.js";
-import { REDIS_KEYS, redisClient, REDIS_TTL } from "../../../infrastructure/redis/index.js";
+import { HotelMapper } from "../mapper/hotelMapper";
+import { ForbiddenError, NotFoundError, } from "@/utils/errors/errorCustomize";
+import logger from "@/config/logger";
+import { REDIS_KEYS, redisClient, REDIS_TTL } from "@/infrastructure/redis";
 import crypto from "crypto";
 export class HotelService {
     hotelRepository;

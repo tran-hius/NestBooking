@@ -66,6 +66,7 @@ enum PropertyType {
 enum BookingStatus {
   PENDING
   CONFIRMED
+  CHECKED_IN
   CANCELLED
   COMPLETED
 }
@@ -75,7 +76,7 @@ model User {
   email         String         @unique @db.VarChar(255)
   passwordHash  String?        @map("password_hash") @db.VarChar(255)
   role          Role           @default(USER)
-  status        UserStatus     @default(PENDING)
+  status        UserStatus     @default(INACTIVE)
   loginAttempts Int            @default(0) @map("login_attempts")
   lockUntil     DateTime?      @map("lock_until")
   createdAt     DateTime       @default(now()) @map("created_at")
@@ -207,9 +208,21 @@ model Room {
   updatedAt  DateTime   @updatedAt
   hotel      Hotel      @relation(fields: [hotelId], references: [id], onDelete: Cascade)
   roomType   RoomType   @relation(fields: [roomTypeId], references: [id], onDelete: Cascade)
+  bookings   BookingRoom[]
 
   @@unique([hotelId, roomNumber])
   @@map("rooms")
+}
+
+model BookingRoom {
+  bookingId String @db.Uuid
+  roomId    String @db.Uuid
+  
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  room      Room    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@id([bookingId, roomId])
+  @@map("booking_rooms")
 }
 
 model RoomTypeImage {
@@ -271,6 +284,7 @@ model Booking {
   user     User     @relation(fields: [userId], references: [id])
   hotel    Hotel    @relation(fields: [hotelId], references: [id])
   roomType RoomType @relation(fields: [roomTypeId], references: [id])
+  rooms    BookingRoom[]
 
   @@map("bookings")
 }
@@ -281,7 +295,7 @@ model Destination {
   slug        String   @unique @db.VarChar(100)
   imageUrl    String   @db.Text
   country     String   @default("Vietnam") @db.VarChar(100)
-  countryFlag String   @default("ðŸ‡»ðŸ‡³") @db.VarChar(10)
+  countryFlag String   @default("VN") @db.VarChar(10)
   description String?  @db.Text
   isActive    Boolean  @default(true)
   isFeatured  Boolean  @default(false)

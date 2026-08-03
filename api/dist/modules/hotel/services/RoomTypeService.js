@@ -1,9 +1,9 @@
-import { RoomTypeMapper } from "../mapper/roomTypeMapper.js";
-import { ForbiddenError, NotFoundError, BadRequestError, } from "../../../utils/errors/errorCustomize.js";
-import { redisClient } from "../../../infrastructure/redis/RedisConnection.js";
-import { REDIS_KEYS } from "../../../infrastructure/redis/redisKeys.js";
-import { REDIS_TTL } from "../../../infrastructure/redis/redisTTL.js";
-import logger from "../../../config/logger.js";
+import { RoomTypeMapper } from "../mapper/roomTypeMapper";
+import { ForbiddenError, NotFoundError, BadRequestError, } from "@/utils/errors/errorCustomize";
+import { redisClient } from "@/infrastructure/redis/RedisConnection";
+import { REDIS_KEYS } from "@/infrastructure/redis/redisKeys";
+import { REDIS_TTL } from "@/infrastructure/redis/redisTTL";
+import logger from "@/config/logger";
 export class RoomTypeService {
     roomTypeRepo;
     hotelRepo;

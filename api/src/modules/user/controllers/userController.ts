@@ -37,7 +37,10 @@ export class UserController {
    */
   createUser = async (req: Request, res: Response): Promise<void> => {
     logger.info("[UserController] Create user", { email: req.body.email });
-    const user = await this.userService.createUser(req.body);
+    const user = await this.userService.createUser({
+      ...req.body,
+      status: req.body.status ?? "ACTIVE",
+    });
     successResponse(res, HttpStatus.CREATED, "Tạo tài khoản thành công.", user);
   };
 

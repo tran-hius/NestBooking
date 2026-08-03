@@ -33,10 +33,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAppStore } from "@/stores/useAppStore";
 import type { Booking, BookingStatus, Hotel } from "@/types";
+import AiAnalyticsCard from "@/components/partner/AiAnalyticsCard";
 
 const bookingStatus: Record<BookingStatus, { label: string; color: string; className: string }> = {
   PENDING: { label: "Chờ xác nhận", color: "#f59e0b", className: "bg-amber-100 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/50 dark:text-amber-300" },
   CONFIRMED: { label: "Đã xác nhận", color: "#2563eb", className: "bg-blue-100 text-blue-700 hover:bg-blue-100 dark:bg-blue-950/50 dark:text-blue-300" },
+  CHECKED_IN: { label: "Đang lưu trú", color: "#6366f1", className: "bg-indigo-100 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-300" },
   CANCELLED: { label: "Đã hủy", color: "#ef4444", className: "bg-red-100 text-red-700 hover:bg-red-100 dark:bg-red-950/50 dark:text-red-300" },
   COMPLETED: { label: "Hoàn thành", color: "#10b981", className: "bg-emerald-100 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300" },
 };
@@ -162,6 +164,8 @@ export default function AgentDashboard() {
           </div>
         </div>
       </section>
+
+      <AiAnalyticsCard hotels={hotels} />
 
       <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
         <div><h2 className="text-xl font-bold text-slate-900 dark:text-white">Tình hình kinh doanh</h2><p className="mt-1 text-sm capitalize text-muted-foreground">{fullDate.format(new Date())}</p></div>

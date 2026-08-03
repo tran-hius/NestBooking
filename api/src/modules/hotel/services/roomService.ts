@@ -170,7 +170,6 @@ export class RoomService implements IRoomService {
     return this.roomRepo.count({
       roomTypeId,
       isActive: true,
-      status: "AVAILABLE",
     }, tx);
   }
 }

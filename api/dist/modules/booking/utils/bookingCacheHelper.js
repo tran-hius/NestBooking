@@ -1,6 +1,6 @@
-import { REDIS_KEYS } from "../../../infrastructure/redis/index.js";
-import logger from "../../../config/logger.js";
-import { CacheService } from "../../../modules/cache/services/cacheService.js";
+import { REDIS_KEYS } from "@/infrastructure/redis";
+import logger from "@/config/logger";
+import { CacheService } from "@/modules/cache/services/cacheService";
 const cacheService = new CacheService();
 export class BookingCacheHelper {
     static async clearBookingCache(bookingId, userId, hotelId) {

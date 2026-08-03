@@ -15,7 +15,12 @@ export interface IAuthService {
     dto: RegisterDto,
     device: DeviceMetadata,
     tx?: TxClient
-  ): Promise<AuthResponseDto>;
+  ): Promise<OtpTokenResponse>;
+  verifyRegistrationOtp(
+    otp: string,
+    otpToken: string,
+    tx?: TxClient,
+  ): Promise<void>;
   registerPartner(
     userId: string,
     dto: RegisterPartnerDto,

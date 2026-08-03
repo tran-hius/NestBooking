@@ -1,7 +1,8 @@
-# Stage 1: Build
 FROM node:20-alpine AS builder
 
 WORKDIR /app
+
+RUN apk add --no-cache tzdata
 
 # Chỉ copy package.json và thư mục prisma trước để cài đặt thư viện
 COPY package*.json ./
@@ -20,6 +21,8 @@ RUN npm run build
 FROM node:20-alpine
 
 WORKDIR /app
+
+RUN apk add --no-cache tzdata
 
 COPY package*.json ./
 COPY prisma.config.ts ./

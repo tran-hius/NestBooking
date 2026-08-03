@@ -28,7 +28,7 @@ export class UserService implements IUserService {
    
   }
 
-  async createUser(dto: CreateUserDto & { passwordHash?: string; phoneNumber?: string }, tx?: TxClient): Promise<UserResponseDto> {
+  async createUser(dto: CreateUserDto & { passwordHash?: string; phoneNumber?: string; status?: UserStatus }, tx?: TxClient): Promise<UserResponseDto> {
     const normalizedEmail = dto.email.toLowerCase().trim();
 
     const executeTx = tx ? (fn: (tx: TxClient) => Promise<any>) => fn(tx) : prisma.$transaction.bind(prisma);
@@ -51,7 +51,7 @@ export class UserService implements IUserService {
       const data = {
         email: normalizedEmail,
         role: dto.role,
-        status: UserStatus.ACTIVE,
+        status: dto.status ?? UserStatus.INACTIVE,
         passwordHash: dto.passwordHash,
         profile: {
           create: {

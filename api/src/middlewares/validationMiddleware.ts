@@ -30,9 +30,9 @@ export const validate = (schema: any) => {
       }
 
       next();
-    } catch (error) {
-      if (error instanceof ZodError) {
-        const formattedErrors = error.issues.map((err) => ({
+    } catch (error: any) {
+      if (error instanceof ZodError || error?.name === "ZodError") {
+        const formattedErrors = error.issues.map((err: any) => ({
           field: err.path.slice(1).join("."),
           message: err.message,
         }));

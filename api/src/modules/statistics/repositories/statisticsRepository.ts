@@ -34,7 +34,7 @@ export class StatisticsRepository implements IStatisticsRepository {
       _sum: { quantity: true },
       where: {
         hotelId,
-        status: { in: [BookingStatus.CONFIRMED, BookingStatus.COMPLETED] },
+        status: { in: [BookingStatus.CONFIRMED, BookingStatus.CHECKED_IN, BookingStatus.COMPLETED] },
         checkInDate: { gte: startDate },
         checkOutDate: { lte: endDate },
       },

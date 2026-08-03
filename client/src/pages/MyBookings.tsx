@@ -38,6 +38,7 @@ import { toast } from "sonner";
 const statusConfig: Record<BookingStatus, { label: string; className: string; icon: typeof Clock3 }> = {
   PENDING: { label: "Chờ xác nhận", className: "border-amber-200 bg-amber-50 text-amber-700", icon: Clock3 },
   CONFIRMED: { label: "Đã xác nhận", className: "border-blue-200 bg-blue-50 text-blue-700", icon: CheckCircle2 },
+  CHECKED_IN: { label: "Đang lưu trú", className: "border-indigo-200 bg-indigo-50 text-indigo-700", icon: MapPin },
   CANCELLED: { label: "Đã hủy", className: "border-red-200 bg-red-50 text-red-700", icon: XCircle },
   COMPLETED: { label: "Đã hoàn thành", className: "border-emerald-200 bg-emerald-50 text-emerald-700", icon: CalendarCheck2 },
 };

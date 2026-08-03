@@ -21,6 +21,7 @@ import {
   X,
 } from "lucide-react";
 import { hotelService } from "@/api/services/hotelService";
+import { bookingService } from "@/api/services/bookingService";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
@@ -64,28 +65,34 @@ export default function HotelDetail() {
   const [loading, setLoading] = useState(true);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
+  const [availabilityMap, setAvailabilityMap] = useState<Record<string, number>>({});
+
+  const checkIn = parseDate(searchParams.get("checkIn"), 1);
+  const checkOut = parseDate(searchParams.get("checkOut"), 2);
 
   useEffect(() => {
     if (!id) return;
-    const fetchHotel = async () => {
+    const fetchHotelAndAvailability = async () => {
       setLoading(true);
       try {
-        const response = await hotelService.getHotelById(id);
-        setHotel(response.data);
+        const [hotelRes, availabilityRes] = await Promise.all([
+          hotelService.getHotelById(id),
+          bookingService.getHotelAvailability(id, checkIn.toISOString(), checkOut.toISOString()).catch(() => ({ data: {} }))
+        ]);
+        setHotel(hotelRes.data);
+        setAvailabilityMap(availabilityRes.data || {});
       } catch (error: any) {
         toast.error(error.response?.data?.message || "Không thể tải thông tin chỗ nghỉ");
       } finally {
         setLoading(false);
       }
     };
-    void fetchHotel();
-  }, [id]);
+    void fetchHotelAndAvailability();
+  }, [id, searchParams]);
 
   if (loading) return <div className="flex min-h-screen items-center justify-center bg-slate-50 pt-20"><div className="text-center"><Loader2 className="mx-auto h-9 w-9 animate-spin text-primary" /><p className="mt-3 text-sm text-slate-500">Đang tải thông tin chỗ nghỉ...</p></div></div>;
   if (!hotel) return <div className="flex min-h-screen flex-col items-center justify-center bg-slate-50 px-4 pt-20 text-center"><Building2 className="h-12 w-12 text-slate-300" /><h1 className="mt-4 text-2xl font-bold text-slate-800">Không tìm thấy chỗ nghỉ</h1><p className="mt-2 text-slate-500">Chỗ nghỉ có thể đã ngừng hiển thị hoặc đường dẫn không còn hợp lệ.</p><Button onClick={() => navigate("/search")} className="mt-6"><ArrowLeft className="mr-2 h-4 w-4" />Quay lại tìm kiếm</Button></div>;
 
-  const checkIn = parseDate(searchParams.get("checkIn"), 1);
-  const checkOut = parseDate(searchParams.get("checkOut"), 2);
   const adults = Number(searchParams.get("adults") || 2);
   const children = Number(searchParams.get("children") || 0);
   const rooms = Number(searchParams.get("rooms") || 1);
@@ -93,7 +100,7 @@ export default function HotelDetail() {
   const roomTypes = (hotel.roomTypes || []).filter((roomType) => roomType.isActive);
   const images = getHotelImages(hotel);
 
-  const handleBookNow = (roomType: RoomType) => {
+  const handleBookNow = (roomType: RoomType, qty: number = rooms) => {
     navigate("/checkout", {
       state: {
         hotelId: hotel.id,
@@ -104,7 +111,7 @@ export default function HotelDetail() {
         checkOut: checkOut.toISOString(),
         adults,
         children,
-        rooms,
+        rooms: qty,
       },
     });
   };
@@ -132,7 +139,7 @@ export default function HotelDetail() {
 
             {hotel.amenities?.length ? <section className="rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm"><h2 className="text-xl font-black text-slate-900">Tiện nghi nổi bật</h2><div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{hotel.amenities.map((amenity) => <div key={amenity} className="flex items-center gap-2.5 rounded-xl bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-700"><Check className="h-4 w-4 shrink-0 text-emerald-600" />{formatAmenity(amenity)}</div>)}</div></section> : null}
 
-            <section id="rooms-section" className="scroll-mt-24"><div className="mb-5"><div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Lựa chọn lưu trú</div><h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">Chọn loại phòng</h2><p className="mt-2 text-sm text-slate-500">Giá hiển thị theo mỗi phòng, mỗi đêm. Tổng tiền được tính ở bước tiếp theo.</p></div>{roomTypes.length ? <div className="space-y-4">{roomTypes.map((roomType) => <RoomTypeCard key={roomType.id} roomType={roomType} nights={nights} rooms={rooms} onBook={handleBookNow} />)}</div> : <div className="rounded-2xl border border-dashed border-slate-300 bg-white py-14 text-center"><BedDouble className="mx-auto h-9 w-9 text-slate-300" /><h3 className="mt-3 font-bold text-slate-800">Chưa có loại phòng đang mở bán</h3><p className="mt-1 text-sm text-slate-500">Vui lòng quay lại sau hoặc chọn chỗ nghỉ khác.</p></div>}</section>
+            <section id="rooms-section" className="scroll-mt-24"><div className="mb-5"><div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Lựa chọn lưu trú</div><h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">Chọn loại phòng</h2><p className="mt-2 text-sm text-slate-500">Giá hiển thị theo mỗi phòng, mỗi đêm. Tổng tiền được tính ở bước tiếp theo.</p></div>{roomTypes.length ? <div className="space-y-4">{roomTypes.map((roomType) => <RoomTypeCard key={roomType.id} roomType={roomType} nights={nights} rooms={rooms} availableRooms={availabilityMap[roomType.id]} onBook={handleBookNow} />)}</div> : <div className="rounded-2xl border border-dashed border-slate-300 bg-white py-14 text-center"><BedDouble className="mx-auto h-9 w-9 text-slate-300" /><h3 className="mt-3 font-bold text-slate-800">Chưa có loại phòng đang mở bán</h3><p className="mt-1 text-sm text-slate-500">Vui lòng quay lại sau hoặc chọn chỗ nghỉ khác.</p></div>}</section>
           </main>
 
           <aside className="space-y-4 lg:sticky lg:top-24">
@@ -152,9 +159,106 @@ function Gallery({ images, hotelName, onOpen }: { images: string[]; hotelName: s
   return <div className="relative grid h-[330px] grid-cols-2 gap-2 overflow-hidden rounded-[22px] sm:h-[430px] lg:grid-cols-4 lg:grid-rows-2"><button type="button" onClick={() => onOpen(0)} className="group relative col-span-2 row-span-2 overflow-hidden bg-slate-200"><img src={images[0]} alt={hotelName} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 to-transparent" /></button>{[1, 2, 3, 4].map((index) => <button key={index} type="button" onClick={() => onOpen(index % images.length)} className="group relative hidden overflow-hidden bg-slate-200 lg:block"><img src={images[index % images.length]} alt={`${hotelName} ${index + 1}`} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />{index === 4 && <div className="absolute inset-0 flex items-center justify-center bg-slate-950/55 text-sm font-bold text-white"><Expand className="mr-2 h-4 w-4" />Xem {images.length} ảnh</div>}</button>)}<button type="button" onClick={() => onOpen(0)} className="absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-xl bg-white/90 px-3 py-2 text-xs font-bold text-slate-800 shadow-lg backdrop-blur lg:hidden"><Expand className="h-4 w-4" />Xem ảnh</button></div>;
 }
 
-function RoomTypeCard({ roomType, nights, rooms, onBook }: { roomType: RoomType; nights: number; rooms: number; onBook: (roomType: RoomType) => void }) {
+function RoomTypeCard({ roomType, nights, rooms, availableRooms, onBook }: { roomType: RoomType; nights: number; rooms: number; availableRooms?: number; onBook: (roomType: RoomType, qty: number) => void }) {
+  const maxAvailable = availableRooms !== undefined ? Math.max(0, availableRooms) : 10;
+  // Giới hạn max là 10 (OTA style) nhưng không vượt quá số phòng trống. Nếu người dùng chọn 3 phòng ban đầu, nó sẽ cố gắng chọn 3 (hoặc số phòng trống tối đa hiện tại).
+  const dropdownMax = Math.min(maxAvailable, 10);
+  const validInitialRooms = Math.min(rooms, dropdownMax > 0 ? dropdownMax : 1);
+  const [selectedRooms, setSelectedRooms] = useState(validInitialRooms);
+
+  // Cập nhật selectedRooms khi dropdownMax thay đổi (nếu có fetch data)
+  useEffect(() => {
+    if (dropdownMax > 0 && selectedRooms > dropdownMax) {
+      setSelectedRooms(dropdownMax);
+    }
+  }, [dropdownMax]);
+
   const image = roomType.thumbnail || roomType.images?.[0]?.imageUrl;
-  return <article className="grid overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm transition hover:border-blue-200 hover:shadow-md md:grid-cols-[190px_1fr_210px]">{image ? <img src={image} alt={roomType.name} className="h-48 w-full object-cover md:h-full" /> : <div className="flex h-40 items-center justify-center bg-slate-100 text-slate-400 md:h-full"><ImageOff className="h-8 w-8" /></div>}<div className="min-w-0 p-5"><h3 className="text-lg font-black text-slate-900">{roomType.name}</h3><div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600"><span className="flex items-center gap-1.5"><Users className="h-4 w-4 text-primary" />Tối đa {roomType.maxGuests} khách</span>{roomType.area && <span className="flex items-center gap-1.5"><Home className="h-4 w-4 text-primary" />{roomType.area} m²</span>}<span className="flex items-center gap-1.5"><BedDouble className="h-4 w-4 text-primary" />{roomType.bedCount} {bedLabels[roomType.bedType] || roomType.bedType}</span></div>{roomType.description && <p className="mt-4 line-clamp-2 text-sm leading-relaxed text-slate-500">{roomType.description}</p>}{roomType.amenities?.length ? <div className="mt-4 flex flex-wrap gap-2">{roomType.amenities.slice(0, 4).map((amenity) => <span key={amenity} className="rounded-lg bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">{formatAmenity(amenity)}</span>)}</div> : null}</div><div className="flex flex-col justify-between border-t border-slate-100 bg-slate-50/70 p-5 md:border-l md:border-t-0"><div className="text-right"><div className="text-xs text-slate-500">Mỗi phòng / đêm</div><div className="mt-1 text-2xl font-black text-slate-950">{formatCurrency(roomType.price)}</div><div className="mt-2 text-xs text-slate-400">Dự kiến {formatCurrency(Number(roomType.price) * nights * rooms)} cho {nights} đêm</div></div><Button className="mt-5 w-full rounded-xl font-bold text-white" onClick={() => onBook(roomType)}>Chọn phòng<ArrowRight className="ml-2 h-4 w-4" /></Button></div></article>;
+  return (
+    <article className="grid overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm transition hover:border-blue-200 hover:shadow-md md:grid-cols-[190px_1fr_210px]">
+      {image ? (
+        <img src={image} alt={roomType.name} className="h-48 w-full object-cover md:h-full" />
+      ) : (
+        <div className="flex h-40 items-center justify-center bg-slate-100 text-slate-400 md:h-full">
+          <ImageOff className="h-8 w-8" />
+        </div>
+      )}
+      <div className="min-w-0 p-5">
+        <h3 className="text-lg font-black text-slate-900">{roomType.name}</h3>
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-600">
+          <span className="flex items-center gap-1.5">
+            <Users className="h-4 w-4 text-primary" />Tối đa {roomType.maxGuests} khách
+          </span>
+          {roomType.area && (
+            <span className="flex items-center gap-1.5">
+              <Home className="h-4 w-4 text-primary" />{roomType.area} m²
+            </span>
+          )}
+          <span className="flex items-center gap-1.5">
+            <BedDouble className="h-4 w-4 text-primary" />{roomType.bedCount} {bedLabels[roomType.bedType] || roomType.bedType}
+          </span>
+        </div>
+        {roomType.description && (
+          <p className="mt-4 line-clamp-2 text-sm leading-relaxed text-slate-500">{roomType.description}</p>
+        )}
+        {roomType.amenities?.length ? (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {roomType.amenities.slice(0, 4).map((amenity) => (
+              <span key={amenity} className="rounded-lg bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">
+                {formatAmenity(amenity)}
+              </span>
+            ))}
+          </div>
+        ) : null}
+      </div>
+      <div className="flex flex-col justify-between border-t border-slate-100 bg-slate-50/70 p-5 md:border-l md:border-t-0">
+        <div className="text-right">
+          <div className="text-xs text-slate-500">Mỗi phòng / đêm</div>
+          <div className="mt-1 text-2xl font-black text-slate-950">{formatCurrency(roomType.price)}</div>
+          <div className="mt-2 text-xs text-slate-400">
+            Dự kiến {formatCurrency(Number(roomType.price) * nights * selectedRooms)} cho {nights} đêm
+          </div>
+        </div>
+        
+        {availableRooms !== undefined && maxAvailable <= 5 && maxAvailable > 0 && (
+          <div className="mt-3 text-right text-xs font-bold text-red-500">
+            Chỉ còn {maxAvailable} phòng loại này!
+          </div>
+        )}
+        
+        {maxAvailable === 0 && availableRooms !== undefined && (
+          <div className="mt-3 text-right text-xs font-bold text-red-500">
+            Đã hết phòng!
+          </div>
+        )}
+
+        <div className="mt-4 flex items-center justify-between text-sm">
+          <span className="font-medium text-slate-700">Số lượng:</span>
+          <select 
+            className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium outline-none focus:border-primary disabled:opacity-50"
+            value={selectedRooms}
+            onChange={(e) => setSelectedRooms(Number(e.target.value))}
+            disabled={maxAvailable === 0}
+          >
+            {maxAvailable === 0 ? (
+              <option value={0}>0 phòng</option>
+            ) : (
+              Array.from({ length: dropdownMax }, (_, i) => i + 1).map(num => (
+                <option key={num} value={num}>{num} phòng</option>
+              ))
+            )}
+          </select>
+        </div>
+        <Button 
+          className="mt-4 w-full rounded-xl font-bold text-white" 
+          disabled={maxAvailable === 0}
+          onClick={() => onBook(roomType, selectedRooms)}
+        >
+          Chọn phòng<ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+    </article>
+  );
 }
 
 function DateRow({ label, date }: { label: string; date: Date }) {
@@ -172,7 +276,9 @@ function getHotelImages(hotel: Hotel) {
 
 function parseDate(value: string | null, daysFromToday: number) {
   if (value) {
-    const date = new Date(value);
+    // If it doesn't contain a time part, append T00:00:00 to force parsing as local time
+    const dateStr = value.includes("T") ? value : `${value}T00:00:00`;
+    const date = new Date(dateStr);
     if (!Number.isNaN(date.getTime())) return date;
   }
   const fallback = new Date();

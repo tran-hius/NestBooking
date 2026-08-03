@@ -111,12 +111,20 @@ export class UserRepository {
         });
     }
     async restore(id, tx) {
-        await this.getClient(tx).user.update({
-            where: { id },
-            data: {
-                deletedAt: null,
-            },
-        });
+        try {
+            await this.getClient(tx).user.update({
+                where: { id },
+                data: {
+                    deletedAt: null,
+                },
+            });
+        }
+        catch (error) {
+            if (error.code === "P2025") {
+                return;
+            }
+            throw error;
+        }
     }
     getUserWithPasswordByEmail(email, tx) {
         return this.getClient(tx).user.findFirst({

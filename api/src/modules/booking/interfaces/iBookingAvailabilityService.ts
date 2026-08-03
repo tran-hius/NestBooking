@@ -8,7 +8,7 @@ export interface IBookingAvailabilityService {
     checkIn: Date,
     checkOut: Date,
     tx?: TxClient
-  ): Promise<RoomTypeResponseDto>;
+  ): Promise<{ roomType: RoomTypeResponseDto }>;
 
   calculateAvailableRooms(
     totalRooms: number,
@@ -16,4 +16,10 @@ export interface IBookingAvailabilityService {
     checkInDate?: Date,
     checkOutDate?: Date
   ): number;
+
+  getHotelAvailability(
+    hotelId: string,
+    checkIn: Date,
+    checkOut: Date,
+  ): Promise<Record<string, number>>;
 }

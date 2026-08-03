@@ -1,21 +1,21 @@
 import express from "express";
-import { prisma } from "../../../config/prisma.js";
+import { prisma } from "@/config/prisma";
 // Import Middleware
-import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { validate, authLimiter, authMiddleware } from "../../../middlewares/index.js";
+import { asyncHandler } from "@/utils/asyncHandler";
+import { validate, authLimiter, authMiddleware } from "@/middlewares";
 // Import DTOs
-import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, RegisterSchema, RegisterPartnerSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto.js";
+import { SendOtpSchema, VerifyOtpSchema, LoginWithPasswordSchema, RegisterSchema, RegisterPartnerSchema, ResetPasswordSchema, ChangePasswordSchema, } from "../dtos/authDto";
 // Import Repositories
-import { RefreshTokenRepository } from "../../../modules/auth/repositories/refreshTokenRepository.js";
-import { UserRepository } from "../../../modules/user/repositories/userRepository.js";
+import { RefreshTokenRepository } from "@/modules/auth/repositories/refreshTokenRepository";
+import { UserRepository } from "@/modules/user/repositories/userRepository";
 // Import Services
-import { OtpService } from "../../../modules/auth/services/otpService.js";
-import { TokenService } from "../../../modules/auth/services/tokenService.js";
-import { UserService } from "../../../modules/user/services/userService.js";
-import { UserProfileService } from "../../../modules/user/services/userProfileService.js";
-import { AuthService } from "../../../modules/auth/services/authService.js";
+import { OtpService } from "@/modules/auth/services/otpService";
+import { TokenService } from "@/modules/auth/services/tokenService";
+import { UserService } from "@/modules/user/services/userService";
+import { UserProfileService } from "@/modules/user/services/userProfileService";
+import { AuthService } from "@/modules/auth/services/authService";
 // Import Controller
-import { AuthController } from "../../../modules/auth/controllers/authController.js";
+import { AuthController } from "@/modules/auth/controllers/authController";
 const router = express.Router();
 // =====================================================
 // KHỞI TẠO DEPENDENCY INJECTION (DI)
@@ -92,6 +92,26 @@ router.post("/verify-otp",
   }
 */
 authLimiter, validate(VerifyOtpSchema), asyncHandler(authController.verifyOtpAndLogin));
+// =====================================================
+// VERIFY REGISTRATION OTP
+// =====================================================
+router.post("/verify-registration-otp", 
+/*
+  #swagger.path = '/api/auth/verify-registration-otp'
+  #swagger.tags = ['Auth']
+  #swagger.summary = 'Xác thực mã OTP khi đăng ký'
+  #swagger.requestBody = {
+    required: true,
+    content: {
+      "application/json": {
+        schema: {
+          $ref: "#/components/schemas/VerifyOtpDto"
+        }
+      }
+    }
+  }
+*/
+authLimiter, validate(VerifyOtpSchema), asyncHandler(authController.verifyRegistrationOtp));
 // =====================================================
 // LOGIN WITH PASSWORD
 // =====================================================

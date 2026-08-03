@@ -6,7 +6,7 @@ export class BookingPayment {
     }
     determineStatus(paymentMethod) {
         const method = paymentMethod ?? PaymentMethod.PAY_AT_HOTEL;
-        const bookingStatus = method === PaymentMethod.PAY_AT_HOTEL ? BookingStatus.CONFIRMED : BookingStatus.PENDING;
+        const bookingStatus = BookingStatus.PENDING;
         const paymentStatus = PaymentStatus.UNPAID;
         return {
             paymentMethod: method,

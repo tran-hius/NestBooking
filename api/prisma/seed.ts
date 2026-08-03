@@ -459,6 +459,35 @@ async function main() {
       amenities: ["WIFI", "BREAKFAST", "MOUNTAIN_VIEW", "RESTAURANT"],
       roomTypes: createRoomTypes(890000),
     },
+    {
+      slug: "test-hotel-3-rooms",
+      name: "Test Hotel 3 Rooms",
+      description: "A hotel specifically seeded to test booking 4 rooms when only 3 are available.",
+      address: "123 Test Street",
+      city: "Test City",
+      latitude: 10.7771,
+      longitude: 106.7065,
+      phone: "0123456789",
+      email: "test3rooms@nestbooking.demo",
+      thumbnail: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&q=80&w=1200",
+      propertyType: PropertyType.HOTEL,
+      rating: 5.0,
+      amenities: ["WIFI", "TV", "AC"],
+      roomTypes: [
+        {
+          name: "Standard 3-Room",
+          description: "A standard room type with exactly 3 rooms.",
+          price: 500000,
+          maxGuests: 3,
+          maxAdults: 2,
+          maxChildren: 1,
+          bedType: BedType.DOUBLE,
+          bedCount: 1,
+          area: 25,
+          rooms: ["101", "102", "103"],
+        }
+      ],
+    },
   ];
 
   for (const hotelData of hotelsData) {

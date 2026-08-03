@@ -1,0 +1,1 @@
+import { prisma } from './src/config/prisma.ts'; async function main() { const rooms = await prisma.room.findMany(); console.log('Rooms:', JSON.stringify(rooms.map(r => ({id: r.id, number: r.roomNumber})), null, 2)); } main().catch(console.error).finally(() => prisma.$disconnect());

@@ -140,6 +140,31 @@ router.post(
 );
 
 // =====================================================
+// VERIFY REGISTRATION OTP
+// =====================================================
+router.post(
+  "/verify-registration-otp",
+  /*
+    #swagger.path = '/api/auth/verify-registration-otp'
+    #swagger.tags = ['Auth']
+    #swagger.summary = 'Xác thực mã OTP khi đăng ký'
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            $ref: "#/components/schemas/VerifyOtpDto"
+          }
+        }
+      }
+    }
+  */
+  authLimiter,
+  validate(VerifyOtpSchema),
+  asyncHandler(authController.verifyRegistrationOtp),
+);
+
+// =====================================================
 // LOGIN WITH PASSWORD
 // =====================================================
 router.post(

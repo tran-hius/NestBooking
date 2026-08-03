@@ -39,6 +39,7 @@ import { toast } from "sonner";
 const statusConfig: Record<BookingStatus, { label: string; className: string; dot: string }> = {
   PENDING: { label: "Chờ xác nhận", className: "border-amber-200 bg-amber-50 text-amber-700", dot: "bg-amber-500" },
   CONFIRMED: { label: "Đã xác nhận", className: "border-blue-200 bg-blue-50 text-blue-700", dot: "bg-blue-500" },
+  CHECKED_IN: { label: "Đang lưu trú", className: "border-indigo-200 bg-indigo-50 text-indigo-700", dot: "bg-indigo-500" },
   CANCELLED: { label: "Đã hủy", className: "border-red-200 bg-red-50 text-red-700", dot: "bg-red-500" },
   COMPLETED: { label: "Hoàn thành", className: "border-emerald-200 bg-emerald-50 text-emerald-700", dot: "bg-emerald-500" },
 };

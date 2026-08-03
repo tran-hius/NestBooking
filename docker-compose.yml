@@ -66,6 +66,7 @@ services:
       - DB_HOST=postgres_db
       - DB_PORT=5432
       - REDIS_HOST=redis_cache
+      - TZ=Asia/Ho_Chi_Minh
     command: >
       sh -c "npm install && npx prisma migrate deploy && npm run dev"
     depends_on:

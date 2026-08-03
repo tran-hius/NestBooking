@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { ApiError } from "../utils/errors/apiError.js";
+import { ApiError } from "@/utils/errors/apiError";
 export const validate = (schema) => {
     return async (req, res, next) => {
         try {
@@ -23,7 +23,7 @@ export const validate = (schema) => {
             next();
         }
         catch (error) {
-            if (error instanceof ZodError) {
+            if (error instanceof ZodError || error?.name === "ZodError") {
                 const formattedErrors = error.issues.map((err) => ({
                     field: err.path.slice(1).join("."),
                     message: err.message,

@@ -3,7 +3,7 @@ import { setupInterceptors } from './interceptors';
 
 export const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
-  timeout: 15000,
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
   },

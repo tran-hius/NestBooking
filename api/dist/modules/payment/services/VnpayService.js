@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { env } from "../../../config/env.js";
+import { env } from "@/config/env";
 import qs from "qs";
 export class VnpayService {
     tmnCode = env.VNP_TMN_CODE;

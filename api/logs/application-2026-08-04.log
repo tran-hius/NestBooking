@@ -1,0 +1,5340 @@
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:00:00.016Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:05:00.016Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:10:00.005Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:48.591Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:48.592Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:48.597Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:48.601Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:48.616Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:48.643Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:48.645Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:48.661Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:13:48.728Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:48.729Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:48.732Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:48.739Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:13:48.746Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:48.746Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:48.754Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:48.786Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:57.354Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:57.355Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:57.362Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:13:57.364Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:57.373Z'
+}
+{
+  message: 'Fetching user details for ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:57.379Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:57.380Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: tranhieudz2024@gmail.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:57.394Z'
+}
+{
+  userId: '6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:13:57.467Z'
+}
+{
+  message: 'Fetching user details for ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:57.467Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:57.472Z'
+}
+{
+  userId: '6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:13:57.481Z'
+}
+{
+  message: 'Fetching user details for ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:57.486Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:57.490Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:13:57.491Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:13:57.517Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:14:02.354Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:14:02.355Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:14:02.360Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:14:02.361Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:02.374Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.379Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.380Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:02.396Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:14:02.440Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.441Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.443Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:14:02.458Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.459Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.460Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:14:02.463Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.466Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.478Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.485Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:14:02.490Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:02.493Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:08.465Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:14:08.467Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:08.469Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:14:08.474Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:08.477Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:08.484Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:10.242Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:10.264Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.297Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.305Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.316Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.318Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.319Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.320Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.323Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.323Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.327Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.331Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.334Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.336Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.342Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.347Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.369Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.370Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.394Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.396Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.407Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.408Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.412Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.413Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.416Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.418Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.431Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.434Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.437Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.439Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.440Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.440Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.448Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.449Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.452Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.454Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.461Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.463Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.469Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.470Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.475Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.476Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.484Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.485Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.488Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.490Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.491Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.492Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.492Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.492Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.496Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.498Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.499Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.499Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.503Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.504Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.508Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.510Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:10.512Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.513Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.513Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:10.514Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:13.116Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:13.128Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:16.380Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:16.396Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.412Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.416Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.428Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.429Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.429Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.429Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.433Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.437Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.445Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.448Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.454Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.454Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.460Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.463Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.465Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.468Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.469Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.469Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.476Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.482Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.487Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.489Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.489Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.490Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.492Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.495Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.497Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.498Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.499Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.500Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.506Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.509Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.512Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.516Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.519Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.522Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.523Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.524Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.524Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.524Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.524Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.524Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.529Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.535Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.538Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.541Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.542Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.544Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.544Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.545Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.545Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.545Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.545Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.545Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.561Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.564Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:16.567Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.569Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.569Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:16.569Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:27.133Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:14:27.136Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:27.139Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:14:27.142Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:27.145Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:27.155Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:14:34.549Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:34.556Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:34.561Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:14:34.591Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:14:35.749Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:35.751Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:14:35.754Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:35.755Z'
+}
+{
+  message: '[BookingController] Create booking',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:44.100Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:44.190Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:44.220Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:14:51.782Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:51.782Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:51.785Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:14:51.794Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:51.795Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:51.797Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:52.130Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:52.166Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.196Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.205Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.206Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.208Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.224Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.228Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.231Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.232Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.233Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.233Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.238Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.239Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.243Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.244Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.248Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.251Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.257Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.261Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.262Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.262Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.262Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.262Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.267Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.284Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.286Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.286Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.290Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.296Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.299Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.301Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.302Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.302Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.302Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.302Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.310Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.311Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.314Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.315Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.318Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.319Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.320Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.320Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.320Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.320Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.327Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.328Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.331Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.334Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.338Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.341Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.341Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.342Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.342Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.343Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.349Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.352Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:52.355Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.355Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.355Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:52.356Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:14:53.831Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.848Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.850Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.852Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.854Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.856Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.859Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.860Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.860Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.860Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.861Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.861Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.861Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.871Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.874Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.877Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.879Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.881Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.884Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.886Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.886Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.886Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.887Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.887Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.887Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.896Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.900Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:14:53.905Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.906Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.906Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:53.906Z'
+}
+{
+  bookingId: 'e7307469-cfd7-4c64-8897-c0b124ee35d1',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:14:58.666Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:14:58.679Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:15:00.002Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:16:24.962Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:16:24.964Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:16:24.972Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:16:24.973Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:16:27.786Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:16:27.826Z'
+}
+{
+  bookingId: 'e7307469-cfd7-4c64-8897-c0b124ee35d1',
+  level: 'info',
+  message: '[BookingController] Cancel booking',
+  timestamp: '2026-08-03T17:16:39.582Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:16:49.370Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:16:49.372Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:16:49.374Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:16:49.378Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:16:49.384Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:16:49.390Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hội An',
+    checkInDate: '2026-08-06',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:16:59.994Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:00.001Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:00.009Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hội An',
+    checkInDate: '2026-08-06',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:17:00.051Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:17:02.553Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:02.559Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:17:02.568Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:02.569Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:17:12.898Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:17:12.899Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:17:12.910Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:12.926Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:12.927Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:17:12.936Z'
+}
+{
+  message: '[BookingController] Create booking',
+  level: 'info',
+  timestamp: '2026-08-03T17:17:12.996Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:17:13.140Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:17:13.197Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:17:24.568Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
+    '    at /app/node_modules/router/index.js:297:9\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
+    '    at router (/app/node_modules/router/index.js:60:12)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
+  level: 'error',
+  timestamp: '2026-08-03T17:17:24.571Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:17:24.583Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:24.608Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:17:24.609Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:17:24.641Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:20:00.004Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:20:24.506Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
+    '    at /app/node_modules/router/index.js:297:9\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
+    '    at router (/app/node_modules/router/index.js:60:12)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
+  level: 'error',
+  timestamp: '2026-08-03T17:20:24.507Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:20:24.517Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:20:24.535Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:20:24.535Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:20:24.575Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:23:28.378Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
+    '    at /app/node_modules/router/index.js:297:9\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
+    '    at router (/app/node_modules/router/index.js:60:12)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
+  level: 'error',
+  timestamp: '2026-08-03T17:23:28.380Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:23:28.402Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:23:28.430Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:23:28.432Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:23:28.471Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:25:00.002Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:26:29.379Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
+    '    at /app/node_modules/router/index.js:297:9\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
+    '    at router (/app/node_modules/router/index.js:60:12)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
+  level: 'error',
+  timestamp: '2026-08-03T17:26:29.381Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:26:29.390Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:26:29.406Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:26:29.407Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:26:29.458Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:28:13.139Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:28:13.141Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:28:13.151Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:28:13.152Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:13.170Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:13.207Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:13.209Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:13.227Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:13.304Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:13.305Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:13.310Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:13.318Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:13.319Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:13.320Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:13.326Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:13.368Z'
+}
+{
+  bookingId: '0a1f2c66-b583-4b89-9f22-df6a07c94893',
+  level: 'info',
+  message: '[BookingController] Cancel booking',
+  timestamp: '2026-08-03T17:28:15.398Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:16.087Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:16.088Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:16.089Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:16.093Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:16.094Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:16.095Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:16.458Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:16.481Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.046Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:28:17.050Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.053Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:28:17.060Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.062Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.066Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:17.872Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.873Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.874Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:17.880Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.881Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:17.882Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:28:18.207Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:18.208Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:18.213Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:28:18.215Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:18.228Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:18.231Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:19.099Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.100Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.101Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:28:19.115Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.116Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.117Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:28:19.463Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.465Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:28:19.480Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.482Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.491Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:28:19.502Z'
+}
+{
+  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:33.022Z'
+}
+{
+  message: 'Express HTTP server đã đóng.',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:33.024Z'
+}
+{
+  message: '[Redis] Đã đóng kết nối Redis',
+  level: 'info',
+  timestamp: '2026-08-03T17:28:33.025Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-08-03T17:29:32.425Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-08-03T17:29:32.621Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-08-03T17:29:32.633Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:29:38.639Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
+    '    at /app/node_modules/router/index.js:297:9\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
+    '    at router (/app/node_modules/router/index.js:60:12)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
+  level: 'error',
+  timestamp: '2026-08-03T17:29:38.641Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:29:38.672Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:29:38.798Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:29:38.800Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:29:38.842Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:30:00.008Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:30:27.307Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.313Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.319Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:30:27.331Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.337Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.340Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.731Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.748Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:30:27.752Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.766Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:30:27.771Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:27.789Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:30:33.167Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.168Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.169Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:30:33.174Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.175Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.176Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:30:33.681Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.683Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:30:33.688Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.690Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.696Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:33.701Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:51.642Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:30:51.653Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:51.733Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:30:51.837Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:30:53.223Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:53.225Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:30:53.234Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:30:53.237Z'
+}
+{
+  message: '[BookingController] Create booking',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:02.748Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:02.927Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:02.989Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:31:23.733Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at param (/app/node_modules/router/index.js:600:14)\n' +
+    '    at param (/app/node_modules/router/index.js:610:14)\n' +
+    '    at processParams (/app/node_modules/router/index.js:664:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:31:23.734Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:23.748Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:23.768Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:23.769Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:23.789Z'
+}
+{
+  bookingId: '14f45623-177e-4c78-ab30-2e7758e8dd45',
+  level: 'info',
+  message: '[BookingController] Cancel booking',
+  timestamp: '2026-08-03T17:31:23.852Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:25.064Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:25.072Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:31:25.075Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:25.082Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:31:25.098Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:25.101Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:30.773Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:30.783Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-04',
+    checkOutDate: '2026-08-06',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:31:30.787Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-04',
+    checkOutDate: '2026-08-06',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:31:30.823Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:31:31.878Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:31.880Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:31:31.889Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:31.891Z'
+}
+{
+  message: '[BookingController] Create booking',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:46.502Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:46.662Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:46.724Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:31:58.571Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.572Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.575Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:31:58.588Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.588Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.589Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:31:58.972Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.972Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.973Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:31:58.986Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.987Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:58.989Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:59.344Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:31:59.444Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.489Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.516Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.559Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.573Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.623Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.629Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.644Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.645Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.652Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.655Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.664Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.672Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.673Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.674Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.740Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.746Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.759Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.763Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.768Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.769Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.800Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.803Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.805Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.808Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.809Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.809Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.822Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.825Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.826Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.827Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.829Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.835Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.859Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.862Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.871Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.872Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.880Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.884Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.885Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.885Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.892Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.897Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.899Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.900Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.905Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.909Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.910Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.911Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.916Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.920Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.923Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.925Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.223Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.226Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.227Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.227Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.231Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:31:59.235Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.236Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:31:59.236Z'
+}
+{
+  bookingId: '0a8ff75e-a805-4e15-aeca-2040a1196b25',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:32:04.734Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:04.740Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:32:13.699Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:13.700Z'
+}
+{
+  message: '[Cache Miss] Tìm user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:13.701Z'
+}
+{
+  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:32:13.753Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:13.754Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:13.756Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:32:13.898Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:32:13.933Z'
+}
+{
+  message: '[RoomController] Get rooms by roomType',
+  level: 'info',
+  timestamp: '2026-08-03T17:32:26.545Z'
+}
+{
+  bookingId: '0a8ff75e-a805-4e15-aeca-2040a1196b25',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:32:36.591Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:36.626Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:32:43.856Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
+    '    at /app/node_modules/router/index.js:297:9\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
+    '    at router (/app/node_modules/router/index.js:60:12)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
+  level: 'error',
+  timestamp: '2026-08-03T17:32:43.856Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:32:43.869Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:43.875Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:43.877Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:32:43.892Z'
+}
+{
+  bookingId: '0a8ff75e-a805-4e15-aeca-2040a1196b25',
+  level: 'info',
+  message: '[BookingController] Update payment status',
+  timestamp: '2026-08-03T17:32:56.919Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:32:56.949Z'
+}
+{
+  message: '[RoomController] Get rooms by roomType',
+  level: 'info',
+  timestamp: '2026-08-03T17:32:59.145Z'
+}
+{
+  message: '[RoomController] Get rooms by roomType',
+  level: 'info',
+  timestamp: '2026-08-03T17:33:03.982Z'
+}
+{
+  bookingId: '0a8ff75e-a805-4e15-aeca-2040a1196b25',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:33:05.646Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:05.654Z'
+}
+{
+  bookingId: '0a8ff75e-a805-4e15-aeca-2040a1196b25',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:33:08.558Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:08.566Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:16.267Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:33:16.272Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:16.283Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:33:16.289Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:16.296Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:16.305Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:26.478Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:26.486Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Sa Pa',
+    checkInDate: '2026-08-06',
+    checkOutDate: '2026-08-08',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:33:26.489Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Sa Pa',
+    checkInDate: '2026-08-06',
+    checkOutDate: '2026-08-08',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:33:26.538Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:33:27.701Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:27.702Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:33:27.705Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:27.706Z'
+}
+{
+  message: '[BookingController] Create booking',
+  level: 'info',
+  timestamp: '2026-08-03T17:33:40.650Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:33:40.851Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:33:40.935Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:33:55.500Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.551Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.558Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.576Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.585Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.595Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.598Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.600Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.600Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.603Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.604Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.612Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.613Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.618Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.620Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.622Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.623Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.624Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.626Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.631Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.633Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.634Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.634Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.648Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.650Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.653Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.655Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.655Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.655Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:33:55.658Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:55.661Z'
+}
+{
+  bookingId: '70d8de45-a8aa-4ac6-98b5-20bdd85bd3de',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:33:58.519Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:33:58.535Z'
+}
+{
+  message: '[RoomController] Get rooms by roomType',
+  level: 'info',
+  timestamp: '2026-08-03T17:33:59.843Z'
+}
+{
+  bookingId: '70d8de45-a8aa-4ac6-98b5-20bdd85bd3de',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:34:02.866Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:02.879Z'
+}
+{
+  bookingId: '70d8de45-a8aa-4ac6-98b5-20bdd85bd3de',
+  level: 'info',
+  message: '[BookingController] Update payment status',
+  timestamp: '2026-08-03T17:34:05.258Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:05.264Z'
+}
+{
+  message: '[RoomController] Get rooms by roomType',
+  level: 'info',
+  timestamp: '2026-08-03T17:34:09.329Z'
+}
+{
+  bookingId: '70d8de45-a8aa-4ac6-98b5-20bdd85bd3de',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:34:11.243Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:11.257Z'
+}
+{
+  bookingId: '70d8de45-a8aa-4ac6-98b5-20bdd85bd3de',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:34:36.143Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:36.187Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:38.523Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:34:38.527Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:38.531Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:34:38.547Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:38.558Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:38.571Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:44.949Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:34:44.954Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:44.967Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T17:34:44.985Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:34:47.460Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:47.462Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T17:34:47.472Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:47.473Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:34:54.876Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:34:54.877Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:34:54.890Z'
+}
+{
+  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:54.927Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:34:54.928Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:34:54.963Z'
+}
+{
+  message: '[BookingController] Create booking',
+  level: 'info',
+  timestamp: '2026-08-03T17:34:54.998Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:34:55.120Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:34:55.163Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T17:35:00.006Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:35:07.564Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:07.564Z'
+}
+{
+  message: '[Cache Miss] Tìm user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:07.568Z'
+}
+{
+  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:35:07.589Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:07.589Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:07.591Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:35:07.990Z'
+}
+{
+  message: '[HotelController] Get my hotels',
+  level: 'info',
+  timestamp: '2026-08-03T17:35:08.052Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.087Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.102Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.108Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.110Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.180Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.181Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.197Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.198Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.207Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.214Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.219Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.220Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.221Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.221Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.242Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.243Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.258Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.262Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.273Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.277Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.296Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.303Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.316Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.319Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.330Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.335Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.340Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.348Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.348Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.348Z'
+}
+{
+  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.366Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.372Z'
+}
+{
+  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.389Z'
+}
+{
+  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.393Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.394Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.394Z'
+}
+{
+  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.406Z'
+}
+{
+  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.409Z'
+}
+{
+  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.411Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.412Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.413Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.413Z'
+}
+{
+  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.428Z'
+}
+{
+  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.430Z'
+}
+{
+  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.436Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.437Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.437Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.438Z'
+}
+{
+  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.445Z'
+}
+{
+  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.447Z'
+}
+{
+  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.451Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.454Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.454Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.454Z'
+}
+{
+  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.467Z'
+}
+{
+  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.470Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[BookingController] Get hotel bookings',
+  timestamp: '2026-08-03T17:35:08.473Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.478Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.479Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:08.480Z'
+}
+{
+  bookingId: 'cefe1d1b-dd91-4600-8847-e107487402cf',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:35:13.776Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:13.784Z'
+}
+{
+  bookingId: 'cefe1d1b-dd91-4600-8847-e107487402cf',
+  level: 'info',
+  message: '[BookingController] Update payment status',
+  timestamp: '2026-08-03T17:35:16.406Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:16.415Z'
+}
+{
+  message: '[RoomController] Get rooms by roomType',
+  level: 'info',
+  timestamp: '2026-08-03T17:35:15.818Z'
+}
+{
+  bookingId: 'cefe1d1b-dd91-4600-8847-e107487402cf',
+  level: 'info',
+  message: '[BookingController] Update booking status',
+  timestamp: '2026-08-03T17:35:18.977Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:18.988Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:35:52.339Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
+    '    at /app/node_modules/router/index.js:297:9\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
+    '    at router (/app/node_modules/router/index.js:60:12)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
+  level: 'error',
+  timestamp: '2026-08-03T17:35:52.340Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:35:52.351Z'
+}
+{
+  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:52.370Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:35:52.371Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:35:52.390Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:36:28.290Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:36:28.294Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T17:36:28.297Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:36:28.308Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:36:28.319Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:36:28.330Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:36:59.939Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:36:59.941Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-03T17:36:59.947Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-03T17:36:59.950Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-03T17:36:59.963Z'
+}
+{
+  message: 'Fetching user details for ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'debug',
+  timestamp: '2026-08-03T17:36:59.982Z'
+}
+{
+  message: '[Cache Miss] Tìm user ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T17:36:59.984Z'
+}
+{
+  message: '[AuthService] Tokens refreshed successfully for user: tranhieudz2024@gmail.com',
+  level: 'info',
+  timestamp: '2026-08-03T17:37:00.014Z'
+}
+{
+  userId: '6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:37:00.130Z'
+}
+{
+  message: 'Fetching user details for ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'debug',
+  timestamp: '2026-08-03T17:37:00.130Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:37:00.131Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:37:00.134Z'
+}
+{
+  userId: '6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-03T17:37:00.137Z'
+}
+{
+  message: 'Fetching user details for ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e',
+  level: 'debug',
+  timestamp: '2026-08-03T17:37:00.138Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin user ID: 6173a954-cbea-43c4-bbf1-ace8f7b9bc1e từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T17:37:00.139Z'
+}
+{
+  message: '[BookingController] Get user bookings',
+  level: 'info',
+  timestamp: '2026-08-03T17:37:00.167Z'
+}
+{
+  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
+  level: 'info',
+  timestamp: '2026-08-03T17:37:14.376Z'
+}
+{
+  message: 'Express HTTP server đã đóng.',
+  level: 'info',
+  timestamp: '2026-08-03T17:37:14.383Z'
+}
+{
+  message: '[Redis] Đã đóng kết nối Redis',
+  level: 'info',
+  timestamp: '2026-08-03T17:37:14.385Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-08-03T18:23:34.957Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-08-03T18:23:35.113Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-08-03T18:23:35.132Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-06',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:23:49.380Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:23:49.578Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:23:49.623Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-06',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:23:49.714Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:24:02.082Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T18:24:02.089Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:24:02.156Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:24:02.185Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:24:02.207Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T18:24:02.283Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:24:03.868Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:24:03.878Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:24:03.911Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:24:03.936Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T18:25:00.006Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:26:16.671Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:26:38.610Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:27:40.154Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:27:40.157Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:27:40.167Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:27:40.229Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:19.162Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:28:19.165Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:19.169Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:28:19.229Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:28:20.575Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:20.576Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:28:20.580Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:20.581Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:33.512Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:28:33.516Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:33.522Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:28:33.583Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:28:34.880Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:34.880Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:28:34.884Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:34.885Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:28:37.063Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:37.065Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:28:37.073Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:28:37.084Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T18:30:00.015Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:38.835Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:32:38.838Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:38.844Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:32:38.912Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:32:44.642Z'
+}
+{
+  message: '[Cache Miss] Tìm hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:44.643Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:32:44.689Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:44.690Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:32:47.304Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:47.307Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:32:47.313Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:47.316Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:32:59.441Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:59.444Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:32:59.449Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:32:59.498Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:33:22.995Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:33:22.997Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:33:23.002Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:33:23.055Z'
+}
+{
+  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
+  level: 'info',
+  timestamp: '2026-08-03T18:34:11.959Z'
+}
+{
+  message: 'Express HTTP server đã đóng.',
+  level: 'info',
+  timestamp: '2026-08-03T18:34:11.960Z'
+}
+{
+  message: '[Redis] Đã đóng kết nối Redis',
+  level: 'info',
+  timestamp: '2026-08-03T18:34:11.962Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-08-03T18:34:29.678Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-08-03T18:34:29.743Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-08-03T18:34:29.747Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:34:30.107Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T18:34:30.115Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:34:30.118Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T18:34:30.123Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:34:30.128Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:34:30.137Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-08',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:34:40.885Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:34:40.987Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:34:40.996Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-08',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:34:41.050Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T18:35:00.003Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-08',
+    adults: '9',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:35:09.030Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-08',
+    adults: '4',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:35:16.488Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-08',
+    adults: '3',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:35:22.026Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-05',
+    checkOutDate: '2026-08-07',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:35:32.033Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:40.095Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T18:35:40.100Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:40.107Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-03T18:35:40.117Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:40.131Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:40.151Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:35:41.591Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:41.601Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:41.617Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:35:41.626Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-06',
+    checkOutDate: '2026-08-08',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:35:51.035Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:35:53.268Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:53.270Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:35:53.276Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:35:53.278Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:37:59.461Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:37:59.462Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:38:11.257Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:38:11.258Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-03T18:40:00.020Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:40:15.652Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:40:15.653Z'
+}
+{
+  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
+  level: 'info',
+  message: '[HotelController] Get hotel by id',
+  timestamp: '2026-08-03T18:40:15.716Z'
+}
+{
+  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:40:15.719Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:40:25.939Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-06',
+    checkOutDate: '2026-08-08',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:40:25.943Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-03T18:40:25.954Z'
+}
+{
+  query: [Object: null prototype] {
+    location: 'Hà Nội',
+    checkInDate: '2026-08-06',
+    checkOutDate: '2026-08-08',
+    adults: '2',
+    children: '0',
+    rooms: '1'
+  },
+  level: 'info',
+  message: '[SearchController] Search hotels',
+  timestamp: '2026-08-03T18:40:26.001Z'
+}
+{
+  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
+  level: 'info',
+  timestamp: '2026-08-03T18:44:24.232Z'
+}
+{
+  message: 'Express HTTP server đã đóng.',
+  level: 'info',
+  timestamp: '2026-08-03T18:44:24.235Z'
+}
+{
+  message: '[Redis] Đã đóng kết nối Redis',
+  level: 'info',
+  timestamp: '2026-08-03T18:44:24.236Z'
+}

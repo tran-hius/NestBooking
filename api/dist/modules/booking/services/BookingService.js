@@ -1,7 +1,9 @@
 import { BookingStatus, PaymentStatus, Role } from "#generated/prisma";
-import { BadRequestError, ForbiddenError, NotFoundError } from "../../../utils/errors/index.js";
-import { BookingMapper } from "../mapper/bookingMapper.js";
-import { redisClient, REDIS_KEYS, REDIS_TTL } from "../../../infrastructure/redis/index.js";
+import { BadRequestError, ForbiddenError, NotFoundError } from "@/utils/errors";
+import { BookingMapper } from "../mapper/bookingMapper";
+import { redisClient, REDIS_KEYS, REDIS_TTL } from "@/infrastructure/redis";
+import { prisma } from "@/config/prisma";
+import { RoomStatus } from "#generated/prisma";
 export class BookingService {
     readRepo;
     writeRepo;
@@ -90,7 +92,7 @@ export class BookingService {
         await redisClient.setex(cacheKey, REDIS_TTL.BOOKING, JSON.stringify(response));
         return response;
     }
-    async updateBookingStatus(id, requesterId, requesterRole, status) {
+    async updateBookingStatus(id, requesterId, requesterRole, status, roomIds) {
         const booking = await this.readRepo.findById(id);
         if (!booking) {
             throw new NotFoundError("Không tìm thấy đơn đặt phòng.");
@@ -104,14 +106,87 @@ export class BookingService {
         }
         const allowedTransitions = {
             [BookingStatus.PENDING]: [BookingStatus.CONFIRMED, BookingStatus.CANCELLED],
-            [BookingStatus.CONFIRMED]: [BookingStatus.COMPLETED, BookingStatus.CANCELLED],
+            [BookingStatus.CONFIRMED]: [BookingStatus.CHECKED_IN, BookingStatus.CANCELLED],
+            [BookingStatus.CHECKED_IN]: [BookingStatus.COMPLETED],
             [BookingStatus.CANCELLED]: [],
             [BookingStatus.COMPLETED]: [],
         };
         if (!allowedTransitions[booking.status].includes(status)) {
             throw new BadRequestError(`Không thể chuyển booking từ ${booking.status} sang ${status}.`);
         }
-        const updated = await this.writeRepo.update(id, { status });
+        if (status === BookingStatus.CHECKED_IN) {
+            if (!roomIds || roomIds.length !== booking.quantity) {
+                throw new BadRequestError(`Vui lòng chọn đúng ${booking.quantity} phòng để nhận phòng.`);
+            }
+            await prisma.$transaction(async (tx) => {
+                // Validate that all rooms belong to the same roomType and are active
+                const rooms = await tx.room.findMany({
+                    where: { id: { in: roomIds }, roomTypeId: booking.roomTypeId, isActive: true },
+                });
+                if (rooms.length !== roomIds.length) {
+                    throw new BadRequestError("Một số phòng được chọn không hợp lệ hoặc không thuộc loại phòng này.");
+                }
+                // Create BookingRoom mappings
+                await tx.bookingRoom.createMany({
+                    data: roomIds.map((roomId) => ({ bookingId: id, roomId })),
+                });
+                // Update Room Status to OCCUPIED
+                await tx.room.updateMany({
+                    where: { id: { in: roomIds } },
+                    data: { status: RoomStatus.OCCUPIED },
+                });
+                // Update booking status
+                await tx.booking.update({
+                    where: { id },
+                    data: { status },
+                });
+            });
+        }
+        else if (status === BookingStatus.COMPLETED) {
+            await prisma.$transaction(async (tx) => {
+                // Free up assigned rooms
+                const assignedRooms = await tx.bookingRoom.findMany({
+                    where: { bookingId: id },
+                });
+                const assignedRoomIds = assignedRooms.map((br) => br.roomId);
+                if (assignedRoomIds.length > 0) {
+                    await tx.room.updateMany({
+                        where: { id: { in: assignedRoomIds } },
+                        data: { status: RoomStatus.AVAILABLE },
+                    });
+                }
+                // Update booking status
+                await tx.booking.update({
+                    where: { id },
+                    data: { status },
+                });
+            });
+        }
+        else {
+            await this.writeRepo.update(id, { status });
+        }
+        const updated = await this.readRepo.findById(id);
+        if (!updated)
+            throw new NotFoundError("Booking not found after update");
+        await this.clearBookingCache(updated.id, updated.userId, updated.hotelId);
+        return BookingMapper.toResponseDto(updated);
+    }
+    async updatePaymentStatus(id, requesterId, requesterRole, paymentStatus) {
+        const booking = await this.readRepo.findById(id);
+        if (!booking) {
+            throw new NotFoundError("Không tìm thấy đơn đặt phòng.");
+        }
+        const hotel = await this.hotelService.getHotelById(booking.hotelId);
+        if (!hotel) {
+            throw new NotFoundError("Không tìm thấy dữ liệu khách sạn của đơn này.");
+        }
+        if (requesterRole !== Role.ADMIN && hotel.ownerId !== requesterId) {
+            throw new ForbiddenError("Bạn không có quyền cập nhật trạng thái đơn đặt phòng của khách sạn này.");
+        }
+        const updated = await this.writeRepo.update(id, {
+            paymentStatus,
+            paymentDate: paymentStatus === PaymentStatus.PAID ? new Date() : null
+        });
         await this.clearBookingCache(updated.id, updated.userId, updated.hotelId);
         return BookingMapper.toResponseDto(updated);
     }

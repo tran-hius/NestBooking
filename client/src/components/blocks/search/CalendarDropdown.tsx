@@ -43,14 +43,27 @@ export default function CalendarDropdown({
           />
         </label>
       </div>
-      <Button
-        type="button"
-        className="mt-5 w-full"
-        disabled={!checkIn || !checkOut || checkOut <= checkIn}
-        onClick={onClose}
-      >
-        Xác nhận ngày
-      </Button>
+      <div className="mt-5 flex gap-2 w-full">
+        <Button
+          type="button"
+          variant="outline"
+          className="flex-1"
+          onClick={() => {
+            onChange("", "");
+            if (onClose) onClose();
+          }}
+        >
+          Bỏ qua
+        </Button>
+        <Button
+          type="button"
+          className="flex-1"
+          disabled={Boolean((checkIn || checkOut) && (!checkIn || !checkOut || checkOut <= checkIn))}
+          onClick={onClose}
+        >
+          Xác nhận
+        </Button>
+      </div>
     </div>
   );
 }

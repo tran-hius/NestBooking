@@ -65,7 +65,7 @@ export class BookingCreationService implements IBookingCreationService {
   }
 
   private async executeBookingTransaction(userId: string, data: CreateBookingDto, checkIn: Date, checkOut: Date, nights: number, tx: any) {
-    const roomType = await this.availabilityService.validateAvailability(data.roomTypeId, data.quantity, checkIn, checkOut, tx);
+    const { roomType } = await this.availabilityService.validateAvailability(data.roomTypeId, data.quantity, checkIn, checkOut, tx);
 
     if (roomType.hotelId !== data.hotelId) {
       throw new BadRequestError("Loại phòng không thuộc khách sạn đã chọn.");

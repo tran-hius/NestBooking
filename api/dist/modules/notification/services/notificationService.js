@@ -1,5 +1,5 @@
-import { NotificationMapper } from "../mapper/notificationMapper.js";
-import { ForbiddenError, NotFoundError } from "../../../utils/errors/index.js";
+import { NotificationMapper } from "../mapper/notificationMapper";
+import { ForbiddenError, NotFoundError } from "@/utils/errors";
 export class NotificationService {
     notificationRepository;
     constructor(notificationRepository) {

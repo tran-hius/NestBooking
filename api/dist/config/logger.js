@@ -1,6 +1,6 @@
 import winston from "winston";
 import "winston-daily-rotate-file";
-import { env } from "../config/env.js";
+import { env } from "@/config/env";
 const fileRotateTransport = new winston.transports.DailyRotateFile({
     filename: "logs/application-%DATE%.log",
     datePattern: "YYYY-MM-DD",

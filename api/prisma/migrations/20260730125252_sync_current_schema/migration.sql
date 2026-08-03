@@ -14,7 +14,7 @@ ALTER TABLE "agent_profiles" DROP CONSTRAINT "agent_profiles_user_id_fkey";
 ALTER TABLE "hotels" DROP CONSTRAINT "hotels_ownerId_fkey";
 
 -- AlterTable
-ALTER TABLE "destinations" ALTER COLUMN "countryFlag" SET DEFAULT 'ðŸ‡»ðŸ‡³';
+ALTER TABLE "destinations" ALTER COLUMN "countryFlag" SET DEFAULT 'VN';
 
 -- DropTable
 DROP TABLE "agent_profiles";

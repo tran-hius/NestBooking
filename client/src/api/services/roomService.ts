@@ -13,6 +13,7 @@ export interface RoomPayload {
 
 export const roomService = {
   getByHotel: (hotelId: string): Promise<ApiResponse<Room[]>> => api.get(`/rooms/hotel/${hotelId}`),
+  getByRoomType: (roomTypeId: string): Promise<ApiResponse<Room[]>> => api.get(`/rooms/room-type/${roomTypeId}`),
   create: (hotelId: string, payload: RoomPayload): Promise<ApiResponse<Room>> => api.post(`/rooms/${hotelId}`, payload),
   update: (id: string, payload: Partial<Omit<RoomPayload, "roomTypeId">>): Promise<ApiResponse<Room>> => api.put(`/rooms/${id}`, payload),
   remove: (id: string): Promise<ApiResponse<void>> => api.delete(`/rooms/${id}`),

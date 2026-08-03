@@ -24,6 +24,10 @@ class BookingService {
     return await axiosClient.get('/bookings/my-bookings');
   }
 
+  async getHotelAvailability(hotelId: string, checkIn: string, checkOut: string): Promise<ApiResponse<Record<string, number>>> {
+    return await axiosClient.get(`/bookings/availability/hotel/${hotelId}?checkIn=${checkIn}&checkOut=${checkOut}`);
+  }
+
   async createBooking(payload: CreateBookingPayload): Promise<ApiResponse> {
     return await axiosClient.post('/bookings', payload);
   }
@@ -36,8 +40,12 @@ class BookingService {
     return await axiosClient.get(`/bookings/hotel/${hotelId}`);
   }
 
-  async updateBookingStatus(id: string, status: BookingStatus): Promise<ApiResponse<Booking>> {
-    return await axiosClient.patch(`/bookings/${id}/status`, { status });
+  async updateBookingStatus(id: string, status: BookingStatus, roomIds?: string[]): Promise<ApiResponse<Booking>> {
+    return await axiosClient.patch(`/bookings/${id}/status`, { status, roomIds });
+  }
+
+  async updatePaymentStatus(id: string, paymentStatus: "PAID" | "UNPAID" | "REFUNDED"): Promise<ApiResponse<Booking>> {
+    return await axiosClient.patch(`/bookings/${id}/payment-status`, { paymentStatus });
   }
 
   async getBookingDetails(id: string): Promise<ApiResponse> {

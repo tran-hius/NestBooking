@@ -27,7 +27,11 @@ export function useSearchHotels(params: SearchHotelsParams) {
             address: h.address || '',
             city: h.city || '',
             startingPrice: Number(h.startingPrice || 0),
-            availableRoomTypes: h.availableRoomTypes || [],
+            availableRoomTypes: (h.availableRoomTypes || []).map((rt: any) => ({
+              ...rt,
+              bedCount: rt.bedCount || 1,
+              bedType: rt.bedType || 'SINGLE'
+            })),
             amenities: h.amenities || [],
             images: h.images || [],
           }));
@@ -35,6 +39,7 @@ export function useSearchHotels(params: SearchHotelsParams) {
           setHotels(formattedHotels);
         }
       } catch (err: any) {
+        console.error("SEARCH HOOK ERROR:", err);
         if (isMounted) {
           setError(err);
         }

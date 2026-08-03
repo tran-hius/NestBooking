@@ -63,8 +63,9 @@ export default function Checkout() {
 
   const fallbackCheckIn = new Date();
   fallbackCheckIn.setDate(fallbackCheckIn.getDate() + 1);
-  const checkInDate = checkoutData.checkIn ? new Date(checkoutData.checkIn) : fallbackCheckIn;
-  const checkOutDate = checkoutData.checkOut ? new Date(checkoutData.checkOut) : new Date(checkInDate.getTime() + 86400000);
+  const parseDate = (val: string) => new Date(val.includes("T") ? val : `${val}T00:00:00`);
+  const checkInDate = checkoutData.checkIn ? parseDate(checkoutData.checkIn) : fallbackCheckIn;
+  const checkOutDate = checkoutData.checkOut ? parseDate(checkoutData.checkOut) : new Date(checkInDate.getTime() + 86400000);
   const nights = Math.max(1, Math.ceil((checkOutDate.getTime() - checkInDate.getTime()) / 86400000));
   const rooms = Number(checkoutData.rooms || 1);
   const adults = Number(checkoutData.adults || 2);
@@ -113,54 +114,54 @@ export default function Checkout() {
   const hotelImage = checkoutData.hotel.images?.[0]?.imageUrl || "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80";
 
   return (
-    <div className="min-h-screen bg-white pb-12 pt-24">
+    <div className="min-h-screen bg-background pb-12 pt-24 text-foreground">
       <div className="container mx-auto max-w-5xl px-4">
         <div className="mb-8 hidden items-center justify-center text-sm font-medium text-slate-500 md:flex">
-          <div className="flex items-center text-blue-600"><CheckCircle2 className="mr-2 h-5 w-5" />Lựa chọn của bạn</div>
-          <div className="mx-4 h-px w-16 bg-slate-200" />
-          <div className="flex items-center text-blue-600"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-blue-600 text-xs text-white">2</span>Thông tin của bạn</div>
-          <div className="mx-4 h-px w-16 bg-slate-200" />
+          <div className="flex items-center text-primary"><CheckCircle2 className="mr-2 h-5 w-5" />Lựa chọn của bạn</div>
+          <div className="mx-4 h-px w-16 bg-border" />
+          <div className="flex items-center text-primary"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">2</span>Thông tin của bạn</div>
+          <div className="mx-4 h-px w-16 bg-border" />
           <div className="flex items-center"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full border text-xs">3</span>Hoàn tất</div>
         </div>
 
         <div className="flex flex-col gap-6 lg:flex-row">
           <div className="w-full shrink-0 space-y-4 lg:w-[350px]">
-            <Card className="overflow-hidden border-slate-200 bg-white shadow-sm">
+            <Card className="overflow-hidden border-border bg-card shadow-sm">
               <img src={hotelImage} alt={checkoutData.hotel.name} className="h-44 w-full object-cover" />
               <CardContent className="p-4">
                 <div className="mb-2 text-sm font-bold text-yellow-500">★ {checkoutData.hotel.rating || 0}</div>
-                <h2 className="text-lg font-bold text-slate-900">{checkoutData.hotel.name}</h2>
-                <p className="mt-2 text-sm text-slate-500">{checkoutData.hotel.address}, {checkoutData.hotel.city}, {checkoutData.hotel.country}</p>
+                <h2 className="text-lg font-bold text-foreground">{checkoutData.hotel.name}</h2>
+                <p className="mt-2 text-sm text-muted-foreground">{checkoutData.hotel.address}, {checkoutData.hotel.city}, {checkoutData.hotel.country}</p>
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200 bg-white shadow-sm">
-              <CardHeader className="p-4 pb-2"><CardTitle className="text-base">Thông tin đặt chỗ</CardTitle></CardHeader>
+            <Card className="border-border bg-card shadow-sm">
+              <CardHeader className="p-4 pb-2"><CardTitle className="text-base text-foreground">Thông tin đặt chỗ</CardTitle></CardHeader>
               <CardContent className="space-y-4 p-4 pt-2">
                 <div className="grid grid-cols-2 gap-4">
-                  <div><div className="text-sm text-slate-500">Nhận phòng</div><div className="mt-1 font-bold text-slate-900">{dateFormatter.format(checkInDate)}</div></div>
-                  <div><div className="text-sm text-slate-500">Trả phòng</div><div className="mt-1 font-bold text-slate-900">{dateFormatter.format(checkOutDate)}</div></div>
+                  <div><div className="text-sm text-muted-foreground">Nhận phòng</div><div className="mt-1 font-bold text-foreground">{dateFormatter.format(checkInDate)}</div></div>
+                  <div><div className="text-sm text-muted-foreground">Trả phòng</div><div className="mt-1 font-bold text-foreground">{dateFormatter.format(checkOutDate)}</div></div>
                 </div>
-                <div className="border-t pt-4 text-sm"><div className="font-bold">{nights} đêm, {rooms} phòng, {adults + children} khách</div><div className="mt-1 text-slate-600">{checkoutData.roomType.name}</div></div>
+                <div className="border-t border-border pt-4 text-sm"><div className="font-bold text-foreground">{nights} đêm, {rooms} phòng, {adults + children} khách</div><div className="mt-1 text-muted-foreground">{checkoutData.roomType.name}</div></div>
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200 bg-white shadow-sm">
-              <CardHeader className="p-4 pb-2"><CardTitle className="text-base">Tóm tắt giá</CardTitle></CardHeader>
-              <CardContent className="p-4 pt-2"><div className="flex justify-between text-sm"><span>{nights} đêm x {rooms} phòng</span><span>{currencyFormatter.format(totalAmount)}</span></div></CardContent>
-              <div className="flex items-end justify-between border-t bg-[#ebf3ff] p-4"><span className="text-xl font-bold">Tổng cộng</span><span className="text-2xl font-black">{currencyFormatter.format(totalAmount)}</span></div>
+            <Card className="border-border bg-card shadow-sm">
+              <CardHeader className="p-4 pb-2"><CardTitle className="text-base text-foreground">Tóm tắt giá</CardTitle></CardHeader>
+              <CardContent className="p-4 pt-2"><div className="flex justify-between text-sm text-foreground"><span>{nights} đêm x {rooms} phòng</span><span>{currencyFormatter.format(totalAmount)}</span></div></CardContent>
+              <div className="flex items-end justify-between border-t border-border bg-muted/50 p-4 text-foreground"><span className="text-xl font-bold">Tổng cộng</span><span className="text-2xl font-black">{currencyFormatter.format(totalAmount)}</span></div>
             </Card>
           </div>
 
           <div className="flex-1 space-y-6">
-            <Card className="border-slate-200 bg-white shadow-sm">
-              <CardContent className="flex items-center gap-4 p-4"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-white">{fullName.charAt(0).toUpperCase() || "U"}</div><div><div className="font-bold">Bạn đã đăng nhập</div><div className="text-sm text-slate-500">{user?.email}</div></div></CardContent>
+            <Card className="border-border bg-card shadow-sm">
+              <CardContent className="flex items-center gap-4 p-4"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">{fullName.charAt(0).toUpperCase() || "U"}</div><div><div className="font-bold text-foreground">Bạn đã đăng nhập</div><div className="text-sm text-muted-foreground">{user?.email}</div></div></CardContent>
             </Card>
 
-            <Card className="border-slate-200 bg-white shadow-sm">
-              <CardHeader className="border-b p-6"><CardTitle>Nhập thông tin của bạn</CardTitle></CardHeader>
+            <Card className="border-border bg-card shadow-sm">
+              <CardHeader className="border-b border-border p-6"><CardTitle className="text-foreground">Nhập thông tin của bạn</CardTitle></CardHeader>
               <CardContent className="space-y-5 p-6">
-                <div className="flex items-start gap-2 rounded-md border bg-slate-50 p-3 text-sm text-slate-700"><Info className="h-5 w-5 shrink-0 text-slate-400" />Các trường có dấu * là bắt buộc.</div>
+                <div className="flex items-start gap-2 rounded-md border border-border bg-muted/50 p-3 text-sm text-muted-foreground"><Info className="h-5 w-5 shrink-0 text-muted-foreground/70" />Các trường có dấu * là bắt buộc.</div>
                 <div className="grid gap-5 md:grid-cols-2">
                   <div className="space-y-2"><Label htmlFor="lastName">Họ *</Label><Input id="lastName" value={formData.lastName} onChange={(event) => setFormData({ ...formData, lastName: event.target.value })} /></div>
                   <div className="space-y-2"><Label htmlFor="firstName">Tên *</Label><Input id="firstName" value={formData.firstName} onChange={(event) => setFormData({ ...formData, firstName: event.target.value })} /></div>
@@ -171,14 +172,14 @@ export default function Checkout() {
               </CardContent>
             </Card>
 
-            <Card className="border-slate-200 bg-white shadow-sm">
-              <CardHeader className="border-b p-6"><CardTitle>Phương thức thanh toán</CardTitle></CardHeader>
+            <Card className="border-border bg-card shadow-sm">
+              <CardHeader className="border-b border-border p-6"><CardTitle className="text-foreground">Phương thức thanh toán</CardTitle></CardHeader>
               <CardContent className="p-6">
                 <RadioGroup value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as "pay_at_hotel" | "vnpay")} className="space-y-3">
-                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "pay_at_hotel" ? "border-primary bg-blue-50" : "border-slate-200"}`}><RadioGroupItem value="pay_at_hotel" /><Wallet className="h-6 w-6 text-slate-500" /><div><div className="font-semibold">Thanh toán tại chỗ nghỉ</div><div className="text-sm text-slate-500">Phù hợp nhất cho buổi demo</div></div></label>
-                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "vnpay" ? "border-primary bg-blue-50" : "border-slate-200"}`}><RadioGroupItem value="vnpay" /><img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPay" className="h-6" /><div><div className="font-semibold">Thanh toán qua VNPay</div><div className="text-sm text-slate-500">Chuyển sang cổng thanh toán sandbox</div></div></label>
+                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "pay_at_hotel" ? "border-primary bg-primary/5" : "border-border"}`}><RadioGroupItem value="pay_at_hotel" /><Wallet className="h-6 w-6 text-muted-foreground" /><div><div className="font-semibold text-foreground">Thanh toán tại chỗ nghỉ</div><div className="text-sm text-muted-foreground">Phù hợp nhất cho buổi demo</div></div></label>
+                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "vnpay" ? "border-primary bg-primary/5" : "border-border"}`}><RadioGroupItem value="vnpay" /><img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPay" className="h-6" /><div><div className="font-semibold text-foreground">Thanh toán qua VNPay</div><div className="text-sm text-muted-foreground">Chuyển sang cổng thanh toán sandbox</div></div></label>
                 </RadioGroup>
-                <div className="mt-5 flex items-start gap-2 text-sm text-slate-600"><Check className="h-5 w-5 text-green-600" />Giá cuối cùng sẽ được backend kiểm tra và tính lại.</div>
+                <div className="mt-5 flex items-start gap-2 text-sm text-muted-foreground"><Check className="h-5 w-5 text-green-600" />Giá cuối cùng sẽ được backend kiểm tra và tính lại.</div>
                 <Button className="mt-6 h-12 w-full text-base font-bold" onClick={() => void handlePayment()} disabled={isProcessing}>{isProcessing ? "Đang xử lý..." : "Hoàn tất đặt phòng"}</Button>
               </CardContent>
             </Card>

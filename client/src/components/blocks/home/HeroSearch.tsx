@@ -22,8 +22,8 @@ export default function HeroSearch() {
   dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
 
   const [location, setLocation] = useState("Hà Nội");
-  const [checkIn, setCheckIn] = useState(toDateInput(tomorrow));
-  const [checkOut, setCheckOut] = useState(toDateInput(dayAfterTomorrow));
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState<GuestSelection>({ adults: 2, children: 0, rooms: 1 });
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isGuestsOpen, setIsGuestsOpen] = useState(false);
@@ -38,25 +38,28 @@ export default function HeroSearch() {
       toast.error("Vui lòng nhập điểm đến");
       return;
     }
-    if (!checkIn || !checkOut || checkOut <= checkIn) {
+    if ((checkIn || checkOut) && (!checkIn || !checkOut || checkOut <= checkIn)) {
       toast.error("Vui lòng chọn ngày nhận và trả phòng hợp lệ");
       return;
     }
 
-    const params = new URLSearchParams({
+    const params: Record<string, string> = {
       location: location.trim(),
-      checkIn: new Date(`${checkIn}T00:00:00`).toISOString(),
-      checkOut: new Date(`${checkOut}T00:00:00`).toISOString(),
       adults: String(guests.adults),
       children: String(guests.children),
       rooms: String(guests.rooms),
-    });
-    navigate(`/search?${params.toString()}`);
+    };
+    if (checkIn) params.checkIn = checkIn;
+    if (checkOut) params.checkOut = checkOut;
+    
+    const searchParams = new URLSearchParams(params);
+    navigate(`/search?${searchParams.toString()}`);
   };
 
   const formatDateRange = () => {
     const formatter = new Intl.DateTimeFormat("vi-VN", { day: "2-digit", month: "2-digit" });
-    return `${formatter.format(new Date(`${checkIn}T00:00:00`))} - ${formatter.format(new Date(`${checkOut}T00:00:00`))}`;
+    const format = (dateStr: string) => dateStr ? formatter.format(new Date(`${dateStr}T00:00:00`)) : "Chọn ngày";
+    return `${format(checkIn)} - ${format(checkOut)}`;
   };
 
   return (

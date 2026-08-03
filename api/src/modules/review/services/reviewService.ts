@@ -3,24 +3,42 @@ import { IReviewRepository } from "../interfaces/iReviewRepository";
 import { CreateReviewDto, UpdateReviewDto, ReviewResponseDto } from "../dtos/reviewDTO";
 import { NotFoundError, ForbiddenError } from "@/utils/errors";
 import { ReviewMapper } from "../mapper/reviewMapper";
+import { redisClient, REDIS_KEYS, REDIS_TTL } from "@/infrastructure/redis";
+import logger from "@/config/logger";
 
 export class ReviewService implements IReviewService {
   constructor(private readonly reviewRepository: IReviewRepository) {}
 
+  private async invalidateCache(hotelId: string) {
+    await redisClient.del(REDIS_KEYS.REVIEWS_HOTEL(hotelId));
+  }
+
   async createReview(userId: string, data: CreateReviewDto): Promise<ReviewResponseDto> {
-    // In a real application, you might want to verify if the user actually stayed at the hotel
     const review = await this.reviewRepository.create({
       userId,
       hotelId: data.hotelId,
       rating: data.rating,
       comment: data.comment,
     });
+    await this.invalidateCache(data.hotelId);
     return ReviewMapper.toResponseDto(review);
   }
 
   async getHotelReviews(hotelId: string): Promise<ReviewResponseDto[]> {
+    const cacheKey = REDIS_KEYS.REVIEWS_HOTEL(hotelId);
+    const cached = await redisClient.get(cacheKey);
+
+    if (cached) {
+      logger.debug(`[Cache Hit] Lấy danh sách đánh giá của hotel ${hotelId} từ Redis`);
+      return JSON.parse(cached);
+    }
+
+    logger.debug(`[Cache Miss] Tìm danh sách đánh giá của hotel ${hotelId} trong Database`);
     const reviews = await this.reviewRepository.findByHotel(hotelId);
-    return ReviewMapper.toResponseDtoList(reviews);
+    const result = ReviewMapper.toResponseDtoList(reviews);
+
+    await redisClient.setex(cacheKey, REDIS_TTL.REVIEW, JSON.stringify(result));
+    return result;
   }
 
   async updateReview(id: string, userId: string, data: UpdateReviewDto): Promise<ReviewResponseDto> {
@@ -29,6 +47,7 @@ export class ReviewService implements IReviewService {
     if (existingReview.userId !== userId) throw new ForbiddenError("You can only edit your own review");
 
     const updatedReview = await this.reviewRepository.update(id, data);
+    await this.invalidateCache(updatedReview.hotelId);
     return ReviewMapper.toResponseDto(updatedReview);
   }
 
@@ -39,5 +58,6 @@ export class ReviewService implements IReviewService {
     if (review.userId !== userId) throw new ForbiddenError("You can only delete your own review");
 
     await this.reviewRepository.delete(id);
+    await this.invalidateCache(review.hotelId);
   }
 }

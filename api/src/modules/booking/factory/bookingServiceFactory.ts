@@ -65,6 +65,7 @@ export class BookingServiceFactory {
       hotelService,
       bookingCreationService,
       bookingPostProcess,
+      bookingAvailability
     );
   }
 }

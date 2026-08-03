@@ -1,8 +1,8 @@
-import { RoomMapper } from "../mapper/roomMapper.js";
-import { ForbiddenError, NotFoundError, BadRequestError, } from "../../../utils/errors/errorCustomize.js";
-import { redisClient } from "../../../infrastructure/redis/RedisConnection.js";
-import { REDIS_KEYS } from "../../../infrastructure/redis/redisKeys.js";
-import { REDIS_TTL } from "../../../infrastructure/redis/redisTTL.js";
+import { RoomMapper } from "../mapper/roomMapper";
+import { ForbiddenError, NotFoundError, BadRequestError, } from "@/utils/errors/errorCustomize";
+import { redisClient } from "@/infrastructure/redis/RedisConnection";
+import { REDIS_KEYS } from "@/infrastructure/redis/redisKeys";
+import { REDIS_TTL } from "@/infrastructure/redis/redisTTL";
 export class RoomService {
     roomRepo;
     roomTypeRepo;
@@ -125,7 +125,6 @@ export class RoomService {
         return this.roomRepo.count({
             roomTypeId,
             isActive: true,
-            status: "AVAILABLE",
         }, tx);
     }
 }

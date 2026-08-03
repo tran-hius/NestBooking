@@ -1,4 +1,4 @@
-import { BookingStatus } from "../../../../generated/prisma/index.js";
+import { BookingStatus } from "../../../../generated/prisma";
 export class BookingReadRepository {
     prisma;
     constructor(prisma) {
@@ -83,7 +83,7 @@ export class BookingReadRepository {
             _sum: { quantity: true },
             where: {
                 roomTypeId,
-                status: { in: [BookingStatus.CONFIRMED, BookingStatus.PENDING] },
+                status: { in: [BookingStatus.CONFIRMED, BookingStatus.PENDING, BookingStatus.CHECKED_IN] },
                 NOT: {
                     OR: [
                         { checkOutDate: { lte: checkIn } },

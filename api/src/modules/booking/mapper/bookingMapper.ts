@@ -12,6 +12,7 @@ type BookingWithRelations = Booking & {
   } | null;
   roomType?: { id: string; name: string } | null;
   user?: { id: string; email: string } | null;
+  rooms?: any[];
 };
 
 export class BookingMapper {
@@ -52,6 +53,9 @@ export class BookingMapper {
         : undefined,
       user: booking.user
         ? { id: booking.user.id, email: booking.user.email }
+        : undefined,
+      roomNumbers: booking.rooms
+        ? booking.rooms.map((br: any) => br.room?.roomNumber).filter(Boolean)
         : undefined,
     };
   }

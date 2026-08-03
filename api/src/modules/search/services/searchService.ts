@@ -10,6 +10,7 @@ import { HotelStatus, BookingStatus, Prisma } from "@/../generated/prisma";
 import { BadRequestError } from "@/utils/errors/errorCustomize";
 import { SearchMapper } from "../mapper/searchMapper";
 import { IBookingAvailabilityService } from "@/modules/booking/interfaces/iBookingAvailabilityService";
+import { isPastDate, isValidDateRange } from "@/utils/dateUtils";
 
 export class SearchService implements ISearchService {
   constructor(
@@ -37,10 +38,10 @@ export class SearchService implements ISearchService {
     } = dto;
 
     if (checkInDate && checkOutDate) {
-      if (new Date(checkInDate) >= new Date(checkOutDate)) {
+      if (!isValidDateRange(checkInDate, checkOutDate)) {
         throw new BadRequestError("Ngày nhận phòng phải trước ngày trả phòng.");
       }
-      if (new Date(checkInDate) < new Date(new Date().setHours(0, 0, 0, 0))) {
+      if (isPastDate(checkInDate)) {
         throw new BadRequestError("Ngày nhận phòng không được trong quá khứ.");
       }
     }
@@ -76,10 +77,12 @@ export class SearchService implements ISearchService {
           }
         : false;
 
+    console.log("Before findHotelsForSearch");
     const hotels = await this.searchRepository.findHotelsForSearch(
       hotelWhere,
       bookingOverlapCondition,
     );
+    console.log("After findHotelsForSearch, length:", hotels.length);
 
     let filteredHotels: SearchHotelResponseDto[] = [];
 
@@ -108,6 +111,8 @@ export class SearchService implements ISearchService {
             price: price,
             maxAdults: roomType.maxAdults,
             maxChildren: roomType.maxChildren,
+            bedCount: roomType.bedCount,
+            bedType: roomType.bedType,
             availableRooms: availableQuantity,
             thumbnail: roomType.thumbnail,
           });

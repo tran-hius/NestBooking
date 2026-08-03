@@ -45,6 +45,21 @@ export const REDIS_TTL = {
   WISHLIST: 60 * 60,
 
   /**
+   * Destination Cache
+   */
+  DESTINATION: 24 * 60 * 60, // 1 day
+
+  /**
+   * Review Cache
+   */
+  REVIEW: 60 * 60, // 1 hour
+
+  /**
+   * Statistics Cache
+   */
+  STATS: 15 * 60, // 15 mins
+
+  /**
    * Rate Limit
    */
   RATE_LIMIT: 60,

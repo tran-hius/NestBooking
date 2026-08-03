@@ -1,5 +1,5 @@
 import { z } from "zod/v3";
-import { BookingStatus, PaymentMethod } from "../../../../generated/prisma/index.js";
+import { BookingStatus, PaymentMethod, PaymentStatus } from "../../../../generated/prisma";
 export const CreateBookingSchema = z.object({
     body: z
         .object({
@@ -28,6 +28,14 @@ export const UpdateBookingStatusSchema = z.object({
     body: z.object({
         status: z.nativeEnum(BookingStatus, {
             errorMap: () => ({ message: "Trạng thái không hợp lệ" }),
+        }),
+        roomIds: z.array(z.string().uuid("ID Phòng không hợp lệ")).optional(),
+    }),
+});
+export const UpdatePaymentStatusSchema = z.object({
+    body: z.object({
+        paymentStatus: z.nativeEnum(PaymentStatus, {
+            errorMap: () => ({ message: "Trạng thái thanh toán không hợp lệ" }),
         }),
     }),
 });

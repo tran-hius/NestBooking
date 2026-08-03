@@ -1,7 +1,7 @@
-import logger from "../../../config/logger.js";
-import { successResponse } from "../../../utils/response.js";
-import { HttpStatus } from "../../../constants/httpStatus.js";
-import { BadRequestError } from "../../../utils/errors/index.js";
+import logger from "@/config/logger";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
+import { BadRequestError } from "@/utils/errors";
 export class UserController {
     userService;
     userProfileService;
@@ -32,7 +32,10 @@ export class UserController {
      */
     createUser = async (req, res) => {
         logger.info("[UserController] Create user", { email: req.body.email });
-        const user = await this.userService.createUser(req.body);
+        const user = await this.userService.createUser({
+            ...req.body,
+            status: req.body.status ?? "ACTIVE",
+        });
         successResponse(res, HttpStatus.CREATED, "Tạo tài khoản thành công.", user);
     };
     /**

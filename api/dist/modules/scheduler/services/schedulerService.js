@@ -1,6 +1,6 @@
 import cron from "node-cron";
-import logger from "../../../config/logger.js";
-import { prisma } from "../../../config/prisma.js";
+import logger from "@/config/logger";
+import { prisma } from "@/config/prisma";
 import { BookingStatus } from "#generated/prisma";
 export class SchedulerService {
     db;

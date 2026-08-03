@@ -77,7 +77,7 @@ export type HotelStatus = "PENDING" | "ACTIVE" | "INACTIVE" | "REJECTED";
 export type PropertyType = "HOTEL" | "RESORT" | "VILLA" | "APARTMENT" | "HOMESTAY" | "GUESTHOUSE" | "MOTEL" | "CAMPING" | "GLAMPING" | "CRUISE" | "ENTIRE_HOUSE";
 export type BedType = "SINGLE" | "DOUBLE" | "QUEEN" | "KING" | "TWIN" | "BUNK";
 export type RoomStatus = "AVAILABLE" | "BOOKED" | "OCCUPIED" | "MAINTENANCE";
-export type BookingStatus = "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED";
+export type BookingStatus = "PENDING" | "CONFIRMED" | "CHECKED_IN" | "CANCELLED" | "COMPLETED";
 export type PaymentStatus = "UNPAID" | "PAID" | "REFUNDED";
 
 export interface Room {
@@ -135,6 +135,8 @@ export interface AvailableRoomType {
   price: number;
   maxAdults: number;
   maxChildren: number;
+  bedCount: number;
+  bedType: string;
   availableRooms: number;
   thumbnail: string | null;
 }

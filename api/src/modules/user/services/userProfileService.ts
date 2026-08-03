@@ -18,10 +18,7 @@ export class UserProfileService {
     }
 
     if (dto.phoneNumber) {
-      const checkPhone = await this.userRepository.findByEmailOrPhone(
-        "",
-        dto.phoneNumber,
-      );
+      const checkPhone = await this.userRepository.findByPhone(dto.phoneNumber);
       if (checkPhone && checkPhone.id !== userId) {
         logger.warn(
           `Cập nhật hồ sơ thất bại: Số điện thoại ${dto.phoneNumber} đã bị trùng`,

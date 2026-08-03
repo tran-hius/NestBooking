@@ -6,6 +6,7 @@ type ThemeProviderProps = {
   children: React.ReactNode
   defaultTheme?: Theme
   storageKey?: string
+  forcedTheme?: "light" | "dark"
 }
 
 type ThemeProviderState = {
@@ -26,6 +27,7 @@ export function ThemeProvider({
   children,
   defaultTheme = "system",
   storageKey = "vite-ui-theme",
+  forcedTheme,
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
@@ -38,6 +40,13 @@ export function ThemeProvider({
     const root = window.document.documentElement
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
     const applyTheme = () => {
+      if (forcedTheme) {
+        root.classList.remove("light", "dark")
+        root.classList.add(forcedTheme)
+        setResolvedTheme(forcedTheme)
+        return
+      }
+      
       const nextTheme = theme === "system" ? (mediaQuery.matches ? "dark" : "light") : theme
       root.classList.remove("light", "dark")
       root.classList.add(nextTheme)
@@ -45,9 +54,11 @@ export function ThemeProvider({
     }
 
     applyTheme()
-    if (theme === "system") mediaQuery.addEventListener("change", applyTheme)
-    return () => mediaQuery.removeEventListener("change", applyTheme)
-  }, [theme])
+    if (theme === "system" && !forcedTheme) mediaQuery.addEventListener("change", applyTheme)
+    return () => {
+      if (!forcedTheme) mediaQuery.removeEventListener("change", applyTheme)
+    }
+  }, [theme, forcedTheme])
 
   const value = {
     theme,

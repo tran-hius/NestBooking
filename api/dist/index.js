@@ -1,9 +1,9 @@
-import { env } from "./config/env.js";
-import app from "./app.js";
-import logger from "./config/logger.js";
-import { redisConnection } from "./infrastructure/redis/RedisConnection.js";
-import { prisma } from "./config/prisma.js";
-import { SchedulerService } from "./modules/scheduler/services/schedulerService.js";
+import { env } from "@/config/env";
+import app from "@/app";
+import logger from "@/config/logger";
+import { redisConnection } from "@/infrastructure/redis/RedisConnection";
+import { prisma } from "@/config/prisma";
+import { SchedulerService } from "@/modules/scheduler/services/schedulerService";
 const bootstrap = async () => {
     try {
         await prisma.$connect();

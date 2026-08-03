@@ -1,8 +1,8 @@
-import logger from "../../../config/logger.js";
-import { successResponse } from "../../../utils/response.js";
-import { HttpStatus } from "../../../constants/httpStatus.js";
-import { BadRequestError } from "../../../utils/errors/errorCustomize.js";
-import { env as appEnv } from "../../../config/env.js";
+import logger from "@/config/logger";
+import { successResponse } from "@/utils/response";
+import { HttpStatus } from "@/constants/httpStatus";
+import { BadRequestError } from "@/utils/errors/errorCustomize";
+import { env as appEnv } from "@/config/env";
 const COOKIE_OPTIONS = {
     httpOnly: true,
     secure: appEnv.NODE_ENV === "production",
@@ -63,16 +63,12 @@ export class AuthController {
             deviceName: req.headers["x-device-name"] || "Unknown Device",
         };
         const result = await this.authService.register(req.body, deviceMetadata);
-        res.cookie("refreshToken", result.tokens.refreshToken, COOKIE_OPTIONS);
-        res.cookie("accessToken", result.tokens.accessToken, {
-            ...COOKIE_OPTIONS,
-            maxAge: appEnv.JWT_EXPIRES_IN_MS,
-        });
-        const { refreshToken, ...safeResult } = result.tokens;
-        successResponse(res, HttpStatus.CREATED, "Đăng ký thành công!", {
-            user: result.user,
-            tokens: safeResult,
-        });
+        successResponse(res, HttpStatus.CREATED, "Đăng ký thành công, vui lòng kiểm tra email để nhận mã OTP.", result);
+    };
+    verifyRegistrationOtp = async (req, res) => {
+        logger.info("[AuthController] Verify Registration OTP");
+        await this.authService.verifyRegistrationOtp(req.body.otp, req.body.otpToken);
+        successResponse(res, HttpStatus.OK, "Tài khoản đã được xác thực thành công. Vui lòng đăng nhập.");
     };
     loginWithPassword = async (req, res) => {
         logger.info("[AuthController] Login with Password", {

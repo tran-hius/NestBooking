@@ -15,6 +15,7 @@ export class BookingReadRepository implements IBookingReadRepository {
         hotel: { select: { id: true, name: true, ownerId: true } },
         roomType: { select: { id: true, name: true } },
         user: { select: { id: true, email: true } },
+        rooms: { include: { room: true } },
       },
     });
   }
@@ -53,6 +54,7 @@ export class BookingReadRepository implements IBookingReadRepository {
           },
         },
         roomType: { select: { id: true, name: true } },
+        rooms: { include: { room: true } },
       },
     });
   }
@@ -81,6 +83,13 @@ export class BookingReadRepository implements IBookingReadRepository {
         skip,
         take: limit,
         orderBy: { createdAt: "desc" },
+        include: {
+          hotel: {
+            select: { id: true, name: true }
+          },
+          roomType: { select: { id: true, name: true } },
+          rooms: { include: { room: true } },
+        }
       }),
       this.prisma.booking.count({ where }),
     ]);
@@ -107,7 +116,7 @@ export class BookingReadRepository implements IBookingReadRepository {
       _sum: { quantity: true },
       where: {
         roomTypeId,
-        status: { in: [BookingStatus.CONFIRMED, BookingStatus.PENDING] },
+        status: { in: [BookingStatus.CONFIRMED, BookingStatus.PENDING, BookingStatus.CHECKED_IN] },
         NOT: {
           OR: [
             { checkOutDate: { lte: checkIn } },
@@ -117,5 +126,54 @@ export class BookingReadRepository implements IBookingReadRepository {
       },
     });
     return overlappingBookings._sum.quantity || 0;
+  }
+
+  async getAvailableRooms(
+    roomTypeId: string,
+    checkIn: Date,
+    checkOut: Date,
+    quantity: number,
+    tx?: any
+  ): Promise<string[]> {
+    const client = tx || this.prisma;
+    
+    // Tìm tất cả các roomId thuộc roomTypeId đang ACTIVE
+    const rooms = await client.room.findMany({
+      where: {
+        roomTypeId,
+        isActive: true,
+      },
+      select: { id: true },
+    });
+
+    const allRoomIds = rooms.map((r: any) => r.id);
+
+    // Tìm tất cả roomId đang bị trùng lịch
+    const overlappingBookings = await client.bookingRoom.findMany({
+      where: {
+        room: { roomTypeId },
+        booking: {
+          status: { in: [BookingStatus.CONFIRMED, BookingStatus.PENDING, BookingStatus.CHECKED_IN] },
+          NOT: {
+            OR: [
+              { checkOutDate: { lte: checkIn } },
+              { checkInDate: { gte: checkOut } },
+            ],
+          },
+        },
+      },
+      select: { roomId: true },
+    });
+
+    const bookedRoomIds = overlappingBookings.map((br: any) => br.roomId);
+    
+    // Lọc ra các phòng trống
+    const availableRoomIds = allRoomIds.filter((id: string) => !bookedRoomIds.includes(id));
+    
+    if (availableRoomIds.length < quantity) {
+      return [];
+    }
+
+    return availableRoomIds.slice(0, quantity);
   }
 }

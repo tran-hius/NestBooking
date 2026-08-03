@@ -3,8 +3,9 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { createAuthSlice, AuthSlice } from "./slices/createAuthSlice";
 import { createUserSlice, UserSlice } from "./slices/createUserSlice";
+import { createAiSlice, AiSlice } from "./slices/createAiSlice";
 
-type AppState = AuthSlice & UserSlice;
+type AppState = AuthSlice & UserSlice & AiSlice;
 
 export const useAppStore = create<AppState>()(
   devtools(
@@ -12,6 +13,7 @@ export const useAppStore = create<AppState>()(
       (...a) => ({
         ...createAuthSlice(...a),
         ...createUserSlice(...a),
+        ...createAiSlice(...a),
       }),
       {
         name: "app-storage",

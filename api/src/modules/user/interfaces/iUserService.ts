@@ -8,7 +8,7 @@ import {
 
 export interface IUserService {
   updateUserAdmin(userId: string, dto: UpdateUserAdminDto, tx?: TxClient): Promise<UserResponseDto>;
-  createUser(dto: CreateUserDto & { passwordHash?: string; phoneNumber?: string }, tx?: TxClient): Promise<UserResponseDto>;
+  createUser(dto: CreateUserDto & { passwordHash?: string; phoneNumber?: string; status?: UserStatus }, tx?: TxClient): Promise<UserResponseDto>;
 
   getUserById(id: string): Promise<UserResponseDto | null>;
 

@@ -19,7 +19,7 @@ export class BookingAvailabilityService implements IBookingAvailabilityService {
     checkIn: Date,
     checkOut: Date,
     tx?: TxClient
-  ): Promise<RoomTypeResponseDto> {
+  ): Promise<{ roomType: RoomTypeResponseDto }> {
     const roomType = await this.roomTypeService.getRoomTypeById(roomTypeId, tx);
 
     if (!roomType || !roomType.isActive) {
@@ -29,14 +29,12 @@ export class BookingAvailabilityService implements IBookingAvailabilityService {
     }
 
     const totalRooms = await this.roomService.countActiveRoomsByRoomType(roomTypeId, tx);
-
     const bookedRooms = await this.bookingReadRepo.getOverlappingBookingsCount(
       roomTypeId,
       checkIn,
       checkOut,
       tx
     );
-
     const availableRooms = totalRooms - bookedRooms;
 
     if (availableRooms < quantity) {
@@ -45,7 +43,7 @@ export class BookingAvailabilityService implements IBookingAvailabilityService {
       );
     }
 
-    return roomType;
+    return { roomType };
   }
 
   calculateAvailableRooms(
@@ -64,5 +62,30 @@ export class BookingAvailabilityService implements IBookingAvailabilityService {
       availableQuantity = availableQuantity - bookedQuantity;
     }
     return availableQuantity;
+  }
+
+  async getHotelAvailability(
+    hotelId: string,
+    checkIn: Date,
+    checkOut: Date,
+  ): Promise<Record<string, number>> {
+    const roomTypes = await this.roomTypeService.getRoomTypesByHotel(hotelId);
+    const availabilityMap: Record<string, number> = {};
+
+    for (const roomType of roomTypes) {
+      if (!roomType.isActive) {
+        availabilityMap[roomType.id] = 0;
+        continue;
+      }
+      const totalRooms = await this.roomService.countActiveRoomsByRoomType(roomType.id);
+      const bookedRooms = await this.bookingReadRepo.getOverlappingBookingsCount(
+        roomType.id,
+        checkIn,
+        checkOut,
+      );
+      availabilityMap[roomType.id] = Math.max(0, totalRooms - bookedRooms);
+    }
+
+    return availabilityMap;
   }
 }

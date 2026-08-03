@@ -1,9 +1,9 @@
-import { AUTH_CONSTANTS } from "../../../utils/constants.js";
-import { BadRequestError, NotFoundError, UnauthorizedError } from "../../../utils/errors/index.js";
-import { Role, UserStatus } from "../../../../generated/prisma/index.js";
-import { AuthMapper } from "../../../modules/auth/mapper/authMapper.js";
-import logger from "../../../config/logger.js";
-import { prisma } from "../../../config/prisma.js";
+import { AUTH_CONSTANTS } from "@/utils/constants";
+import { BadRequestError, NotFoundError, UnauthorizedError } from "@/utils/errors";
+import { Role, UserStatus } from "@/../generated/prisma";
+import { AuthMapper } from "@/modules/auth/mapper/authMapper";
+import logger from "@/config/logger";
+import { prisma } from "@/config/prisma";
 export class AuthService {
     otpService;
     refreshTokenRepository;
@@ -73,6 +73,9 @@ export class AuthService {
         if (!user) {
             throw new UnauthorizedError("Tài khoản hoặc mật khẩu không chính xác.");
         }
+        if (user.status === UserStatus.INACTIVE) {
+            throw new UnauthorizedError("Tài khoản chưa được xác thực. Vui lòng xác thực mã OTP.");
+        }
         if (user.status === UserStatus.BANNED || user.status === UserStatus.REJECTED) {
             throw new UnauthorizedError("Tài khoản đã bị khóa.");
         }
@@ -106,22 +109,29 @@ export class AuthService {
             throw new BadRequestError("Email đã được đăng ký trên hệ thống.");
         }
         const passwordHash = await this.tokenService.hashPassword(dto.password);
-        let user = await this.userService.createUser({
+        await this.userService.createUser({
             email: dto.email,
             passwordHash: passwordHash,
             role: Role.USER,
         }, tx);
-        const { accessToken, refreshToken, tokenHash } = this.tokenService.generateAuthTokens(user.id, user.role, user.status);
-        await this.refreshTokenRepository.create({
-            userId: user.id,
-            tokenHash,
-            ipAddress: device.ipAddress,
-            userAgent: device.userAgent,
-            deviceName: device.deviceName,
-            expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
-        }, tx);
-        logger.info(`[AuthService] Password registration successful for user: ${user.email}`);
-        return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
+        logger.info(`[AuthService] Password registration started for user: ${dto.email}`);
+        // Generate and send OTP for verification
+        return await this.otpService.generateAndSendOtp(dto.email);
+    }
+    async verifyRegistrationOtp(otp, otpToken, tx) {
+        const email = await this.otpService.verifyOtp(otp, otpToken);
+        if (!email) {
+            throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
+        }
+        const user = await this.userService.getUserByEmail(email);
+        if (!user) {
+            throw new NotFoundError("Tài khoản không tồn tại.");
+        }
+        if (user.status !== UserStatus.INACTIVE) {
+            throw new BadRequestError("Tài khoản đã được xác thực trước đó.");
+        }
+        await this.userService.changeUserStatus(user.id, UserStatus.ACTIVE, tx);
+        logger.info(`[AuthService] Registration OTP verified successfully for user: ${email}`);
     }
     async registerPartner(userId, dto, device, tx) {
         const existingUser = await this.userService.getUserById(userId);

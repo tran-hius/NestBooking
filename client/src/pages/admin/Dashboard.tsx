@@ -44,6 +44,7 @@ interface AdminUser {
 const bookingStatus = {
   PENDING: { label: "Chờ xác nhận", color: "#f59e0b", className: "bg-amber-100 text-amber-700" },
   CONFIRMED: { label: "Đã xác nhận", color: "#2563eb", className: "bg-blue-100 text-blue-700" },
+  CHECKED_IN: { label: "Đang lưu trú", color: "#6366f1", className: "bg-indigo-100 text-indigo-700" },
   CANCELLED: { label: "Đã hủy", color: "#ef4444", className: "bg-red-100 text-red-700" },
   COMPLETED: { label: "Hoàn thành", color: "#10b981", className: "bg-emerald-100 text-emerald-700" },
 } as const;

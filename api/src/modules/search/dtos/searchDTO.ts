@@ -10,8 +10,8 @@ export enum SortByOption {
 export const searchHotelSchema = z.object({
   query: z.object({
     location: z.string().optional(),
-    checkInDate: z.string().datetime().optional(),
-    checkOutDate: z.string().datetime().optional(),
+    checkInDate: z.string().optional(),
+    checkOutDate: z.string().optional(),
     adults: z.coerce.number().int().min(1).optional().default(1),
     children: z.coerce.number().int().min(0).optional().default(0),
     rooms: z.coerce.number().int().min(1).optional().default(1),
@@ -33,6 +33,8 @@ export interface AvailableRoomTypeDto {
   price: number;
   maxAdults: number;
   maxChildren: number;
+  bedCount: number;
+  bedType: string;
   availableRooms: number;
   thumbnail: string | null;
 }

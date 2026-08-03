@@ -146,12 +146,19 @@ export class UserRepository implements IUserRepository {
   }
 
   async restore(id: string, tx?: TxClient): Promise<void> {
-    await this.getClient(tx).user.update({
-      where: { id },
-      data: {
-        deletedAt: null,
-      },
-    });
+    try {
+      await this.getClient(tx).user.update({
+        where: { id },
+        data: {
+          deletedAt: null,
+        },
+      });
+    } catch (error: any) {
+      if (error.code === "P2025") {
+        return;
+      }
+      throw error;
+    }
   }
 
   getUserWithPasswordByEmail(

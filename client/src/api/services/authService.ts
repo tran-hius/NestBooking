@@ -20,6 +20,10 @@ class AuthService {
   async verifyOtp(payload: VerifyOtpPayload): Promise<ApiResponse> {
     return await axiosClient.post(API_ENDPOINTS.AUTH.VERIFY_OTP, payload);
   }
+
+  async verifyRegistrationOtp(payload: VerifyOtpPayload): Promise<ApiResponse> {
+    return await axiosClient.post('/auth/verify-registration-otp', payload);
+  }
   
   async checkEmail(email: string): Promise<ApiResponse> {
     return await axiosClient.post('/auth/check-email', { email });

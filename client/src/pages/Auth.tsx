@@ -74,19 +74,18 @@ export default function Auth() {
     setLoading(true);
     try {
       const response = await authService.register({ email, password, confirmPassword });
-      const accessToken = response.data?.tokens?.accessToken || response.data?.data?.tokens?.accessToken;
-      const user = response.data?.user || response.data?.data?.user;
-      if (!accessToken) throw new Error("Không nhận được access token");
-      setToken(accessToken);
-      if (user) setUser(user);
-      toast.success("Đăng ký thành công");
-      navigate(redirect, { replace: true });
+      const receivedToken = response.data?.data?.otpToken || response.data?.otpToken;
+      if (!receivedToken) throw new Error("Không nhận được OTP token");
+      toast.success("Đăng ký thành công, vui lòng kiểm tra email để lấy mã OTP xác thực");
+      navigate(`/verify-otp?email=${encodeURIComponent(email)}&otpToken=${receivedToken}`);
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Đăng ký thất bại");
     } finally {
       setLoading(false);
     }
   };
+
+
 
   const handleSendOtp = async () => {
     if (!email) return toast.error("Vui lòng nhập email");
@@ -124,6 +123,7 @@ export default function Auth() {
     event.preventDefault();
     if (mode === "login") await handleLogin();
     if (mode === "register") await handleRegister();
+
     if (mode === "forgot_email") await handleSendOtp();
     if (mode === "forgot_otp") {
       if (otp.length !== 6) return toast.error("Vui lòng nhập mã OTP 6 số");
@@ -153,13 +153,13 @@ export default function Auth() {
             {!isForgot && <div className="mb-6 grid grid-cols-2 rounded-xl bg-slate-100 p-1"><button type="button" onClick={() => switchMode("login")} className={`rounded-lg px-3 py-2.5 text-sm font-bold transition ${mode === "login" ? "bg-white text-primary shadow-sm" : "text-slate-500"}`}>Đăng nhập</button><button type="button" onClick={() => switchMode("register")} className={`rounded-lg px-3 py-2.5 text-sm font-bold transition ${mode === "register" ? "bg-white text-primary shadow-sm" : "text-slate-500"}`}>Đăng ký</button></div>}
 
             <form className="space-y-4" onSubmit={handleSubmit}>
-              {(mode === "login" || mode === "register" || mode === "forgot_email") && <AuthField label="Địa chỉ email" icon={Mail}><input id="email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" className="h-12 w-full bg-transparent pl-10 pr-4 text-sm text-slate-900 outline-none" /></AuthField>}
+              {(mode === "login" || mode === "register" || mode === "forgot_email") && <AuthField label="Địa chỉ email" icon={Mail}><input id="email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@example.com" className="h-12 w-full bg-transparent pl-10 pr-4 text-sm text-foreground outline-none placeholder:text-muted-foreground" /></AuthField>}
 
-              {mode === "forgot_otp" && <div><div className="mb-3 flex items-center justify-between"><label className="text-sm font-bold text-slate-800">Mã xác thực</label><button type="button" onClick={() => setMode("forgot_email")} className="text-xs font-semibold text-primary hover:underline">Đổi email</button></div><InputOTP maxLength={6} value={otp} onChange={setOtp} containerClassName="w-full"><InputOTPGroup className="grid w-full grid-cols-6 gap-2">{Array.from({ length: 6 }).map((_, index) => <InputOTPSlot key={index} index={index} className="h-12 w-full rounded-xl border border-slate-300 bg-white text-lg font-bold" />)}</InputOTPGroup></InputOTP></div>}
+              {mode === "forgot_otp" && <div><div className="mb-3 flex items-center justify-between"><label className="text-sm font-bold text-foreground">Mã xác thực</label><button type="button" onClick={() => setMode("forgot_email")} className="text-xs font-semibold text-primary hover:underline">Đổi email</button></div><InputOTP maxLength={6} value={otp} onChange={setOtp} containerClassName="w-full"><InputOTPGroup className="grid w-full grid-cols-6 gap-2">{Array.from({ length: 6 }).map((_, index) => <InputOTPSlot key={index} index={index} className="h-12 w-full rounded-xl border border-input bg-background text-lg font-bold text-foreground" />)}</InputOTPGroup></InputOTP></div>}
 
-              {(mode === "login" || mode === "register" || mode === "forgot_reset") && <div><div className="mb-2 flex items-center justify-between"><label htmlFor="password" className="text-sm font-bold text-slate-800">{mode === "forgot_reset" ? "Mật khẩu mới" : "Mật khẩu"}</label>{mode === "login" && <button type="button" onClick={() => setMode("forgot_email")} className="text-xs font-semibold text-primary hover:underline">Quên mật khẩu?</button>}</div><div className="relative rounded-xl border border-slate-300 bg-white transition focus-within:border-primary focus-within:ring-4 focus-within:ring-blue-100"><LockKeyhole className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input id="password" type={showPassword ? "text" : "password"} autoComplete={mode === "login" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Nhập mật khẩu" className="h-12 w-full bg-transparent pl-10 pr-11 text-sm text-slate-900 outline-none" /><button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary">{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button></div></div>}
+              {(mode === "login" || mode === "register" || mode === "forgot_reset") && <div><div className="mb-2 flex items-center justify-between"><label htmlFor="password" className="text-sm font-bold text-foreground">{mode === "forgot_reset" ? "Mật khẩu mới" : "Mật khẩu"}</label>{mode === "login" && <button type="button" onClick={() => setMode("forgot_email")} className="text-xs font-semibold text-primary hover:underline">Quên mật khẩu?</button>}</div><div className="relative rounded-xl border border-input bg-background transition focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/20"><LockKeyhole className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><input id="password" type={showPassword ? "text" : "password"} autoComplete={mode === "login" ? "current-password" : "new-password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Nhập mật khẩu" className="h-12 w-full bg-transparent pl-10 pr-11 text-sm text-foreground outline-none placeholder:text-muted-foreground" /><button type="button" onClick={() => setShowPassword((value) => !value)} aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary">{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button></div></div>}
 
-              {(mode === "register" || mode === "forgot_reset") && <AuthField label="Nhập lại mật khẩu" icon={LockKeyhole}><input id="confirmPassword" type={showPassword ? "text" : "password"} autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Nhập lại mật khẩu" className="h-12 w-full bg-transparent pl-10 pr-4 text-sm text-slate-900 outline-none" /></AuthField>}
+              {(mode === "register" || mode === "forgot_reset") && <AuthField label="Nhập lại mật khẩu" icon={LockKeyhole}><input id="confirmPassword" type={showPassword ? "text" : "password"} autoComplete="new-password" value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Nhập lại mật khẩu" className="h-12 w-full bg-transparent pl-10 pr-4 text-sm text-foreground outline-none placeholder:text-muted-foreground" /></AuthField>}
 
               <Button disabled={loading} className="h-12 w-full rounded-xl text-sm font-bold text-white shadow-lg shadow-blue-500/15">{loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}{getSubmitLabel(mode)}</Button>
             </form>
@@ -174,12 +174,13 @@ export default function Auth() {
 }
 
 function AuthField({ label, icon: Icon, children }: { label: string; icon: typeof Mail; children: React.ReactNode }) {
-  return <div><label className="mb-2 block text-sm font-bold text-slate-800">{label}</label><div className="relative rounded-xl border border-slate-300 bg-white transition focus-within:border-primary focus-within:ring-4 focus-within:ring-blue-100"><Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />{children}</div></div>;
+  return <div><label className="mb-2 block text-sm font-bold text-foreground">{label}</label><div className="relative rounded-xl border border-input bg-background transition focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/20"><Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />{children}</div></div>;
 }
 
 function getTitle(mode: AuthMode) {
   if (mode === "login") return "Đăng nhập";
   if (mode === "register") return "Tạo tài khoản";
+
   if (mode === "forgot_email") return "Quên mật khẩu?";
   if (mode === "forgot_otp") return "Nhập mã OTP";
   return "Đặt mật khẩu mới";
@@ -188,6 +189,7 @@ function getTitle(mode: AuthMode) {
 function getDescription(mode: AuthMode, email: string) {
   if (mode === "login") return "Tiếp tục đến booking và các chuyến đi đã lưu trong tài khoản.";
   if (mode === "register") return "Tạo tài khoản khách hàng để hoàn tất đặt phòng trên NestBooking.";
+
   if (mode === "forgot_email") return "Nhập email tài khoản để nhận mã xác thực đặt lại mật khẩu.";
   if (mode === "forgot_otp") return `Mã OTP gồm 6 số đã được gửi đến ${email}.`;
   return "Nhập mật khẩu mới và xác nhận lại để hoàn tất khôi phục.";
@@ -196,6 +198,7 @@ function getDescription(mode: AuthMode, email: string) {
 function getSubmitLabel(mode: AuthMode) {
   if (mode === "login") return "Đăng nhập";
   if (mode === "register") return "Tạo tài khoản";
+
   if (mode === "forgot_email") return "Gửi mã OTP";
   if (mode === "forgot_otp") return "Xác nhận mã";
   return "Cập nhật mật khẩu";

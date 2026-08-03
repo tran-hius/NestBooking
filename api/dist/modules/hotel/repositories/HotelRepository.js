@@ -1,4 +1,4 @@
-import { HotelStatus, } from "../../../../generated/prisma/index.js";
+import { HotelStatus, } from "../../../../generated/prisma";
 export class HotelRepository {
     prisma;
     constructor(prisma) {

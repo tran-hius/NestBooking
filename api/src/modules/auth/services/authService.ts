@@ -126,6 +126,10 @@ export class AuthService implements IAuthService {
       throw new UnauthorizedError("Tài khoản hoặc mật khẩu không chính xác.");
     }
 
+    if (user.status === UserStatus.INACTIVE) {
+      throw new UnauthorizedError("Tài khoản chưa được xác thực. Vui lòng xác thực mã OTP.");
+    }
+
     if (user.status === UserStatus.BANNED || user.status === UserStatus.REJECTED) {
       throw new UnauthorizedError("Tài khoản đã bị khóa.");
     }
@@ -171,7 +175,7 @@ export class AuthService implements IAuthService {
     dto: RegisterDto,
     device: DeviceMetadata,
     tx?: TxClient,
-  ): Promise<AuthResponseDto> {
+  ): Promise<OtpTokenResponse> {
     const existingUser = await this.userService.getUserByEmail(dto.email);
     if (existingUser) {
       throw new BadRequestError("Email đã được đăng ký trên hệ thống.");
@@ -179,27 +183,39 @@ export class AuthService implements IAuthService {
     
     const passwordHash = await this.tokenService.hashPassword(dto.password);
 
-    let user = await this.userService.createUser({
+    await this.userService.createUser({
       email: dto.email,
       passwordHash: passwordHash,
       role: Role.USER,
     }, tx);
 
-    const { accessToken, refreshToken, tokenHash } =
-      this.tokenService.generateAuthTokens(user.id, user.role, user.status);
+    logger.info(`[AuthService] Password registration started for user: ${dto.email}`);
 
-    await this.refreshTokenRepository.create({
-      userId: user.id,
-      tokenHash,
-      ipAddress: device.ipAddress,
-      userAgent: device.userAgent,
-      deviceName: device.deviceName,
-      expiresAt: new Date(Date.now() + AUTH_CONSTANTS.REFRESH_TOKEN_EXPIRES_MS),
-    }, tx);
+    // Generate and send OTP for verification
+    return await this.otpService.generateAndSendOtp(dto.email);
+  }
 
-    logger.info(`[AuthService] Password registration successful for user: ${user.email}`);
+  async verifyRegistrationOtp(
+    otp: string,
+    otpToken: string,
+    tx?: TxClient,
+  ): Promise<void> {
+    const email = await this.otpService.verifyOtp(otp, otpToken);
+    if (!email) {
+      throw new BadRequestError("Mã OTP không hợp lệ hoặc đã hết hạn.");
+    }
 
-    return AuthMapper.toAuthResponseDto(user, accessToken, refreshToken);
+    const user = await this.userService.getUserByEmail(email);
+    if (!user) {
+      throw new NotFoundError("Tài khoản không tồn tại.");
+    }
+
+    if (user.status !== UserStatus.INACTIVE) {
+      throw new BadRequestError("Tài khoản đã được xác thực trước đó.");
+    }
+
+    await this.userService.changeUserStatus(user.id, UserStatus.ACTIVE, tx);
+    logger.info(`[AuthService] Registration OTP verified successfully for user: ${email}`);
   }
 
   async registerPartner(
