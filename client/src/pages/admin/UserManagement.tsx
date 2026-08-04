@@ -7,6 +7,7 @@ import {
   RefreshCw,
   Search,
   ShieldCheck,
+  Trash2,
   UserRoundCheck,
   UsersRound,
 } from "lucide-react";
@@ -44,7 +45,7 @@ interface AdminUser {
 }
 
 const statusConfig: Record<string, { label: string; className: string }> = {
-  ACTIVE: { label: "Hoạt động", className: "border-emerald-200 bg-emerald-50 text-emerald-700" },
+  ACTIVE: { label: "Hoạt động", className: "border-sky-200 bg-sky-50 text-sky-700" },
   PENDING: { label: "Chờ kích hoạt", className: "border-amber-200 bg-amber-50 text-amber-700" },
   INACTIVE: { label: "Tạm ngưng", className: "border-slate-200 bg-slate-100 text-slate-700" },
   BANNED: { label: "Đã khóa", className: "border-red-200 bg-red-50 text-red-700" },
@@ -61,6 +62,7 @@ export default function UserManagement() {
   const [updating, setUpdating] = useState<string | null>(null);
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
   const [statusAction, setStatusAction] = useState<{ user: AdminUser; status: "ACTIVE" | "BANNED" } | null>(null);
+  const [deleteAction, setDeleteAction] = useState<AdminUser | null>(null);
 
   const loadUsers = async () => {
     setLoading(true);
@@ -86,6 +88,21 @@ export default function UserManagement() {
       setStatusAction(null);
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Không thể cập nhật người dùng");
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (!deleteAction) return;
+    setUpdating(deleteAction.id);
+    try {
+      await userService.deleteUser(deleteAction.id);
+      setUsers((current) => current.filter((item) => item.id !== deleteAction.id));
+      toast.success("Đã thu hồi tài khoản thành công");
+      setDeleteAction(null);
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || "Không thể thu hồi tài khoản");
     } finally {
       setUpdating(null);
     }
@@ -117,7 +134,7 @@ export default function UserManagement() {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard icon={UsersRound} label="Tổng khách hàng" value={users.length} hint="Tài khoản role USER" tone="blue" />
-        <StatCard icon={UserRoundCheck} label="Đang hoạt động" value={activeUsers} hint={`${users.length ? Math.round(activeUsers / users.length * 100) : 0}% tổng tài khoản`} tone="emerald" />
+        <StatCard icon={UserRoundCheck} label="Đang hoạt động" value={activeUsers} hint={`${users.length ? Math.round(activeUsers / users.length * 100) : 0}% tổng tài khoản`} tone="sky" />
         <StatCard icon={Ban} label="Đã khóa" value={bannedUsers} hint="Không thể đăng nhập" tone="red" />
         <StatCard icon={ShieldCheck} label="Hồ sơ đầy đủ" value={completeProfiles} hint={`${newUsers} người dùng mới trong 30 ngày`} tone="violet" />
       </div>
@@ -145,7 +162,7 @@ export default function UserManagement() {
                 {!loading && filtered.length ? filtered.map((user) => {
                   const profileFields = [user.profile?.fullName, user.profile?.phoneNumber, user.profile?.address].filter(Boolean).length;
                   const profilePercent = Math.round(profileFields / 3 * 100);
-                  return <TableRow key={user.id} className="group hover:bg-blue-50/30 dark:hover:bg-zinc-900"><TableCell className="pl-5"><div className="flex items-center gap-3"><Avatar className="h-11 w-11 border border-slate-200 shadow-sm"><AvatarImage src={user.profile?.avatarUrl || ""} /><AvatarFallback className="bg-gradient-to-br from-blue-600 to-cyan-500 font-bold text-white">{getInitials(user)}</AvatarFallback></Avatar><div className="min-w-0"><div className="max-w-56 truncate font-semibold text-slate-900 dark:text-white">{user.profile?.fullName || "Chưa cập nhật tên"}</div><div className="mt-0.5 text-xs text-slate-400">ID: {user.id.slice(0, 8).toUpperCase()}</div></div></div></TableCell><TableCell><div className="font-medium text-slate-700 dark:text-zinc-200">{user.email}</div><div className="mt-1 text-xs text-muted-foreground">{user.profile?.phoneNumber || "Chưa có số điện thoại"}</div></TableCell><TableCell><div className="w-32"><div className="mb-1.5 flex justify-between text-xs"><span className="text-muted-foreground">Hoàn thiện</span><span className="font-semibold">{profilePercent}%</span></div><div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${profilePercent === 100 ? "bg-emerald-500" : "bg-blue-500"}`} style={{ width: `${profilePercent}%` }} /></div></div></TableCell><TableCell><div className="flex items-center gap-2 text-sm text-slate-600 dark:text-zinc-300"><CalendarDays className="h-4 w-4 text-slate-400" />{joinedDate.format(new Date(user.createdAt))}</div></TableCell><TableCell><Badge variant="outline" className={statusConfig[user.status]?.className || "bg-slate-100 text-slate-700"}><span className={`mr-1.5 h-1.5 w-1.5 rounded-full ${user.status === "ACTIVE" ? "bg-emerald-500" : user.status === "BANNED" ? "bg-red-500" : "bg-amber-500"}`} />{statusConfig[user.status]?.label || user.status}</Badge></TableCell><TableCell className="pr-5"><div className="flex justify-end gap-2"><Button size="sm" variant="ghost" onClick={() => setSelectedUser(user)} className="h-9 rounded-lg text-slate-600 hover:bg-blue-50 hover:text-blue-700"><Eye className="mr-1.5 h-4 w-4" />Chi tiết</Button>{user.status === "BANNED" ? <Button size="sm" disabled={updating === user.id} onClick={() => setStatusAction({ user, status: "ACTIVE" })} className="h-9 rounded-lg bg-emerald-600 hover:bg-emerald-700"><CheckCircle2 className="mr-1.5 h-4 w-4" />Mở khóa</Button> : <Button size="sm" variant="outline" disabled={updating === user.id} onClick={() => setStatusAction({ user, status: "BANNED" })} className="h-9 rounded-lg border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"><Ban className="mr-1.5 h-4 w-4" />Khóa</Button>}</div></TableCell></TableRow>;
+                  return <TableRow key={user.id} className="group hover:bg-blue-50/30 dark:hover:bg-zinc-900"><TableCell className="pl-5"><div className="flex items-center gap-3"><Avatar className="h-11 w-11 border border-slate-200 shadow-sm"><AvatarImage src={user.profile?.avatarUrl || ""} /><AvatarFallback className="bg-gradient-to-br from-blue-600 to-cyan-500 font-bold text-white">{getInitials(user)}</AvatarFallback></Avatar><div className="min-w-0"><div className="max-w-56 truncate font-semibold text-slate-900 dark:text-white">{user.profile?.fullName || "Chưa cập nhật tên"}</div><div className="mt-0.5 text-xs text-slate-400">ID: {user.id.slice(0, 8).toUpperCase()}</div></div></div></TableCell><TableCell><div className="font-medium text-slate-700 dark:text-zinc-200">{user.email}</div><div className="mt-1 text-xs text-muted-foreground">{user.profile?.phoneNumber || "Chưa có số điện thoại"}</div></TableCell><TableCell><div className="w-32"><div className="mb-1.5 flex justify-between text-xs"><span className="text-muted-foreground">Hoàn thiện</span><span className="font-semibold">{profilePercent}%</span></div><div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${profilePercent === 100 ? "bg-sky-500" : "bg-blue-500"}`} style={{ width: `${profilePercent}%` }} /></div></div></TableCell><TableCell><div className="flex items-center gap-2 text-sm text-slate-600 dark:text-zinc-300"><CalendarDays className="h-4 w-4 text-slate-400" />{joinedDate.format(new Date(user.createdAt))}</div></TableCell><TableCell><Badge variant="outline" className={statusConfig[user.status]?.className || "bg-slate-100 text-slate-700"}><span className={`mr-1.5 h-1.5 w-1.5 rounded-full ${user.status === "ACTIVE" ? "bg-sky-500" : user.status === "BANNED" ? "bg-red-500" : "bg-amber-500"}`} />{statusConfig[user.status]?.label || user.status}</Badge></TableCell><TableCell className="pr-5"><div className="flex justify-end gap-2"><Button size="sm" variant="ghost" onClick={() => setSelectedUser(user)} className="h-9 rounded-lg text-slate-600 hover:bg-blue-50 hover:text-blue-700"><Eye className="mr-1.5 h-4 w-4" />Chi tiết</Button>{user.status === "BANNED" ? <Button size="sm" disabled={updating === user.id} onClick={() => setStatusAction({ user, status: "ACTIVE" })} className="h-9 rounded-lg bg-sky-600 hover:bg-sky-700"><CheckCircle2 className="mr-1.5 h-4 w-4" />Mở khóa</Button> : <Button size="sm" variant="outline" disabled={updating === user.id} onClick={() => setStatusAction({ user, status: "BANNED" })} className="h-9 rounded-lg border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"><Ban className="mr-1.5 h-4 w-4" />Khóa</Button>}<Button size="sm" variant="ghost" title="Thu hồi tài khoản" disabled={updating === user.id} onClick={() => setDeleteAction(user)} className="h-9 w-9 p-0 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700"><Trash2 className="h-4 w-4" /></Button></div></TableCell></TableRow>;
                 }) : <TableRow><TableCell colSpan={6} className="h-40 text-center text-muted-foreground">{loading ? <span className="inline-flex items-center gap-2"><RefreshCw className="h-4 w-4 animate-spin" />Đang tải người dùng...</span> : "Không có người dùng phù hợp với bộ lọc."}</TableCell></TableRow>}
               </TableBody>
             </Table>
@@ -161,8 +178,15 @@ export default function UserManagement() {
 
       <Dialog open={Boolean(statusAction)} onOpenChange={(open) => { if (!open && !updating) setStatusAction(null); }}>
         <DialogContent className="max-w-md rounded-2xl">
-          <DialogHeader><div className={`mb-2 flex h-12 w-12 items-center justify-center rounded-2xl ${statusAction?.status === "BANNED" ? "bg-red-100 text-red-600" : "bg-emerald-100 text-emerald-600"}`}>{statusAction?.status === "BANNED" ? <Ban className="h-6 w-6" /> : <CheckCircle2 className="h-6 w-6" />}</div><DialogTitle>{statusAction?.status === "BANNED" ? "Khóa tài khoản người dùng?" : "Mở khóa tài khoản?"}</DialogTitle><DialogDescription>{statusAction?.status === "BANNED" ? `${statusAction.user.email} sẽ không thể đăng nhập cho đến khi được mở khóa.` : `${statusAction?.user.email} sẽ có thể đăng nhập và sử dụng NestBooking trở lại.`}</DialogDescription></DialogHeader>
+          <DialogHeader><div className={`mb-2 flex h-12 w-12 items-center justify-center rounded-2xl ${statusAction?.status === "BANNED" ? "bg-red-100 text-red-600" : "bg-sky-100 text-sky-600"}`}>{statusAction?.status === "BANNED" ? <Ban className="h-6 w-6" /> : <CheckCircle2 className="h-6 w-6" />}</div><DialogTitle>{statusAction?.status === "BANNED" ? "Khóa tài khoản người dùng?" : "Mở khóa tài khoản?"}</DialogTitle><DialogDescription>{statusAction?.status === "BANNED" ? `${statusAction.user.email} sẽ không thể đăng nhập cho đến khi được mở khóa.` : `${statusAction?.user.email} sẽ có thể đăng nhập và sử dụng NestBooking trở lại.`}</DialogDescription></DialogHeader>
           <DialogFooter className="mt-3 gap-2"><Button variant="outline" onClick={() => setStatusAction(null)} disabled={Boolean(updating)}>Hủy</Button><Button variant={statusAction?.status === "BANNED" ? "destructive" : "default"} onClick={() => void updateStatus()} disabled={Boolean(updating)}>{updating ? "Đang cập nhật..." : statusAction?.status === "BANNED" ? "Xác nhận khóa" : "Xác nhận mở khóa"}</Button></DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={Boolean(deleteAction)} onOpenChange={(open) => { if (!open && !updating) setDeleteAction(null); }}>
+        <DialogContent className="max-w-md rounded-2xl">
+          <DialogHeader><div className="mb-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-red-100 text-red-600"><Trash2 className="h-6 w-6" /></div><DialogTitle>Thu hồi / Xóa tài khoản?</DialogTitle><DialogDescription>Tài khoản {deleteAction?.email} sẽ bị thu hồi và xóa khỏi hệ thống. Thao tác này không thể hoàn tác.</DialogDescription></DialogHeader>
+          <DialogFooter className="mt-3 gap-2"><Button variant="outline" onClick={() => setDeleteAction(null)} disabled={Boolean(updating)}>Hủy</Button><Button variant="destructive" onClick={() => void handleDeleteUser()} disabled={Boolean(updating)}>{updating ? "Đang thu hồi..." : "Xác nhận thu hồi"}</Button></DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
@@ -175,8 +199,8 @@ function getInitials(user: AdminUser) {
   return name.split(/\s+/).slice(-2).map((part) => part.charAt(0).toUpperCase()).join("");
 }
 
-function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof UsersRound; label: string; value: number; hint: string; tone: "blue" | "emerald" | "red" | "violet" }) {
-  const tones = { blue: "bg-blue-50 text-blue-700", emerald: "bg-emerald-50 text-emerald-700", red: "bg-red-50 text-red-700", violet: "bg-violet-50 text-violet-700" };
+function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof UsersRound; label: string; value: number; hint: string; tone: "blue" | "sky" | "red" | "violet" }) {
+  const tones = { blue: "bg-blue-50 text-blue-700", sky: "bg-sky-50 text-sky-700", red: "bg-red-50 text-red-700", violet: "bg-violet-50 text-violet-700" };
   return <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800"><CardContent className="flex items-center gap-4 p-5"><div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${tones[tone]}`}><Icon className="h-5 w-5" /></div><div className="min-w-0"><div className="text-sm text-muted-foreground">{label}</div><div className="mt-0.5 text-2xl font-bold text-slate-900 dark:text-white">{value}</div><div className="truncate text-xs text-slate-400">{hint}</div></div></CardContent></Card>;
 }
 

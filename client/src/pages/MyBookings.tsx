@@ -41,12 +41,12 @@ const getStatusConfig = (t: any): Record<BookingStatus, { label: string; classNa
   CONFIRMED: { label: t("enums.BookingStatus.CONFIRMED"), className: "border-blue-200 bg-blue-50 text-blue-700", icon: CheckCircle2 },
   CHECKED_IN: { label: t("enums.BookingStatus.CHECKED_IN"), className: "border-indigo-200 bg-indigo-50 text-indigo-700", icon: MapPin },
   CANCELLED: { label: t("enums.BookingStatus.CANCELLED"), className: "border-red-200 bg-red-50 text-red-700", icon: XCircle },
-  COMPLETED: { label: t("enums.BookingStatus.COMPLETED"), className: "border-emerald-200 bg-emerald-50 text-emerald-700", icon: CalendarCheck2 },
+  COMPLETED: { label: t("enums.BookingStatus.COMPLETED"), className: "border-sky-200 bg-sky-50 text-sky-700", icon: CalendarCheck2 },
 });
 
 const getPaymentConfig = (t: any): Record<PaymentStatus, { label: string; className: string }> => ({
   UNPAID: { label: t("enums.PaymentStatus.UNPAID"), className: "bg-amber-50 text-amber-700" },
-  PAID: { label: t("enums.PaymentStatus.PAID"), className: "bg-emerald-50 text-emerald-700" },
+  PAID: { label: t("enums.PaymentStatus.PAID"), className: "bg-sky-50 text-sky-700" },
   REFUNDED: { label: t("enums.PaymentStatus.REFUNDED"), className: "bg-violet-50 text-violet-700" },
 });
 
@@ -113,7 +113,7 @@ export default function MyBookings() {
       <section className="relative overflow-hidden bg-[#05285d] py-12 text-white md:py-14"><div className="absolute inset-0"><div className="absolute -right-20 -top-32 h-80 w-80 rounded-full border border-white/10" /><div className="absolute right-20 top-4 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" /></div><div className="container relative"><div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end"><div><div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-cyan-300"><TicketCheck className="h-4 w-4" />{t("myBookings.travelDashboard")}</div><h1 className="text-3xl font-black tracking-tight md:text-4xl">{t("myBookings.title")}</h1><p className="mt-3 max-w-2xl text-sm leading-relaxed text-blue-100/70">{t("myBookings.subtitle")}</p></div><Button asChild className="w-fit rounded-xl bg-white font-bold text-[#05285d] hover:bg-blue-50"><Link to="/search">{t("myBookings.findNewTrip")}<ArrowRight className="ml-2 h-4 w-4" /></Link></Button></div></div></section>
 
       <div className="container relative -mt-5">
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"><StatCard icon={CalendarDays} label={t("myBookings.totalBookings")} value={bookings.length.toString()} hint={t("myBookings.totalBookingsHint")} tone="blue" /><StatCard icon={Clock3} label={t("myBookings.upcoming")} value={upcoming.toString()} hint={t("myBookings.upcomingHint")} tone="amber" /><StatCard icon={CalendarCheck2} label={t("myBookings.completed")} value={completed.toString()} hint={t("myBookings.completedHint")} tone="emerald" /><StatCard icon={Banknote} label={t("myBookings.totalPaid")} value={compactCurrency(paidAmount)} hint={t("myBookings.totalPaidHint")} tone="violet" /></div>
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4"><StatCard icon={CalendarDays} label={t("myBookings.totalBookings")} value={bookings.length.toString()} hint={t("myBookings.totalBookingsHint")} tone="blue" /><StatCard icon={Clock3} label={t("myBookings.upcoming")} value={upcoming.toString()} hint={t("myBookings.upcomingHint")} tone="amber" /><StatCard icon={CalendarCheck2} label={t("myBookings.completed")} value={completed.toString()} hint={t("myBookings.completedHint")} tone="sky" /><StatCard icon={Banknote} label={t("myBookings.totalPaid")} value={compactCurrency(paidAmount)} hint={t("myBookings.totalPaidHint")} tone="violet" /></div>
 
         <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"><div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div className="relative w-full sm:max-w-md"><Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><Input value={search} onChange={(event) => setSearch(event.target.value)} className="h-10 rounded-xl bg-slate-50 pl-10" placeholder={t("myBookings.searchPlaceholder")} /></div><div className="flex gap-2"><Select value={status} onValueChange={(value) => setStatus(value as BookingStatus | "ALL")}><SelectTrigger className="h-10 min-w-44 rounded-xl"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="ALL">{t("myBookings.allStatuses")}</SelectItem><SelectItem value="PENDING">{t("enums.BookingStatus.PENDING")}</SelectItem><SelectItem value="CONFIRMED">{t("enums.BookingStatus.CONFIRMED")}</SelectItem><SelectItem value="COMPLETED">{t("enums.BookingStatus.COMPLETED")}</SelectItem><SelectItem value="CANCELLED">{t("enums.BookingStatus.CANCELLED")}</SelectItem></SelectContent></Select><Button variant="outline" size="icon" aria-label={t("myBookings.refresh")} className="h-10 w-10 shrink-0 rounded-xl" onClick={() => void fetchBookings()} disabled={loading}><RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} /></Button></div></div></div>
 
@@ -145,8 +145,8 @@ function PaymentBadge({ status, t }: { status: PaymentStatus; t: any }) {
   return <span className={`inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-xs font-bold ${config.className}`}><WalletCards className="h-3.5 w-3.5" />{config.label}</span>;
 }
 
-function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof CalendarDays; label: string; value: string; hint: string; tone: "blue" | "amber" | "emerald" | "violet" }) {
-  const tones = { blue: "bg-blue-50 text-blue-700", amber: "bg-amber-50 text-amber-700", emerald: "bg-emerald-50 text-emerald-700", violet: "bg-violet-50 text-violet-700" };
+function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof CalendarDays; label: string; value: string; hint: string; tone: "blue" | "amber" | "sky" | "violet" }) {
+  const tones = { blue: "bg-blue-50 text-blue-700", amber: "bg-amber-50 text-amber-700", sky: "bg-sky-50 text-sky-700", violet: "bg-violet-50 text-violet-700" };
   return <Card className="border-0 shadow-sm ring-1 ring-slate-200/70"><CardContent className="flex items-center gap-4 p-5"><div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${tones[tone]}`}><Icon className="h-5 w-5" /></div><div className="min-w-0"><div className="text-sm text-slate-500">{label}</div><div className="mt-0.5 truncate text-2xl font-black text-slate-900">{value}</div><div className="truncate text-xs text-slate-400">{hint}</div></div></CardContent></Card>;
 }
 

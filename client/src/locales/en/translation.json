@@ -27,7 +27,11 @@
     "search": "Search",
     "popularSuggestions": "Popular suggestions:",
     "errLocation": "Please enter a destination",
-    "errDates": "Please select valid check-in and check-out dates"
+    "errDates": "Please select valid check-in and check-out dates",
+    "destinationPlaceholder": "City, hotel, destination...",
+    "destinationLabel": "Destination",
+    "destinationsHeader": "Destinations from NestBooking",
+    "noDestinationsFound": "No matching destinations. You can still search by hotel name or address."
   },
   "whyChooseUs": {
     "journey": "Booking Journey",

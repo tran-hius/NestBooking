@@ -58,9 +58,9 @@ const getIconForType = (type: string) => {
     case "SYSTEM_MAINTENANCE":
       return <Wrench className="h-5 w-5 text-purple-500" />;
     case "PAYMENT_SUCCESS":
-      return <CheckCircle2 className="h-5 w-5 text-emerald-500" />;
+      return <CheckCircle2 className="h-5 w-5 text-sky-500" />;
     case "PARTNER_APPROVED":
-      return <Check className="h-5 w-5 text-emerald-500" />;
+      return <Check className="h-5 w-5 text-sky-500" />;
     default:
       return <Clock className="h-5 w-5 text-slate-500" />;
   }

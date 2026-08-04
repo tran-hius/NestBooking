@@ -40,11 +40,11 @@ const bookingStatus: Record<BookingStatus, { label: string; color: string; class
   CONFIRMED: { label: "Đã xác nhận", color: "#2563eb", className: "bg-blue-100 text-blue-700 hover:bg-blue-100 dark:bg-blue-950/50 dark:text-blue-300" },
   CHECKED_IN: { label: "Đang lưu trú", color: "#6366f1", className: "bg-indigo-100 text-indigo-700 hover:bg-indigo-100 dark:bg-indigo-950/50 dark:text-indigo-300" },
   CANCELLED: { label: "Đã hủy", color: "#ef4444", className: "bg-red-100 text-red-700 hover:bg-red-100 dark:bg-red-950/50 dark:text-red-300" },
-  COMPLETED: { label: "Hoàn thành", color: "#10b981", className: "bg-emerald-100 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300" },
+  COMPLETED: { label: "Hoàn thành", color: "#0ea5e9", className: "bg-sky-100 text-sky-700 hover:bg-sky-100 dark:bg-sky-950/50 dark:text-cyan-300" },
 };
 
 const hotelStatus: Record<string, { label: string; className: string }> = {
-  ACTIVE: { label: "Đang hoạt động", className: "bg-emerald-100 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300" },
+  ACTIVE: { label: "Đang hoạt động", className: "bg-sky-100 text-sky-700 hover:bg-sky-100 dark:bg-sky-950/50 dark:text-cyan-300" },
   PENDING: { label: "Chờ duyệt", className: "bg-amber-100 text-amber-700 hover:bg-amber-100 dark:bg-amber-950/50 dark:text-amber-300" },
   INACTIVE: { label: "Tạm ngưng", className: "bg-slate-100 text-slate-600 hover:bg-slate-100 dark:bg-zinc-800 dark:text-zinc-300" },
   REJECTED: { label: "Bị từ chối", className: "bg-red-100 text-red-700 hover:bg-red-100 dark:bg-red-950/50 dark:text-red-300" },
@@ -148,15 +148,15 @@ export default function AgentDashboard() {
         </div>
       )}
 
-      <section className="relative overflow-hidden rounded-[28px] bg-[#063a55] px-6 py-7 text-white shadow-[0_18px_50px_rgba(6,58,85,0.22)] md:px-8 md:py-9">
-        <div className="absolute -right-16 -top-24 h-80 w-80 rounded-full bg-emerald-400/20 blur-3xl" />
+      <section className="relative overflow-hidden rounded-[28px] bg-[#051f46] px-6 py-7 text-white shadow-[0_18px_50px_rgba(5,31,70,0.25)] md:px-8 md:py-9">
+        <div className="absolute -right-16 -top-24 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
         <div className="absolute bottom-0 right-1/3 h-44 w-44 rounded-full bg-cyan-300/10 blur-3xl" />
         <div className="relative flex flex-col justify-between gap-8 xl:flex-row xl:items-end">
           <div className="max-w-2xl">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100"><TrendingUp className="h-4 w-4" />Partner performance</div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-sky-100"><TrendingUp className="h-4 w-4" />Partner performance</div>
             <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{greeting}, {displayName}</h1>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-cyan-50/80 md:text-base">Theo dõi booking, doanh thu và lịch khách đến của toàn bộ chỗ nghỉ trong một màn hình vận hành.</p>
-            <div className="mt-6 flex flex-wrap gap-2.5"><Button asChild className="rounded-xl bg-emerald-400 font-bold text-emerald-950 hover:bg-emerald-300"><Link to="/partner/bookings">Xử lý booking<ArrowRight className="ml-1.5 h-4 w-4" /></Link></Button><Button variant="outline" asChild className="rounded-xl border-white/20 bg-white/10 text-white hover:bg-white/15 hover:text-white"><Link to="/partner/property-type"><Plus className="mr-1.5 h-4 w-4" />Thêm chỗ nghỉ</Link></Button></div>
+            <div className="mt-6 flex flex-wrap gap-2.5"><Button asChild className="rounded-xl bg-cyan-400 font-bold text-slate-950 hover:bg-cyan-300"><Link to="/partner/bookings">Xử lý booking<ArrowRight className="ml-1.5 h-4 w-4" /></Link></Button><Button variant="outline" asChild className="rounded-xl border-white/20 bg-white/10 text-white hover:bg-white/15 hover:text-white"><Link to="/partner/property-type"><Plus className="mr-1.5 h-4 w-4" />Thêm chỗ nghỉ</Link></Button></div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 xl:w-[430px]">
             <HeroMetric label="Doanh thu đã thanh toán" value={currency.format(paidRevenue)} hint={`${currency.format(completedRevenue)} từ booking hoàn thành`} />
@@ -175,22 +175,22 @@ export default function AgentDashboard() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard icon={CalendarCheck} label="Tổng booking" value={bookings.length.toLocaleString("vi-VN")} detail={`${confirmedBookings} booking đã xác nhận`} tone="blue" progress={bookings.length ? confirmedBookings / bookings.length * 100 : 0} />
         <KpiCard icon={Clock3} label="Chờ xác nhận" value={pendingBookings.toLocaleString("vi-VN")} detail={pendingBookings ? "Cần phản hồi khách sớm" : "Không có booking tồn đọng"} tone="amber" progress={bookings.length ? pendingBookings / bookings.length * 100 : 0} />
-        <KpiCard icon={CheckCircle2} label="Tỷ lệ hoàn thành" value={`${completionRate}%`} detail={`${completedBookings} booking đã hoàn tất`} tone="emerald" progress={completionRate} />
+        <KpiCard icon={CheckCircle2} label="Tỷ lệ hoàn thành" value={`${completionRate}%`} detail={`${completedBookings} booking đã hoàn tất`} tone="sky" progress={completionRate} />
         <KpiCard icon={Building2} label="Chỗ nghỉ hoạt động" value={activeHotels.toLocaleString("vi-VN")} detail={`${hotels.length} chỗ nghỉ đang quản lý`} tone="violet" progress={hotels.length ? activeHotels / hotels.length * 100 : 0} />
       </div>
 
       <div className="grid gap-5 xl:grid-cols-[1.55fr_1fr]">
         <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800">
-          <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2"><div><CardTitle className="text-lg">Booking trong 7 ngày</CardTitle><p className="mt-1 text-sm text-muted-foreground">Số booking mới được tạo theo ngày</p></div><Badge variant="outline" className="border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-300">{bookings.length} tổng cộng</Badge></CardHeader>
+          <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2"><div><CardTitle className="text-lg">Booking trong 7 ngày</CardTitle><p className="mt-1 text-sm text-muted-foreground">Số booking mới được tạo theo ngày</p></div><Badge variant="outline" className="border-sky-200 bg-sky-50 text-sky-700 dark:border-sky-900 dark:bg-sky-950/40 dark:text-cyan-300">{bookings.length} tổng cộng</Badge></CardHeader>
           <CardContent className="pt-4">
             <div className="h-[290px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={bookingTrend} margin={{ top: 10, right: 8, left: -24, bottom: 0 }}>
-                  <defs><linearGradient id="partnerBookingBars" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#059669" /><stop offset="100%" stopColor="#22d3ee" /></linearGradient></defs>
+                  <defs><linearGradient id="partnerBookingBars" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#0284c7" /><stop offset="100%" stopColor="#22d3ee" /></linearGradient></defs>
                   <CartesianGrid vertical={false} strokeDasharray="4 4" stroke="#e2e8f0" />
                   <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
                   <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: "#64748b", fontSize: 12 }} />
-                  <Tooltip cursor={{ fill: "#ecfdf5" }} contentStyle={{ borderRadius: 12, border: "1px solid #d1fae5", boxShadow: "0 10px 30px rgba(15,23,42,.08)" }} formatter={(value) => [`${value} booking`, "Số lượng"]} />
+                  <Tooltip cursor={{ fill: "#f0f9ff" }} contentStyle={{ borderRadius: 12, border: "1px solid #bae6fd", boxShadow: "0 10px 30px rgba(15,23,42,.08)" }} formatter={(value) => [`${value} booking`, "Số lượng"]} />
                   <Bar dataKey="bookings" fill="url(#partnerBookingBars)" radius={[8, 8, 2, 2]} maxBarSize={42} />
                 </BarChart>
               </ResponsiveContainer>
@@ -214,12 +214,12 @@ export default function AgentDashboard() {
         <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0"><div><CardTitle className="text-lg">Booking mới nhất</CardTitle><p className="mt-1 text-sm text-muted-foreground">Hoạt động gần đây tại tất cả chỗ nghỉ</p></div><Button variant="ghost" size="sm" asChild><Link to="/partner/bookings">Xem tất cả<ArrowRight className="ml-1 h-4 w-4" /></Link></Button></CardHeader>
           <CardContent className="px-0 pb-2">
-            {recentBookings.length ? <div className="divide-y divide-slate-100 dark:divide-zinc-800">{recentBookings.map((booking) => <Link key={booking.id} to={`/partner/bookings?hotelId=${booking.hotelId}`} className="grid gap-3 px-6 py-4 transition-colors hover:bg-slate-50/80 sm:grid-cols-[1fr_auto] sm:items-center dark:hover:bg-zinc-900"><div className="flex min-w-0 items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-sm font-bold text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300">{booking.guestName.charAt(0).toUpperCase()}</div><div className="min-w-0"><div className="truncate font-semibold text-slate-900 dark:text-white">{booking.guestName}</div><div className="truncate text-xs text-muted-foreground">{booking.bookingCode} · {booking.hotel?.name || hotelName(hotels, booking.hotelId)}</div></div></div><div className="flex items-center justify-between gap-4 sm:justify-end"><div className="text-right"><div className="font-semibold text-slate-800 dark:text-zinc-100">{currency.format(Number(booking.totalAmount))}</div><div className="text-xs text-muted-foreground">{booking.createdAt ? shortDate.format(new Date(booking.createdAt)) : ""}</div></div><Badge className={bookingStatus[booking.status].className}>{bookingStatus[booking.status].label}</Badge></div></Link>)}</div> : <EmptyState icon={CalendarCheck} title="Chưa có booking" description="Booking mới sẽ xuất hiện tại đây khi khách đặt phòng." />}
+            {recentBookings.length ? <div className="divide-y divide-slate-100 dark:divide-zinc-800">{recentBookings.map((booking) => <Link key={booking.id} to={`/partner/bookings?hotelId=${booking.hotelId}`} className="grid gap-3 px-6 py-4 transition-colors hover:bg-slate-50/80 sm:grid-cols-[1fr_auto] sm:items-center dark:hover:bg-zinc-900"><div className="flex min-w-0 items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sm font-bold text-sky-700 dark:bg-sky-950/50 dark:text-cyan-300">{booking.guestName.charAt(0).toUpperCase()}</div><div className="min-w-0"><div className="truncate font-semibold text-slate-900 dark:text-white">{booking.guestName}</div><div className="truncate text-xs text-muted-foreground">{booking.bookingCode} · {booking.hotel?.name || hotelName(hotels, booking.hotelId)}</div></div></div><div className="flex items-center justify-between gap-4 sm:justify-end"><div className="text-right"><div className="font-semibold text-slate-800 dark:text-zinc-100">{currency.format(Number(booking.totalAmount))}</div><div className="text-xs text-muted-foreground">{booking.createdAt ? shortDate.format(new Date(booking.createdAt)) : ""}</div></div><Badge className={bookingStatus[booking.status].className}>{bookingStatus[booking.status].label}</Badge></div></Link>)}</div> : <EmptyState icon={CalendarCheck} title="Chưa có booking" description="Booking mới sẽ xuất hiện tại đây khi khách đặt phòng." />}
           </CardContent>
         </Card>
 
         <div className="space-y-5">
-          <Card className="border-0 bg-[#075d65] text-white shadow-sm">
+          <Card className="border-0 bg-[#051f46] text-white shadow-sm">
             <CardHeader><CardTitle className="flex items-center gap-2 text-lg"><CalendarClock className="h-5 w-5 text-cyan-300" />Lịch khách sắp tới</CardTitle><p className="text-sm text-cyan-50/70">Các lượt nhận phòng gần nhất</p></CardHeader>
             <CardContent className="space-y-2.5">{upcomingStays.length ? upcomingStays.map((booking) => <Link key={booking.id} to={`/partner/bookings?hotelId=${booking.hotelId}`} className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/10 p-3 transition-colors hover:bg-white/15"><div className="min-w-0"><div className="truncate text-sm font-semibold">{booking.guestName}</div><div className="mt-0.5 truncate text-xs text-cyan-50/70">{booking.hotel?.name || hotelName(hotels, booking.hotelId)}</div></div><div className="shrink-0 text-right"><div className="text-sm font-bold">{shortDate.format(new Date(booking.checkInDate))}</div><div className="text-[11px] text-cyan-100/70">{booking.quantity} phòng</div></div></Link>) : <p className="rounded-xl border border-white/10 bg-white/5 px-4 py-8 text-center text-sm text-cyan-50/70">Chưa có lịch nhận phòng sắp tới.</p>}<Button variant="ghost" asChild className="mt-1 w-full text-cyan-50 hover:bg-white/10 hover:text-white"><Link to="/partner/bookings">Mở lịch đặt phòng<ArrowRight className="ml-1.5 h-4 w-4" /></Link></Button></CardContent>
           </Card>
@@ -251,9 +251,9 @@ function HeroMetric({ label, value, hint, accent = false }: { label: string; val
   return <div className={`rounded-2xl border p-4 backdrop-blur ${accent ? "border-amber-300/30 bg-amber-300/10" : "border-white/15 bg-white/10"}`}><div className="text-xs font-medium text-cyan-50/75">{label}</div><div className="mt-1 truncate text-2xl font-bold">{value}</div><div className="mt-1 text-xs text-cyan-100/70">{hint}</div></div>;
 }
 
-function KpiCard({ icon: Icon, label, value, detail, tone, progress }: { icon: LucideIcon; label: string; value: string; detail: string; tone: "blue" | "amber" | "emerald" | "violet"; progress: number }) {
-  const tones = { blue: "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300", amber: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300", emerald: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300", violet: "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300" };
-  const bars = { blue: "bg-blue-600", amber: "bg-amber-500", emerald: "bg-emerald-500", violet: "bg-violet-500" };
+function KpiCard({ icon: Icon, label, value, detail, tone, progress }: { icon: LucideIcon; label: string; value: string; detail: string; tone: "blue" | "amber" | "sky" | "violet"; progress: number }) {
+  const tones = { blue: "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300", amber: "bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300", sky: "bg-sky-50 text-sky-700 dark:bg-sky-950/50 dark:text-cyan-300", violet: "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300" };
+  const bars = { blue: "bg-blue-600", amber: "bg-amber-500", sky: "bg-sky-500", violet: "bg-violet-500" };
   return <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 transition-all hover:-translate-y-0.5 hover:shadow-md dark:ring-zinc-800"><CardContent className="p-5"><div className="flex items-start justify-between gap-3"><div><div className="text-sm font-medium text-slate-500">{label}</div><div className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{value}</div></div><div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${tones[tone]}`}><Icon className="h-5 w-5" /></div></div><div className="mt-4 text-xs text-muted-foreground">{detail}</div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${bars[tone]}`} style={{ width: `${Math.min(100, progress)}%` }} /></div></CardContent></Card>;
 }
 

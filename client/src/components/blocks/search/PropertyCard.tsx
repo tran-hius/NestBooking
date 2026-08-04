@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { ArrowRight, BedDouble, Check, Heart, MapPin, Star, ThumbsUp } from "lucide-react";
+import { ArrowRight, Check, Heart, Star, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { differenceInDays, parseISO } from "date-fns";

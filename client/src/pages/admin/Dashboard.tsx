@@ -46,7 +46,7 @@ const bookingStatus = {
   CONFIRMED: { label: "Đã xác nhận", color: "#2563eb", className: "bg-blue-100 text-blue-700" },
   CHECKED_IN: { label: "Đang lưu trú", color: "#6366f1", className: "bg-indigo-100 text-indigo-700" },
   CANCELLED: { label: "Đã hủy", color: "#ef4444", className: "bg-red-100 text-red-700" },
-  COMPLETED: { label: "Hoàn thành", color: "#10b981", className: "bg-emerald-100 text-emerald-700" },
+  COMPLETED: { label: "Hoàn thành", color: "#0ea5e9", className: "bg-sky-100 text-sky-700" },
 } as const;
 
 const currency = new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 });
@@ -147,7 +147,7 @@ export default function Dashboard() {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <KpiCard icon={CalendarCheck} label="Tổng booking" value={bookings.length.toLocaleString("vi-VN")} detail={`${confirmedBookings} booking đang xác nhận`} tone="blue" progress={bookings.length ? confirmedBookings / bookings.length * 100 : 0} />
-        <KpiCard icon={CheckCircle2} label="Tỷ lệ hoàn thành" value={`${completionRate}%`} detail={`${bookings.filter((booking) => booking.status === "COMPLETED").length} booking hoàn tất`} tone="emerald" progress={completionRate} />
+        <KpiCard icon={CheckCircle2} label="Tỷ lệ hoàn thành" value={`${completionRate}%`} detail={`${bookings.filter((booking) => booking.status === "COMPLETED").length} booking hoàn tất`} tone="sky" progress={completionRate} />
         <KpiCard icon={Building2} label="Chỗ nghỉ hoạt động" value={activeHotels.toLocaleString("vi-VN")} detail={`${pendingHotels.length} hồ sơ chờ duyệt`} tone="violet" progress={hotels.length ? activeHotels / hotels.length * 100 : 0} />
         <KpiCard icon={UsersRound} label="Khách hàng" value={customers.length.toLocaleString("vi-VN")} detail={`${agents.length} tài khoản đối tác`} tone="orange" progress={users.length ? customers.length / users.length * 100 : 0} />
       </div>
@@ -217,9 +217,9 @@ function HeroMetric({ label, value, hint, accent = false }: { label: string; val
   return <div className={`rounded-2xl border p-4 backdrop-blur ${accent ? "border-amber-300/30 bg-amber-300/10" : "border-white/15 bg-white/10"}`}><div className="text-xs font-medium text-blue-100">{label}</div><div className="mt-1 truncate text-2xl font-bold">{value}</div><div className="mt-1 text-xs text-blue-200">{hint}</div></div>;
 }
 
-function KpiCard({ icon: Icon, label, value, detail, tone, progress }: { icon: typeof CalendarCheck; label: string; value: string; detail: string; tone: "blue" | "emerald" | "violet" | "orange"; progress: number }) {
-  const tones = { blue: "bg-blue-50 text-blue-700", emerald: "bg-emerald-50 text-emerald-700", violet: "bg-violet-50 text-violet-700", orange: "bg-orange-50 text-orange-700" };
-  const bars = { blue: "bg-blue-600", emerald: "bg-emerald-500", violet: "bg-violet-500", orange: "bg-orange-500" };
+function KpiCard({ icon: Icon, label, value, detail, tone, progress }: { icon: typeof CalendarCheck; label: string; value: string; detail: string; tone: "blue" | "sky" | "violet" | "orange"; progress: number }) {
+  const tones = { blue: "bg-blue-50 text-blue-700", sky: "bg-sky-50 text-sky-700", violet: "bg-violet-50 text-violet-700", orange: "bg-orange-50 text-orange-700" };
+  const bars = { blue: "bg-blue-600", sky: "bg-sky-500", violet: "bg-violet-500", orange: "bg-orange-500" };
   return <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 transition-all hover:-translate-y-0.5 hover:shadow-md dark:ring-zinc-800"><CardContent className="p-5"><div className="flex items-start justify-between"><div><div className="text-sm font-medium text-slate-500">{label}</div><div className="mt-2 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">{value}</div></div><div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${tones[tone]}`}><Icon className="h-5 w-5" /></div></div><div className="mt-4 text-xs text-muted-foreground">{detail}</div><div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${bars[tone]}`} style={{ width: `${Math.min(100, progress)}%` }} /></div></CardContent></Card>;
 }
 

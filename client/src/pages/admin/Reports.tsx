@@ -124,7 +124,7 @@ export default function Reports() {
                     {format(report.createdAt, "dd/MM/yyyy HH:mm")}
                   </TableCell>
                   <TableCell>
-                    {report.status === "RESOLVED" && <Badge className="bg-emerald-500 hover:bg-emerald-600">Đã giải quyết</Badge>}
+                    {report.status === "RESOLVED" && <Badge className="bg-sky-500 hover:bg-sky-600">Đã giải quyết</Badge>}
                     {report.status === "PENDING" && <Badge className="bg-amber-500 hover:bg-amber-600">Đang chờ xử lý</Badge>}
                     {report.status === "REJECTED" && <Badge variant="secondary" className="bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300">Từ chối</Badge>}
                   </TableCell>
@@ -146,7 +146,7 @@ export default function Reports() {
                         {report.status === "PENDING" && (
                           <>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem className="cursor-pointer text-emerald-600 focus:text-emerald-600">
+                            <DropdownMenuItem className="cursor-pointer text-sky-600 focus:text-sky-600">
                               <CheckCircle className="mr-2 h-4 w-4" />
                               <span>Đánh dấu Đã giải quyết</span>
                             </DropdownMenuItem>

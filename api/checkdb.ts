@@ -1,1 +1,0 @@
-import { PrismaClient } from './prisma/generated/prisma'; const prisma = new PrismaClient(); async function main() { const br = await prisma.bookingRoom.findMany(); console.log('BookingRoom count:', br.length); const bookings = await prisma.booking.findMany(); console.log('Booking count:', bookings.length); } main().catch(console.error).finally(() => prisma.$disconnect());

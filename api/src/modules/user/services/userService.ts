@@ -200,6 +200,11 @@ export class UserService implements IUserService {
 
     if (status === UserStatus.ACTIVE) {
       await this.userRepository.resetLoginAttempts(userId, tx);
+    } else if (([UserStatus.BANNED, UserStatus.REJECTED, UserStatus.INACTIVE] as UserStatus[]).includes(status)) {
+      await prisma.refreshToken.updateMany({
+        where: { userId, revokedAt: null },
+        data: { revokedAt: new Date(), revokeReason: "ADMIN_STATUS_CHANGE" },
+      });
     }
 
     await UserCacheHelper.clearUserCache(userId, user.email);
@@ -237,6 +242,11 @@ export class UserService implements IUserService {
     logger.warn(`Thực hiện xóa mềm tài khoản ID: ${userId}`);
     const user = await this.userRepository.findById(userId, tx);
     if (!user) throw new NotFoundError("Không tìm thấy tài khoản để xóa.");
+
+    await prisma.refreshToken.updateMany({
+      where: { userId, revokedAt: null },
+      data: { revokedAt: new Date(), revokeReason: "ADMIN_SOFT_DELETE" },
+    });
 
     await UserCacheHelper.clearUserCache(userId, user.email);
     await this.userRepository.delete(userId);

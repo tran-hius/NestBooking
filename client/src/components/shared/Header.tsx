@@ -64,7 +64,7 @@ export default function Header() {
     <header className={headerClass}>
       <div className="container flex h-[72px] items-center justify-between gap-4">
         <Link to="/" className="flex min-w-0 items-center gap-2.5 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-primary">
-          <span className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-lg ${isHome ? "bg-white text-primary" : "bg-gradient-to-br from-cyan-400 to-blue-600 text-white"}`}><MapPin className="h-5 w-5" /><span className={`absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full ${isHome ? "bg-emerald-500" : "border border-blue-600 bg-emerald-300"}`} /></span>
+          <span className={`relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl shadow-lg ${isHome ? "bg-white text-primary" : "bg-gradient-to-br from-cyan-400 to-blue-600 text-white"}`}><MapPin className="h-5 w-5" /><span className={`absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full ${isHome ? "bg-sky-500" : "border border-blue-600 bg-cyan-300"}`} /></span>
           <span className="truncate text-xl font-black tracking-tight sm:text-2xl">NestBooking</span>
         </Link>
 

@@ -2,6 +2,7 @@ import { destinationService, Destination } from "@/api/services/destinationServi
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { LoaderCircle, MapPin } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface LocationInputProps {
   value: string;
@@ -23,6 +24,7 @@ export default function LocationInput({
   inputClassName = "",
   iconClassName = "text-muted-foreground",
 }: LocationInputProps) {
+  const { t } = useTranslation();
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -61,10 +63,10 @@ export default function LocationInput({
           }
           if (event.key === "Escape") setIsOpen(false);
         }}
-        aria-label="Điểm đến"
+        aria-label={t("heroSearch.destinationLabel")}
         aria-autocomplete="list"
         aria-expanded={isOpen}
-        placeholder="Thành phố, khách sạn, điểm đến"
+        placeholder={t("heroSearch.destinationPlaceholder")}
         className={`w-full bg-transparent outline-none ${inputClassName}`}
       />
       {isLoading && <LoaderCircle className="h-4 w-4 shrink-0 animate-spin text-slate-400" />}
@@ -72,7 +74,7 @@ export default function LocationInput({
       {isOpen && !isLoading && (
         <div className="absolute left-0 top-full z-[70] mt-2 max-h-80 w-full min-w-[280px] overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 shadow-2xl">
           <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
-            Điểm đến từ NestBooking
+            {t("heroSearch.destinationsHeader")}
           </p>
           {suggestions.length > 0 ? suggestions.map((destination) => (
             <button
@@ -93,7 +95,7 @@ export default function LocationInput({
             </button>
           )) : (
             <p className="px-3 py-4 text-sm text-slate-500">
-              Không có điểm đến phù hợp. Bạn vẫn có thể tìm theo tên khách sạn hoặc địa chỉ.
+              {t("heroSearch.noDestinationsFound")}
             </p>
           )}
         </div>

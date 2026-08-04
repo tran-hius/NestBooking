@@ -62,7 +62,7 @@ export default function Auth() {
       setToken(accessToken);
       if (user) setUser(user);
       toast.success(t("auth.successLogin"));
-      navigate(redirect, { replace: true });
+      navigate(redirect, { state: location.state, replace: true });
     } catch (error: any) {
       toast.error(error.response?.data?.message || t("auth.errLogin"));
     } finally {

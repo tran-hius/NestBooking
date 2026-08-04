@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Building2, Search, SlidersHorizontal } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import PropertyCard from "./PropertyCard";
 import PropertyCardSkeleton from "./PropertyCardSkeleton";
 import { useSearchHotels } from "@/hooks/useSearchHotels";
-import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTranslation } from "react-i18next";
 

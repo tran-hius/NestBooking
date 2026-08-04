@@ -148,6 +148,7 @@ export interface SearchHotel {
   rating: number;
   address: string;
   city: string;
+  propertyType: string;
   amenities: string[];
   images: string[];
   startingPrice: number;

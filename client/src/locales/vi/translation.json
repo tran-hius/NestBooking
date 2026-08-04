@@ -27,7 +27,11 @@
     "search": "Tìm kiếm",
     "popularSuggestions": "Gợi ý phổ biến:",
     "errLocation": "Vui lòng nhập điểm đến",
-    "errDates": "Vui lòng chọn ngày nhận và trả phòng hợp lệ"
+    "errDates": "Vui lòng chọn ngày nhận và trả phòng hợp lệ",
+    "destinationPlaceholder": "Thành phố, khách sạn, điểm đến...",
+    "destinationLabel": "Điểm đến",
+    "destinationsHeader": "Điểm đến từ NestBooking",
+    "noDestinationsFound": "Không có điểm đến phù hợp. Bạn vẫn có thể tìm theo tên khách sạn hoặc địa chỉ."
   },
   "whyChooseUs": {
     "journey": "Hành trình đặt phòng",

@@ -65,7 +65,7 @@ export function AdminSidebar() {
         <Link to="/admin/dashboard" onClick={closeMobile} className="flex min-w-0 items-center gap-3 rounded-xl px-1 text-white outline-none focus-visible:ring-2 focus-visible:ring-blue-300 group-data-[collapsible=icon]:justify-center">
           <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 shadow-lg shadow-blue-950/40 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:rounded-lg">
             <span className="text-lg font-black tracking-tighter text-white">N</span>
-            <span className="absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full border border-blue-600 bg-emerald-400" />
+            <span className="absolute bottom-1 right-1 h-1.5 w-1.5 rounded-full border border-blue-600 bg-cyan-400" />
           </span>
           <span className="min-w-0 group-data-[collapsible=icon]:hidden">
             <span className="block text-[17px] font-bold tracking-tight">NestBooking</span>
@@ -112,9 +112,9 @@ export function AdminSidebar() {
       <SidebarFooter className="border-t border-white/10 bg-[#051f46] p-3 group-data-[collapsible=icon]:p-2">
         <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:bg-transparent group-data-[collapsible=icon]:p-1">
           <div className="flex items-center gap-2.5">
-            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:rounded-lg">
+            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300 group-data-[collapsible=icon]:h-8 group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:rounded-lg">
               <ShieldCheck className="h-4 w-4" />
-              <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#082653] bg-emerald-400" />
+              <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full border-2 border-[#082653] bg-cyan-400" />
             </span>
             <span className="min-w-0 group-data-[collapsible=icon]:hidden">
               <span className="block text-xs font-semibold text-white">Hệ thống ổn định</span>

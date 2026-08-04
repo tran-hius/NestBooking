@@ -45,7 +45,7 @@ interface HotelOwner {
 
 const statusConfig: Record<HotelStatus, { label: string; className: string; dot: string }> = {
   PENDING: { label: "Chờ duyệt", className: "border-amber-200 bg-amber-50 text-amber-700", dot: "bg-amber-500" },
-  ACTIVE: { label: "Hoạt động", className: "border-emerald-200 bg-emerald-50 text-emerald-700", dot: "bg-emerald-500" },
+  ACTIVE: { label: "Hoạt động", className: "border-sky-200 bg-sky-50 text-sky-700", dot: "bg-sky-500" },
   INACTIVE: { label: "Đã ẩn", className: "border-slate-200 bg-slate-100 text-slate-700", dot: "bg-slate-500" },
   REJECTED: { label: "Đã từ chối", className: "border-red-200 bg-red-50 text-red-700", dot: "bg-red-500" },
 };
@@ -149,7 +149,7 @@ export default function Hotels() {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard icon={Clock3} label="Chờ kiểm duyệt" value={pendingHotels} hint="Ưu tiên xử lý trước" tone="amber" />
-        <StatCard icon={CheckCircle2} label="Đang hoạt động" value={activeHotels} hint={`${hotels.length ? Math.round(activeHotels / hotels.length * 100) : 0}% tổng chỗ nghỉ`} tone="emerald" />
+        <StatCard icon={CheckCircle2} label="Đang hoạt động" value={activeHotels} hint={`${hotels.length ? Math.round(activeHotels / hotels.length * 100) : 0}% tổng chỗ nghỉ`} tone="sky" />
         <StatCard icon={EyeOff} label="Đang ẩn" value={hiddenHotels} hint="Không hiển thị công khai" tone="slate" />
         <StatCard icon={XCircle} label="Đã từ chối" value={rejectedHotels} hint="Hồ sơ chưa đạt yêu cầu" tone="red" />
       </div>
@@ -215,11 +215,11 @@ export default function Hotels() {
 }
 
 function HotelActions({ hotel, updating, onView, onAction }: { hotel: Hotel; updating: string | null; onView: (hotel: Hotel) => void; onAction: (status: HotelStatus) => void }) {
-  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(hotel)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{hotel.status === "PENDING" && <><Button size="sm" className="h-8 gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Duyệt</Button><Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("REJECTED")}><XCircle className="h-3.5 w-3.5" />Từ chối</Button></>}{hotel.status === "ACTIVE" && <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("INACTIVE")}><EyeOff className="h-3.5 w-3.5" />Ẩn</Button>}{["INACTIVE", "REJECTED"].includes(hotel.status) && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
+  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(hotel)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{hotel.status === "PENDING" && <><Button size="sm" className="h-8 gap-1.5 rounded-lg bg-sky-600 hover:bg-sky-700" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Duyệt</Button><Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("REJECTED")}><XCircle className="h-3.5 w-3.5" />Từ chối</Button></>}{hotel.status === "ACTIVE" && <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("INACTIVE")}><EyeOff className="h-3.5 w-3.5" />Ẩn</Button>}{["INACTIVE", "REJECTED"].includes(hotel.status) && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
 }
 
 function ModalActions({ hotel, updating, onAction }: { hotel: Hotel; updating: string | null; onAction: (status: HotelStatus) => void }) {
-  if (hotel.status === "PENDING") return <><Button variant="destructive" disabled={updating === hotel.id} onClick={() => onAction("REJECTED")}><XCircle className="mr-2 h-4 w-4" />Từ chối</Button><Button className="bg-emerald-600 hover:bg-emerald-700" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="mr-2 h-4 w-4" />Phê duyệt</Button></>;
+  if (hotel.status === "PENDING") return <><Button variant="destructive" disabled={updating === hotel.id} onClick={() => onAction("REJECTED")}><XCircle className="mr-2 h-4 w-4" />Từ chối</Button><Button className="bg-sky-600 hover:bg-sky-700" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="mr-2 h-4 w-4" />Phê duyệt</Button></>;
   if (hotel.status === "ACTIVE") return <Button variant="outline" disabled={updating === hotel.id} onClick={() => onAction("INACTIVE")}><EyeOff className="mr-2 h-4 w-4" />Ẩn chỗ nghỉ</Button>;
   return <Button disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="mr-2 h-4 w-4" />Kích hoạt lại</Button>;
 }
@@ -239,7 +239,7 @@ function StatusBadge({ status }: { status: HotelStatus }) {
 }
 
 function ProfileProgress({ percent }: { percent: number }) {
-  return <div className="w-32"><div className="mb-1.5 flex justify-between text-xs"><span className="text-muted-foreground">Hoàn thiện</span><span className="font-semibold">{percent}%</span></div><div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${percent >= 85 ? "bg-emerald-500" : percent >= 60 ? "bg-blue-500" : "bg-amber-500"}`} style={{ width: `${percent}%` }} /></div></div>;
+  return <div className="w-32"><div className="mb-1.5 flex justify-between text-xs"><span className="text-muted-foreground">Hoàn thiện</span><span className="font-semibold">{percent}%</span></div><div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${percent >= 85 ? "bg-sky-500" : percent >= 60 ? "bg-blue-500" : "bg-amber-500"}`} style={{ width: `${percent}%` }} /></div></div>;
 }
 
 function getCompleteness(hotel: Hotel) {
@@ -247,8 +247,8 @@ function getCompleteness(hotel: Hotel) {
   return Math.round(fields.filter(Boolean).length / fields.length * 100);
 }
 
-function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof Clock3; label: string; value: number; hint: string; tone: "amber" | "emerald" | "slate" | "red" }) {
-  const tones = { amber: "bg-amber-50 text-amber-700", emerald: "bg-emerald-50 text-emerald-700", slate: "bg-slate-100 text-slate-700", red: "bg-red-50 text-red-700" };
+function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof Clock3; label: string; value: number; hint: string; tone: "amber" | "sky" | "slate" | "red" }) {
+  const tones = { amber: "bg-amber-50 text-amber-700", sky: "bg-sky-50 text-sky-700", slate: "bg-slate-100 text-slate-700", red: "bg-red-50 text-red-700" };
   return <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800"><CardContent className="flex items-center gap-4 p-5"><div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${tones[tone]}`}><Icon className="h-5 w-5" /></div><div className="min-w-0"><div className="text-sm text-muted-foreground">{label}</div><div className="mt-0.5 text-2xl font-bold text-slate-900 dark:text-white">{value}</div><div className="truncate text-xs text-slate-400">{hint}</div></div></CardContent></Card>;
 }
 
@@ -269,5 +269,5 @@ function getActionIcon(status: HotelStatus) {
 function getActionCopy(status: HotelStatus) {
   if (status === "REJECTED") return { title: "Từ chối chỗ nghỉ?", confirm: "Xác nhận từ chối", success: "Đã từ chối chỗ nghỉ", iconClass: "bg-red-100 text-red-600", description: (name: string) => `${name} sẽ không được hiển thị công khai và được đánh dấu là chưa đạt yêu cầu.` };
   if (status === "INACTIVE") return { title: "Ẩn chỗ nghỉ?", confirm: "Xác nhận ẩn", success: "Đã ẩn chỗ nghỉ", iconClass: "bg-slate-100 text-slate-600", description: (name: string) => `${name} sẽ bị gỡ khỏi kết quả tìm kiếm và trang công khai cho đến khi được kích hoạt lại.` };
-  return { title: "Kích hoạt chỗ nghỉ?", confirm: "Xác nhận kích hoạt", success: "Đã kích hoạt chỗ nghỉ", iconClass: "bg-emerald-100 text-emerald-600", description: (name: string) => `${name} sẽ được phép hiển thị công khai và nhận đặt phòng trên NestBooking.` };
+  return { title: "Kích hoạt chỗ nghỉ?", confirm: "Xác nhận kích hoạt", success: "Đã kích hoạt chỗ nghỉ", iconClass: "bg-sky-100 text-sky-600", description: (name: string) => `${name} sẽ được phép hiển thị công khai và nhận đặt phòng trên NestBooking.` };
 }

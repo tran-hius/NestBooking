@@ -171,11 +171,11 @@ export default function AuditLogs() {
       <div className="flex-none flex items-center justify-between p-4 px-6 border-b border-slate-200 dark:border-zinc-800/80 bg-white/50 dark:bg-zinc-950/50 backdrop-blur-md">
         <div>
           <h2 className="text-xl font-semibold tracking-tight flex items-center gap-2 text-slate-900 dark:text-slate-100">
-            <Radio className="h-5 w-5 text-emerald-500 animate-pulse" />
+            <Radio className="h-5 w-5 text-sky-500 animate-pulse" />
             Security & Audit Events
           </h2>
           <p className="text-xs text-muted-foreground mt-0.5 font-mono">
-            Live event stream • <span className="text-emerald-500">{events.length} events processing</span>
+            Live event stream • <span className="text-sky-500">{events.length} events processing</span>
           </p>
         </div>
         
@@ -223,7 +223,7 @@ export default function AuditLogs() {
                   className={`
                     group flex items-start gap-3 p-3 cursor-pointer border-b border-slate-100 dark:border-zinc-800/50 hover:bg-slate-100 dark:hover:bg-zinc-900/80 transition-colors
                     ${selectedEvent.id === evt.id ? 'bg-blue-50/50 dark:bg-blue-950/20' : ''}
-                    ${(evt as any).isNew ? 'animate-in slide-in-from-top-2 bg-emerald-50/50 dark:bg-emerald-950/20' : ''}
+                    ${(evt as any).isNew ? 'animate-in slide-in-from-top-2 bg-sky-50/50 dark:bg-sky-950/20' : ''}
                   `}
                 >
                   <div className="mt-1.5 flex-shrink-0">
@@ -304,7 +304,7 @@ export default function AuditLogs() {
                     </div>
                     <div className="h-px w-10 bg-blue-200 dark:bg-blue-800"></div>
                     <div className="flex flex-col items-center">
-                      <div className="h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                      <div className="h-6 w-6 rounded-full bg-sky-100 dark:bg-sky-900/30 border border-sky-200 dark:border-sky-800 flex items-center justify-center text-sky-600 dark:text-cyan-400">
                         <CheckCircle2 className="h-3.5 w-3.5" />
                       </div>
                     </div>
@@ -313,7 +313,7 @@ export default function AuditLogs() {
                       <ArrowRight className="h-4 w-4 opacity-30" />
                       <span>Processing</span>
                       <ArrowRight className="h-4 w-4 opacity-30" />
-                      <span className="text-emerald-600 dark:text-emerald-400 font-medium">Completed</span>
+                      <span className="text-sky-600 dark:text-cyan-400 font-medium">Completed</span>
                     </div>
                   </div>
                 </div>

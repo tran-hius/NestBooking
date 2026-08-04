@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { Hotel, RoomType } from "@/types";
 import { toast } from "sonner";
+import { useAppStore } from "@/stores/useAppStore";
 
 const getPropertyLabels = (t: any): Record<string, string> => ({
   HOTEL: t("enums.PropertyType.HOTEL"),
@@ -60,6 +61,7 @@ const fallbackImages = [
 
 export default function HotelDetail() {
   const { t, i18n } = useTranslation();
+  const { isAuthenticated } = useAppStore();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -103,19 +105,25 @@ export default function HotelDetail() {
   const images = getHotelImages(hotel);
 
   const handleBookNow = (roomType: RoomType, qty: number = rooms) => {
-    navigate("/checkout", {
-      state: {
-        hotelId: hotel.id,
-        roomTypeId: roomType.id,
-        hotel,
-        roomType,
-        checkIn: checkIn.toISOString(),
-        checkOut: checkOut.toISOString(),
-        adults,
-        children,
-        rooms: qty,
-      },
-    });
+    const bookingPayload = {
+      hotelId: hotel.id,
+      roomTypeId: roomType.id,
+      hotel,
+      roomType,
+      checkIn: checkIn.toISOString(),
+      checkOut: checkOut.toISOString(),
+      adults,
+      children,
+      rooms: qty,
+    };
+
+    if (!isAuthenticated) {
+      toast.error(t("hotelDetail.loginToBook") || "Vui lòng đăng nhập để đặt phòng!");
+      navigate("/login?redirect=/checkout", { state: bookingPayload });
+      return;
+    }
+
+    navigate("/checkout", { state: bookingPayload });
   };
 
   const openGallery = (index: number) => {
@@ -139,7 +147,7 @@ export default function HotelDetail() {
           <main className="space-y-7">
             <section className="rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm"><div className="mb-4 flex items-center gap-3"><div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-primary"><Building2 className="h-5 w-5" /></div><h2 className="text-xl font-black text-slate-900">{t("hotelDetail.aboutHotel")}</h2></div><p className="whitespace-pre-line text-sm leading-7 text-slate-600">{hotel.description || t("hotelDetail.noDesc")}</p></section>
 
-            {hotel.amenities?.length ? <section className="rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm"><h2 className="text-xl font-black text-slate-900">{t("hotelDetail.amenities")}</h2><div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{hotel.amenities.map((amenity) => <div key={amenity} className="flex items-center gap-2.5 rounded-xl bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-700"><Check className="h-4 w-4 shrink-0 text-emerald-600" />{formatAmenity(amenity)}</div>)}</div></section> : null}
+            {hotel.amenities?.length ? <section className="rounded-[22px] border border-slate-200 bg-white p-6 shadow-sm"><h2 className="text-xl font-black text-slate-900">{t("hotelDetail.amenities")}</h2><div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{hotel.amenities.map((amenity) => <div key={amenity} className="flex items-center gap-2.5 rounded-xl bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-700"><Check className="h-4 w-4 shrink-0 text-sky-600" />{formatAmenity(amenity)}</div>)}</div></section> : null}
 
             <section id="rooms-section" className="scroll-mt-24"><div className="mb-5"><div className="text-xs font-bold uppercase tracking-[0.14em] text-primary">{t("hotelDetail.stayOptions")}</div><h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">{t("hotelDetail.chooseRoom")}</h2><p className="mt-2 text-sm text-slate-500">{t("hotelDetail.priceNote")}</p></div>{roomTypes.length ? <div className="space-y-4">{roomTypes.map((roomType) => <RoomTypeCard key={roomType.id} roomType={roomType} nights={nights} rooms={rooms} availableRooms={availabilityMap[roomType.id]} onBook={handleBookNow} t={t} lang={i18n.language} />)}</div> : <div className="rounded-2xl border border-dashed border-slate-300 bg-white py-14 text-center"><BedDouble className="mx-auto h-9 w-9 text-slate-300" /><h3 className="mt-3 font-bold text-slate-800">{t("hotelDetail.noRoomsTitle")}</h3><p className="mt-1 text-sm text-slate-500">{t("hotelDetail.noRoomsDesc")}</p></div>}</section>
           </main>

@@ -41,12 +41,12 @@ const statusConfig: Record<BookingStatus, { label: string; className: string; do
   CONFIRMED: { label: "Đã xác nhận", className: "border-blue-200 bg-blue-50 text-blue-700", dot: "bg-blue-500" },
   CHECKED_IN: { label: "Đang lưu trú", className: "border-indigo-200 bg-indigo-50 text-indigo-700", dot: "bg-indigo-500" },
   CANCELLED: { label: "Đã hủy", className: "border-red-200 bg-red-50 text-red-700", dot: "bg-red-500" },
-  COMPLETED: { label: "Hoàn thành", className: "border-emerald-200 bg-emerald-50 text-emerald-700", dot: "bg-emerald-500" },
+  COMPLETED: { label: "Hoàn thành", className: "border-sky-200 bg-sky-50 text-sky-700", dot: "bg-sky-500" },
 };
 
 const paymentConfig: Record<PaymentStatus, { label: string; className: string }> = {
   UNPAID: { label: "Chưa thanh toán", className: "border-amber-200 bg-amber-50 text-amber-700" },
-  PAID: { label: "Đã thanh toán", className: "border-emerald-200 bg-emerald-50 text-emerald-700" },
+  PAID: { label: "Đã thanh toán", className: "border-sky-200 bg-sky-50 text-sky-700" },
   REFUNDED: { label: "Đã hoàn tiền", className: "border-violet-200 bg-violet-50 text-violet-700" },
 };
 
@@ -130,7 +130,7 @@ export default function Bookings() {
         <StatCard icon={CalendarDays} label="Tổng đặt phòng" value={bookings.length.toLocaleString("vi-VN")} hint="Toàn bộ đơn trên hệ thống" tone="blue" />
         <StatCard icon={Clock3} label="Chờ xác nhận" value={pendingBookings.toLocaleString("vi-VN")} hint="Cần được xử lý sớm" tone="amber" />
         <StatCard icon={CalendarCheck2} label="Sắp lưu trú" value={activeStays.toLocaleString("vi-VN")} hint="Booking đã xác nhận" tone="indigo" />
-        <StatCard icon={Banknote} label="Doanh thu đã thu" value={compactCurrency(paidRevenue)} hint={`${paymentRate}% booking đã thanh toán`} tone="emerald" />
+        <StatCard icon={Banknote} label="Doanh thu đã thu" value={compactCurrency(paidRevenue)} hint={`${paymentRate}% booking đã thanh toán`} tone="sky" />
       </div>
 
       <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800">
@@ -190,12 +190,12 @@ export default function Bookings() {
 }
 
 function BookingActions({ booking, updating, onView, onAction }: { booking: Booking; updating: string | null; onView: (booking: Booking) => void; onAction: (status: BookingStatus) => void }) {
-  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(booking)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{booking.status === "PENDING" && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === booking.id} onClick={() => onAction("CONFIRMED")}><CheckCircle2 className="h-3.5 w-3.5" />Xác nhận</Button>}{booking.status === "CONFIRMED" && <Button size="sm" className="h-8 gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700" disabled={updating === booking.id} onClick={() => onAction("COMPLETED")}><CalendarCheck2 className="h-3.5 w-3.5" />Hoàn thành</Button>}{["PENDING", "CONFIRMED"].includes(booking.status) && <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700" disabled={updating === booking.id} onClick={() => onAction("CANCELLED")}><XCircle className="h-3.5 w-3.5" />Hủy</Button>}</div>;
+  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(booking)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{booking.status === "PENDING" && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === booking.id} onClick={() => onAction("CONFIRMED")}><CheckCircle2 className="h-3.5 w-3.5" />Xác nhận</Button>}{booking.status === "CONFIRMED" && <Button size="sm" className="h-8 gap-1.5 rounded-lg bg-sky-600 hover:bg-sky-700" disabled={updating === booking.id} onClick={() => onAction("COMPLETED")}><CalendarCheck2 className="h-3.5 w-3.5" />Hoàn thành</Button>}{["PENDING", "CONFIRMED"].includes(booking.status) && <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg text-red-600 hover:bg-red-50 hover:text-red-700" disabled={updating === booking.id} onClick={() => onAction("CANCELLED")}><XCircle className="h-3.5 w-3.5" />Hủy</Button>}</div>;
 }
 
 function ModalActions({ booking, updating, onAction }: { booking: Booking; updating: string | null; onAction: (status: BookingStatus) => void }) {
   if (["CANCELLED", "COMPLETED"].includes(booking.status)) return <span className="text-sm text-muted-foreground">Booking đã kết thúc, không còn thao tác.</span>;
-  return <>{booking.status === "PENDING" && <Button disabled={updating === booking.id} onClick={() => onAction("CONFIRMED")}><CheckCircle2 className="mr-2 h-4 w-4" />Xác nhận booking</Button>}{booking.status === "CONFIRMED" && <Button className="bg-emerald-600 hover:bg-emerald-700" disabled={updating === booking.id} onClick={() => onAction("COMPLETED")}><CalendarCheck2 className="mr-2 h-4 w-4" />Đánh dấu hoàn thành</Button>}<Button variant="destructive" disabled={updating === booking.id} onClick={() => onAction("CANCELLED")}><XCircle className="mr-2 h-4 w-4" />Hủy booking</Button></>;
+  return <>{booking.status === "PENDING" && <Button disabled={updating === booking.id} onClick={() => onAction("CONFIRMED")}><CheckCircle2 className="mr-2 h-4 w-4" />Xác nhận booking</Button>}{booking.status === "CONFIRMED" && <Button className="bg-sky-600 hover:bg-sky-700" disabled={updating === booking.id} onClick={() => onAction("COMPLETED")}><CalendarCheck2 className="mr-2 h-4 w-4" />Đánh dấu hoàn thành</Button>}<Button variant="destructive" disabled={updating === booking.id} onClick={() => onAction("CANCELLED")}><XCircle className="mr-2 h-4 w-4" />Hủy booking</Button></>;
 }
 
 function BookingBadge({ status }: { status: BookingStatus }) {
@@ -212,8 +212,8 @@ function StayDates({ booking }: { booking: Booking }) {
   return <div className="min-w-36"><div className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-zinc-200"><span className="h-2 w-2 rounded-full bg-blue-500" />{formatDate(booking.checkInDate)}</div><div className="ml-[3px] h-3 border-l border-dashed border-slate-300" /><div className="flex items-center gap-2 text-sm text-slate-500"><span className="h-2 w-2 rounded-full border-2 border-slate-400 bg-white dark:bg-zinc-900" />{formatDate(booking.checkOutDate)}</div><div className="mt-1 text-xs text-muted-foreground">{getNights(booking)} đêm</div></div>;
 }
 
-function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof CalendarDays; label: string; value: string; hint: string; tone: "blue" | "amber" | "indigo" | "emerald" }) {
-  const tones = { blue: "bg-blue-50 text-blue-700", amber: "bg-amber-50 text-amber-700", indigo: "bg-indigo-50 text-indigo-700", emerald: "bg-emerald-50 text-emerald-700" };
+function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof CalendarDays; label: string; value: string; hint: string; tone: "blue" | "amber" | "indigo" | "sky" }) {
+  const tones = { blue: "bg-blue-50 text-blue-700", amber: "bg-amber-50 text-amber-700", indigo: "bg-indigo-50 text-indigo-700", sky: "bg-sky-50 text-sky-700" };
   return <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800"><CardContent className="flex items-center gap-4 p-5"><div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${tones[tone]}`}><Icon className="h-5 w-5" /></div><div className="min-w-0"><div className="text-sm text-muted-foreground">{label}</div><div className="mt-0.5 truncate text-2xl font-bold text-slate-900 dark:text-white">{value}</div><div className="truncate text-xs text-slate-400">{hint}</div></div></CardContent></Card>;
 }
 
@@ -264,6 +264,6 @@ function getActionIcon(status: BookingStatus) {
 
 function getActionCopy(status: BookingStatus) {
   if (status === "CANCELLED") return { title: "Hủy đặt phòng?", confirm: "Xác nhận hủy", iconClass: "bg-red-100 text-red-600", success: (code: string) => `Đã hủy booking ${code}`, description: (code: string) => `Booking ${code} sẽ bị hủy và không thể chuyển sang trạng thái khác sau thao tác này.` };
-  if (status === "COMPLETED") return { title: "Hoàn thành đặt phòng?", confirm: "Xác nhận hoàn thành", iconClass: "bg-emerald-100 text-emerald-600", success: (code: string) => `Đã hoàn thành booking ${code}`, description: (code: string) => `Xác nhận khách của booking ${code} đã hoàn tất kỳ lưu trú.` };
+  if (status === "COMPLETED") return { title: "Hoàn thành đặt phòng?", confirm: "Xác nhận hoàn thành", iconClass: "bg-sky-100 text-sky-600", success: (code: string) => `Đã hoàn thành booking ${code}`, description: (code: string) => `Xác nhận khách của booking ${code} đã hoàn tất kỳ lưu trú.` };
   return { title: "Xác nhận đặt phòng?", confirm: "Xác nhận booking", iconClass: "bg-blue-100 text-blue-600", success: (code: string) => `Đã xác nhận booking ${code}`, description: (code: string) => `Booking ${code} sẽ chuyển sang trạng thái đã xác nhận và sẵn sàng phục vụ.` };
 }

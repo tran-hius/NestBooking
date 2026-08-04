@@ -1,7 +1,6 @@
 
 import { Sparkles, Loader2, Bot, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ReactMarkdown from "react-markdown";
 import api from "@/api";
 import { toast } from "sonner";

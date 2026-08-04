@@ -124,7 +124,7 @@ export default function Reviews() {
                     </p>
                   </TableCell>
                   <TableCell>
-                    {review.status === "APPROVED" && <Badge className="bg-emerald-500 hover:bg-emerald-600">Đã duyệt</Badge>}
+                    {review.status === "APPROVED" && <Badge className="bg-sky-500 hover:bg-sky-600">Đã duyệt</Badge>}
                     {review.status === "PENDING" && <Badge className="bg-amber-500 hover:bg-amber-600">Chờ duyệt</Badge>}
                     {review.status === "SPAM" && <Badge variant="destructive">SPAM / Ẩn</Badge>}
                   </TableCell>
@@ -141,7 +141,7 @@ export default function Reviews() {
                         
                         {review.status === "PENDING" && (
                           <>
-                            <DropdownMenuItem className="cursor-pointer text-emerald-600 focus:text-emerald-600">
+                            <DropdownMenuItem className="cursor-pointer text-sky-600 focus:text-sky-600">
                               <CheckCircle className="mr-2 h-4 w-4" />
                               <span>Duyệt đánh giá</span>
                             </DropdownMenuItem>

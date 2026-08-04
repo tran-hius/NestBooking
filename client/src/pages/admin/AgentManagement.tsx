@@ -51,7 +51,7 @@ interface AgentUser {
 type AgentStatus = "ACTIVE" | "PENDING" | "INACTIVE" | "BANNED" | "REJECTED";
 
 const statusConfig: Record<string, { label: string; className: string; dot: string }> = {
-  ACTIVE: { label: "Đã kích hoạt", className: "border-emerald-200 bg-emerald-50 text-emerald-700", dot: "bg-emerald-500" },
+  ACTIVE: { label: "Đã kích hoạt", className: "border-sky-200 bg-sky-50 text-sky-700", dot: "bg-sky-500" },
   PENDING: { label: "Chờ duyệt", className: "border-amber-200 bg-amber-50 text-amber-700", dot: "bg-amber-500" },
   INACTIVE: { label: "Tạm ngưng", className: "border-slate-200 bg-slate-100 text-slate-700", dot: "bg-slate-500" },
   BANNED: { label: "Đã khóa", className: "border-red-200 bg-red-50 text-red-700", dot: "bg-red-500" },
@@ -142,7 +142,7 @@ export default function AgentManagement() {
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatCard icon={Clock3} label="Chờ xác minh" value={pendingAgents} hint="Cần quản trị viên xử lý" tone="amber" />
-        <StatCard icon={UserRoundCheck} label="Đã kích hoạt" value={activeAgents} hint={`${agents.length ? Math.round(activeAgents / agents.length * 100) : 0}% tổng đối tác`} tone="emerald" />
+        <StatCard icon={UserRoundCheck} label="Đã kích hoạt" value={activeAgents} hint={`${agents.length ? Math.round(activeAgents / agents.length * 100) : 0}% tổng đối tác`} tone="sky" />
         <StatCard icon={Ban} label="Bị hạn chế" value={restrictedAgents} hint="Từ chối, khóa hoặc tạm ngưng" tone="red" />
         <StatCard icon={Building2} label="Chỗ nghỉ hoạt động" value={activeHotels} hint={`${hotels.length} chỗ nghỉ toàn hệ thống`} tone="violet" />
       </div>
@@ -204,7 +204,7 @@ export default function AgentManagement() {
 }
 
 function AgentActions({ agent, updating, onView, onAction }: { agent: AgentUser; updating: string | null; onView: (agent: AgentUser) => void; onAction: (status: AgentStatus) => void }) {
-  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(agent)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{agent.status === "PENDING" && <><Button size="sm" className="h-8 gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700" disabled={updating === agent.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Duyệt</Button><Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("REJECTED")}><XCircle className="h-3.5 w-3.5" />Từ chối</Button></>}{agent.status === "ACTIVE" && <Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("BANNED")}><Ban className="h-3.5 w-3.5" />Khóa</Button>}{["BANNED", "REJECTED", "INACTIVE"].includes(agent.status) && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
+  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(agent)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{agent.status === "PENDING" && <><Button size="sm" className="h-8 gap-1.5 rounded-lg bg-sky-600 hover:bg-sky-700" disabled={updating === agent.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Duyệt</Button><Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("REJECTED")}><XCircle className="h-3.5 w-3.5" />Từ chối</Button></>}{agent.status === "ACTIVE" && <Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("BANNED")}><Ban className="h-3.5 w-3.5" />Khóa</Button>}{["BANNED", "REJECTED", "INACTIVE"].includes(agent.status) && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -214,12 +214,12 @@ function StatusBadge({ status }: { status: string }) {
 
 function HotelStatus({ status }: { status: string }) {
   const labels: Record<string, string> = { ACTIVE: "Hoạt động", PENDING: "Chờ duyệt", INACTIVE: "Tạm ngưng", REJECTED: "Từ chối" };
-  const classes: Record<string, string> = { ACTIVE: "bg-emerald-50 text-emerald-700", PENDING: "bg-amber-50 text-amber-700", INACTIVE: "bg-slate-100 text-slate-700", REJECTED: "bg-red-50 text-red-700" };
+  const classes: Record<string, string> = { ACTIVE: "bg-sky-50 text-sky-700", PENDING: "bg-amber-50 text-amber-700", INACTIVE: "bg-slate-100 text-slate-700", REJECTED: "bg-red-50 text-red-700" };
   return <Badge variant="outline" className={classes[status] || "bg-slate-100 text-slate-700"}>{labels[status] || status}</Badge>;
 }
 
 function ProfileProgress({ percent }: { percent: number }) {
-  return <div className="w-32"><div className="mb-1.5 flex justify-between text-xs"><span className="text-muted-foreground">Hoàn thiện</span><span className="font-semibold">{percent}%</span></div><div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${percent === 100 ? "bg-emerald-500" : percent >= 67 ? "bg-blue-500" : "bg-amber-500"}`} style={{ width: `${percent}%` }} /></div></div>;
+  return <div className="w-32"><div className="mb-1.5 flex justify-between text-xs"><span className="text-muted-foreground">Hoàn thiện</span><span className="font-semibold">{percent}%</span></div><div className="h-1.5 overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800"><div className={`h-full rounded-full ${percent === 100 ? "bg-sky-500" : percent >= 67 ? "bg-blue-500" : "bg-amber-500"}`} style={{ width: `${percent}%` }} /></div></div>;
 }
 
 function getProfilePercent(agent: AgentUser) {
@@ -232,8 +232,8 @@ function getInitials(agent: AgentUser) {
   return name.split(/\s+/).slice(-2).map((part) => part.charAt(0).toUpperCase()).join("");
 }
 
-function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof Clock3; label: string; value: number; hint: string; tone: "amber" | "emerald" | "red" | "violet" }) {
-  const tones = { amber: "bg-amber-50 text-amber-700", emerald: "bg-emerald-50 text-emerald-700", red: "bg-red-50 text-red-700", violet: "bg-violet-50 text-violet-700" };
+function StatCard({ icon: Icon, label, value, hint, tone }: { icon: typeof Clock3; label: string; value: number; hint: string; tone: "amber" | "sky" | "red" | "violet" }) {
+  const tones = { amber: "bg-amber-50 text-amber-700", sky: "bg-sky-50 text-sky-700", red: "bg-red-50 text-red-700", violet: "bg-violet-50 text-violet-700" };
   return <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800"><CardContent className="flex items-center gap-4 p-5"><div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${tones[tone]}`}><Icon className="h-5 w-5" /></div><div className="min-w-0"><div className="text-sm text-muted-foreground">{label}</div><div className="mt-0.5 text-2xl font-bold text-slate-900 dark:text-white">{value}</div><div className="truncate text-xs text-slate-400">{hint}</div></div></CardContent></Card>;
 }
 
@@ -250,5 +250,5 @@ function getActionIcon(status: AgentStatus) {
 function getActionCopy(status: AgentStatus) {
   if (status === "BANNED") return { title: "Khóa tài khoản đối tác?", confirm: "Xác nhận khóa", success: "Đã khóa tài khoản đối tác", iconClass: "bg-red-100 text-red-600", description: (email: string) => `${email} sẽ không thể đăng nhập hoặc quản lý chỗ nghỉ cho đến khi được kích hoạt lại.` };
   if (status === "REJECTED") return { title: "Từ chối hồ sơ đối tác?", confirm: "Xác nhận từ chối", success: "Đã từ chối hồ sơ đối tác", iconClass: "bg-orange-100 text-orange-600", description: (email: string) => `Hồ sơ của ${email} sẽ được đánh dấu là không đạt yêu cầu.` };
-  return { title: "Kích hoạt tài khoản đối tác?", confirm: "Xác nhận kích hoạt", success: "Đã kích hoạt tài khoản đối tác", iconClass: "bg-emerald-100 text-emerald-600", description: (email: string) => `${email} sẽ có thể đăng nhập và sử dụng các chức năng quản lý chỗ nghỉ.` };
+  return { title: "Kích hoạt tài khoản đối tác?", confirm: "Xác nhận kích hoạt", success: "Đã kích hoạt tài khoản đối tác", iconClass: "bg-sky-100 text-sky-600", description: (email: string) => `${email} sẽ có thể đăng nhập và sử dụng các chức năng quản lý chỗ nghỉ.` };
 }

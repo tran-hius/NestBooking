@@ -36,12 +36,12 @@ export default function Checkout() {
   const location = useLocation();
   const { user, isAuthenticated } = useAppStore();
   const [checkoutData] = useState<CheckoutData>(() => {
-    if (location.state) {
-      sessionStorage.setItem("checkoutData", JSON.stringify(location.state));
-      return location.state as CheckoutData;
+    const state = location.state as CheckoutData | null;
+    if (state && state.hotelId && state.roomTypeId && state.hotel && state.roomType) {
+      return state;
     }
-    const saved = sessionStorage.getItem("checkoutData");
-    return saved ? JSON.parse(saved) : {};
+    sessionStorage.removeItem("checkoutData");
+    return {};
   });
   const [paymentMethod, setPaymentMethod] = useState<"pay_at_hotel" | "vnpay">("pay_at_hotel");
   const [isProcessing, setIsProcessing] = useState(false);

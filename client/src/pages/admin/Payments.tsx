@@ -126,7 +126,7 @@ export default function Payments() {
                   </TableCell>
                   <TableCell className="text-right font-bold text-slate-900 dark:text-slate-100">{payment.amount}</TableCell>
                   <TableCell>
-                    {payment.status === "SUCCESS" && <Badge className="bg-emerald-500 hover:bg-emerald-600">Thành công</Badge>}
+                    {payment.status === "SUCCESS" && <Badge className="bg-sky-500 hover:bg-sky-600">Thành công</Badge>}
                     {payment.status === "FAILED" && <Badge variant="destructive">Thất bại</Badge>}
                     {payment.status === "REFUNDED" && <Badge variant="outline" className="text-amber-500 border-amber-500/50">Đã hoàn tiền</Badge>}
                   </TableCell>
