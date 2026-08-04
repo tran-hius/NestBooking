@@ -63,17 +63,20 @@ export default function AgentBookings() {
   const [availableRooms, setAvailableRooms] = useState<Room[]>([]);
   const [selectedRoomIds, setSelectedRoomIds] = useState<string[]>([]);
   const [loadingRooms, setLoadingRooms] = useState(false);
+  const [qrPaymentUrl, setQrPaymentUrl] = useState<string | null>(null);
+  const [generatingQr, setGeneratingQr] = useState<string | null>(null);
 
   useEffect(() => {
     if (statusAction?.status === "CHECKED_IN") {
       setLoadingRooms(true);
       roomService.getByRoomType(statusAction.booking.roomTypeId)
         .then((res) => {
-          setAvailableRooms(res.data.filter(r => r.status === "AVAILABLE" && r.isActive));
+          const available = res.data.filter(r => r.status === "AVAILABLE" && r.isActive);
+          setAvailableRooms(available);
+          setSelectedRoomIds(available.slice(0, statusAction.booking.quantity).map(r => r.id));
         })
         .catch(() => toast.error("Không thể tải danh sách phòng trống"))
         .finally(() => setLoadingRooms(false));
-      setSelectedRoomIds([]);
     } else {
       setAvailableRooms([]);
       setSelectedRoomIds([]);
@@ -104,6 +107,18 @@ export default function AgentBookings() {
     setHotelId(value);
     if (value === "ALL") setSearchParams({}, { replace: true });
     else setSearchParams({ hotelId: value }, { replace: true });
+  };
+
+  const handleGenerateQr = async (booking: Booking) => {
+    try {
+      setGeneratingQr(booking.id);
+      const res = await api.get(`/api/payments/generate_url/${booking.id}`);
+      setQrPaymentUrl(res.data.paymentUrl);
+    } catch (error) {
+      toast.error("Không thể tạo mã QR thanh toán");
+    } finally {
+      setGeneratingQr(null);
+    }
   };
 
   const updateStatus = async () => {
@@ -181,11 +196,11 @@ export default function AgentBookings() {
 
         <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800"><CardContent className="p-0"><div className="grid gap-3 border-b border-slate-100 p-4 lg:grid-cols-2 xl:grid-cols-[minmax(260px,1fr)_240px_190px_190px_auto] md:p-5 dark:border-zinc-800"><div className="relative"><Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><Input value={search} onChange={(event) => setSearch(event.target.value)} className="h-10 rounded-xl bg-slate-50 pl-10 dark:bg-zinc-900" placeholder="Tìm mã booking, khách hoặc giao dịch" /></div><Select value={hotelId} onValueChange={changeHotel}><SelectTrigger className="h-10 rounded-xl"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="ALL">Tất cả chỗ nghỉ</SelectItem>{hotels.map((hotel) => <SelectItem key={hotel.id} value={hotel.id}>{hotel.name} · {hotel.city}</SelectItem>)}</SelectContent></Select><Select value={paymentStatus} onValueChange={(value) => setPaymentStatus(value as PaymentStatus | "ALL")}><SelectTrigger className="h-10 rounded-xl"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="ALL">Tất cả thanh toán</SelectItem><SelectItem value="UNPAID">Chưa thanh toán</SelectItem><SelectItem value="PAID">Đã thanh toán</SelectItem><SelectItem value="REFUNDED">Đã hoàn tiền</SelectItem></SelectContent></Select><Select value={status} onValueChange={(value) => setStatus(value as BookingStatus | "ALL")}><SelectTrigger className="h-10 rounded-xl"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="ALL">Tất cả trạng thái</SelectItem><SelectItem value="PENDING">Chờ xác nhận</SelectItem><SelectItem value="CONFIRMED">Đã xác nhận</SelectItem><SelectItem value="CHECKED_IN">Đang lưu trú</SelectItem><SelectItem value="COMPLETED">Hoàn thành</SelectItem><SelectItem value="CANCELLED">Đã hủy</SelectItem></SelectContent></Select><div className="hidden self-center whitespace-nowrap text-sm text-muted-foreground xl:block">{filtered.length} kết quả</div></div>
 
-          <div className="overflow-x-auto"><Table className="min-w-[1320px]"><TableHeader className="bg-slate-50/80 dark:bg-zinc-900/70"><TableRow><TableHead className="w-[150px] pl-5">Booking</TableHead><TableHead className="w-[220px]">Khách lưu trú</TableHead><TableHead className="w-[220px]">Chỗ nghỉ</TableHead><TableHead className="w-[165px]">Thời gian</TableHead><TableHead className="w-[190px]">Thanh toán</TableHead><TableHead className="w-[145px]">Trạng thái</TableHead><TableHead className="w-[300px] pr-5 text-right">Thao tác</TableHead></TableRow></TableHeader><TableBody>{!loading && filtered.length ? filtered.map((booking) => <TableRow key={booking.id} className={booking.status === "PENDING" ? "bg-amber-50/30 hover:bg-amber-50/60 dark:bg-amber-950/10" : "hover:bg-blue-50/25 dark:hover:bg-zinc-900"}><TableCell className="pl-5"><div className="font-bold text-blue-700 dark:text-blue-400">{booking.bookingCode}</div><div className="mt-1 text-xs text-slate-400">{booking.createdAt ? `Tạo ${formatDate(booking.createdAt)}` : `ID: ${booking.id.slice(0, 8).toUpperCase()}`}</div></TableCell><TableCell><div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-emerald-500 font-bold text-white">{booking.guestName.charAt(0).toUpperCase()}</div><div className="min-w-0"><div className="max-w-48 truncate font-semibold text-slate-800 dark:text-zinc-100">{booking.guestName}</div><div className="mt-0.5 max-w-48 truncate text-xs text-muted-foreground">{booking.guestEmail}</div><div className="text-xs text-muted-foreground">{booking.guestPhone}</div></div></div></TableCell><TableCell><div className="flex max-w-56 items-start gap-2"><Building2 className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" /><div className="min-w-0"><div className="truncate font-medium text-slate-700 dark:text-zinc-200">{booking.hotel?.name || hotelName(hotels, booking.hotelId)}</div><div className="mt-1 truncate text-xs text-muted-foreground">{booking.roomType?.name || booking.roomTypeId.slice(0, 8)} · {booking.quantity} phòng</div></div></div></TableCell><TableCell><StayDates booking={booking} /></TableCell><TableCell><div className="flex min-w-[170px] flex-col items-start gap-1.5"><div className="whitespace-nowrap font-semibold">{formatCurrency(booking.totalAmount)}</div><PaymentBadge status={booking.paymentStatus} /><div className="whitespace-nowrap text-xs text-muted-foreground">{paymentMethodLabel(booking.paymentMethod)}</div></div></TableCell><TableCell><BookingBadge status={booking.status} /></TableCell><TableCell className="pr-5"><BookingActions booking={booking} updating={updating} onView={setSelectedBooking} onAction={(nextStatus) => setStatusAction({ booking, status: nextStatus })} onPaymentAction={(nextPayment) => void updatePayment(booking, nextPayment)} /></TableCell></TableRow>) : <TableRow><TableCell colSpan={7} className="h-48 text-center text-muted-foreground">{loading ? <span className="inline-flex items-center gap-2"><RefreshCw className="h-4 w-4 animate-spin" />Đang tải lịch đặt phòng...</span> : <span><CalendarDays className="mx-auto mb-2 h-8 w-8 text-slate-300" />Không có booking phù hợp với bộ lọc.</span>}</TableCell></TableRow>}</TableBody></Table></div>
+          <div className="overflow-x-auto"><Table className="min-w-[1320px]"><TableHeader className="bg-slate-50/80 dark:bg-zinc-900/70"><TableRow><TableHead className="w-[150px] pl-5">Booking</TableHead><TableHead className="w-[220px]">Khách lưu trú</TableHead><TableHead className="w-[220px]">Chỗ nghỉ</TableHead><TableHead className="w-[165px]">Thời gian</TableHead><TableHead className="w-[190px]">Thanh toán</TableHead><TableHead className="w-[145px]">Trạng thái</TableHead><TableHead className="w-[300px] pr-5 text-right">Thao tác</TableHead></TableRow></TableHeader><TableBody>{!loading && filtered.length ? filtered.map((booking) => <TableRow key={booking.id} className={booking.status === "PENDING" ? "bg-amber-50/30 hover:bg-amber-50/60 dark:bg-amber-950/10" : "hover:bg-blue-50/25 dark:hover:bg-zinc-900"}><TableCell className="pl-5"><div className="font-bold text-blue-700 dark:text-blue-400">{booking.bookingCode}</div><div className="mt-1 text-xs text-slate-400">{booking.createdAt ? `Tạo ${formatDate(booking.createdAt)}` : `ID: ${booking.id.slice(0, 8).toUpperCase()}`}</div></TableCell><TableCell><div className="flex items-center gap-3"><div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-emerald-500 font-bold text-white">{booking.guestName.charAt(0).toUpperCase()}</div><div className="min-w-0"><div className="max-w-48 truncate font-semibold text-slate-800 dark:text-zinc-100">{booking.guestName}</div><div className="mt-0.5 max-w-48 truncate text-xs text-muted-foreground">{booking.guestEmail}</div><div className="text-xs text-muted-foreground">{booking.guestPhone}</div></div></div></TableCell><TableCell><div className="flex max-w-56 items-start gap-2"><Building2 className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" /><div className="min-w-0"><div className="truncate font-medium text-slate-700 dark:text-zinc-200">{booking.hotel?.name || hotelName(hotels, booking.hotelId)}</div><div className="mt-1 truncate text-xs text-muted-foreground">{booking.roomType?.name || booking.roomTypeId.slice(0, 8)} · {booking.quantity} phòng</div></div></div></TableCell><TableCell><StayDates booking={booking} /></TableCell><TableCell><div className="flex min-w-[170px] flex-col items-start gap-1.5"><div className="whitespace-nowrap font-semibold">{formatCurrency(booking.totalAmount)}</div><PaymentBadge status={booking.paymentStatus} /><div className="whitespace-nowrap text-xs text-muted-foreground">{paymentMethodLabel(booking.paymentMethod)}</div></div></TableCell><TableCell><BookingBadge status={booking.status} /></TableCell><TableCell className="pr-5"><BookingActions booking={booking} updating={updating} generatingQr={generatingQr} onView={setSelectedBooking} onAction={(nextStatus) => setStatusAction({ booking, status: nextStatus })} onPaymentAction={(nextPayment) => void updatePayment(booking, nextPayment)} onGenerateQr={handleGenerateQr} /></TableCell></TableRow>) : <TableRow><TableCell colSpan={7} className="h-48 text-center text-muted-foreground">{loading ? <span className="inline-flex items-center gap-2"><RefreshCw className="h-4 w-4 animate-spin" />Đang tải lịch đặt phòng...</span> : <span><CalendarDays className="mx-auto mb-2 h-8 w-8 text-slate-300" />Không có booking phù hợp với bộ lọc.</span>}</TableCell></TableRow>}</TableBody></Table></div>
         </CardContent></Card>
       </>}
 
-      <Dialog open={Boolean(selectedBooking)} onOpenChange={(open) => { if (!open) setSelectedBooking(null); }}><DialogContent className="max-h-[92vh] max-w-3xl overflow-y-auto rounded-2xl p-0">{selectedBooking && <><div className="bg-gradient-to-r from-[#063a55] via-[#087c78] to-[#0f9f83] p-6 text-white"><div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start"><div><div className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100">Booking detail</div><DialogTitle className="text-2xl text-white">{selectedBooking.bookingCode}</DialogTitle><DialogDescription className="mt-1 text-cyan-50/80">Tạo lúc {selectedBooking.createdAt ? formatDateTime(selectedBooking.createdAt) : "không xác định"}</DialogDescription></div><div className="flex flex-wrap gap-2"><BookingBadge status={selectedBooking.status} /><PaymentBadge status={selectedBooking.paymentStatus} /></div></div></div><div className="space-y-5 p-6"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><SummaryCard icon={UserRound} label="Khách lưu trú" value={selectedBooking.guestName} /><SummaryCard icon={Building2} label="Chỗ nghỉ" value={selectedBooking.hotel?.name || hotelName(hotels, selectedBooking.hotelId)} /><SummaryCard icon={BedDouble} label="Phòng" value={`${selectedBooking.roomType?.name || selectedBooking.roomTypeId} · ${selectedBooking.quantity} phòng`} /><SummaryCard icon={Banknote} label="Tổng tiền" value={formatCurrency(selectedBooking.totalAmount)} /></div><div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-5 dark:border-emerald-950 dark:bg-emerald-950/20"><div className="mb-4 flex items-center gap-2 font-semibold"><CalendarCheck2 className="h-5 w-5 text-emerald-600" />Lịch trình lưu trú</div><div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr]"><DateBlock label="Nhận phòng" value={formatDate(selectedBooking.checkInDate)} /><div className="hidden items-center text-sm font-medium text-emerald-700 sm:flex">{getNights(selectedBooking)} đêm</div><DateBlock label="Trả phòng" value={formatDate(selectedBooking.checkOutDate)} align="right" /></div></div><div className="grid gap-4 sm:grid-cols-2"><InfoSection title="Thông tin liên hệ" items={[{ icon: Phone, value: selectedBooking.guestPhone }, { icon: Mail, value: selectedBooking.guestEmail }]} /><InfoSection title="Thanh toán" items={[{ icon: Banknote, value: formatCurrency(selectedBooking.totalAmount) }, { icon: CheckCircle2, value: `${paymentConfig[selectedBooking.paymentStatus].label} · ${paymentMethodLabel(selectedBooking.paymentMethod)}` }]} /></div>{selectedBooking.specialRequests && <div className="rounded-xl border border-slate-200 p-4 dark:border-zinc-800"><div className="text-xs font-semibold uppercase tracking-wide text-slate-400">Yêu cầu đặc biệt</div><p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-zinc-300">{selectedBooking.specialRequests}</p></div>}<DialogFooter className="gap-2"><ModalActions booking={selectedBooking} updating={updating} onAction={(nextStatus) => setStatusAction({ booking: selectedBooking, status: nextStatus })} onPaymentAction={(nextPayment) => void updatePayment(selectedBooking, nextPayment)} /></DialogFooter></div></>}</DialogContent></Dialog>
+      <Dialog open={Boolean(selectedBooking)} onOpenChange={(open) => { if (!open) setSelectedBooking(null); }}><DialogContent className="max-h-[92vh] max-w-3xl overflow-y-auto rounded-2xl p-0">{selectedBooking && <><div className="bg-gradient-to-r from-[#063a55] via-[#087c78] to-[#0f9f83] p-6 text-white"><div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start"><div><div className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-emerald-100">Booking detail</div><DialogTitle className="text-2xl text-white">{selectedBooking.bookingCode}</DialogTitle><DialogDescription className="mt-1 text-cyan-50/80">Tạo lúc {selectedBooking.createdAt ? formatDateTime(selectedBooking.createdAt) : "không xác định"}</DialogDescription></div><div className="flex flex-wrap gap-2"><BookingBadge status={selectedBooking.status} /><PaymentBadge status={selectedBooking.paymentStatus} /></div></div></div><div className="space-y-5 p-6"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4"><SummaryCard icon={UserRound} label="Khách lưu trú" value={selectedBooking.guestName} /><SummaryCard icon={Building2} label="Chỗ nghỉ" value={selectedBooking.hotel?.name || hotelName(hotels, selectedBooking.hotelId)} /><SummaryCard icon={BedDouble} label="Phòng" value={`${selectedBooking.roomType?.name || selectedBooking.roomTypeId} · ${selectedBooking.quantity} phòng`} /><SummaryCard icon={Banknote} label="Tổng tiền" value={formatCurrency(selectedBooking.totalAmount)} /></div><div className="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-5 dark:border-emerald-950 dark:bg-emerald-950/20"><div className="mb-4 flex items-center gap-2 font-semibold"><CalendarCheck2 className="h-5 w-5 text-emerald-600" />Lịch trình lưu trú</div><div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr]"><DateBlock label="Nhận phòng" value={formatDate(selectedBooking.checkInDate)} /><div className="hidden items-center text-sm font-medium text-emerald-700 sm:flex">{getNights(selectedBooking)} đêm</div><DateBlock label="Trả phòng" value={formatDate(selectedBooking.checkOutDate)} align="right" /></div></div><div className="grid gap-4 sm:grid-cols-2"><InfoSection title="Thông tin liên hệ" items={[{ icon: Phone, value: selectedBooking.guestPhone }, { icon: Mail, value: selectedBooking.guestEmail }]} /><InfoSection title="Thanh toán" items={[{ icon: Banknote, value: formatCurrency(selectedBooking.totalAmount) }, { icon: CheckCircle2, value: `${paymentConfig[selectedBooking.paymentStatus].label} · ${paymentMethodLabel(selectedBooking.paymentMethod)}` }]} /></div>{selectedBooking.specialRequests && <div className="rounded-xl border border-slate-200 p-4 dark:border-zinc-800"><div className="text-xs font-semibold uppercase tracking-wide text-slate-400">Yêu cầu đặc biệt</div><p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-zinc-300">{selectedBooking.specialRequests}</p></div>}<DialogFooter><ModalActions booking={selectedBooking} updating={updating} generatingQr={generatingQr} onAction={(nextStatus) => setStatusAction({ booking: selectedBooking, status: nextStatus })} onPaymentAction={(nextPayment) => void updatePayment(selectedBooking, nextPayment)} onGenerateQr={handleGenerateQr} /></DialogFooter></div></>}</DialogContent></Dialog>
 
       <Dialog open={Boolean(statusAction)} onOpenChange={(open) => { if (!open && !updating) setStatusAction(null); }}>
         <DialogContent className="max-w-md rounded-2xl">
@@ -204,40 +219,25 @@ export default function AgentBookings() {
               {statusAction.status === "CHECKED_IN" && (
                 <div className="mt-2 rounded-xl border border-indigo-100 bg-indigo-50/50 p-4 dark:border-indigo-900/30 dark:bg-indigo-950/20">
                   <div className="mb-3 text-sm font-medium text-indigo-900 dark:text-indigo-200">
-                    Vui lòng chọn {statusAction.booking.quantity} phòng (còn {availableRooms.length} phòng trống):
+                    Hệ thống đã tự động xếp {statusAction.booking.quantity} phòng cho khách:
                   </div>
                   {loadingRooms ? (
                     <div className="flex items-center gap-2 text-sm text-indigo-500"><RefreshCw className="h-4 w-4 animate-spin" />Đang tải danh sách phòng...</div>
                   ) : (
                     <div className="grid grid-cols-4 gap-2 sm:grid-cols-5">
-                      {availableRooms.map((room) => {
-                        const isSelected = selectedRoomIds.includes(room.id);
+                      {availableRooms.filter(r => selectedRoomIds.includes(r.id)).map((room) => {
                         return (
-                          <button
+                          <div
                             key={room.id}
-                            type="button"
-                            className={`rounded-lg border p-2 text-sm font-semibold transition-colors ${
-                              isSelected 
-                                ? "bg-indigo-600 text-white border-indigo-600" 
-                                : "bg-white text-slate-700 hover:bg-slate-50 border-slate-200 dark:bg-zinc-900 dark:text-zinc-300 dark:border-zinc-800 dark:hover:bg-zinc-800"
-                            }`}
-                            onClick={() => {
-                              if (isSelected) {
-                                setSelectedRoomIds(prev => prev.filter(id => id !== room.id));
-                              } else if (selectedRoomIds.length < statusAction.booking.quantity) {
-                                setSelectedRoomIds(prev => [...prev, room.id]);
-                              } else {
-                                toast.warning(`Chỉ được chọn tối đa ${statusAction.booking.quantity} phòng`);
-                              }
-                            }}
+                            className="flex items-center justify-center rounded-lg border p-2 text-sm font-semibold transition-colors bg-indigo-600 text-white border-indigo-600"
                           >
                             {room.roomNumber}
-                          </button>
+                          </div>
                         );
                       })}
-                      {availableRooms.length === 0 && (
+                      {availableRooms.length < statusAction.booking.quantity && (
                         <div className="col-span-full text-sm font-medium text-red-500">
-                          Không có phòng trống nào thuộc loại phòng này! Vui lòng kiểm tra lại trạng thái phòng.
+                          Không đủ số lượng phòng trống! Hệ thống chỉ tìm thấy {availableRooms.length}/{statusAction.booking.quantity} phòng.
                         </div>
                       )}
                     </div>
@@ -259,16 +259,44 @@ export default function AgentBookings() {
           )}
         </DialogContent>
       </Dialog>
+
+      <Dialog open={Boolean(qrPaymentUrl)} onOpenChange={(open) => { if (!open) setQrPaymentUrl(null); }}>
+        <DialogContent className="max-w-sm rounded-2xl text-center">
+          <DialogHeader>
+            <DialogTitle>Thanh toán trực tuyến</DialogTitle>
+            <DialogDescription>
+              Quét mã QR dưới đây bằng ứng dụng ngân hàng hoặc ví điện tử (VNPAY) để thanh toán.
+            </DialogDescription>
+          </DialogHeader>
+          {qrPaymentUrl && (
+            <div className="flex flex-col items-center justify-center p-4">
+              <img src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(qrPaymentUrl)}`} alt="QR Code" className="h-48 w-48 rounded-lg border p-2 shadow-sm" />
+              <Button
+                variant="outline"
+                className="mt-4 w-full"
+                onClick={() => window.open(qrPaymentUrl, "_blank")}
+              >
+                Mở link thanh toán
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
 
-function BookingActions({ booking, updating, onView, onAction, onPaymentAction }: { booking: Booking; updating: string | null; onView: (booking: Booking) => void; onAction: (status: BookingStatus) => void; onPaymentAction: (status: PaymentStatus) => void }) {
+function BookingActions({ booking, updating, generatingQr, onView, onAction, onPaymentAction, onGenerateQr }: { booking: Booking; updating: string | null; generatingQr: string | null; onView: (booking: Booking) => void; onAction: (status: BookingStatus) => void; onPaymentAction: (status: PaymentStatus) => void; onGenerateQr: (booking: Booking) => void; }) {
   return (
     <div className="flex justify-end gap-2">
-      {booking.paymentStatus === "UNPAID" && booking.status !== "CANCELLED" && (
+      {booking.paymentStatus === "UNPAID" && booking.status === "CONFIRMED" && booking.paymentMethod === "PAY_AT_HOTEL" && (
         <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg border-emerald-200 text-emerald-600 hover:bg-emerald-50" disabled={updating === booking.id} onClick={() => onPaymentAction("PAID")}>
           <Banknote className="h-3.5 w-3.5" />Thu tiền
+        </Button>
+      )}
+      {booking.paymentStatus === "UNPAID" && booking.status === "CONFIRMED" && booking.paymentMethod === "VNPAY" && (
+        <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg border-blue-200 text-blue-600 hover:bg-blue-50" disabled={generatingQr === booking.id || updating === booking.id} onClick={() => onGenerateQr(booking)}>
+          {generatingQr === booking.id ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <Banknote className="h-3.5 w-3.5" />} Thanh toán online
         </Button>
       )}
       <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(booking)}>
@@ -279,7 +307,7 @@ function BookingActions({ booking, updating, onView, onAction, onPaymentAction }
           <CheckCircle2 className="h-3.5 w-3.5" />Xác nhận
         </Button>
       )}
-      {booking.status === "CONFIRMED" && (
+      {booking.status === "CONFIRMED" && booking.paymentStatus === "PAID" && (
         <Button size="sm" className="h-8 gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700" disabled={updating === booking.id} onClick={() => onAction("CHECKED_IN")}>
           <Clock3 className="h-3.5 w-3.5" />Nhận phòng
         </Button>
@@ -298,12 +326,13 @@ function BookingActions({ booking, updating, onView, onAction, onPaymentAction }
   );
 }
 
-function ModalActions({ booking, updating, onAction, onPaymentAction }: { booking: Booking; updating: string | null; onAction: (status: BookingStatus) => void; onPaymentAction?: (status: PaymentStatus) => void; }) {
+function ModalActions({ booking, updating, generatingQr, onAction, onPaymentAction, onGenerateQr }: { booking: Booking; updating: string | null; generatingQr: string | null; onAction: (status: BookingStatus) => void; onPaymentAction?: (status: PaymentStatus) => void; onGenerateQr?: (booking: Booking) => void; }) {
   return (
     <>
-      {booking.paymentStatus === "UNPAID" && booking.status !== "CANCELLED" && onPaymentAction && <Button variant="outline" className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/50" disabled={updating === booking.id} onClick={() => onPaymentAction("PAID")}><Banknote className="mr-2 h-4 w-4" />Đã thu tiền</Button>}
+      {booking.paymentStatus === "UNPAID" && booking.status === "CONFIRMED" && booking.paymentMethod === "PAY_AT_HOTEL" && onPaymentAction && <Button variant="outline" className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-950/50" disabled={updating === booking.id} onClick={() => onPaymentAction("PAID")}><Banknote className="mr-2 h-4 w-4" />Đã thu tiền</Button>}
+      {booking.paymentStatus === "UNPAID" && booking.status === "CONFIRMED" && booking.paymentMethod === "VNPAY" && onGenerateQr && <Button variant="outline" className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-950/50" disabled={generatingQr === booking.id || updating === booking.id} onClick={() => onGenerateQr(booking)}>{generatingQr === booking.id ? <RefreshCw className="mr-2 h-4 w-4 animate-spin" /> : <Banknote className="mr-2 h-4 w-4" />} Thanh toán online</Button>}
       {booking.status === "PENDING" && <Button disabled={updating === booking.id} onClick={() => onAction("CONFIRMED")}><CheckCircle2 className="mr-2 h-4 w-4" />Xác nhận booking</Button>}
-      {booking.status === "CONFIRMED" && <Button className="bg-indigo-600 hover:bg-indigo-700" disabled={updating === booking.id} onClick={() => onAction("CHECKED_IN")}><Clock3 className="mr-2 h-4 w-4" />Khách nhận phòng</Button>}
+      {booking.status === "CONFIRMED" && booking.paymentStatus === "PAID" && <Button className="bg-indigo-600 hover:bg-indigo-700" disabled={updating === booking.id} onClick={() => onAction("CHECKED_IN")}><Clock3 className="mr-2 h-4 w-4" />Khách nhận phòng</Button>}
       {booking.status === "CHECKED_IN" && <Button className="bg-emerald-600 hover:bg-emerald-700" disabled={updating === booking.id} onClick={() => onAction("COMPLETED")}><CalendarCheck2 className="mr-2 h-4 w-4" />Khách trả phòng</Button>}
       {["PENDING", "CONFIRMED"].includes(booking.status) && <Button variant="destructive" disabled={updating === booking.id} onClick={() => onAction("CANCELLED")}><XCircle className="mr-2 h-4 w-4" />Hủy booking</Button>}
     </>

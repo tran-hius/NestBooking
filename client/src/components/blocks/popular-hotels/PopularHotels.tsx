@@ -5,8 +5,10 @@ import HotelCardSkeleton from "./HotelCardSkeleton";
 import { hotelService } from "@/api/services/hotelService";
 import { Hotel } from "@/types";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function PopularHotels() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [hotels, setHotels] = useState<Hotel[]>([]);
@@ -45,24 +47,31 @@ export default function PopularHotels() {
       <div className="container relative">
         <div className="mb-9 flex items-end justify-between gap-4">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary"><Building2 className="h-4 w-4" />Chỗ nghỉ đang hoạt động</div>
-            <h2 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Chọn nơi ở cho hành trình</h2>
-            <p className="mt-2 text-slate-500">Xem giá khởi điểm từ các loại phòng đang được mở bán.</p>
+            <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">
+              <Building2 className="h-4 w-4" />
+              {t("popularHotels.badge")}
+            </div>
+            <h2 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
+              {t("popularHotels.title")}
+            </h2>
+            <p className="mt-2 text-slate-500">
+              {t("popularHotels.subtitle")}
+            </p>
           </div>
           <div className="hidden items-center gap-2 sm:flex">
             <button
               type="button"
-              aria-label="Xem khách sạn trước"
+              aria-label={t("popularHotels.prevAriaLabel")}
               onClick={() => scroll("left")}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-primary"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-primary"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               type="button"
-              aria-label="Xem khách sạn tiếp theo"
+              aria-label={t("popularHotels.nextAriaLabel")}
               onClick={() => scroll("right")}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-primary"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-blue-300 hover:text-primary"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -99,19 +108,20 @@ export default function PopularHotels() {
 
         {!isLoading && hasError && (
           <div className="rounded-xl border border-dashed border-slate-300 py-10 text-center text-slate-500">
-            Chưa thể tải danh sách khách sạn. Vui lòng thử lại sau.
+            {t("popularHotels.errorMessage")}
           </div>
         )}
 
         {!isLoading && !hasError && hotels.length === 0 && (
           <div className="rounded-xl border border-dashed border-slate-300 py-10 text-center text-slate-500">
-            Hiện chưa có khách sạn đang hoạt động.
+            {t("popularHotels.emptyMessage")}
           </div>
         )}
 
         <div className="mt-8 flex justify-center">
           <button type="button" onClick={() => navigate("/search")} className="group inline-flex items-center gap-2 rounded-xl border border-blue-200 bg-white px-6 py-3 font-bold text-primary shadow-sm transition hover:border-primary hover:bg-blue-50">
-            Xem tất cả chỗ nghỉ<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            {t("popularHotels.viewAll")}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
       </div>

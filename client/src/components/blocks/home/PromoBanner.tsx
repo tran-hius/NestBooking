@@ -1,7 +1,9 @@
 import { Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 export default function PromoBanner() {
+  const { t } = useTranslation();
   return (
     <section className="container mx-auto px-4 md:px-8 py-12 flex flex-col items-center">
       <div className="w-full bg-gradient-to-r from-blue-600 to-primary rounded-3xl overflow-hidden flex flex-col md:flex-row items-center justify-between text-white shadow-2xl relative">
@@ -20,19 +22,19 @@ export default function PromoBanner() {
         <div className="relative z-10 p-8 md:p-12 flex-1 flex flex-col items-start">
           <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 shadow-sm">
             <Sparkles className="w-4 h-4 text-yellow-300" />
-            <span className="text-white">Ưu đãi độc quyền</span>
+            <span className="text-white">{t("promoBanner.exclusive")}</span>
           </div>
           
           <h2 className="text-3xl md:text-4xl font-extrabold mb-3 leading-tight text-white drop-shadow-md">
-            Du lịch siêu chất <br/> Đón hè cực chill
+            {t("promoBanner.title1")} <br/> {t("promoBanner.title2")}
           </h2>
           
           <p className="text-white/90 text-lg mb-8 max-w-md">
-            Giảm ngay đến 30% cho các đặt phòng tại Phú Quốc, Nha Trang và Đà Nẵng. Áp dụng đến hết tháng này!
+            {t("promoBanner.desc")}
           </p>
           
           <Button className="h-12 px-8 bg-white hover:bg-slate-100 text-primary font-bold rounded-xl shadow-lg transition-transform hover:-translate-y-1">
-            Săn deal ngay
+            {t("promoBanner.bookNow")}
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
         </div>
@@ -41,7 +43,7 @@ export default function PromoBanner() {
           <div className="w-full aspect-square bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl flex items-center justify-center -rotate-6 hover:rotate-0 transition-transform duration-500">
             <div className="text-center p-6">
               <div className="text-5xl font-black text-white mb-2">-30%</div>
-              <div className="text-white/80 font-medium uppercase tracking-widest text-sm">Sale lớn nhất năm</div>
+              <div className="text-white/80 font-medium uppercase tracking-widest text-sm">{t("promoBanner.biggestSale")}</div>
             </div>
           </div>
         </div>

@@ -6,15 +6,19 @@ import PropertyCardSkeleton from "./PropertyCardSkeleton";
 import { useSearchHotels } from "@/hooks/useSearchHotels";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslation } from "react-i18next";
 
 type SortOption = "RECOMMENDED" | "PRICE_ASC" | "PRICE_DESC" | "RATING_DESC";
 
+import SidebarFilters from "./SidebarFilters";
+
 export default function SearchResults() {
+  const { t } = useTranslation();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const [nameFilter, setNameFilter] = useState("");
   const [maxPrice, setMaxPrice] = useState("ALL");
-  const [breakfastOnly, setBreakfastOnly] = useState(false);
+  const [propertyTypes, setPropertyTypes] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("RECOMMENDED");
 
   const params = {
@@ -30,7 +34,7 @@ export default function SearchResults() {
   const filteredHotels = hotels
     .filter((hotel) => !nameFilter.trim() || `${hotel.name} ${hotel.city} ${hotel.address}`.toLowerCase().includes(nameFilter.trim().toLowerCase()))
     .filter((hotel) => maxPrice === "ALL" || hotel.startingPrice <= Number(maxPrice))
-    .filter((hotel) => !breakfastOnly || hotel.amenities.includes("BREAKFAST"))
+    .filter((hotel) => propertyTypes.length === 0 || propertyTypes.includes(hotel.propertyType))
     .sort((left, right) => {
       if (sortBy === "PRICE_ASC") return left.startingPrice - right.startingPrice;
       if (sortBy === "PRICE_DESC") return right.startingPrice - left.startingPrice;
@@ -46,7 +50,7 @@ export default function SearchResults() {
       image: hotel.thumbnail || hotel.images?.[0] || "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       rating: hotel.rating,
       distance: `${hotel.city}${hotel.address ? `, ${hotel.address}` : ""}`,
-      roomType: firstRoom?.name || "Chưa có loại phòng phù hợp",
+      roomType: firstRoom?.name || t("search.noRoomType"),
       bedCount: firstRoom?.bedCount || 0,
       bedType: firstRoom?.bedType || "",
       availableRooms: firstRoom?.availableRooms || 0,
@@ -56,21 +60,53 @@ export default function SearchResults() {
   });
 
   return (
-    <div className="w-full">
-      <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-        <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-          <div><div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.13em] text-primary"><Building2 className="h-4 w-4" />Kết quả khả dụng</div><h2 className="mt-1 text-2xl font-black tracking-tight text-slate-900">{params.location || "Việt Nam"}: {isLoading ? "Đang tìm..." : `${filteredHotels.length} chỗ nghỉ`}</h2><p className="mt-1 text-sm text-slate-500">Kết quả được lấy từ các chỗ nghỉ đang hoạt động và loại phòng còn khả dụng.</p></div>
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <div className="relative min-w-0 sm:w-60"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><Input value={nameFilter} onChange={(event) => setNameFilter(event.target.value)} className="h-10 rounded-xl bg-slate-50 pl-9" placeholder="Tên chỗ nghỉ..." /></div>
-            <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}><SelectTrigger className="h-10 rounded-xl sm:w-52"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="RECOMMENDED">Đề xuất</SelectItem><SelectItem value="PRICE_ASC">Giá thấp đến cao</SelectItem><SelectItem value="PRICE_DESC">Giá cao đến thấp</SelectItem><SelectItem value="RATING_DESC">Điểm đánh giá cao</SelectItem></SelectContent></Select>
+    <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 items-start">
+      <aside className="hidden lg:block sticky top-24">
+        <SidebarFilters 
+          nameFilter={nameFilter}
+          setNameFilter={setNameFilter}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          propertyTypes={propertyTypes}
+          setPropertyTypes={setPropertyTypes}
+        />
+      </aside>
+      
+      <main className="w-full min-w-0">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-black tracking-tight text-slate-900">
+              {params.location || "Việt Nam"}: {isLoading ? t("search.finding") : t("search.found", { count: filteredHotels.length })}
+            </h2>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="text-sm font-medium text-slate-600">{t("search.sortBy")}</span>
+            <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
+              <SelectTrigger className="h-10 w-[200px] rounded-full bg-white font-medium shadow-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="RECOMMENDED">{t("search.sortRecommended")}</SelectItem>
+                <SelectItem value="PRICE_ASC">{t("search.sortPriceAsc")}</SelectItem>
+                <SelectItem value="PRICE_DESC">{t("search.sortPriceDesc")}</SelectItem>
+                <SelectItem value="RATING_DESC">{t("search.sortRatingDesc")}</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
-        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-slate-100 pt-4"><span className="mr-1 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-slate-400"><SlidersHorizontal className="h-3.5 w-3.5" />Lọc nhanh</span>{[{ value: "ALL", label: "Mọi mức giá" }, { value: "1000000", label: "Dưới 1 triệu" }, { value: "2000000", label: "Dưới 2 triệu" }, { value: "3000000", label: "Dưới 3 triệu" }].map((option) => <button key={option.value} type="button" onClick={() => setMaxPrice(option.value)} className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${maxPrice === option.value ? "border-primary bg-blue-50 text-primary" : "border-slate-200 bg-white text-slate-600 hover:border-blue-300"}`}>{option.label}</button>)}<button type="button" onClick={() => setBreakfastOnly((value) => !value)} className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${breakfastOnly ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-600 hover:border-emerald-300"}`}>Có bữa sáng</button></div>
-      </div>
 
-      <div className="flex flex-col gap-5">
-        {isLoading ? Array.from({ length: 4 }).map((_, index) => <PropertyCardSkeleton key={index} />) : error ? <EmptyState title="Chưa thể tải kết quả" description={error instanceof Error ? error.message : JSON.stringify(error)} /> : formattedHotels.length ? formattedHotels.map((property) => <PropertyCard key={property.id} prop={property} search={location.search} />) : <EmptyState title="Không tìm thấy chỗ nghỉ phù hợp" description="Hãy thử bỏ bớt bộ lọc, đổi ngày lưu trú hoặc tìm một điểm đến khác." />}
-      </div>
+        <div className="flex flex-col gap-4">
+          {isLoading ? (
+            Array.from({ length: 4 }).map((_, index) => <PropertyCardSkeleton key={index} />)
+          ) : error ? (
+            <EmptyState title={t("search.errorTitle")} description={error instanceof Error ? error.message : JSON.stringify(error)} />
+          ) : formattedHotels.length ? (
+            formattedHotels.map((property) => <PropertyCard key={property.id} prop={property} search={location.search} />)
+          ) : (
+            <EmptyState title={t("search.noResultTitle")} description={t("search.noResultDesc")} />
+          )}
+        </div>
+      </main>
     </div>
   );
 }

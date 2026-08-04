@@ -26,6 +26,7 @@ export function useSearchHotels(params: SearchHotelsParams) {
             rating: h.rating ?? 0,
             address: h.address || '',
             city: h.city || '',
+            propertyType: h.propertyType || 'HOTEL',
             startingPrice: Number(h.startingPrice || 0),
             availableRoomTypes: (h.availableRoomTypes || []).map((rt: any) => ({
               ...rt,

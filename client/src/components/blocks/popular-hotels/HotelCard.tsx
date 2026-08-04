@@ -1,6 +1,7 @@
 import { Star, MapPin } from "lucide-react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface HotelCardProps {
   hotel: {
@@ -15,6 +16,7 @@ interface HotelCardProps {
 }
 
 export default function HotelCard({ hotel }: HotelCardProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const formatCurrency = (amount: number) => {
@@ -24,6 +26,10 @@ export default function HotelCard({ hotel }: HotelCardProps) {
   const handleClick = () => {
     navigate(`/hotel/${hotel.id}`);
   };
+
+  const badgeText = hotel.badge 
+    ? t(`enums.PropertyType.${hotel.badge}`, { defaultValue: hotel.badge })
+    : null;
 
   return (
     <div 
@@ -39,9 +45,9 @@ export default function HotelCard({ hotel }: HotelCardProps) {
           />
         </AspectRatio>
         
-        {hotel.badge && (
+        {badgeText && (
           <div className="absolute left-3 top-3 rounded-full bg-slate-950/70 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-md backdrop-blur">
-            {hotel.badge}
+            {badgeText}
           </div>
         )}
       </div>
@@ -63,20 +69,20 @@ export default function HotelCard({ hotel }: HotelCardProps) {
                 <Star className="w-4 h-4 fill-current" />
                 <span className="font-bold ml-1 text-sm">{hotel.rating}</span>
               </div>
-              <span className="ml-1 text-sm text-gray-500">Điểm đánh giá</span>
+              <span className="ml-1 text-sm text-gray-500">{t("popularHotels.ratingLabel")}</span>
             </>
           ) : (
-            <span className="text-sm text-gray-500">Chưa có đánh giá</span>
+            <span className="text-sm text-gray-500">{t("popularHotels.noRating")}</span>
           )}
         </div>
 
         <div className="mt-auto flex items-end justify-between border-t border-slate-100 pt-4">
-          <span className="text-sm font-medium text-slate-500">Giá từ</span>
+          <span className="text-sm font-medium text-slate-500">{t("popularHotels.priceFrom")}</span>
           <div className="flex flex-col items-end">
             <span className="text-lg font-black text-primary">
-              {hotel.price === null ? "Liên hệ" : formatCurrency(hotel.price)}
+              {hotel.price === null ? t("popularHotels.contactPrice") : formatCurrency(hotel.price)}
             </span>
-            {hotel.price !== null && <span className="text-xs text-slate-400">/ phòng / đêm</span>}
+            {hotel.price !== null && <span className="text-xs text-slate-400">{t("popularHotels.pricePerNight")}</span>}
           </div>
         </div>
       </div>

@@ -1,7 +1,10 @@
 import { Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 export default function Newsletter() {
+  const { t } = useTranslation();
+
   return (
     <section className="w-full py-20 bg-white">
       <div className="container mx-auto">
@@ -11,9 +14,9 @@ export default function Newsletter() {
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4"></div>
 
           <div className="relative z-10 md:w-1/2 text-white text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Đừng bỏ lỡ ưu đãi!</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("newsletter.title")}</h2>
             <p className="text-white/80 text-lg">
-              Đăng ký nhận bản tin để không bỏ lỡ các chương trình giảm giá sốc và kinh nghiệm du lịch hữu ích từ chúng tôi.
+              {t("newsletter.description")}
             </p>
           </div>
 
@@ -23,11 +26,11 @@ export default function Newsletter() {
             </div>
             <input 
               type="email" 
-              placeholder="Nhập email của bạn..." 
+              placeholder={t("newsletter.placeholder")} 
               className="flex-1 bg-transparent py-4 px-2 outline-none text-slate-700 font-medium placeholder:font-normal"
             />
             <Button className="h-12 px-6 bg-slate-800 hover:bg-slate-900 text-white rounded-xl shadow-md font-bold">
-              Đăng ký
+              {t("newsletter.subscribe")}
               <Send className="w-4 h-4 ml-2" />
             </Button>
           </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Check, CheckCircle2, Info, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -30,6 +31,7 @@ interface CheckoutData {
 }
 
 export default function Checkout() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { user, isAuthenticated } = useAppStore();
@@ -76,7 +78,7 @@ export default function Checkout() {
 
   const handlePayment = async () => {
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
-      toast.error("Vui lòng điền đầy đủ thông tin bắt buộc");
+      toast.error(t("checkout.errRequiredFields"));
       return;
     }
 
@@ -102,10 +104,10 @@ export default function Checkout() {
         return;
       }
       sessionStorage.removeItem("checkoutData");
-      toast.success(`Đặt phòng thành công: ${response.data?.bookingCode || ""}`);
+      toast.success(t("checkout.successBooking", { code: response.data?.bookingCode || "" }));
       navigate(`/my-bookings?created=${response.data?.id || ""}`);
     } catch (error: any) {
-      toast.error(error.response?.data?.message || "Có lỗi xảy ra khi tạo đơn đặt phòng");
+      toast.error(error.response?.data?.message || t("checkout.errCreateBooking"));
     } finally {
       setIsProcessing(false);
     }
@@ -117,11 +119,11 @@ export default function Checkout() {
     <div className="min-h-screen bg-background pb-12 pt-24 text-foreground">
       <div className="container mx-auto max-w-5xl px-4">
         <div className="mb-8 hidden items-center justify-center text-sm font-medium text-slate-500 md:flex">
-          <div className="flex items-center text-primary"><CheckCircle2 className="mr-2 h-5 w-5" />Lựa chọn của bạn</div>
+          <div className="flex items-center text-primary"><CheckCircle2 className="mr-2 h-5 w-5" />{t("checkout.stepYourChoice")}</div>
           <div className="mx-4 h-px w-16 bg-border" />
-          <div className="flex items-center text-primary"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">2</span>Thông tin của bạn</div>
+          <div className="flex items-center text-primary"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">2</span>{t("checkout.stepYourInfo")}</div>
           <div className="mx-4 h-px w-16 bg-border" />
-          <div className="flex items-center"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full border text-xs">3</span>Hoàn tất</div>
+          <div className="flex items-center"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full border text-xs">3</span>{t("checkout.stepComplete")}</div>
         </div>
 
         <div className="flex flex-col gap-6 lg:flex-row">
@@ -136,51 +138,51 @@ export default function Checkout() {
             </Card>
 
             <Card className="border-border bg-card shadow-sm">
-              <CardHeader className="p-4 pb-2"><CardTitle className="text-base text-foreground">Thông tin đặt chỗ</CardTitle></CardHeader>
+              <CardHeader className="p-4 pb-2"><CardTitle className="text-base text-foreground">{t("checkout.bookingInfo")}</CardTitle></CardHeader>
               <CardContent className="space-y-4 p-4 pt-2">
                 <div className="grid grid-cols-2 gap-4">
-                  <div><div className="text-sm text-muted-foreground">Nhận phòng</div><div className="mt-1 font-bold text-foreground">{dateFormatter.format(checkInDate)}</div></div>
-                  <div><div className="text-sm text-muted-foreground">Trả phòng</div><div className="mt-1 font-bold text-foreground">{dateFormatter.format(checkOutDate)}</div></div>
+                  <div><div className="text-sm text-muted-foreground">{t("checkout.checkIn")}</div><div className="mt-1 font-bold text-foreground">{dateFormatter.format(checkInDate)}</div></div>
+                  <div><div className="text-sm text-muted-foreground">{t("checkout.checkOut")}</div><div className="mt-1 font-bold text-foreground">{dateFormatter.format(checkOutDate)}</div></div>
                 </div>
-                <div className="border-t border-border pt-4 text-sm"><div className="font-bold text-foreground">{nights} đêm, {rooms} phòng, {adults + children} khách</div><div className="mt-1 text-muted-foreground">{checkoutData.roomType.name}</div></div>
+                <div className="border-t border-border pt-4 text-sm"><div className="font-bold text-foreground">{t("checkout.nightsRoomsGuests", { nights, rooms, guests: adults + children })}</div><div className="mt-1 text-muted-foreground">{checkoutData.roomType.name}</div></div>
               </CardContent>
             </Card>
 
             <Card className="border-border bg-card shadow-sm">
-              <CardHeader className="p-4 pb-2"><CardTitle className="text-base text-foreground">Tóm tắt giá</CardTitle></CardHeader>
-              <CardContent className="p-4 pt-2"><div className="flex justify-between text-sm text-foreground"><span>{nights} đêm x {rooms} phòng</span><span>{currencyFormatter.format(totalAmount)}</span></div></CardContent>
-              <div className="flex items-end justify-between border-t border-border bg-muted/50 p-4 text-foreground"><span className="text-xl font-bold">Tổng cộng</span><span className="text-2xl font-black">{currencyFormatter.format(totalAmount)}</span></div>
+              <CardHeader className="p-4 pb-2"><CardTitle className="text-base text-foreground">{t("checkout.priceSummary")}</CardTitle></CardHeader>
+              <CardContent className="p-4 pt-2"><div className="flex justify-between text-sm text-foreground"><span>{t("checkout.nightsRooms", { nights, rooms })}</span><span>{currencyFormatter.format(totalAmount)}</span></div></CardContent>
+              <div className="flex items-end justify-between border-t border-border bg-muted/50 p-4 text-foreground"><span className="text-xl font-bold">{t("checkout.totalAmount")}</span><span className="text-2xl font-black">{currencyFormatter.format(totalAmount)}</span></div>
             </Card>
           </div>
 
           <div className="flex-1 space-y-6">
             <Card className="border-border bg-card shadow-sm">
-              <CardContent className="flex items-center gap-4 p-4"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">{fullName.charAt(0).toUpperCase() || "U"}</div><div><div className="font-bold text-foreground">Bạn đã đăng nhập</div><div className="text-sm text-muted-foreground">{user?.email}</div></div></CardContent>
+              <CardContent className="flex items-center gap-4 p-4"><div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-primary-foreground">{fullName.charAt(0).toUpperCase() || "U"}</div><div><div className="font-bold text-foreground">{t("checkout.loggedInAs")}</div><div className="text-sm text-muted-foreground">{user?.email}</div></div></CardContent>
             </Card>
 
             <Card className="border-border bg-card shadow-sm">
-              <CardHeader className="border-b border-border p-6"><CardTitle className="text-foreground">Nhập thông tin của bạn</CardTitle></CardHeader>
+              <CardHeader className="border-b border-border p-6"><CardTitle className="text-foreground">{t("checkout.enterYourInfo")}</CardTitle></CardHeader>
               <CardContent className="space-y-5 p-6">
-                <div className="flex items-start gap-2 rounded-md border border-border bg-muted/50 p-3 text-sm text-muted-foreground"><Info className="h-5 w-5 shrink-0 text-muted-foreground/70" />Các trường có dấu * là bắt buộc.</div>
+                <div className="flex items-start gap-2 rounded-md border border-border bg-muted/50 p-3 text-sm text-muted-foreground"><Info className="h-5 w-5 shrink-0 text-muted-foreground/70" />{t("checkout.requiredFields")}</div>
                 <div className="grid gap-5 md:grid-cols-2">
-                  <div className="space-y-2"><Label htmlFor="lastName">Họ *</Label><Input id="lastName" value={formData.lastName} onChange={(event) => setFormData({ ...formData, lastName: event.target.value })} /></div>
-                  <div className="space-y-2"><Label htmlFor="firstName">Tên *</Label><Input id="firstName" value={formData.firstName} onChange={(event) => setFormData({ ...formData, firstName: event.target.value })} /></div>
+                  <div className="space-y-2"><Label htmlFor="lastName">{t("checkout.lastName")}</Label><Input id="lastName" value={formData.lastName} onChange={(event) => setFormData({ ...formData, lastName: event.target.value })} /></div>
+                  <div className="space-y-2"><Label htmlFor="firstName">{t("checkout.firstName")}</Label><Input id="firstName" value={formData.firstName} onChange={(event) => setFormData({ ...formData, firstName: event.target.value })} /></div>
                 </div>
-                <div className="space-y-2"><Label htmlFor="email">Email *</Label><Input id="email" type="email" value={formData.email} onChange={(event) => setFormData({ ...formData, email: event.target.value })} /></div>
-                <div className="space-y-2"><Label htmlFor="phone">Số điện thoại *</Label><Input id="phone" value={formData.phone} onChange={(event) => setFormData({ ...formData, phone: event.target.value })} /></div>
-                <div className="space-y-2"><Label htmlFor="request">Yêu cầu đặc biệt</Label><Input id="request" value={formData.specialRequest} onChange={(event) => setFormData({ ...formData, specialRequest: event.target.value })} placeholder="Không bắt buộc" /></div>
+                <div className="space-y-2"><Label htmlFor="email">{t("checkout.email")}</Label><Input id="email" type="email" value={formData.email} onChange={(event) => setFormData({ ...formData, email: event.target.value })} /></div>
+                <div className="space-y-2"><Label htmlFor="phone">{t("checkout.phone")}</Label><Input id="phone" value={formData.phone} onChange={(event) => setFormData({ ...formData, phone: event.target.value })} /></div>
+                <div className="space-y-2"><Label htmlFor="request">{t("checkout.specialRequest")}</Label><Input id="request" value={formData.specialRequest} onChange={(event) => setFormData({ ...formData, specialRequest: event.target.value })} placeholder={t("checkout.specialRequestPlaceholder")} /></div>
               </CardContent>
             </Card>
 
             <Card className="border-border bg-card shadow-sm">
-              <CardHeader className="border-b border-border p-6"><CardTitle className="text-foreground">Phương thức thanh toán</CardTitle></CardHeader>
+              <CardHeader className="border-b border-border p-6"><CardTitle className="text-foreground">{t("checkout.paymentMethod")}</CardTitle></CardHeader>
               <CardContent className="p-6">
                 <RadioGroup value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as "pay_at_hotel" | "vnpay")} className="space-y-3">
-                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "pay_at_hotel" ? "border-primary bg-primary/5" : "border-border"}`}><RadioGroupItem value="pay_at_hotel" /><Wallet className="h-6 w-6 text-muted-foreground" /><div><div className="font-semibold text-foreground">Thanh toán tại chỗ nghỉ</div><div className="text-sm text-muted-foreground">Phù hợp nhất cho buổi demo</div></div></label>
-                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "vnpay" ? "border-primary bg-primary/5" : "border-border"}`}><RadioGroupItem value="vnpay" /><img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPay" className="h-6" /><div><div className="font-semibold text-foreground">Thanh toán qua VNPay</div><div className="text-sm text-muted-foreground">Chuyển sang cổng thanh toán sandbox</div></div></label>
+                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "pay_at_hotel" ? "border-primary bg-primary/5" : "border-border"}`}><RadioGroupItem value="pay_at_hotel" /><Wallet className="h-6 w-6 text-muted-foreground" /><div><div className="font-semibold text-foreground">{t("checkout.payAtHotel")}</div><div className="text-sm text-muted-foreground">{t("checkout.payAtHotelDesc")}</div></div></label>
+                  <label className={`flex cursor-pointer items-center gap-3 rounded-xl border p-4 ${paymentMethod === "vnpay" ? "border-primary bg-primary/5" : "border-border"}`}><RadioGroupItem value="vnpay" /><img src="https://vnpay.vn/s1/statics.vnpay.vn/2023/9/06ncktiwd6dc1694418196384.png" alt="VNPay" className="h-6" /><div><div className="font-semibold text-foreground">{t("checkout.payViaVnpay")}</div><div className="text-sm text-muted-foreground">{t("checkout.payViaVnpayDesc")}</div></div></label>
                 </RadioGroup>
-                <div className="mt-5 flex items-start gap-2 text-sm text-muted-foreground"><Check className="h-5 w-5 text-green-600" />Giá cuối cùng sẽ được backend kiểm tra và tính lại.</div>
-                <Button className="mt-6 h-12 w-full text-base font-bold" onClick={() => void handlePayment()} disabled={isProcessing}>{isProcessing ? "Đang xử lý..." : "Hoàn tất đặt phòng"}</Button>
+                <div className="mt-5 flex items-start gap-2 text-sm text-muted-foreground"><Check className="h-5 w-5 text-green-600" />{t("checkout.priceVerified")}</div>
+                <Button className="mt-6 h-12 w-full text-base font-bold" onClick={() => void handlePayment()} disabled={isProcessing}>{isProcessing ? t("checkout.processing") : t("checkout.confirmBooking")}</Button>
               </CardContent>
             </Card>
           </div>

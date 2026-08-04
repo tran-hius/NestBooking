@@ -1,40 +1,43 @@
 import { Star, Quote } from "lucide-react";
-
-const reviews = [
-  {
-    id: 1,
-    name: "Nguyễn Văn A",
-    role: "Khách hàng thường xuyên",
-    content: "NestBooking thực sự là một nền tảng tuyệt vời. Tôi đã đặt phòng khách sạn ở Đà Nẵng và được giảm giá rất sâu, dịch vụ lại hỗ trợ tận tình.",
-    rating: 5,
-    avatar: "https://i.pravatar.cc/150?img=11"
-  },
-  {
-    id: 2,
-    name: "Trần Thị B",
-    role: "Travel Blogger",
-    content: "Giao diện siêu mượt, rất dễ sử dụng trên điện thoại. Tôi đặc biệt thích tính năng tìm kiếm các khách sạn đang có khuyến mãi.",
-    rating: 5,
-    avatar: "https://i.pravatar.cc/150?img=5"
-  },
-  {
-    id: 3,
-    name: "Lê Hoàng C",
-    role: "Gia đình du lịch",
-    content: "Vừa book phòng cho cả gia đình đi Phú Quốc. Quá trình thanh toán mượt mà, xác nhận nhanh chóng. Rất yên tâm khi dùng ứng dụng này.",
-    rating: 4,
-    avatar: "https://i.pravatar.cc/150?img=15"
-  }
-];
+import { useTranslation } from "react-i18next";
 
 export default function Reviews() {
+  const { t } = useTranslation();
+
+  const reviews = [
+    {
+      id: 1,
+      name: t("reviews.r1Name"),
+      role: t("reviews.r1Role"),
+      content: t("reviews.r1Content"),
+      rating: 5,
+      avatar: "https://i.pravatar.cc/150?img=11"
+    },
+    {
+      id: 2,
+      name: t("reviews.r2Name"),
+      role: t("reviews.r2Role"),
+      content: t("reviews.r2Content"),
+      rating: 5,
+      avatar: "https://i.pravatar.cc/150?img=5"
+    },
+    {
+      id: 3,
+      name: t("reviews.r3Name"),
+      role: t("reviews.r3Role"),
+      content: t("reviews.r3Content"),
+      rating: 4,
+      avatar: "https://i.pravatar.cc/150?img=15"
+    }
+  ];
+
   return (
     <section className="w-full py-16 bg-slate-50">
       <div className="container mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-4">Khách hàng nói gì về chúng tôi</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-4">{t("reviews.title")}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Hàng ngàn đánh giá tích cực từ những người đã trải nghiệm dịch vụ.
+            {t("reviews.subtitle")}
           </p>
         </div>
 

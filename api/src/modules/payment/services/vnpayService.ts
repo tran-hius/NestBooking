@@ -22,7 +22,6 @@ export class VnpayService {
     vnp_Params["vnp_TxnRef"] = orderId;
     vnp_Params["vnp_OrderInfo"] = orderInfo;
     vnp_Params["vnp_OrderType"] = "other";
-    vnp_Params["vnp_BankCode"] = "VNPAYQR";
     vnp_Params["vnp_Amount"] = amount * 100;
     vnp_Params["vnp_ReturnUrl"] = this.returnUrl;
     vnp_Params["vnp_IpAddr"] = ipAddr;

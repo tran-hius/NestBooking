@@ -3,8 +3,10 @@ import { Compass } from "lucide-react";
 import { useEffect, useState } from "react";
 import { destinationService, Destination } from "@/api/services/destinationService";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useTranslation } from "react-i18next";
 
 const TrendingDestinations = () => {
+  const { t } = useTranslation();
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -28,7 +30,18 @@ const TrendingDestinations = () => {
     <section className="relative overflow-hidden bg-white py-20 md:py-24">
       <div className="container relative z-10">
         <div className="mb-9 flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div><div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary"><Compass className="h-4 w-4" />Điểm đến từ hệ thống</div><h2 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">Đi đâu trong chuyến tới?</h2><p className="mt-2 text-slate-500">Chọn nhanh một điểm đến đang được mở hiển thị trên NestBooking.</p></div>
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">
+              <Compass className="h-4 w-4" />
+              {t("trendingDestinations.badge")}
+            </div>
+            <h2 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
+              {t("trendingDestinations.title")}
+            </h2>
+            <p className="mt-2 text-slate-500">
+              {t("trendingDestinations.subtitle")}
+            </p>
+          </div>
         </div>
 
         {isLoading ? (
@@ -45,7 +58,7 @@ const TrendingDestinations = () => {
           </div>
         ) : hasError ? (
           <div className="rounded-xl border border-dashed border-slate-300 py-10 text-center text-gray-500">
-            Chưa thể tải điểm đến. Vui lòng thử lại sau.
+            {t("trendingDestinations.errorMessage")}
           </div>
         ) : destinations.length > 0 ? (
           <>
@@ -65,7 +78,7 @@ const TrendingDestinations = () => {
           </>
         ) : (
           <div className="text-center py-10 text-gray-500">
-            Không có dữ liệu điểm đến.
+            {t("trendingDestinations.emptyMessage")}
           </div>
         )}
       </div>
