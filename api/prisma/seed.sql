@@ -41,7 +41,6 @@ ON CONFLICT ("slug") DO UPDATE
 SET "name" = EXCLUDED."name", "image_url" = EXCLUDED."image_url", "description" = EXCLUDED."description", "updated_at" = NOW();
 
 
--- 3. HOTELS (Các cơ sở lưu trú đủ loại hình)
 INSERT INTO "hotels" ("id", "owner_id", "name", "slug", "description", "address", "city", "country", "latitude", "longitude", "phone", "email", "thumbnail", "amenities", "rating", "check_in_time", "check_out_time", "status", "property_type", "created_at", "updated_at")
 VALUES
   (
@@ -123,7 +122,7 @@ VALUES
 ON CONFLICT ("id") DO NOTHING;
 
 
--- 5. ROOM TYPES (Loại phòng)
+
 INSERT INTO "room_types" ("id", "hotel_id", "name", "description", "price", "max_guests", "max_adults", "max_children", "bed_type", "bed_count", "area", "thumbnail", "is_active", "amenities", "created_at", "updated_at")
 VALUES
   (
@@ -175,7 +174,6 @@ ON CONFLICT ("hotel_id", "name") DO UPDATE
 SET "price" = EXCLUDED."price", "description" = EXCLUDED."description", "updated_at" = NOW();
 
 
--- 6. PHYSICAL ROOMS (Phòng vật lý thực tế)
 INSERT INTO "rooms" ("id", "hotel_id", "room_type_id", "room_number", "floor", "status", "is_active", "created_at", "updated_at")
 VALUES
   ('rm101', 'h1111111-1111-4111-a111-111111111111', 'rt111111-1111-4111-a111-111111111111', '101', 1, 'AVAILABLE', true, NOW(), NOW()),
@@ -189,7 +187,7 @@ VALUES
 ON CONFLICT ("hotel_id", "room_number") DO UPDATE SET "status" = 'AVAILABLE', "updated_at" = NOW();
 
 
--- 7. DEMO BOOKINGS & BOOKING_ROOMS
+
 INSERT INTO "bookings" ("id", "booking_code", "user_id", "hotel_id", "room_type_id", "check_in_date", "check_out_date", "quantity", "total_amount", "status", "payment_method", "payment_status", "payment_date", "transaction_id", "guest_name", "guest_phone", "guest_email", "special_requests", "created_at", "updated_at")
 VALUES
   (

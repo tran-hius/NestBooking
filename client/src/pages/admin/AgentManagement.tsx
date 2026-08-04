@@ -48,14 +48,12 @@ interface AgentUser {
   } | null;
 }
 
-type AgentStatus = "ACTIVE" | "PENDING" | "INACTIVE" | "BANNED" | "REJECTED";
+type AgentStatus = "ACTIVE" | "INACTIVE" | "BANNED";
 
 const statusConfig: Record<string, { label: string; className: string; dot: string }> = {
   ACTIVE: { label: "Đã kích hoạt", className: "border-sky-200 bg-sky-50 text-sky-700", dot: "bg-sky-500" },
-  PENDING: { label: "Chờ duyệt", className: "border-amber-200 bg-amber-50 text-amber-700", dot: "bg-amber-500" },
   INACTIVE: { label: "Tạm ngưng", className: "border-slate-200 bg-slate-100 text-slate-700", dot: "bg-slate-500" },
   BANNED: { label: "Đã khóa", className: "border-red-200 bg-red-50 text-red-700", dot: "bg-red-500" },
-  REJECTED: { label: "Đã từ chối", className: "border-orange-200 bg-orange-50 text-orange-700", dot: "bg-orange-500" },
 };
 
 const joinedDate = new Intl.DateTimeFormat("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" });
@@ -116,14 +114,11 @@ export default function AgentManagement() {
       return matchesSearch && (status === "ALL" || agent.status === status);
     })
     .sort((left, right) => {
-      if (left.status === "PENDING" && right.status !== "PENDING") return -1;
-      if (left.status !== "PENDING" && right.status === "PENDING") return 1;
       return new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime();
     });
 
-  const pendingAgents = agents.filter((agent) => agent.status === "PENDING").length;
   const activeAgents = agents.filter((agent) => agent.status === "ACTIVE").length;
-  const restrictedAgents = agents.filter((agent) => ["INACTIVE", "BANNED", "REJECTED"].includes(agent.status)).length;
+  const restrictedAgents = agents.filter((agent) => ["INACTIVE", "BANNED"].includes(agent.status)).length;
   const activeHotels = hotels.filter((hotel) => hotel.status === "ACTIVE").length;
   const selectedHotels = selectedAgent ? hotelsByOwner.get(selectedAgent.id) || [] : [];
 
@@ -140,10 +135,9 @@ export default function AgentManagement() {
         </div>
       </section>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard icon={Clock3} label="Chờ xác minh" value={pendingAgents} hint="Cần quản trị viên xử lý" tone="amber" />
+      <div className="grid gap-4 sm:grid-cols-3">
         <StatCard icon={UserRoundCheck} label="Đã kích hoạt" value={activeAgents} hint={`${agents.length ? Math.round(activeAgents / agents.length * 100) : 0}% tổng đối tác`} tone="sky" />
-        <StatCard icon={Ban} label="Bị hạn chế" value={restrictedAgents} hint="Từ chối, khóa hoặc tạm ngưng" tone="red" />
+        <StatCard icon={Ban} label="Bị hạn chế" value={restrictedAgents} hint="Khóa hoặc tạm ngưng" tone="red" />
         <StatCard icon={Building2} label="Chỗ nghỉ hoạt động" value={activeHotels} hint={`${hotels.length} chỗ nghỉ toàn hệ thống`} tone="violet" />
       </div>
 
@@ -157,7 +151,7 @@ export default function AgentManagement() {
             <div className="flex items-center gap-3">
               <Select value={status} onValueChange={setStatus}>
                 <SelectTrigger className="h-10 w-full rounded-xl sm:w-48"><SelectValue /></SelectTrigger>
-                <SelectContent><SelectItem value="ALL">Tất cả trạng thái</SelectItem><SelectItem value="PENDING">Chờ duyệt</SelectItem><SelectItem value="ACTIVE">Đã kích hoạt</SelectItem><SelectItem value="INACTIVE">Tạm ngưng</SelectItem><SelectItem value="BANNED">Đã khóa</SelectItem><SelectItem value="REJECTED">Đã từ chối</SelectItem></SelectContent>
+                <SelectContent><SelectItem value="ALL">Tất cả trạng thái</SelectItem><SelectItem value="ACTIVE">Đã kích hoạt</SelectItem><SelectItem value="INACTIVE">Tạm ngưng</SelectItem><SelectItem value="BANNED">Đã khóa</SelectItem></SelectContent>
               </Select>
               <div className="hidden whitespace-nowrap text-sm text-muted-foreground md:block">{filtered.length} kết quả</div>
             </div>
@@ -171,7 +165,7 @@ export default function AgentManagement() {
                   const ownedHotels = hotelsByOwner.get(agent.id) || [];
                   const profilePercent = getProfilePercent(agent);
                   return (
-                    <TableRow key={agent.id} className={agent.status === "PENDING" ? "bg-amber-50/35 hover:bg-amber-50/60 dark:bg-amber-950/10" : "group hover:bg-violet-50/30 dark:hover:bg-zinc-900"}>
+                    <TableRow key={agent.id} className="group hover:bg-violet-50/30 dark:hover:bg-zinc-900">
                       <TableCell className="pl-5"><div className="flex items-center gap-3"><Avatar className="h-11 w-11 border border-slate-200 shadow-sm"><AvatarImage src={agent.profile?.avatarUrl || ""} /><AvatarFallback className="bg-gradient-to-br from-violet-600 to-blue-500 font-bold text-white">{getInitials(agent)}</AvatarFallback></Avatar><div className="min-w-0"><div className="max-w-52 truncate font-semibold text-slate-900 dark:text-white">{agent.profile?.fullName || "Chưa cập nhật tên"}</div><div className="mt-0.5 text-xs text-slate-400">ID: {agent.id.slice(0, 8).toUpperCase()}</div></div></div></TableCell>
                       <TableCell><div className="max-w-56 truncate font-medium text-slate-700 dark:text-zinc-200">{agent.email}</div><div className="mt-1 text-xs text-muted-foreground">{agent.profile?.phoneNumber || "Chưa có số điện thoại"}</div></TableCell>
                       <TableCell><ProfileProgress percent={profilePercent} /></TableCell>
@@ -204,7 +198,7 @@ export default function AgentManagement() {
 }
 
 function AgentActions({ agent, updating, onView, onAction }: { agent: AgentUser; updating: string | null; onView: (agent: AgentUser) => void; onAction: (status: AgentStatus) => void }) {
-  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(agent)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{agent.status === "PENDING" && <><Button size="sm" className="h-8 gap-1.5 rounded-lg bg-sky-600 hover:bg-sky-700" disabled={updating === agent.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Duyệt</Button><Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("REJECTED")}><XCircle className="h-3.5 w-3.5" />Từ chối</Button></>}{agent.status === "ACTIVE" && <Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("BANNED")}><Ban className="h-3.5 w-3.5" />Khóa</Button>}{["BANNED", "REJECTED", "INACTIVE"].includes(agent.status) && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
+  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(agent)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{agent.status === "ACTIVE" && <Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("BANNED")}><Ban className="h-3.5 w-3.5" />Khóa</Button>}{["BANNED", "INACTIVE"].includes(agent.status) && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === agent.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
 }
 
 function StatusBadge({ status }: { status: string }) {
@@ -213,8 +207,8 @@ function StatusBadge({ status }: { status: string }) {
 }
 
 function HotelStatus({ status }: { status: string }) {
-  const labels: Record<string, string> = { ACTIVE: "Hoạt động", PENDING: "Chờ duyệt", INACTIVE: "Tạm ngưng", REJECTED: "Từ chối" };
-  const classes: Record<string, string> = { ACTIVE: "bg-sky-50 text-sky-700", PENDING: "bg-amber-50 text-amber-700", INACTIVE: "bg-slate-100 text-slate-700", REJECTED: "bg-red-50 text-red-700" };
+  const labels: Record<string, string> = { ACTIVE: "Hoạt động", INACTIVE: "Tạm ngưng" };
+  const classes: Record<string, string> = { ACTIVE: "bg-sky-50 text-sky-700", INACTIVE: "bg-slate-100 text-slate-700" };
   return <Badge variant="outline" className={classes[status] || "bg-slate-100 text-slate-700"}>{labels[status] || status}</Badge>;
 }
 
@@ -243,12 +237,10 @@ function AgentDetail({ label, value }: { label: string; value: string }) {
 
 function getActionIcon(status: AgentStatus) {
   if (status === "BANNED") return <Ban className="h-6 w-6" />;
-  if (status === "REJECTED") return <XCircle className="h-6 w-6" />;
   return <CheckCircle2 className="h-6 w-6" />;
 }
 
 function getActionCopy(status: AgentStatus) {
   if (status === "BANNED") return { title: "Khóa tài khoản đối tác?", confirm: "Xác nhận khóa", success: "Đã khóa tài khoản đối tác", iconClass: "bg-red-100 text-red-600", description: (email: string) => `${email} sẽ không thể đăng nhập hoặc quản lý chỗ nghỉ cho đến khi được kích hoạt lại.` };
-  if (status === "REJECTED") return { title: "Từ chối hồ sơ đối tác?", confirm: "Xác nhận từ chối", success: "Đã từ chối hồ sơ đối tác", iconClass: "bg-orange-100 text-orange-600", description: (email: string) => `Hồ sơ của ${email} sẽ được đánh dấu là không đạt yêu cầu.` };
   return { title: "Kích hoạt tài khoản đối tác?", confirm: "Xác nhận kích hoạt", success: "Đã kích hoạt tài khoản đối tác", iconClass: "bg-sky-100 text-sky-600", description: (email: string) => `${email} sẽ có thể đăng nhập và sử dụng các chức năng quản lý chỗ nghỉ.` };
 }

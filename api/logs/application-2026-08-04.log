@@ -1,2990 +1,990 @@
 {
   message: '[SchedulerService] Khởi tạo các cron job...',
   level: 'info',
-  timestamp: '2026-08-04T06:56:00.972Z'
+  timestamp: '2026-08-04T16:58:19.558Z'
 }
 {
   message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
   level: 'info',
-  timestamp: '2026-08-04T06:56:01.062Z'
+  timestamp: '2026-08-04T16:58:19.903Z'
 }
 {
-  message: '[Redis] Kết nối thành công tới Redis server',
-  level: 'info',
-  timestamp: '2026-08-04T06:56:01.069Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T06:56:05.633Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T06:56:05.639Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T06:56:05.726Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T06:56:05.734Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T06:56:05.743Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T06:56:05.799Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:00:00.010Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:04:06.775Z'
-}
-{
-  query: [Object: null prototype] {},
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T07:04:06.783Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:04:06.804Z'
-}
-{
-  query: [Object: null prototype] {},
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T07:04:06.858Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:05:00.002Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:18.788Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:05:18.793Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:18.796Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:05:18.801Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:18.804Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:18.810Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:23.997Z'
-}
-{
-  query: [Object: null prototype] {},
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T07:05:24.001Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:24.006Z'
-}
-{
-  query: [Object: null prototype] {},
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T07:05:22.732Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T07:05:28.850Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:28.851Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T07:05:28.909Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:05:28.911Z'
-}
-{
-  email: 'agent1@booking.com',
-  level: 'info',
-  message: '[AuthController] Login with Password',
-  timestamp: '2026-08-04T07:07:09.049Z'
-}
-{
-  message: 'User ID 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
-  level: 'info',
-  timestamp: '2026-08-04T07:07:09.132Z'
-}
-{
-  message: '[AuthService] Password login successful for user: agent1@booking.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:07:09.172Z'
-}
-{
-  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:07:09.203Z'
-}
-{
-  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:09.203Z'
-}
-{
-  message: '[Cache Miss] Tìm user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:09.205Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:34.685Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:07:34.689Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:34.691Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:07:34.695Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:34.696Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:34.699Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:38.758Z'
-}
-{
-  query: [Object: null prototype] { location: 'Hà Nội' },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T07:07:38.766Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:38.782Z'
-}
-{
-  query: [Object: null prototype] { location: 'Hà Nội' },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T07:07:38.857Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:40.566Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:07:40.573Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:40.575Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:07:40.580Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:40.583Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:40.592Z'
-}
-{
-  message: '[BookingController] Get user bookings',
-  level: 'info',
-  timestamp: '2026-08-04T07:07:43.335Z'
-}
-{
-  message: '[BookingController] Get user bookings',
-  level: 'info',
-  timestamp: '2026-08-04T07:07:43.391Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:07:44.072Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:07:44.120Z'
-}
-{
-  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.157Z'
-}
-{
-  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.162Z'
-}
-{
-  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.169Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.169Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.170Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.170Z'
-}
-{
-  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.186Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.188Z'
-}
-{
-  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.192Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.194Z'
-}
-{
-  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.202Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.204Z'
-}
-{
-  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.236Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.239Z'
-}
-{
-  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.249Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.251Z'
-}
-{
-  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.291Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.294Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.300Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.302Z'
-}
-{
-  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.310Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.310Z'
-}
-{
-  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.313Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.319Z'
-}
-{
-  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.337Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.338Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.342Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.342Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.359Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.360Z'
-}
-{
-  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.367Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.368Z'
-}
-{
-  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.372Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.373Z'
-}
-{
-  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.376Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.377Z'
-}
-{
-  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.380Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.381Z'
-}
-{
-  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.385Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.386Z'
-}
-{
-  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.391Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.391Z'
-}
-{
-  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.395Z'
-}
-{
-  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.397Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.399Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.399Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.407Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.408Z'
-}
-{
-  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.411Z'
-}
-{
-  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.412Z'
-}
-{
-  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.413Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.414Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.414Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.414Z'
-}
-{
-  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.417Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.418Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.419Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.419Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:07:44.421Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:07:44.422Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:22.127Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:22.137Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:22.141Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:08:22.147Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:22.150Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:08:22.158Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:08:35.968Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:08:36.011Z'
-}
-{
-  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.029Z'
-}
-{
-  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.036Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.037Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.037Z'
-}
-{
-  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.044Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.047Z'
-}
-{
-  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.051Z'
-}
-{
-  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.053Z'
-}
-{
-  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.055Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.055Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.055Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.056Z'
-}
-{
-  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.057Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.058Z'
-}
-{
-  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.062Z'
-}
-{
-  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.065Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.066Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.066Z'
-}
-{
-  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.069Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.071Z'
-}
-{
-  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.074Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.074Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.074Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.075Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.079Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.080Z'
-}
-{
-  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.083Z'
-}
-{
-  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.085Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.086Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.086Z'
-}
-{
-  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.087Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.089Z'
-}
-{
-  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.090Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.090Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.091Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.091Z'
-}
-{
-  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.092Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.093Z'
-}
-{
-  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.097Z'
-}
-{
-  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.099Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.100Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.100Z'
-}
-{
-  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.102Z'
-}
-{
-  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.103Z'
-}
-{
-  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.106Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.107Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.107Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.107Z'
-}
-{
-  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.109Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.110Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.112Z'
-}
-{
-  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.114Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.115Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.115Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.118Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.120Z'
-}
-{
-  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:08:36.121Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.122Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.122Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:08:36.122Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:10:00.009Z'
-}
-{
-  message: 'JWT Verification Error: jwt expired',
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T07:10:20.409Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:19.939Z'
 }
 {
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
-    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
-    '    at /app/node_modules/router/index.js:297:9\n' +
-    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
-    '    at next (/app/node_modules/router/index.js:291:5)\n' +
-    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
-    '    at router (/app/node_modules/router/index.js:60:12)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
-  level: 'error',
-  timestamp: '2026-08-04T07:10:20.414Z'
-}
-{
-  message: '[AuthController] Refresh Tokens',
-  level: 'info',
-  timestamp: '2026-08-04T07:10:20.427Z'
-}
-{
-  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'debug',
-  timestamp: '2026-08-04T07:10:20.450Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:10:20.451Z'
-}
-{
-  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:10:20.464Z'
-}
-{
-  message: 'JWT Verification Error: jwt expired',
-  level: 'error',
-  timestamp: '2026-08-04T07:13:35.468Z'
-}
-{
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
-    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
-    '    at /app/node_modules/router/index.js:297:9\n' +
-    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
-    '    at next (/app/node_modules/router/index.js:291:5)\n' +
-    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
-    '    at router (/app/node_modules/router/index.js:60:12)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
-  level: 'error',
-  timestamp: '2026-08-04T07:13:35.470Z'
-}
-{
-  message: '[AuthController] Refresh Tokens',
-  level: 'info',
-  timestamp: '2026-08-04T07:13:35.481Z'
-}
-{
-  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'debug',
-  timestamp: '2026-08-04T07:13:35.496Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:13:35.497Z'
-}
-{
-  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:13:35.505Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:15:00.002Z'
-}
-{
-  message: 'JWT Verification Error: jwt expired',
-  level: 'error',
-  timestamp: '2026-08-04T07:16:48.295Z'
-}
-{
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
-    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at trimPrefix (/app/node_modules/router/index.js:342:13)\n' +
-    '    at /app/node_modules/router/index.js:297:9\n' +
-    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
-    '    at next (/app/node_modules/router/index.js:291:5)\n' +
-    '    at Function.handle (/app/node_modules/router/index.js:186:3)\n' +
-    '    at router (/app/node_modules/router/index.js:60:12)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at trimPrefix (/app/node_modules/router/index.js:342:13)',
-  level: 'error',
-  timestamp: '2026-08-04T07:16:48.297Z'
-}
-{
-  message: '[AuthController] Refresh Tokens',
-  level: 'info',
-  timestamp: '2026-08-04T07:16:48.308Z'
-}
-{
-  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'debug',
-  timestamp: '2026-08-04T07:16:48.334Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:16:48.336Z'
-}
-{
-  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:16:48.347Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:17:44.004Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:17:44.027Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:18:53.484Z'
-}
-{
-  message: '[HotelController] Get my hotels',
-  level: 'info',
-  timestamp: '2026-08-04T07:18:53.514Z'
-}
-{
-  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.540Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.545Z'
-}
-{
-  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.548Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.549Z'
-}
-{
-  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.551Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.552Z'
-}
-{
-  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.554Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.555Z'
-}
-{
-  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.560Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.561Z'
-}
-{
-  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.569Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.570Z'
-}
-{
-  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.597Z'
-}
-{
-  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.603Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.607Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.607Z'
-}
-{
-  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.636Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.636Z'
-}
-{
-  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.643Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.646Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.646Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.647Z'
-}
-{
-  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.650Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.652Z'
-}
-{
-  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.661Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.662Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.666Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.667Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.678Z'
-}
-{
-  hotelId: 'd29b2e2a-8af1-4273-8f2d-87053225f461',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.680Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.682Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d29b2e2a-8af1-4273-8f2d-87053225f461 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.683Z'
-}
-{
-  hotelId: 'fdfc5eb7-97ff-450b-9edf-723739f36d56',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.686Z'
-}
-{
-  hotelId: '52eb4a25-dcb7-4bea-81ac-9d12053bd2c0',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.688Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fdfc5eb7-97ff-450b-9edf-723739f36d56 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.689Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 52eb4a25-dcb7-4bea-81ac-9d12053bd2c0 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.689Z'
-}
-{
-  hotelId: '47451836-dfa0-4b5c-b770-43e87150fe10',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.700Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 47451836-dfa0-4b5c-b770-43e87150fe10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.702Z'
-}
-{
-  hotelId: 'ae4ccd44-300e-4ca3-b16c-d3e71b6a0193',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.705Z'
-}
-{
-  hotelId: '45ea8129-6cde-4f0a-b8a5-701260e11966',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.706Z'
-}
-{
-  hotelId: 'fda0f2da-56b2-46ac-afa7-7bb4e6d06edc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.708Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: ae4ccd44-300e-4ca3-b16c-d3e71b6a0193 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.709Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 45ea8129-6cde-4f0a-b8a5-701260e11966 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.709Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: fda0f2da-56b2-46ac-afa7-7bb4e6d06edc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.709Z'
-}
-{
-  hotelId: 'd79e14bd-e09b-49c3-80d7-4442133e57d6',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.719Z'
-}
-{
-  hotelId: '6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.722Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: d79e14bd-e09b-49c3-80d7-4442133e57d6 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.723Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 6476b4b4-c8ba-4f05-a3ae-9ba776ad4be3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.723Z'
-}
-{
-  hotelId: 'db71d087-b5a7-47be-b2a3-04e168e623b9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.725Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.726Z'
-}
-{
-  hotelId: '1f63d07b-44ef-412e-8e8f-fc20853648c3',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.729Z'
-}
-{
-  hotelId: '61f3e4c1-cba1-48b1-851c-16bc9d413ec2',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.731Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: db71d087-b5a7-47be-b2a3-04e168e623b9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.731Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.731Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 1f63d07b-44ef-412e-8e8f-fc20853648c3 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.732Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 61f3e4c1-cba1-48b1-851c-16bc9d413ec2 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.732Z'
-}
-{
-  hotelId: 'a9778731-bce8-4dbf-8b2f-ab2543bfdcdc',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.737Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[BookingController] Get hotel bookings',
-  timestamp: '2026-08-04T07:18:53.739Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: a9778731-bce8-4dbf-8b2f-ab2543bfdcdc từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.739Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:18:53.739Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:19:13.654Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:13.654Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:13.657Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:19:13.658Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:13.659Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:13.665Z'
-}
-{
-  email: 'locdz8c@gmail.com',
-  level: 'info',
-  message: '[AuthController] Login with Password',
-  timestamp: '2026-08-04T07:19:45.672Z'
-}
-{
-  message: 'User ID b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 nhập sai thông tin đăng nhập.',
+  message: '[Redis] Đang thử kết nối lại lần 1... (delay: 50ms)',
   level: 'warn',
-  timestamp: '2026-08-04T07:19:45.747Z'
+  timestamp: '2026-08-04T16:58:19.940Z'
 }
 {
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Email hoặc mật khẩu không chính xác.\n' +
-    '    at <anonymous> (/app/src/modules/auth/services/authService.ts:151:15)\n' +
-    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
-    '    at async Proxy._transactionWithCallback (/app/generated/prisma/runtime/client.js:79:4800)\n' +
-    '    at async loginWithPassword (/app/src/modules/auth/controllers/authController.ts:118:20)',
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T07:19:45.754Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:20.009Z'
 }
 {
-  message: '[AuthController] Refresh Tokens',
-  level: 'info',
-  timestamp: '2026-08-04T07:19:45.761Z'
-}
-{
-  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:45.764Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:45.765Z'
-}
-{
-  message: '[AuthService] Tokens refreshed successfully for user: agent1@booking.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:19:45.772Z'
-}
-{
-  userId: '0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:19:45.790Z'
-}
-{
-  message: 'Fetching user details for ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:45.791Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: 0cbc0c7f-fda6-4929-b479-ad9d83ace8ce từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:45.791Z'
-}
-{
-  email: 'locdz8c@gmail.com',
-  level: 'info',
-  message: '[AuthController] Login with Password',
-  timestamp: '2026-08-04T07:19:45.827Z'
-}
-{
-  message: 'User ID b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 nhập sai thông tin đăng nhập.',
+  message: '[Redis] Đang thử kết nối lại lần 2... (delay: 100ms)',
   level: 'warn',
-  timestamp: '2026-08-04T07:19:45.887Z'
+  timestamp: '2026-08-04T16:58:20.009Z'
 }
 {
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Email hoặc mật khẩu không chính xác.\n' +
-    '    at <anonymous> (/app/src/modules/auth/services/authService.ts:151:15)\n' +
-    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
-    '    at async Proxy._transactionWithCallback (/app/generated/prisma/runtime/client.js:79:4800)\n' +
-    '    at async loginWithPassword (/app/src/modules/auth/controllers/authController.ts:118:20)',
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T07:19:45.891Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:20.117Z'
 }
 {
-  email: 'locdz8c@gmail.com',
-  level: 'info',
-  message: '[AuthController] Login with Password',
-  timestamp: '2026-08-04T07:19:48.006Z'
+  message: '[Redis] Đang thử kết nối lại lần 3... (delay: 150ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:20.117Z'
 }
 {
-  message: 'User ID b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
-  level: 'info',
-  timestamp: '2026-08-04T07:19:48.076Z'
-}
-{
-  message: '[AuthService] Password login successful for user: locdz8c@gmail.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:19:48.079Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:49.871Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:19:49.874Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:49.876Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:19:49.878Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:49.879Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:49.884Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:19:52.673Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:52.674Z'
-}
-{
-  message: '[Cache Miss] Tìm user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:52.675Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:19:52.684Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:52.684Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:19:52.685Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:00.062Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:01.660Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:20:01.662Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:01.668Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:20:01.670Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:01.672Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:01.684Z'
-}
-{
-  message: '[BookingController] Get user bookings',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:03.983Z'
-}
-{
-  message: '[BookingController] Get user bookings',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:04.014Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:12.395Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:20:12.396Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:12.400Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:20:12.403Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:12.406Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:12.413Z'
-}
-{
-  email: 'admin@booking.com',
-  level: 'info',
-  message: '[AuthController] Login with Password',
-  timestamp: '2026-08-04T07:20:20.415Z'
-}
-{
-  message: 'User ID 454734c4-6a7b-4647-a90a-7b6bdbec2232 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:20.490Z'
-}
-{
-  message: '[AuthService] Password login successful for user: admin@booking.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:20.495Z'
-}
-{
-  userId: '454734c4-6a7b-4647-a90a-7b6bdbec2232',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:20:20.519Z'
-}
-{
-  message: 'Fetching user details for ID: 454734c4-6a7b-4647-a90a-7b6bdbec2232',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:20.520Z'
-}
-{
-  message: '[Cache Miss] Tìm user ID: 454734c4-6a7b-4647-a90a-7b6bdbec2232 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T07:20:20.521Z'
-}
-{
-  message: '[UserController] Get all users',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:20.759Z'
-}
-{
-  message: 'Fetching all users from repository',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:20.759Z'
-}
-{
-  message: '[UserController] Get all users',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:20.814Z'
-}
-{
-  message: 'Fetching all users from repository',
-  level: 'info',
-  timestamp: '2026-08-04T07:20:20.814Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:41.892Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:22:41.897Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:41.906Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:22:41.915Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:41.917Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:41.921Z'
-}
-{
-  email: 'locdz8c@gmail.com',
-  level: 'info',
-  message: '[AuthController] Login with Password',
-  timestamp: '2026-08-04T07:22:49.922Z'
-}
-{
-  message: 'User ID b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
-  level: 'info',
-  timestamp: '2026-08-04T07:22:49.991Z'
-}
-{
-  message: '[AuthService] Password login successful for user: locdz8c@gmail.com',
-  level: 'info',
-  timestamp: '2026-08-04T07:22:49.995Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:22:50.017Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:50.018Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:50.018Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:50.081Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:22:50.085Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:50.086Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:22:50.091Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:50.092Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:50.097Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:22:54.003Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:54.004Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:54.005Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T07:22:54.008Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:54.009Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:22:54.009Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:24:46.440Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:24:46.443Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:24:46.444Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T07:24:46.447Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:24:46.450Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T07:24:46.454Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:25:00.004Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:30:00.002Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:35:00.051Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:40:00.007Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:45:00.025Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:50:00.003Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T07:55:00.005Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:00:00.005Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:05:00.004Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:10:00.003Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:15:00.003Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:20:00.006Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:25:00.004Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:30:00.002Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:35:00.004Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:40:00.004Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:45:00.013Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:50:00.006Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T08:55:00.002Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:00:00.003Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:05:00.002Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:10:00.005Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:15:00.001Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:20:00.002Z'
-}
-{
-  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
-  level: 'info',
-  timestamp: '2026-08-04T09:21:26.176Z'
-}
-{
-  message: 'Express HTTP server đã đóng.',
-  level: 'info',
-  timestamp: '2026-08-04T09:21:26.179Z'
-}
-{
+  code: 'ECONNREFUSED',
   level: 'error',
-  message: 'Lỗi khi đóng tài nguyên: Connection is closed.',
-  stack: 'Error: Connection is closed.\n' +
-    '    at close (/app/node_modules/ioredis/built/redis/event_handler.js:214:25)\n' +
-    '    at Socket.<anonymous> (/app/node_modules/ioredis/built/redis/event_handler.js:181:20)\n' +
-    '    at Object.onceWrapper (node:events:639:26)\n' +
-    '    at Socket.emit (node:events:524:28)\n' +
-    '    at TCP.<anonymous> (node:net:343:12)',
-  timestamp: '2026-08-04T09:21:26.204Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:20.271Z'
 }
 {
-  message: '[SchedulerService] Khởi tạo các cron job...',
-  level: 'info',
-  timestamp: '2026-08-04T09:33:58.218Z'
+  message: '[Redis] Đang thử kết nối lại lần 4... (delay: 200ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:20.272Z'
 }
 {
-  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
-  level: 'info',
-  timestamp: '2026-08-04T09:33:58.298Z'
-}
-{
-  message: '[Redis] Kết nối thành công tới Redis server',
-  level: 'info',
-  timestamp: '2026-08-04T09:33:58.304Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:34:04.710Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T09:34:04.719Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:34:04.720Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:34:04.849Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:34:04.860Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T09:34:04.911Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:35:00.005Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T09:36:14.638Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:14.641Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T09:36:14.652Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:14.654Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:14.659Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:14.666Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:23.534Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T09:36:23.535Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:23.536Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T09:36:23.538Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:23.541Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:23.546Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T09:36:38.723Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:40:00.004Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:45:00.002Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:50:00.003Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T09:55:00.001Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T10:00:00.002Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T10:05:00.001Z'
-}
-{
-  email: 'locdz8c@gmail.com',
-  level: 'info',
-  message: '[AuthController] Login with Password',
-  timestamp: '2026-08-04T10:07:41.102Z'
-}
-{
-  message: 'User ID b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
-  level: 'info',
-  timestamp: '2026-08-04T10:07:41.576Z'
-}
-{
-  message: '[AuthService] Password login successful for user: locdz8c@gmail.com',
-  level: 'info',
-  timestamp: '2026-08-04T10:07:41.866Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T10:07:41.954Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:07:41.955Z'
-}
-{
-  message: '[Cache Miss] Tìm user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T10:07:41.993Z'
-}
-{
-  message: '[Cache Miss] Tìm danh sách điểm đến hoạt động trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T10:07:42.359Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:07:42.387Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:07:42.427Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:07:42.493Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:07:42.496Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:07:42.499Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T10:10:00.001Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:11:22.916Z'
-}
-{
-  query: [Object: null prototype] {
-    location: 'Hà Nội',
-    checkInDate: '2026-08-05',
-    checkOutDate: '2026-08-08',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:11:22.925Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:11:22.964Z'
-}
-{
-  query: [Object: null prototype] {
-    location: 'Hà Nội',
-    checkInDate: '2026-08-05',
-    checkOutDate: '2026-08-08',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:11:23.010Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:11:26.479Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T10:11:26.481Z'
-}
-{
-  hotelId: '09928f48-b9bb-4700-85d2-51b072eef2c9',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:11:26.544Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 09928f48-b9bb-4700-85d2-51b072eef2c9 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:11:26.546Z'
-}
-{
-  message: 'JWT Verification Error: jwt expired',
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:11:51.981Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:20.475Z'
 }
 {
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
-    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
-    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
-    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at /app/node_modules/router/index.js:295:15\n' +
-    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
-    '    at next (/app/node_modules/router/index.js:291:5)\n' +
-    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  message: '[Redis] Đang thử kết nối lại lần 5... (delay: 250ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:20.475Z'
+}
+{
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:11:51.984Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:20.743Z'
 }
 {
-  message: '[AuthController] Refresh Tokens',
-  level: 'info',
-  timestamp: '2026-08-04T10:11:51.995Z'
+  message: '[Redis] Đang thử kết nối lại lần 6... (delay: 300ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:20.743Z'
 }
 {
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:11:52.059Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:11:52.061Z'
-}
-{
-  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
-  level: 'info',
-  timestamp: '2026-08-04T10:11:52.090Z'
-}
-{
-  message: '[BookingController] Create booking',
-  level: 'info',
-  timestamp: '2026-08-04T10:11:52.122Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T10:13:56.854Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:56.854Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:56.854Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T10:13:56.858Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:56.858Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:56.858Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:57.427Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:57.430Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:13:57.433Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:57.435Z'
-}
-{
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:13:57.438Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:13:57.442Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T10:15:00.001Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:16:20.564Z'
-}
-{
-  query: [Object: null prototype] {
-    location: 'Ninh Bình',
-    checkInDate: '2026-08-07',
-    checkOutDate: '2026-08-10',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:16:20.566Z'
-}
-{
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:16:20.572Z'
-}
-{
-  query: [Object: null prototype] {
-    location: 'Ninh Bình',
-    checkInDate: '2026-08-07',
-    checkOutDate: '2026-08-10',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:16:20.604Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:16:23.845Z'
-}
-{
-  message: '[Cache Miss] Tìm hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 trong Database',
-  level: 'debug',
-  timestamp: '2026-08-04T10:16:23.849Z'
-}
-{
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:16:23.874Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:16:23.875Z'
-}
-{
-  message: 'JWT Verification Error: jwt expired',
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:16:37.889Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:21.050Z'
 }
 {
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
-    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
-    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
-    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at /app/node_modules/router/index.js:295:15\n' +
-    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
-    '    at next (/app/node_modules/router/index.js:291:5)\n' +
-    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  message: '[Redis] Đang thử kết nối lại lần 7... (delay: 350ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:21.050Z'
+}
+{
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:16:37.889Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:21.412Z'
 }
 {
-  message: '[AuthController] Refresh Tokens',
-  level: 'info',
-  timestamp: '2026-08-04T10:16:37.898Z'
+  message: '[Redis] Đang thử kết nối lại lần 8... (delay: 400ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:21.413Z'
 }
 {
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:16:37.912Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:16:37.913Z'
-}
-{
-  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
-  level: 'info',
-  timestamp: '2026-08-04T10:16:37.948Z'
-}
-{
-  message: '[BookingController] Create booking',
-  level: 'info',
-  timestamp: '2026-08-04T10:16:37.968Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T10:18:48.232Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:18:48.233Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:18:48.233Z'
-}
-{
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T10:18:48.237Z'
-}
-{
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:18:48.238Z'
-}
-{
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:18:48.239Z'
-}
-{
-  message: '[BookingController] Create booking',
-  level: 'info',
-  timestamp: '2026-08-04T10:18:52.699Z'
-}
-{
-  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
-  level: 'info',
-  timestamp: '2026-08-04T10:20:00.002Z'
-}
-{
-  message: 'Đã gửi email tới locdz8c@gmail.com',
-  level: 'info',
-  timestamp: '2026-08-04T10:20:29.042Z'
-}
-{
-  message: 'JWT Verification Error: jwt expired',
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:20:29.410Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:21.816Z'
 }
 {
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
-    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
-    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
-    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at /app/node_modules/router/index.js:295:15\n' +
-    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
-    '    at next (/app/node_modules/router/index.js:291:5)\n' +
-    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  message: '[Redis] Đang thử kết nối lại lần 9... (delay: 450ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:21.817Z'
+}
+{
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:20:29.411Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:22.271Z'
 }
 {
-  message: 'JWT Verification Error: jwt expired',
+  message: '[Redis] Đang thử kết nối lại lần 10... (delay: 500ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:22.271Z'
+}
+{
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:20:29.417Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:22.784Z'
 }
 {
-  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
-    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
-    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
-    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
-    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
-    '    at /app/node_modules/router/index.js:295:15\n' +
-    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
-    '    at next (/app/node_modules/router/index.js:291:5)\n' +
-    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  message: '[Redis] Đang thử kết nối lại lần 11... (delay: 550ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:22.785Z'
+}
+{
+  code: 'ECONNREFUSED',
   level: 'error',
-  timestamp: '2026-08-04T10:20:29.418Z'
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:23.346Z'
 }
 {
-  message: '[AuthController] Refresh Tokens',
-  level: 'info',
-  timestamp: '2026-08-04T10:20:29.436Z'
+  message: '[Redis] Đang thử kết nối lại lần 12... (delay: 600ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:23.347Z'
 }
 {
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:29.441Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:23.950Z'
 }
 {
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:29.442Z'
+  message: '[Redis] Đang thử kết nối lại lần 13... (delay: 650ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:23.951Z'
 }
 {
-  message: '[AuthService] Tokens refreshed successfully for user: locdz8c@gmail.com',
-  level: 'info',
-  timestamp: '2026-08-04T10:20:29.453Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:24.606Z'
 }
 {
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T10:20:29.468Z'
+  message: '[Redis] Đang thử kết nối lại lần 14... (delay: 700ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:24.607Z'
 }
 {
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:29.468Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:25.324Z'
 }
 {
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:29.469Z'
+  message: '[Redis] Đang thử kết nối lại lần 15... (delay: 750ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:25.324Z'
 }
 {
-  userId: 'b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'info',
-  message: '[AuthController] Get Me',
-  timestamp: '2026-08-04T10:20:29.473Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:26.089Z'
 }
 {
-  message: 'Fetching user details for ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:29.474Z'
+  message: '[Redis] Đang thử kết nối lại lần 16... (delay: 800ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:26.090Z'
 }
 {
-  message: '[Cache Hit] Lấy thông tin user ID: b88403bb-85f1-4be4-ac3b-a7abcc4e9a10 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:29.474Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:26.902Z'
 }
 {
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:20:32.101Z'
+  message: '[Redis] Đang thử kết nối lại lần 17... (delay: 850ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:26.902Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:32.103Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:27.765Z'
 }
 {
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:20:32.109Z'
+  message: '[Redis] Đang thử kết nối lại lần 18... (delay: 900ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:27.765Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:32.110Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:28.674Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:32.113Z'
+  message: '[Redis] Đang thử kết nối lại lần 19... (delay: 950ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:28.674Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:20:32.116Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:29.635Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:02.647Z'
+  message: '[Redis] Đang thử kết nối lại lần 20... (delay: 1000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:29.636Z'
 }
 {
-  query: [Object: null prototype] {
-    location: 'Ninh Bình',
-    checkInDate: '2026-08-06',
-    checkOutDate: '2026-08-08',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:21:02.654Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:30.642Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:02.670Z'
+  message: '[Redis] Đang thử kết nối lại lần 21... (delay: 1050ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:30.642Z'
 }
 {
-  query: [Object: null prototype] {
-    location: 'Ninh Bình',
-    checkInDate: '2026-08-06',
-    checkOutDate: '2026-08-08',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:21:02.726Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:31.701Z'
 }
 {
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:21:03.709Z'
+  message: '[Redis] Đang thử kết nối lại lần 22... (delay: 1100ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:31.702Z'
 }
 {
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:03.711Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:32.816Z'
 }
 {
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:21:03.714Z'
+  message: '[Redis] Đang thử kết nối lại lần 23... (delay: 1150ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:32.818Z'
 }
 {
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:03.715Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:33.980Z'
 }
 {
-  message: '[BookingController] Create booking',
-  level: 'info',
-  timestamp: '2026-08-04T10:21:12.529Z'
+  message: '[Redis] Đang thử kết nối lại lần 24... (delay: 1200ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:33.981Z'
 }
 {
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:21:47.650Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:35.199Z'
 }
 {
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:47.651Z'
+  message: '[Redis] Đang thử kết nối lại lần 25... (delay: 1250ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:35.200Z'
 }
 {
-  hotelId: '3ff5cc53-9069-45bc-a39e-2295bebd3ea5',
-  level: 'info',
-  message: '[HotelController] Get hotel by id',
-  timestamp: '2026-08-04T10:21:47.657Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:36.459Z'
 }
 {
-  message: '[Cache Hit] Lấy thông tin hotel ID: 3ff5cc53-9069-45bc-a39e-2295bebd3ea5 từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:47.659Z'
+  message: '[Redis] Đang thử kết nối lại lần 26... (delay: 1300ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:36.460Z'
 }
 {
-  query: [Object: null prototype] {
-    location: 'Ninh Bình',
-    checkInDate: '2026-08-06',
-    checkOutDate: '2026-08-08',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:21:48.603Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:37.774Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:48.610Z'
+  message: '[Redis] Đang thử kết nối lại lần 27... (delay: 1350ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:37.774Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:48.614Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:39.137Z'
 }
 {
-  query: [Object: null prototype] {
-    location: 'Ninh Bình',
-    checkInDate: '2026-08-06',
-    checkOutDate: '2026-08-08',
-    adults: '2',
-    children: '0',
-    rooms: '1'
-  },
-  level: 'info',
-  message: '[SearchController] Search hotels',
-  timestamp: '2026-08-04T10:21:48.637Z'
+  message: '[Redis] Đang thử kết nối lại lần 28... (delay: 1400ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:39.138Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:49.444Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:40.554Z'
 }
 {
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:21:49.446Z'
+  message: '[Redis] Đang thử kết nối lại lần 29... (delay: 1450ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:40.554Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:49.450Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:42.015Z'
 }
 {
-  page: '1',
-  limit: '10',
-  status: 'ACTIVE',
-  level: 'info',
-  message: '[HotelController] Get all hotels with queries',
-  timestamp: '2026-08-04T10:21:49.455Z'
+  message: '[Redis] Đang thử kết nối lại lần 30... (delay: 1500ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:42.015Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:49.459Z'
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:43.529Z'
 }
 {
-  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
-  level: 'debug',
-  timestamp: '2026-08-04T10:21:49.465Z'
+  message: '[Redis] Đang thử kết nối lại lần 31... (delay: 1550ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:43.529Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:45.092Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 32... (delay: 1600ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:45.092Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:46.703Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 33... (delay: 1650ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:46.704Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:48.356Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 34... (delay: 1700ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:48.357Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:50.064Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 35... (delay: 1750ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:50.065Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:51.823Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 36... (delay: 1800ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:51.824Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:53.638Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 37... (delay: 1850ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:53.638Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:55.497Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 38... (delay: 1900ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:55.498Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:57.408Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 39... (delay: 1950ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:57.408Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:58:59.367Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 40... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:58:59.368Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:01.373Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 41... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:01.373Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:03.385Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 42... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:03.385Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:05.403Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 43... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:05.404Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:07.413Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 44... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:07.413Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:09.426Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 45... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:09.426Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:11.434Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 46... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:11.435Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:13.441Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 47... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:13.442Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:15.449Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 48... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:15.449Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:17.453Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 49... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:17.454Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:19.458Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 50... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:19.459Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:21.462Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 51... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:21.463Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:23.468Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 52... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:23.468Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:25.483Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 53... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:25.483Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:27.494Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 54... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:27.495Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:29.507Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 55... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:29.508Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:31.516Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 56... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:31.516Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:33.528Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 57... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:33.528Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:35.537Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 58... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:35.537Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:37.547Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 59... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:37.547Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:39.562Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 60... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:39.563Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:41.568Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 61... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:41.569Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:43.575Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 62... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:43.576Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:45.584Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 63... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:45.584Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:47.597Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 64... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:47.598Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:49.602Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 65... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:49.602Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:51.605Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 66... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:51.606Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:53.615Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 67... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:53.616Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:55.627Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 68... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:55.627Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:57.630Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 69... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:57.631Z'
+}
+{
+  code: 'ECONNREFUSED',
+  level: 'error',
+  message: '[Redis] Lỗi kết nối Redis:',
+  stack: 'AggregateError [ECONNREFUSED]: \n' +
+    '    at internalConnectMultiple (node:net:1134:18)\n' +
+    '    at afterConnectMultiple (node:net:1715:7)',
+  timestamp: '2026-08-04T16:59:59.647Z'
+}
+{
+  message: '[Redis] Đang thử kết nối lại lần 70... (delay: 2000ms)',
+  level: 'warn',
+  timestamp: '2026-08-04T16:59:59.648Z'
 }

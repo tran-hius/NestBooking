@@ -123,15 +123,11 @@ export default function Hotels() {
         && (propertyType === "ALL" || hotel.propertyType === propertyType);
     })
     .sort((left, right) => {
-      if (left.status === "PENDING" && right.status !== "PENDING") return -1;
-      if (left.status !== "PENDING" && right.status === "PENDING") return 1;
       return new Date(right.createdAt || 0).getTime() - new Date(left.createdAt || 0).getTime();
     });
 
-  const pendingHotels = hotels.filter((hotel) => hotel.status === "PENDING").length;
   const activeHotels = hotels.filter((hotel) => hotel.status === "ACTIVE").length;
   const hiddenHotels = hotels.filter((hotel) => hotel.status === "INACTIVE").length;
-  const rejectedHotels = hotels.filter((hotel) => hotel.status === "REJECTED").length;
   const selectedOwner = selectedHotel?.ownerId ? ownerById.get(selectedHotel.ownerId) : undefined;
 
   return (
@@ -147,11 +143,9 @@ export default function Hotels() {
         </div>
       </section>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <StatCard icon={Clock3} label="Chờ kiểm duyệt" value={pendingHotels} hint="Ưu tiên xử lý trước" tone="amber" />
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
         <StatCard icon={CheckCircle2} label="Đang hoạt động" value={activeHotels} hint={`${hotels.length ? Math.round(activeHotels / hotels.length * 100) : 0}% tổng chỗ nghỉ`} tone="sky" />
         <StatCard icon={EyeOff} label="Đang ẩn" value={hiddenHotels} hint="Không hiển thị công khai" tone="slate" />
-        <StatCard icon={XCircle} label="Đã từ chối" value={rejectedHotels} hint="Hồ sơ chưa đạt yêu cầu" tone="red" />
       </div>
 
       <Card className="border-0 shadow-sm ring-1 ring-slate-200/70 dark:ring-zinc-800">
@@ -168,7 +162,7 @@ export default function Hotels() {
               </Select>
               <Select value={status} onValueChange={(value) => setStatus(value as HotelStatus | "ALL")}>
                 <SelectTrigger className="h-10 w-full rounded-xl sm:w-44"><SelectValue /></SelectTrigger>
-                <SelectContent><SelectItem value="ALL">Tất cả trạng thái</SelectItem><SelectItem value="PENDING">Chờ duyệt</SelectItem><SelectItem value="ACTIVE">Hoạt động</SelectItem><SelectItem value="INACTIVE">Đã ẩn</SelectItem><SelectItem value="REJECTED">Đã từ chối</SelectItem></SelectContent>
+                <SelectContent><SelectItem value="ALL">Tất cả trạng thái</SelectItem><SelectItem value="ACTIVE">Hoạt động</SelectItem><SelectItem value="INACTIVE">Đã ẩn</SelectItem></SelectContent>
               </Select>
               <div className="hidden whitespace-nowrap text-sm text-muted-foreground 2xl:block">{filtered.length} kết quả</div>
             </div>
@@ -182,7 +176,7 @@ export default function Hotels() {
                   const owner = hotel.ownerId ? ownerById.get(hotel.ownerId) : undefined;
                   const completeness = getCompleteness(hotel);
                   return (
-                    <TableRow key={hotel.id} className={hotel.status === "PENDING" ? "bg-amber-50/35 hover:bg-amber-50/60 dark:bg-amber-950/10" : "hover:bg-cyan-50/30 dark:hover:bg-zinc-900"}>
+                    <TableRow key={hotel.id} className="hover:bg-cyan-50/30 dark:hover:bg-zinc-900">
                       <TableCell className="pl-5"><div className="flex items-center gap-3"><HotelThumbnail hotel={hotel} /><div className="min-w-0"><div className="max-w-60 truncate font-semibold text-slate-900 dark:text-white">{hotel.name}</div><div className="mt-1 flex items-center gap-2 text-xs"><span className="font-medium text-cyan-700 dark:text-cyan-400">{propertyLabels[hotel.propertyType] || hotel.propertyType}</span><span className="text-slate-300">•</span><span className="text-slate-400">ID: {hotel.id.slice(0, 6).toUpperCase()}</span></div></div></div></TableCell>
                       <TableCell><div className="flex max-w-52 items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-slate-400" /><div><div className="font-medium text-slate-700 dark:text-zinc-200">{hotel.city}</div><div className="mt-1 line-clamp-1 text-xs text-muted-foreground">{hotel.address}</div></div></div></TableCell>
                       <TableCell><div className="max-w-48"><div className="truncate font-medium text-slate-700 dark:text-zinc-200">{owner?.profile?.fullName || "Chưa có tên đối tác"}</div><div className="mt-1 truncate text-xs text-muted-foreground">{owner?.email || hotel.ownerId || "Không xác định"}</div></div></TableCell>
@@ -207,7 +201,7 @@ export default function Hotels() {
 
       <Dialog open={Boolean(statusAction)} onOpenChange={(open) => { if (!open && !updating) setStatusAction(null); }}>
         <DialogContent className="max-w-md rounded-2xl">
-          {statusAction && <><DialogHeader><div className={`mb-2 flex h-12 w-12 items-center justify-center rounded-2xl ${getActionCopy(statusAction.status).iconClass}`}>{getActionIcon(statusAction.status)}</div><DialogTitle>{getActionCopy(statusAction.status).title}</DialogTitle><DialogDescription>{getActionCopy(statusAction.status).description(statusAction.hotel.name)}</DialogDescription></DialogHeader><DialogFooter className="mt-3 gap-2"><Button variant="outline" onClick={() => setStatusAction(null)} disabled={Boolean(updating)}>Hủy</Button><Button variant={statusAction.status === "REJECTED" ? "destructive" : "default"} onClick={() => void updateStatus()} disabled={Boolean(updating)}>{updating ? "Đang cập nhật..." : getActionCopy(statusAction.status).confirm}</Button></DialogFooter></>}
+          {statusAction && <><DialogHeader><div className={`mb-2 flex h-12 w-12 items-center justify-center rounded-2xl ${getActionCopy(statusAction.status).iconClass}`}>{getActionIcon(statusAction.status)}</div><DialogTitle>{getActionCopy(statusAction.status).title}</DialogTitle><DialogDescription>{getActionCopy(statusAction.status).description(statusAction.hotel.name)}</DialogDescription></DialogHeader><DialogFooter className="mt-3 gap-2"><Button variant="outline" onClick={() => setStatusAction(null)} disabled={Boolean(updating)}>Hủy</Button><Button onClick={() => void updateStatus()} disabled={Boolean(updating)}>{updating ? "Đang cập nhật..." : getActionCopy(statusAction.status).confirm}</Button></DialogFooter></>}
         </DialogContent>
       </Dialog>
     </div>
@@ -215,11 +209,10 @@ export default function Hotels() {
 }
 
 function HotelActions({ hotel, updating, onView, onAction }: { hotel: Hotel; updating: string | null; onView: (hotel: Hotel) => void; onAction: (status: HotelStatus) => void }) {
-  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(hotel)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{hotel.status === "PENDING" && <><Button size="sm" className="h-8 gap-1.5 rounded-lg bg-sky-600 hover:bg-sky-700" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Duyệt</Button><Button size="sm" variant="destructive" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("REJECTED")}><XCircle className="h-3.5 w-3.5" />Từ chối</Button></>}{hotel.status === "ACTIVE" && <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("INACTIVE")}><EyeOff className="h-3.5 w-3.5" />Ẩn</Button>}{["INACTIVE", "REJECTED"].includes(hotel.status) && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
+  return <div className="flex justify-end gap-2"><Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" onClick={() => onView(hotel)}><Eye className="h-3.5 w-3.5" />Chi tiết</Button>{hotel.status === "ACTIVE" && <Button size="sm" variant="outline" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("INACTIVE")}><EyeOff className="h-3.5 w-3.5" />Ẩn</Button>}{hotel.status === "INACTIVE" && <Button size="sm" className="h-8 gap-1.5 rounded-lg" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="h-3.5 w-3.5" />Kích hoạt</Button>}</div>;
 }
 
 function ModalActions({ hotel, updating, onAction }: { hotel: Hotel; updating: string | null; onAction: (status: HotelStatus) => void }) {
-  if (hotel.status === "PENDING") return <><Button variant="destructive" disabled={updating === hotel.id} onClick={() => onAction("REJECTED")}><XCircle className="mr-2 h-4 w-4" />Từ chối</Button><Button className="bg-sky-600 hover:bg-sky-700" disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="mr-2 h-4 w-4" />Phê duyệt</Button></>;
   if (hotel.status === "ACTIVE") return <Button variant="outline" disabled={updating === hotel.id} onClick={() => onAction("INACTIVE")}><EyeOff className="mr-2 h-4 w-4" />Ẩn chỗ nghỉ</Button>;
   return <Button disabled={updating === hotel.id} onClick={() => onAction("ACTIVE")}><CheckCircle2 className="mr-2 h-4 w-4" />Kích hoạt lại</Button>;
 }
@@ -261,13 +254,11 @@ function InfoBlock({ label, lines }: { label: string; lines: string[] }) {
 }
 
 function getActionIcon(status: HotelStatus) {
-  if (status === "REJECTED") return <XCircle className="h-6 w-6" />;
   if (status === "INACTIVE") return <EyeOff className="h-6 w-6" />;
   return <CheckCircle2 className="h-6 w-6" />;
 }
 
 function getActionCopy(status: HotelStatus) {
-  if (status === "REJECTED") return { title: "Từ chối chỗ nghỉ?", confirm: "Xác nhận từ chối", success: "Đã từ chối chỗ nghỉ", iconClass: "bg-red-100 text-red-600", description: (name: string) => `${name} sẽ không được hiển thị công khai và được đánh dấu là chưa đạt yêu cầu.` };
   if (status === "INACTIVE") return { title: "Ẩn chỗ nghỉ?", confirm: "Xác nhận ẩn", success: "Đã ẩn chỗ nghỉ", iconClass: "bg-slate-100 text-slate-600", description: (name: string) => `${name} sẽ bị gỡ khỏi kết quả tìm kiếm và trang công khai cho đến khi được kích hoạt lại.` };
   return { title: "Kích hoạt chỗ nghỉ?", confirm: "Xác nhận kích hoạt", success: "Đã kích hoạt chỗ nghỉ", iconClass: "bg-sky-100 text-sky-600", description: (name: string) => `${name} sẽ được phép hiển thị công khai và nhận đặt phòng trên NestBooking.` };
 }
