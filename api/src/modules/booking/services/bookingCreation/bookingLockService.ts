@@ -9,9 +9,7 @@ const DEFAULT_MAX_RETRIES = 10;
 const DEFAULT_RETRY_DELAY_MS = 200;
 
 export class BookingLockService implements IBookingLockService {
-  /**
-   * Cố gắng lấy lock cho một roomTypeId trong khoảng thời gian nhất định (mặc định 60s)
-   */
+
   async acquireLock(roomTypeId: string, ttlMs: number = DEFAULT_TTL_MS): Promise<string | null> {
     const lockKey = `${LOCK_PREFIX}${roomTypeId}`;
     const lockValue = randomBytes(16).toString("hex");
@@ -25,14 +23,11 @@ export class BookingLockService implements IBookingLockService {
       return null;
     } catch (error) {
       logger.error(`[BookingLockService] Lỗi Redis khi acquire lock cho ${roomTypeId}: ${error}`);
-      // Fail-open policy: nếu Redis sập, cho phép đi tiếp để không block user (rủi ro overbooking nhỏ chấp nhận được)
       return "fallback-lock-bypass"; 
     }
   }
 
-  /**
-   * Giải phóng lock bằng Lua script để đảm bảo chỉ người giữ lock mới được xóa
-   */
+
   async releaseLock(roomTypeId: string, lockValue: string): Promise<boolean> {
     if (lockValue === "fallback-lock-bypass") return true;
 
@@ -50,13 +45,11 @@ export class BookingLockService implements IBookingLockService {
       return result === 1;
     } catch (error) {
       logger.error(`[BookingLockService] Lỗi Redis khi release lock cho ${roomTypeId}: ${error}`);
-      return false; // Trả về false thay vì throw để không ảnh hưởng luồng chính
+      return false; 
     }
   }
 
-  /**
-   * Helper function để block và chờ lấy lock, thử lại nhiều lần
-   */
+
   async acquireLockWithRetry(
     roomTypeId: string,
     ttlMs: number = DEFAULT_TTL_MS,

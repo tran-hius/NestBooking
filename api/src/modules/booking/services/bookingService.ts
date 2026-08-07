@@ -15,7 +15,7 @@ import { RoomStatus } from "#generated/prisma";
 export class BookingService implements IBookingService {
   constructor(
     private readonly readRepo: IBookingReadRepository,
-    private readonly writeRepo: IBookingWriteRepository,
+
     private readonly hotelService: IHotelService,
     private readonly bookingCreationService: IBookingCreationService,
     private readonly bookingPostProcess: BookingPostProcess,

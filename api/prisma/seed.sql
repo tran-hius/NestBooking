@@ -31,12 +31,12 @@ SET "full_name" = EXCLUDED."full_name", "phone_number" = EXCLUDED."phone_number"
 -- 2. DESTINATIONS (Điểm đến du lịch)
 INSERT INTO "destinations" ("id", "name", "slug", "image_url", "country", "country_flag", "description", "is_active", "is_featured", "created_at", "updated_at")
 VALUES
-  ('d1111111-1111-4111-a111-111111111111', 'Hà Nội', 'ha-noi', 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Thủ đô ngàn năm văn hiến với phố cổ kính và ẩm thực phong phú', true, true, NOW(), NOW()),
-  ('d2222222-2222-4222-a222-222222222222', 'Hạ Long', 'ha-long', 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Kỳ quan thiên nhiên thế giới với hàng nghìn đảo đá vôi kỳ vĩ', true, true, NOW(), NOW()),
-  ('d3333333-3333-4333-a333-333333333333', 'Đà Nẵng', 'da-nang', 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Thành phố đáng sống với những bãi biển quyến rũ và Cầu Vàng nổi tiếng', true, true, NOW(), NOW()),
-  ('d4444444-4444-4444-a444-444444444444', 'Ninh Bình', 'ninh-binh', 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Cố đô Tràng An - Hạ Long trên cạn xinh đẹp', true, true, NOW(), NOW()),
-  ('d5555555-5555-4555-a555-555555555555', 'Cát Bà', 'cat-ba', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Đảo ngọc hoang sơ với Vịnh Lan Hạ tuyệt đẹp', true, true, NOW(), NOW()),
-  ('d6666666-6666-4666-a666-666666666666', 'Phú Quốc', 'phu-quoc', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Đảo Ngọc thiên đường nghỉ dưỡng ven biển phía Nam', true, false, NOW(), NOW())
+  ('81111111-1111-4111-a111-111111111111', 'Hà Nội', 'ha-noi', 'https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Thủ đô ngàn năm văn hiến với phố cổ kính và ẩm thực phong phú', true, true, NOW(), NOW()),
+  ('82222222-2222-4222-a222-222222222222', 'Hạ Long', 'ha-long', 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Kỳ quan thiên nhiên thế giới với hàng nghìn đảo đá vôi kỳ vĩ', true, true, NOW(), NOW()),
+  ('83333333-3333-4333-a333-333333333333', 'Đà Nẵng', 'da-nang', 'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Thành phố đáng sống với những bãi biển quyến rũ và Cầu Vàng nổi tiếng', true, true, NOW(), NOW()),
+  ('84444444-4444-4444-a444-444444444444', 'Ninh Bình', 'ninh-binh', 'https://images.unsplash.com/photo-1599707367072-cd6ada2bc375?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Cố đô Tràng An - Hạ Long trên cạn xinh đẹp', true, true, NOW(), NOW()),
+  ('85555555-5555-4555-a555-555555555555', 'Cát Bà', 'cat-ba', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Đảo ngọc hoang sơ với Vịnh Lan Hạ tuyệt đẹp', true, true, NOW(), NOW()),
+  ('86666666-6666-4666-a666-666666666666', 'Phú Quốc', 'phu-quoc', 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200', 'Vietnam', 'VN', 'Đảo Ngọc thiên đường nghỉ dưỡng ven biển phía Nam', true, false, NOW(), NOW())
 ON CONFLICT ("slug") DO UPDATE 
 SET "name" = EXCLUDED."name", "image_url" = EXCLUDED."image_url", "description" = EXCLUDED."description", "updated_at" = NOW();
 
@@ -44,7 +44,7 @@ SET "name" = EXCLUDED."name", "image_url" = EXCLUDED."image_url", "description" 
 INSERT INTO "hotels" ("id", "owner_id", "name", "slug", "description", "address", "city", "country", "latitude", "longitude", "phone", "email", "thumbnail", "amenities", "rating", "check_in_time", "check_out_time", "status", "property_type", "created_at", "updated_at")
 VALUES
   (
-    'h1111111-1111-4111-a111-111111111111',
+    '71111111-1111-4111-a111-111111111111',
     '22222222-2222-4222-a222-222222222222',
     'The Hanoi Club Hotel & Residences',
     'the-hanoi-club-hotel-residences',
@@ -60,7 +60,7 @@ VALUES
     4.8, '14:00', '12:00', 'ACTIVE', 'HOTEL', NOW(), NOW()
   ),
   (
-    'h2222222-2222-4222-a222-222222222222',
+    '72222222-2222-4222-a222-222222222222',
     '22222222-2222-4222-a222-222222222222',
     'Sapa Classic Mountain Retreat',
     'sapa-classic-mountain-retreat',
@@ -76,7 +76,7 @@ VALUES
     4.7, '14:00', '12:00', 'ACTIVE', 'RESORT', NOW(), NOW()
   ),
   (
-    'h3333333-3333-4333-a333-333333333333',
+    '73333333-3333-4333-a333-333333333333',
     '22222222-2222-4222-a222-333333333333',
     'Ha Long Luxury Grand Cruise',
     'ha-long-luxury-grand-cruise',
@@ -92,7 +92,7 @@ VALUES
     4.9, '12:00', '11:00', 'ACTIVE', 'CRUISE', NOW(), NOW()
   ),
   (
-    'h4444444-4444-4444-a444-444444444444',
+    '74444444-4444-4444-a444-444444444444',
     '22222222-2222-4222-a222-333333333333',
     'Danang Beachfront Sea Villa',
     'danang-beachfront-sea-villa',
@@ -114,11 +114,11 @@ SET "name" = EXCLUDED."name", "description" = EXCLUDED."description", "rating" =
 -- 4. HOTEL IMAGES
 INSERT INTO "hotel_images" ("id", "hotel_id", "image_url", "created_at", "updated_at")
 VALUES
-  ('img1-1', 'h1111111-1111-4111-a111-111111111111', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
-  ('img1-2', 'h1111111-1111-4111-a111-111111111111', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
-  ('img2-1', 'h2222222-2222-4222-a222-222222222222', 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
-  ('img3-1', 'h3333333-3333-4333-a333-333333333333', 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
-  ('img4-1', 'h4444444-4444-4444-a444-444444444444', 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=900', NOW(), NOW())
+  ('f1111111-1111-4111-a111-100000000001', '71111111-1111-4111-a111-111111111111', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
+  ('f1111111-1111-4111-a111-100000000002', '71111111-1111-4111-a111-111111111111', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
+  ('f2222222-2222-4222-a222-100000000001', '72222222-2222-4222-a222-222222222222', 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
+  ('f3333333-3333-4333-a333-100000000001', '73333333-3333-4333-a333-333333333333', 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=900', NOW(), NOW()),
+  ('f4444444-4444-4444-a444-100000000001', '74444444-4444-4444-a444-444444444444', 'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&q=80&w=900', NOW(), NOW())
 ON CONFLICT ("id") DO NOTHING;
 
 
@@ -126,8 +126,8 @@ ON CONFLICT ("id") DO NOTHING;
 INSERT INTO "room_types" ("id", "hotel_id", "name", "description", "price", "max_guests", "max_adults", "max_children", "bed_type", "bed_count", "area", "thumbnail", "is_active", "amenities", "created_at", "updated_at")
 VALUES
   (
-    'rt111111-1111-4111-a111-111111111111',
-    'h1111111-1111-4111-a111-111111111111',
+    '91111111-1111-4111-a111-111111111111',
+    '71111111-1111-4111-a111-111111111111',
     'Deluxe Westlake View',
     'Phòng Deluxe hướng nhìn Hồ Tây thơ mộng với giường King lớn và bồn tắm sang trọng.',
     1250000.00, 2, 2, 1, 'KING', 1, 35.0,
@@ -135,8 +135,8 @@ VALUES
     true, ARRAY['View Hồ Tây', 'Bồn tắm', 'Wifi tốc độ cao', 'Tủ lạnh mini', 'Điều hòa 2 chiều'], NOW(), NOW()
   ),
   (
-    'rt111111-1111-4111-a111-222222222222',
-    'h1111111-1111-4111-a111-111111111111',
+    '91111111-1111-4111-a111-222222222222',
+    '71111111-1111-4111-a111-111111111111',
     'Executive Suite City View',
     'Căn Suite cao cấp với phòng khách riêng biệt, thiết kế hiện đại ấm cúng.',
     2150000.00, 3, 2, 2, 'KING', 1, 55.0,
@@ -144,8 +144,8 @@ VALUES
     true, ARRAY['Phòng khách riêng', 'Ban công', 'Máy pha cà phê', 'Dịch vụ buồng phòng 24/7'], NOW(), NOW()
   ),
   (
-    'rt222222-2222-4222-a222-111111111111',
-    'h2222222-2222-4222-a222-222222222222',
+    '92222222-2222-4222-a222-111111111111',
+    '72222222-2222-4222-a222-222222222222',
     'Mountain View Bungalow',
     'Bungalow gỗ ấm áp ngắm nhìn thung lũng ruộng bậc thang Sapa.',
     890000.00, 2, 2, 1, 'QUEEN', 1, 30.0,
@@ -153,8 +153,8 @@ VALUES
     true, ARRAY['Ban công săn mây', 'Lò sưởi', 'Trà & Cà phê miễn phí'], NOW(), NOW()
   ),
   (
-    'rt333333-3333-4333-a333-111111111111',
-    'h3333333-3333-4333-a333-333333333333',
+    '93333333-3333-4333-a333-111111111111',
+    '73333333-3333-4333-a333-333333333333',
     'Ocean Balcony Suite Cabin',
     'Cabin du thuyền cao cấp với ban công riêng trổ ra khung cảnh Vịnh Hạ Long kỳ vĩ.',
     3450000.00, 2, 2, 1, 'KING', 1, 38.0,
@@ -162,8 +162,8 @@ VALUES
     true, ARRAY['Ban công sát biển', 'Bồn tắm Jacuzzi', 'Trọn gói bữa ăn hải sản'], NOW(), NOW()
   ),
   (
-    'rt444444-4444-4444-a444-111111111111',
-    'h4444444-4444-4444-a444-444444444444',
+    '94444444-4444-4444-a444-111111111111',
+    '74444444-4444-4444-a444-444444444444',
     'Entire 4-Bedroom Beachfront Villa',
     'Nguyên căn biệt thự 4 phòng ngủ cao cấp dành cho gia đình hoặc nhóm bạn 8-10 người.',
     6800000.00, 10, 8, 4, 'KING', 4, 280.0,
@@ -176,14 +176,14 @@ SET "price" = EXCLUDED."price", "description" = EXCLUDED."description", "updated
 
 INSERT INTO "rooms" ("id", "hotel_id", "room_type_id", "room_number", "floor", "status", "is_active", "created_at", "updated_at")
 VALUES
-  ('rm101', 'h1111111-1111-4111-a111-111111111111', 'rt111111-1111-4111-a111-111111111111', '101', 1, 'AVAILABLE', true, NOW(), NOW()),
-  ('rm102', 'h1111111-1111-4111-a111-111111111111', 'rt111111-1111-4111-a111-111111111111', '102', 1, 'AVAILABLE', true, NOW(), NOW()),
-  ('rm201', 'h1111111-1111-4111-a111-111111111111', 'rt111111-1111-4111-a111-222222222222', '201', 2, 'AVAILABLE', true, NOW(), NOW()),
-  ('rm202', 'h1111111-1111-4111-a111-111111111111', 'rt111111-1111-4111-a111-222222222222', '202', 2, 'AVAILABLE', true, NOW(), NOW()),
-  ('rm-sapa-01', 'h2222222-2222-4222-a222-222222222222', 'rt222222-2222-4222-a222-111111111111', 'BG-01', 1, 'AVAILABLE', true, NOW(), NOW()),
-  ('rm-sapa-02', 'h2222222-2222-4222-a222-222222222222', 'rt222222-2222-4222-a222-111111111111', 'BG-02', 1, 'AVAILABLE', true, NOW(), NOW()),
-  ('rm-cruise-101', 'h3333333-3333-4333-a333-333333333333', 'rt333333-3333-4333-a333-111111111111', 'C-101', 1, 'AVAILABLE', true, NOW(), NOW()),
-  ('rm-villa-01', 'h4444444-4444-4444-a444-444444444444', 'rt444444-4444-4444-a444-111111111111', 'VILLA-A', 1, 'AVAILABLE', true, NOW(), NOW())
+  ('c1111111-1111-4111-a111-100000000101', '71111111-1111-4111-a111-111111111111', '91111111-1111-4111-a111-111111111111', '101', 1, 'AVAILABLE', true, NOW(), NOW()),
+  ('c1111111-1111-4111-a111-100000000102', '71111111-1111-4111-a111-111111111111', '91111111-1111-4111-a111-111111111111', '102', 1, 'AVAILABLE', true, NOW(), NOW()),
+  ('c1111111-1111-4111-a111-100000000201', '71111111-1111-4111-a111-111111111111', '91111111-1111-4111-a111-222222222222', '201', 2, 'AVAILABLE', true, NOW(), NOW()),
+  ('c1111111-1111-4111-a111-100000000202', '71111111-1111-4111-a111-111111111111', '91111111-1111-4111-a111-222222222222', '202', 2, 'AVAILABLE', true, NOW(), NOW()),
+  ('c2222222-2222-4222-a222-100000000001', '72222222-2222-4222-a222-222222222222', '92222222-2222-4222-a222-111111111111', 'BG-01', 1, 'AVAILABLE', true, NOW(), NOW()),
+  ('c2222222-2222-4222-a222-100000000002', '72222222-2222-4222-a222-222222222222', '92222222-2222-4222-a222-111111111111', 'BG-02', 1, 'AVAILABLE', true, NOW(), NOW()),
+  ('c3333333-3333-4333-a333-100000000101', '73333333-3333-4333-a333-333333333333', '93333333-3333-4333-a333-111111111111', 'C-101', 1, 'AVAILABLE', true, NOW(), NOW()),
+  ('c4444444-4444-4444-a444-100000000001', '74444444-4444-4444-a444-444444444444', '94444444-4444-4444-a444-111111111111', 'VILLA-A', 1, 'AVAILABLE', true, NOW(), NOW())
 ON CONFLICT ("hotel_id", "room_number") DO UPDATE SET "status" = 'AVAILABLE', "updated_at" = NOW();
 
 
@@ -191,22 +191,22 @@ ON CONFLICT ("hotel_id", "room_number") DO UPDATE SET "status" = 'AVAILABLE', "u
 INSERT INTO "bookings" ("id", "booking_code", "user_id", "hotel_id", "room_type_id", "check_in_date", "check_out_date", "quantity", "total_amount", "status", "payment_method", "payment_status", "payment_date", "transaction_id", "guest_name", "guest_phone", "guest_email", "special_requests", "created_at", "updated_at")
 VALUES
   (
-    'b1111111-1111-4111-a111-111111111111',
+    '51111111-1111-4111-a111-111111111111',
     'BK-NEST-2026-001',
     '33333333-3333-4333-a333-111111111111',
-    'h1111111-1111-4111-a111-111111111111',
-    'rt111111-1111-4111-a111-111111111111',
+    '71111111-1111-4111-a111-111111111111',
+    '91111111-1111-4111-a111-111111111111',
     NOW() + INTERVAL '1 day',
     NOW() + INTERVAL '3 days',
     1, 2500000.00, 'CONFIRMED', 'VNPAY', 'PAID', NOW(), 'VNPAY-TX-998877',
     'Lê Hoàng Khách Hàng', '0900000005', 'user1@booking.com', 'Xin phòng tầng cao view thoáng', NOW(), NOW()
   ),
   (
-    'b2222222-2222-4222-a222-222222222222',
+    '52222222-2222-4222-a222-222222222222',
     'BK-NEST-2026-002',
     '33333333-3333-4333-a333-222222222222',
-    'h2222222-2222-4222-a222-222222222222',
-    'rt222222-2222-4222-a222-111111111111',
+    '72222222-2222-4222-a222-222222222222',
+    '92222222-2222-4222-a222-111111111111',
     NOW() + INTERVAL '5 days',
     NOW() + INTERVAL '7 days',
     1, 1780000.00, 'PENDING', 'PAY_AT_HOTEL', 'UNPAID', NULL, NULL,
@@ -216,21 +216,21 @@ ON CONFLICT ("booking_code") DO NOTHING;
 
 INSERT INTO "booking_rooms" ("booking_id", "room_id")
 VALUES
-  ('b1111111-1111-4111-a111-111111111111', 'rm101')
+  ('51111111-1111-4111-a111-111111111111', 'c1111111-1111-4111-a111-100000000101')
 ON CONFLICT ("booking_id", "room_id") DO NOTHING;
 
 
 -- 8. REVIEWS & NOTIFICATIONS
 INSERT INTO "reviews" ("id", "user_id", "hotel_id", "rating", "comment", "created_at", "updated_at")
 VALUES
-  ('rev-1', '33333333-3333-4333-a333-111111111111', 'h1111111-1111-4111-a111-111111111111', 5, 'Khách sạn rất đẹp, view Hồ Tây đón bình minh cực chill! Nhân viên phục vụ nhiệt tình chu đáo.', NOW(), NOW()),
-  ('rev-2', '33333333-3333-4333-a333-222222222222', 'h2222222-2222-4222-a222-222222222222', 4, 'Bungalow sạch sẽ, không khí mây núi Sapa tuyệt vời. Nhất định sẽ quay lại!', NOW(), NOW())
+  ('61111111-1111-4111-a111-100000000001', '33333333-3333-4333-a333-111111111111', '71111111-1111-4111-a111-111111111111', 5, 'Khách sạn rất đẹp, view Hồ Tây đón bình minh cực chill! Nhân viên phục vụ nhiệt tình chu đáo.', NOW(), NOW()),
+  ('62222222-2222-4222-a222-100000000001', '33333333-3333-4333-a333-222222222222', '72222222-2222-4222-a222-222222222222', 4, 'Bungalow sạch sẽ, không khí mây núi Sapa tuyệt vời. Nhất định sẽ quay lại!', NOW(), NOW())
 ON CONFLICT ("id") DO NOTHING;
 
 INSERT INTO "notifications" ("id", "user_id", "title", "message", "type", "is_read", "created_at")
 VALUES
-  ('notif-1', '33333333-3333-4333-a333-111111111111', 'Đặt phòng thành công', 'Đơn đặt phòng BK-NEST-2026-001 tại The Hanoi Club Hotel đã được xác nhận thanh toán thành công qua VNPay.', 'BOOKING_SUCCESS', false, NOW()),
-  ('notif-2', '22222222-2222-4222-a222-222222222222', 'Đơn đặt phòng mới', 'Khách sạn của bạn vừa nhận được đơn đặt phòng BK-NEST-2026-001 từ khách hàng Lê Hoàng Khách Hàng.', 'BOOKING_SUCCESS', false, NOW())
+  ('63333333-3333-4333-a333-100000000001', '33333333-3333-4333-a333-111111111111', 'Đặt phòng thành công', 'Đơn đặt phòng BK-NEST-2026-001 tại The Hanoi Club Hotel đã được xác nhận thanh toán thành công qua VNPay.', 'BOOKING_SUCCESS', false, NOW()),
+  ('64444444-4444-4444-a444-100000000001', '22222222-2222-4222-a222-222222222222', 'Đơn đặt phòng mới', 'Khách sạn của bạn vừa nhận được đơn đặt phòng BK-NEST-2026-001 từ khách hàng Lê Hoàng Khách Hàng.', 'BOOKING_SUCCESS', false, NOW())
 ON CONFLICT ("id") DO NOTHING;
 
 -- Done seeding!

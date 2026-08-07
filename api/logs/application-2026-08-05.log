@@ -6623,3 +6623,421 @@
   level: 'info',
   timestamp: '2026-08-04T19:55:00.003Z'
 }
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-04T20:00:00.005Z'
+}
+{
+  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
+  level: 'info',
+  timestamp: '2026-08-04T20:04:36.482Z'
+}
+{
+  message: 'Express HTTP server đã đóng.',
+  level: 'info',
+  timestamp: '2026-08-04T20:04:36.484Z'
+}
+{
+  message: '[Redis] Đã đóng kết nối Redis',
+  level: 'info',
+  timestamp: '2026-08-04T20:04:36.486Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-08-04T20:18:38.100Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-08-04T20:18:38.190Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-08-04T20:18:38.196Z'
+}
+{
+  message: 'Nhận tín hiệu SIGTERM. Đang đóng API Server...',
+  level: 'info',
+  timestamp: '2026-08-04T20:19:11.292Z'
+}
+{
+  message: 'Express HTTP server đã đóng.',
+  level: 'info',
+  timestamp: '2026-08-04T20:19:11.294Z'
+}
+{
+  message: '[Redis] Đã đóng kết nối Redis',
+  level: 'info',
+  timestamp: '2026-08-04T20:19:11.296Z'
+}
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-08-05T08:12:39.097Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-08-05T08:12:39.195Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-08-05T08:12:39.221Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-05T08:12:59.257Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-05T08:12:59.261Z'
+}
+{
+  message: 'JWT Verification Error: jwt expired',
+  level: 'error',
+  timestamp: '2026-08-05T08:12:59.269Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Phiên đăng nhập đã hết hạn. Vui lòng lấy Token mới.\n' +
+    '    at authMiddleware (/app/src/middlewares/authMiddleware.ts:80:9)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at next (/app/node_modules/router/lib/route.js:157:13)\n' +
+    '    at Route.dispatch (/app/node_modules/router/lib/route.js:117:3)\n' +
+    '    at handle (/app/node_modules/router/index.js:435:11)\n' +
+    '    at Layer.handleRequest (/app/node_modules/router/lib/layer.js:152:17)\n' +
+    '    at /app/node_modules/router/index.js:295:15\n' +
+    '    at processParams (/app/node_modules/router/index.js:582:12)\n' +
+    '    at next (/app/node_modules/router/index.js:291:5)\n' +
+    '    at Function.handle (/app/node_modules/router/index.js:186:3)',
+  level: 'error',
+  timestamp: '2026-08-05T08:12:59.271Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-05T08:12:59.308Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Refresh Token không hợp lệ hoặc đã bị đăng xuất.\n' +
+    '    at AuthService.refreshTokens (/app/src/modules/auth/services/authService.ts:300:13)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async refreshTokens (/app/src/modules/auth/controllers/authController.ts:177:20)',
+  level: 'error',
+  timestamp: '2026-08-05T08:12:59.445Z'
+}
+{
+  message: '[Cache Miss] Tìm danh sách điểm đến hoạt động trong Database',
+  level: 'debug',
+  timestamp: '2026-08-05T08:12:59.564Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:12:59.577Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:12:59.616Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:12:59.628Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:12:59.649Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:12:59.686Z'
+}
+{
+  email: 'locdz8c@gmail.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-08-05T08:13:06.791Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Tài khoản hoặc mật khẩu không chính xác.\n' +
+    '    at AuthService.loginWithPassword (/app/src/modules/auth/services/authService.ts:126:13)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async loginWithPassword (/app/src/modules/auth/controllers/authController.ts:118:20)',
+  level: 'error',
+  timestamp: '2026-08-05T08:13:06.807Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-05T08:13:06.816Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Refresh Token không hợp lệ hoặc đã bị đăng xuất.\n' +
+    '    at AuthService.refreshTokens (/app/src/modules/auth/services/authService.ts:300:13)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async refreshTokens (/app/src/modules/auth/controllers/authController.ts:177:20)',
+  level: 'error',
+  timestamp: '2026-08-05T08:13:06.820Z'
+}
+{
+  email: 'locdz8c@gmail.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-08-05T08:13:13.611Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Tài khoản hoặc mật khẩu không chính xác.\n' +
+    '    at AuthService.loginWithPassword (/app/src/modules/auth/services/authService.ts:126:13)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async loginWithPassword (/app/src/modules/auth/controllers/authController.ts:118:20)',
+  level: 'error',
+  timestamp: '2026-08-05T08:13:13.619Z'
+}
+{
+  message: '[AuthController] Refresh Tokens',
+  level: 'info',
+  timestamp: '2026-08-05T08:13:13.628Z'
+}
+{
+  message: 'GLOBAL ERROR HANDLER CAUGHT: Error: Refresh Token không hợp lệ hoặc đã bị đăng xuất.\n' +
+    '    at AuthService.refreshTokens (/app/src/modules/auth/services/authService.ts:300:13)\n' +
+    '    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n' +
+    '    at async refreshTokens (/app/src/modules/auth/controllers/authController.ts:177:20)',
+  level: 'error',
+  timestamp: '2026-08-05T08:13:13.633Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:15:00.019Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:26.661Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:19:26.664Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:19:26.672Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:26.679Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:26.684Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:26.688Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:19:32.639Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:32.641Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:19:32.645Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:32.647Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:32.651Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:32.654Z'
+}
+{
+  email: 'user1@booking.com',
+  level: 'info',
+  message: '[AuthController] Login with Password',
+  timestamp: '2026-08-05T08:19:52.721Z'
+}
+{
+  message: 'User ID 33333333-3333-4333-a333-111111111111 đăng nhập thành công. Đã làm sạch lịch sử đăng nhập sai.',
+  level: 'info',
+  timestamp: '2026-08-05T08:19:52.803Z'
+}
+{
+  message: '[AuthService] Password login successful for user: user1@booking.com',
+  level: 'info',
+  timestamp: '2026-08-05T08:19:52.824Z'
+}
+{
+  userId: '33333333-3333-4333-a333-111111111111',
+  level: 'info',
+  message: '[AuthController] Get Me',
+  timestamp: '2026-08-05T08:19:52.852Z'
+}
+{
+  message: 'Fetching user details for ID: 33333333-3333-4333-a333-111111111111',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:52.853Z'
+}
+{
+  message: '[Cache Miss] Tìm user ID: 33333333-3333-4333-a333-111111111111 trong Database',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:52.854Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:52.932Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:52.945Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:52.960Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:19:52.963Z'
+}
+{
+  message: '[Cache Hit] Lấy danh sách điểm đến hoạt động từ Redis',
+  level: 'debug',
+  timestamp: '2026-08-05T08:19:52.966Z'
+}
+{
+  page: '1',
+  limit: '10',
+  status: 'ACTIVE',
+  level: 'info',
+  message: '[HotelController] Get all hotels with queries',
+  timestamp: '2026-08-05T08:19:52.972Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:20:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:25:00.002Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:30:00.003Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:35:00.003Z'
+}
+{
+  message: '[SchedulerService] Đã hủy 1 booking do hết hạn thanh toán.',
+  level: 'info',
+  timestamp: '2026-08-05T08:35:00.062Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:40:00.000Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:45:00.003Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:50:00.002Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T08:55:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T09:00:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T09:05:00.002Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T09:10:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-05T09:15:00.003Z'
+}

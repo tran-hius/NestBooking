@@ -1,0 +1,65 @@
+{
+  message: '[SchedulerService] Khởi tạo các cron job...',
+  level: 'info',
+  timestamp: '2026-08-07T21:27:33.842Z'
+}
+{
+  message: 'Booking API Service đang chạy tại port 3000 (Môi trường: development)',
+  level: 'info',
+  timestamp: '2026-08-07T21:27:33.931Z'
+}
+{
+  message: '[Redis] Kết nối thành công tới Redis server',
+  level: 'info',
+  timestamp: '2026-08-07T21:27:33.947Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T21:30:00.025Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T21:35:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T21:40:00.007Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T21:50:00.020Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T21:55:00.002Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T22:00:00.019Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T22:05:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T22:10:00.001Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T22:15:00.002Z'
+}
+{
+  message: '[SchedulerService] Đang kiểm tra các booking hết hạn thanh toán...',
+  level: 'info',
+  timestamp: '2026-08-07T22:20:00.018Z'
+}
